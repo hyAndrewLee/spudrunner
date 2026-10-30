@@ -119,6 +119,7 @@ mkdir -p "$SPUDRUNNER_TEST_SOURCE/bin"
 cat > "$SPUDRUNNER_TEST_SOURCE/bin/setup.sh" <<'SH'
 #!/usr/bin/env bash
 printf '%s\n' "$@" > "$(dirname "$0")/../setup-args"
+printf '%s\n' "$#" > "$(dirname "$0")/../setup-argc"
 SH
 "$REAL_GIT" -C "$SPUDRUNNER_TEST_SOURCE" add bin/setup.sh
 "$REAL_GIT" -C "$SPUDRUNNER_TEST_SOURCE" commit -qm fixture
@@ -135,11 +136,15 @@ else
 fi
 SH
 chmod +x "$TMP_ROOT/fakebin/git"
+bash "$CLI" setup
+[ "$(cat "$HOME/spudrunner/setup-argc")" -eq 0 ] || fail 'default launcher added setup arguments'
+bash "$CLI" setup --directory "$TARGET"
+[ "$(cat "$TARGET/setup-argc")" -eq 0 ] || fail 'directory-only launcher added setup arguments'
 bash "$CLI" setup --directory "$TARGET" --backend herdr --harnesses pi,codex
 [ "$(cat "$TARGET/setup-args")" = $'--backend\nherdr\n--harnesses\npi,codex' ] || fail 'launcher did not forward exact setup arguments'
 printf 'keep\n' > "$TARGET/operator-file"
 bash "$CLI" setup --directory "$TARGET" --harnesses pi
-[ "$(grep -c '^clone$' "$LOG")" -eq 1 ] || fail 'repeat launcher cloned again'
+[ "$(grep -c '^clone$' "$LOG")" -eq 2 ] || fail 'repeat launcher cloned again'
 assert_grep keep "$TARGET/operator-file" 'launcher reset existing local work'
 "$REAL_GIT" -C "$TARGET" remote set-url origin https://github.com/someone/unrelated.git
 rc=0

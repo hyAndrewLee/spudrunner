@@ -247,9 +247,9 @@ EOF
   return 1
 }
 
-# pane_input_pending: 0 when the composer is not proven empty, so pending
+# tmux_pane_input_pending: 0 when the composer is not proven empty, so pending
 # text, ambiguous structure, unreadable state, and future verdicts all defer.
-pane_input_pending() {  # <target>
+tmux_pane_input_pending() {  # <target>
   [ "$(tmux_composer_state "$1")" != empty ]
 }
 

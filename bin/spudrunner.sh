@@ -56,4 +56,4 @@ if [ "$DRY_RUN" -eq 1 ]; then
   exit 0
 fi
 [ -f "$DIRECTORY/bin/setup.sh" ] || die 'checkout has no bin/setup.sh; update it to a release containing the installer'
-exec bash "$DIRECTORY/bin/setup.sh" "${ARGS[@]}"
+exec bash "$DIRECTORY/bin/setup.sh" ${ARGS[@]+"${ARGS[@]}"}

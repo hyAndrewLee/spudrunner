@@ -193,12 +193,12 @@ tmux -L "$SOCKET" new-window -d -t "$SESSION:" -n strictblank -c "$ROOT" \
 sleep 1
 verdict=$(tmux_composer_state "$SESSION:strictblank")
 if [ "$verdict" = unknown ]; then
-  if pane_input_pending "$SESSION:strictblank"; then
+  if tmux_pane_input_pending "$SESSION:strictblank"; then
     CHECKED=$((CHECKED + 1))
     pass "strict posture live: a blank shell row classifies unknown and injection defers"
   else
     FAILED=1
-    printf 'not ok - strict posture live: pane_input_pending did not defer on an unknown verdict\n' >&2
+    printf 'not ok - strict posture live: tmux_pane_input_pending did not defer on an unknown verdict\n' >&2
   fi
 else
   FAILED=1

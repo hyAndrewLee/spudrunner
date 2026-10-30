@@ -3317,6 +3317,47 @@ test_pane_is_busy_defaults_to_tmux_when_backend_omitted() {
   pass "pane_is_busy: omitted backend defaults to tmux for Grok's isolated fallback"
 }
 
+test_pane_input_pending_after_adapter_loading() {
+  (
+    local backend verdict
+    unset _FM_BACKEND_TMUX_SOURCED
+    runtime_backend_source tmux || fail "could not load tmux adapter"
+    runtime_backend_source herdr || fail "could not load herdr adapter"
+    runtime_backend_source t3code || fail "could not load t3code adapter"
+    # shellcheck source=bin/fm-tmux-lib.sh
+    . "$ROOT/bin/fm-tmux-lib.sh"
+    tmux_composer_state() { printf empty; }
+    runtime_backend_herdr_composer_state() {
+      [ "$1" = backend-target ] || return 7
+      printf '%s' "$verdict"
+    }
+    runtime_backend_t3code_composer_state() {
+      [ "$1" = backend-target ] || return 7
+      printf '%s' "$verdict"
+    }
+    for backend in herdr t3code; do
+      for verdict in pending pending-unproven unknown future-state ''; do
+        pane_input_pending backend-target "$backend" ||
+          fail "$backend must defer for composer verdict '$verdict' after tmux loading"
+      done
+      verdict=empty
+      if pane_input_pending backend-target "$backend"; then
+        fail "$backend must accept proven empty input after tmux loading"
+      fi
+      pane_input_pending wrong-target "$backend" ||
+        fail "$backend must defer when the classifier fails"
+    done
+    if pane_input_pending tmux-target || fm_pane_input_pending tmux-target; then
+      fail "default and legacy tmux dispatch must accept proven empty input"
+    fi
+    tmux_composer_state() { printf pending; }
+    fm_pane_input_pending tmux-target || fail "legacy tmux dispatch lost pending input"
+  ) || fail "pending-input dispatch after adapter loading failed"
+  pass "pending-input dispatch preserves backend ownership after tmux loading"
+}
+
+test_pane_input_pending_after_adapter_loading
+
 test_pane_input_pending_herdr_dispatch() {
   (
     runtime_backend_composer_state() { [ "$1" = herdr ] && [ "$2" = "default:w1:p2" ] || fail "unexpected composer_state args: $1 $2"; printf 'pending'; }

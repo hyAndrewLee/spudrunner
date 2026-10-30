@@ -15,7 +15,7 @@ fm_tmux_composer_identity() { tmux_composer_identity "$@"; }
 fm_tmux_composer_state() { tmux_composer_state "$@"; }
 fm_tmux_pane_is_cortex() { tmux_pane_is_cortex "$@"; }
 fm_tmux_pane_is_cursor() { tmux_pane_is_cursor "$@"; }
-fm_pane_input_pending() { pane_input_pending "$@"; }
+fm_pane_input_pending() { tmux_pane_input_pending "$@"; }
 fm_pane_busy_state() { pane_busy_state "$@"; }
 fm_pane_is_busy() { tmux_pane_is_busy "$@"; }
 fm_tmux_submit_enter_core() { tmux_submit_enter_core "$@"; }

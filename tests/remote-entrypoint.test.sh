@@ -12,7 +12,7 @@ TMP_ROOT=$(test_tmproot fm-remote-entrypoint)
 REAL_BIN="$TMP_ROOT/real-root/bin"
 LOCAL_BIN="$TMP_ROOT/local-bin"
 mkdir -p "$REAL_BIN" "$LOCAL_BIN"
-cp "$ROOT/bin/remote-entrypoint.sh" "$ROOT/bin/remote-job-lib.sh" "$REAL_BIN/"
+cp "$ROOT/bin/remote-entrypoint.sh" "$ROOT/bin/fm-remote-entrypoint.sh" "$ROOT/bin/remote-job-lib.sh" "$REAL_BIN/"
 chmod +x "$REAL_BIN/remote-entrypoint.sh"
 ln -s "$REAL_BIN/remote-entrypoint.sh" "$LOCAL_BIN/remote-entrypoint.sh"
 
@@ -55,5 +55,29 @@ test_direct_invocation_still_works() {
   pass "remote-entrypoint.sh invoked directly still resolves SCRIPT_DIR correctly"
 }
 
+test_legacy_invocation_resolves_sibling() {
+  local entry mode code out err
+  ln -s "$REAL_BIN/fm-remote-entrypoint.sh" "$LOCAL_BIN/fm-remote-entrypoint.sh"
+  ln -s ../real-root/bin/fm-remote-entrypoint.sh "$LOCAL_BIN/relative-entrypoint.sh"
+  ln -s relative-entrypoint.sh "$LOCAL_BIN/chained-entrypoint.sh"
+  for entry in "$REAL_BIN/fm-remote-entrypoint.sh" "$LOCAL_BIN/"*.sh; do
+    for mode in execute source; do
+      out="$TMP_ROOT/legacy.stdout"
+      err="$TMP_ROOT/legacy.stderr"
+      if [ "$mode" = source ]; then
+        bash -c '. "$1" 2 root home argv' bash "$entry" >"$out" 2>"$err"
+      else
+        "$entry" 2 root home argv >"$out" 2>"$err"
+      fi
+      code=$?
+      expect_code 64 "$code" "$mode $entry exit code"
+      assert_grep 'incompatible remote protocol: local=2 remote=1' "$err" \
+        "$mode $entry failed to forward arguments to protocol validation"
+    done
+  done
+  pass "legacy entrypoints resolve direct, absolute, relative, and chained symlink paths"
+}
+
 test_symlink_invocation_resolves_sibling_lib
 test_direct_invocation_still_works
+test_legacy_invocation_resolves_sibling
