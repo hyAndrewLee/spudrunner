@@ -1,10 +1,10 @@
 # Herdr runtime backend
 
-This page covers running Firstmate workers on the Herdr runtime backend: setup, where tasks appear, how they are cleaned up, how input reaches them, and how their liveness is read.
-Operators who choose Herdr, or who verify Firstmate against it, need it.
+This page covers running Spudrunner workers on the Herdr runtime backend: setup, where tasks appear, how they are cleaned up, how input reaches them, and how their liveness is read.
+Operators who choose Herdr, or who verify Spudrunner against it, need it.
 
 Herdr is an agent-native terminal backend with native per-pane agent state and push events.
-Firstmate requires Herdr protocol 14 or newer.
+Spudrunner requires Herdr protocol 14 or newer.
 Broad backend verification covers versions 0.7.1, 0.7.3, 0.7.4, 0.7.5, and 0.8.0.
 Protocol-16 features remain gated by availability.
 Default-on presentation spaces have a higher floor of Herdr 0.8.0 for the reason given under [Presentation spaces](#presentation-spaces).
@@ -24,7 +24,7 @@ Herdr provides the terminal session while Treehouse continues to provide task wo
 | What task metadata records for a Herdr endpoint | [Endpoint metadata](#endpoint-metadata) |
 | How text and keys reach a worker and how delivery is confirmed | [Current transport behavior](#current-transport-behavior) and [Composer and injection safety](#composer-and-injection-safety) |
 | What happens after a Herdr server restart and how liveness is judged | [Restart and liveness behavior](#restart-and-liveness-behavior) |
-| Keeping Firstmate from starting a server a service manager owns | [Externally managed servers](#externally-managed-servers) |
+| Keeping Spudrunner from starting a server a service manager owns | [Externally managed servers](#externally-managed-servers) |
 | How blocked transitions arrive and what happens without protocol 16 | [Push events and polling fallback](#push-events-and-polling-fallback) |
 | Where the away daemon runs and how it stops | [Away-mode supervisor support](#away-mode-supervisor-support) |
 | Stopping or deleting Herdr sessions during verification | [Destructive lab safety](#destructive-lab-safety) |
@@ -42,7 +42,7 @@ Prerequisites:
 - `python3` only for optional protocol-16 presentation-space ordering, native event subscription, and opt-in [project groups](#project-groups) agent-view transport.
 
 Herdr is dual-licensed AGPL-3.0-or-later or commercial.
-Firstmate invokes its CLI as a separate process.
+Spudrunner invokes its CLI as a separate process.
 
 ### Selecting Herdr
 
@@ -50,7 +50,7 @@ Select Herdr in any of these ways:
 
 - Local `config/backend` containing `herdr`.
 - `FM_BACKEND=herdr` for one launch.
-- An explicit request to Firstmate.
+- An explicit request to Spudrunner.
 
 A remote second-mate agent is the one case with no choice: it always runs on Herdr, and [`remote-secondmates.md`](remote-secondmates.md) owns that requirement and the readiness its host must meet.
 
@@ -98,15 +98,15 @@ Removing or upgrading the shadowing client is the durable fix.
 
 ## Watching and task containers
 
-The ordinary topology puts one task tab per endpoint in the exact workspace of the Firstmate or secondmate that launches it.
+The ordinary topology puts one task tab per endpoint in the exact workspace of the Spudrunner or project coordinator that launches it.
 When the launcher has no Herdr workspace to inherit, the adapter maintains one durable home-labeled workspace instead.
 
 | Home | Workspace label |
 | --- | --- |
 | Primary | `firstmate` |
-| Secondmate | `2ndmate-<secondmate-id>`, derived from its validated `.fm-secondmate-home` marker |
+| Project coordinator | `2ndmate-<secondmate-id>`, derived from its validated `.fm-secondmate-home` marker |
 
-A secondmate launched by the primary receives a narrowly scoped home override during container creation.
+A project coordinator launched by the primary receives a narrowly scoped home override during container creation.
 
 ### Watching tasks
 
@@ -124,13 +124,13 @@ Later task creation does not intentionally steal focus.
 Herdr does not enforce workspace or tab label uniqueness, so a label can never decide where a worker goes.
 
 Herdr 0.7.5 exports `HERDR_ENV`, `HERDR_PANE_ID`, `HERDR_SESSION`, `HERDR_SOCKET_PATH`, `HERDR_TAB_ID`, and `HERDR_WORKSPACE_ID` into every process it manages a pane for.
-A Firstmate or secondmate agent's own commands inherit them.
+A Spudrunner or project coordinator agent's own commands inherit them.
 Older injection shapes are unverified, so a claimed launcher pane without the injected socket identity cannot be trusted.
 
-With presentation spaces disabled, a crewmate or scout is created in the exact workspace that identity currently resolves to.
+With presentation spaces disabled, an implementation worker or investigation worker is created in the exact workspace that identity currently resolves to.
 That workspace is read live from Herdr rather than from the injected snapshot, so the worker always appears beside the agent that launched it.
 Duplicate labels elsewhere in the session are irrelevant, and the globally focused workspace is never the target.
-A `--secondmate` launch is the deliberate exception: it stands up that secondmate home's own workspace instead of joining the launcher's.
+A `--secondmate` launch is the deliberate exception: it stands up that project coordinator home's own workspace instead of joining the launcher's.
 
 ### Unresolvable launcher identity
 
@@ -143,16 +143,17 @@ That covers:
 - A workspace missing from the session.
 - A pane belonging to another named session or Herdr server.
 
-### Firstmate running outside Herdr
+<a id="firstmate-running-outside-herdr"></a>
+### Spudrunner running outside Herdr
 
-Firstmate running outside Herdr entirely has no launcher workspace to inherit, so its workers use this home's own labeled workspace, created on first use.
+Spudrunner running outside Herdr entirely has no launcher workspace to inherit, so its workers use this home's own labeled workspace, created on first use.
 That path needs the home label to identify exactly one workspace.
 Two workspaces sharing it are an unresolvable placement and refuse rather than adopting either.
 
 Avoid naming a personal workspace `firstmate` or `2ndmate-<id>` for that reason.
 Also avoid it because the adapter cannot distinguish that label collision from its own container.
 
-An older secondmate workspace using `firstmate-<id>` is not migrated automatically.
+An older project coordinator workspace using `firstmate-<id>` is not migrated automatically.
 Rename it manually before expecting new tasks or recovery to use it.
 
 ### Recovery and existing tasks
@@ -167,7 +168,7 @@ Closing its last tab can remove the workspace, and the next spawn recreates it.
 
 ## Presentation spaces
 
-Each new crewmate or scout is placed in a disposable one-task workspace by default, on Herdr 0.8.0 and newer.
+Each new implementation worker or investigation worker is placed in a disposable one-task workspace by default, on Herdr 0.8.0 and newer.
 This section calls that one-task workspace the projection.
 Without the projection, tasks use the ordinary flat layout described under [Watching and task containers](#watching-and-task-containers).
 
@@ -233,15 +234,16 @@ So cleanup for a projection that already exists always runs and never strands a 
 Upgrading Herdr to 0.8.0 or newer is the fix.
 Writing `off` is the immediate mitigation for a home that cannot upgrade yet.
 
-### Secondmate homes
+<a id="secondmate-homes"></a>
+### Project coordinator homes
 
-The setting is inherited into secondmate homes through the normal configuration-convergence owner.
+The setting is inherited into project coordinator homes through the normal configuration-convergence owner.
 The default needs no special convergence.
-The primary's absent file and the secondmate's absent file both mean the same unconfigured default.
-So leaving the file absent converges a secondmate to that same default rather than turning it off.
+The primary's absent file and the project coordinator's absent file both mean the same unconfigured default.
+So leaving the file absent converges a project coordinator to that same default rather than turning it off.
 Only an explicit primary `off` propagates the opt-out.
 
-A secondmate agent itself always stays in its ordinary parent workspace; only children launched by that home are eligible.
+A project coordinator agent itself always stays in its ordinary parent workspace; only children launched by that home are eligible.
 An unconverged opt-out keeps the default projection in that home until convergence.
 
 ### Presentation journal
@@ -252,7 +254,7 @@ A presentation journal is the per-task record in this home's `state/` that binds
 Only a fresh task with neither metadata nor an existing presentation journal is eligible for projected creation.
 Creation proceeds in this order:
 
-1. Firstmate atomically publishes a three-field version 1 journal containing a random 128-bit base64url token, before asking Herdr to create anything.
+1. Spudrunner atomically publishes a three-field version 1 journal containing a random 128-bit base64url token, before asking Herdr to create anything.
 2. After the new workspace converges to one exact task endpoint beneath one exact parent workspace id, the journal advances to a version 2 binding.
    That binding records the physical home, named session, endpoint, parent, and immutable expected labels.
 
@@ -264,13 +266,13 @@ Neither token, title, nor journal authorizes send, capture, task ownership, Tree
 ### Owning parent and tabs
 
 The owning parent is the launcher's own exact workspace, resolved from the same identity the flat path uses.
-It falls back to a unique home-label lookup only for a Firstmate outside Herdr.
+It falls back to a unique home-label lookup only for a Spudrunner outside Herdr.
 Projected children are never collapsed back into that parent.
 The parent is the placement and ordering reference the projection is bound under.
 
 The normal `fm-<id>` task tab is created in the exact new workspace returned by Herdr.
 Only the exact seeded default tab returned by the same workspace-create response can be pruned.
-Before and after create, prune, order, abort cleanup, and normal cleanup, Firstmate verifies exact workspace, tab, pane, and active-focus ids.
+Before and after create, prune, order, abort cleanup, and normal cleanup, Spudrunner verifies exact workspace, tab, pane, and active-focus ids.
 An ambiguous response grants no mutation or cleanup authority.
 
 ### Ordering
@@ -290,7 +292,7 @@ Existing legacy child labels may extend an already adjacent block read-only but 
 A foreign, ambiguous, detached, or manually interleaved child makes ordering skip with a warning rather than rewriting the layout.
 
 Ordering failure never fails the task spawn.
-Firstmate does not retry, adopt, reuse, close, delete, or rename anything in response to an unavailable method, lock contention, ambiguous socket, lost response, failed move, or verification mismatch.
+Spudrunner does not retry, adopt, reuse, close, delete, or rename anything in response to an unavailable method, lock contention, ambiguous socket, lost response, failed move, or verification mismatch.
 The worker remains on the ordinary flat or Herdr-current-order path.
 
 ### Cleanup and focus safety
@@ -348,7 +350,7 @@ Ordinary non-projected task removal:
 Task cleanup acquires that session lock before the task's isolated copy is returned.
 So a contended lock refuses up front while the copy, every durable record, and the endpoint are all intact for a plain rerun.
 
-Forced secondmate cleanup recursively preflights every Herdr child endpoint and acquires every affected named-session lock before mutating any child.
+Forced project coordinator cleanup recursively preflights every Herdr child endpoint and acquires every affected named-session lock before mutating any child.
 It then retains each child's durable identity unless that exact pane returns structured not-found after its close.
 
 ### When task records are erased
@@ -364,8 +366,8 @@ Once the exact pane is confirmed gone, teardown retires the task's own journal w
 
 Recovery is deliberately conservative and presentation-only.
 An existing journal suppresses another projected create.
-Before any recovery mutation, Firstmate holds both the task spawn lock and the named-session presentation lock.
-That presentation lock lives in a namespace private to the OS account, so another account on the same host running its own Firstmate on Herdr cannot block this account's spawn, recovery, or teardown.
+Before any recovery mutation, Spudrunner holds both the task spawn lock and the named-session presentation lock.
+That presentation lock lives in a namespace private to the OS account, so another account on the same host running its own Spudrunner on Herdr cannot block this account's spawn, recovery, or teardown.
 A namespace at this account's name that another account owns, or that is not mode 700, is still refused and is never adopted, chowned, or removed.
 
 A same-identity version 2 binding may replace one exact agent-free restart husk in place.
@@ -382,7 +384,7 @@ The replacement is allowed only when all of these agree:
 
 The replacement tab and pane are created and verified before the old pane is rechecked and closed.
 Then the journal advances atomically to the replacement endpoint before metadata publication.
-The reclaim path never moves, closes, deletes, or renames a workspace and never touches a parent, sibling, captain, or foreign pane.
+The reclaim path never moves, closes, deletes, or renames a workspace and never touches a parent, sibling, user, or foreign pane.
 A failed replacement rolls back only the exact response-derived new pane when focus-safe verification permits it.
 
 These cases fall back flat without mutating the old projection when duplicate-agent risk is positively absent:
@@ -402,7 +404,7 @@ A live or unknown recorded or token-matched endpoint refuses duplicate launch.
 
 Locked session start has one narrower cleanup for a restored projected child that is no longer current task state.
 It runs only when the current home has at least one ordinary presentation journal, and it considers only that home.
-A primary never recursively sweeps a secondmate home.
+A primary never recursively sweeps a project coordinator home.
 
 Discovery starts from the exact current `└ <concise-task> · p:<22-character-token>` grammar, but a title or token alone is never mutation authority.
 A candidate must meet all of these conditions:
@@ -413,7 +415,7 @@ A candidate must meet all of these conditions:
 - The task's ordinary metadata must be absent.
 - The candidate must have exactly one tab and exactly one pane.
 
-Firstmate then cleans up the candidate in this order:
+Spudrunner then cleans up the candidate in this order:
 
 1. Acquire the existing task-id spawn lock, and then the shared named-session presentation lock.
 2. Inside both locks, take one exact snapshot.
@@ -463,7 +465,7 @@ Any of these preserves the candidate and lets session startup continue with at m
   Every earlier degradation on the fresh projected-create path (no session server, contended presentation lock, absent or ambiguous parent) still warns and continues flat.
 - Recovery of an existing presentation journal refuses by default when the shared presentation lock is contended, rather than falling back flat.
   Pass `fm-spawn.sh --herdr-resume-lock-wait` to opt that recovery into waiting for the lock instead, so concurrent recoveries can serialize.
-  The flag applies to a fresh ship or scout spawn that recovers a journal.
+  The flag applies to a fresh ship or investigation worker spawn that recovers a journal.
   The multi-task path forwards the flag to each per-pair spawn.
   `fm-spawn.sh --relaunch` and `--secondmate` take no exact-resume presentation-order lock, so the flag has no effect there.
   Dead-owner reclaim still stops the wait when a holder crashed.
@@ -472,7 +474,7 @@ Any of these preserves the candidate and lets session startup continue with at m
 - Missing or ambiguous restart bindings fall back to the ordinary home workspace while the old projection remains untouched.
 - Crashes, lost responses, failed exact-pane cleanup, or human renames can leave quarantined spaces.
   Session start removes only the exact home-local, uniquely journal-correlated, childless idle-shell shape above.
-- Spaces have no cross-home cleanup path, and a secondmate child can clean up only from its exact home.
+- Spaces have no cross-home cleanup path, and a project coordinator child can clean up only from its exact home.
 - Every stale-looking space outside that narrow startup proof still requires manual cleanup in Herdr's UI after human inspection.
 - Regaining a dedicated space after degradation requires stopping the flat task, manually checking the stale projection, and clearing its journal before a genuinely fresh launch.
 - The visible token is only a restart-stable correlator and never substitutes for the exact binding.
@@ -500,7 +502,7 @@ They are display-only: no tag or view is task, endpoint, ownership, or cleanup a
 ### Turning project groups on
 
 The local gitignored `config/herdr-project-groups` file controls them.
-It is inherited into secondmate homes, because the agents view is one per Herdr server and every home's tasks share it.
+It is inherited into project coordinator homes, because the agents view is one per Herdr server and every home's tasks share it.
 
 | File content | Result |
 | --- | --- |
@@ -539,7 +541,7 @@ Other     *
 
 ### Tags and status order
 
-For each ship and scout task recorded in the home with Herdr endpoint metadata, Firstmate reports display-only metadata tokens under the source `firstmate`:
+For each ship and investigation worker task recorded in the home with Herdr endpoint metadata, Spudrunner reports display-only metadata tokens under the source `firstmate`:
 
 | Token | On | Value |
 | --- | --- | --- |
@@ -556,7 +558,7 @@ The display status comes from the task's status log through the shared classifie
 
 | Rank | `fm_state` | Status log |
 | --- | --- | --- |
-| 1 | `needs-captain` | An open decision, or a captain-held transfer. |
+| 1 | `needs-captain` | An open decision, or a user-held transfer. |
 | 2 | `problem` | `blocked` or `failed`. |
 | 3 | `running` | Anything else, including `working`, `paused`, and no status yet. |
 | 4 | `done` | `done`. |
@@ -568,7 +570,7 @@ The watcher reconciles every task once per poll cycle, and a spawn tags its new 
 A reconcile reads each session's workspace and pane lists once and reports only tokens whose live value differs.
 Whenever it reports a pane token, it also sets the agents view: `agent.view.set` with source `firstmate`, label `projects`, and sort by the `fm_sort` token, then workspace order.
 Herdr keeps neither tokens nor the agents view across a server restart, so the next reconcile after a restart reports them again.
-Agents without an `fm_sort` token, such as Firstmate itself or another tool's agents, sort after the tagged ones.
+Agents without an `fm_sort` token, such as Spudrunner itself or another tool's agents, sort after the tagged ones.
 Herdr exposes no CLI for the agents view, so `bin/backends/herdr-agent-view.py` sends only those two whitelisted requests over the named session socket.
 
 Tags and the agents view need Herdr protocol 22, verified with Herdr 0.9.5; the wire schema comes from Herdr 0.9.3, which speaks the same protocol.
@@ -579,7 +581,7 @@ An older client warns once per protocol and the feature stays inactive.
 ### Sidebar rows
 
 Herdr shows custom tokens only where its own configuration names them.
-Firstmate never edits Herdr's configuration on its own.
+Spudrunner never edits Herdr's configuration on its own.
 `bin/fm-herdr-groups.sh sidebar-config` prints these suggested rows, and `sidebar-config --apply <path>` appends them to that Herdr configuration file after copying it to `<path>.bak-<epoch>`, refusing when the file already defines sidebar rows:
 
 ```toml
@@ -614,9 +616,9 @@ To repeat the check on a live session, turn the feature on, wait one watcher pol
 ## Default-tab prune safety
 
 `herdr workspace create` seeds one default tab.
-Firstmate prunes it only after a real task tab exists and only when the same create response supplied the seeded tab id.
+Spudrunner prunes it only after a real task tab exists and only when the same create response supplied the seeded tab id.
 An adopted workspace never supplies that id and can never enter the prune path, regardless of labels or tab count.
-Immediately before close, Firstmate rechecks the exact tab, expected seed label, and native agent state.
+Immediately before close, Spudrunner rechecks the exact tab, expected seed label, and native agent state.
 A working seed pane is never closed.
 
 This created-versus-adopted gate is a destructive safety boundary.
@@ -649,11 +651,11 @@ An environment variable alone is not reliable when another Herdr server is runni
 
 When the selected named server is not running, the adapter launches it without these inherited values:
 
-- Firstmate home and directory overrides.
+- Spudrunner home and directory overrides.
 - Harness identity markers.
 - The supervision-model override.
 
-Herdr passes its server startup environment to every later pane, so retaining those values could misroute panes for another Firstmate home or harness.
+Herdr passes its server startup environment to every later pane, so retaining those values could misroute panes for another Spudrunner home or harness.
 An already-running server is reused without restart or environment changes.
 Explicit named-session routing and unrelated launch environment remain intact.
 
@@ -756,7 +758,7 @@ It hands the visible pane's ANSI viewport plus Herdr's capability facts to the f
 - Bare agent-glyph rows, including muse's `⟩`, which the adapter's retired local pattern silently omitted.
 - opencode's left bar.
 - The Pi separator region this adapter pioneered, admitted only when native `agent get` identity is exactly Pi and state is idle or done.
-- Cortex Code's titled rounded top rule, admitted only when native `agent get` identity is exactly `cortex`, which the adapter reads lazily and only when the classifier answers `need-identity` for a titled rounded box holding an agent prompt glyph; the same box on any other pane stays ambiguous, and Cortex is [verified](verification/cortex.md) on Herdr for crewmates and scouts only.
+- Cortex Code's titled rounded top rule, admitted only when native `agent get` identity is exactly `cortex`, which the adapter reads lazily and only when the classifier answers `need-identity` for a titled rounded box holding an agent prompt glyph; the same box on any other pane stays ambiguous, and Cortex is [verified](verification/cortex.md) on Herdr for implementation workers and investigation workers only.
 
 ### Pi composer states
 
@@ -793,22 +795,22 @@ No Herdr-specific copy of that protocol exists.
 
 ### Externally managed servers
 
-By default Firstmate starts a session's Herdr server itself, headless, whenever an operation finds it not running.
+By default Spudrunner starts a session's Herdr server itself, headless, whenever an operation finds it not running.
 That is wrong when a service manager, such as a systemd user unit, owns the server.
-During a unit restart or a `server live-handoff`, `status` can briefly report not running, and a server Firstmate started would race the owner and split panes across two servers.
+During a unit restart or a `server live-handoff`, `status` can briefly report not running, and a server Spudrunner started would race the owner and split panes across two servers.
 
 The owner opts out by writing marker files into the session directory, the directory holding the socket that `herdr --session <name> status --json` reports as `.server.socket`:
 
-| Marker | Written by the owner | Firstmate behavior |
+| Marker | Written by the owner | Spudrunner behavior |
 | --- | --- | --- |
 | `firstmate-server-owner` | Once, for as long as it owns the server; the first line names the owner | Uses a running server; never starts a stopped one, and waits a bounded time for it to report running, then fails naming the owner |
 | `firstmate-server-replacing` | Only for the duration of a restart or handoff | Never starts or uses a server, even one that reports running; waits a bounded time for the marker to clear and the server to report running, then fails naming the marker |
 
 The wait is up to 60 checks half a second apart, 30 seconds in all.
-A replacement marker that clears with no owner marker hands the session back to the default, so Firstmate starts the server if it is still down.
+A replacement marker that clears with no owner marker hands the session back to the default, so Spudrunner starts the server if it is still down.
 A replacement marker left behind fails every operation naming its path, so the owner must remove it when the replacement ends.
 Every operation checks the session directory for a replacement marker once, even when the server reports running, so a replacement marker holds callers off the old server as well as the new one.
-That check reuses the `status` read Firstmate already makes, which reports the socket even while the server is stopped ([verification](verification/runtime-backends.md#session-directory)); a Herdr whose `status` omits the socket cannot carry the markers and keeps the default behavior.
+That check reuses the `status` read Spudrunner already makes, which reports the socket even while the server is stopped ([verification](verification/runtime-backends.md#session-directory)); a Herdr whose `status` omits the socket cannot carry the markers and keeps the default behavior.
 
 ### Husks after a server restart
 
@@ -870,16 +872,16 @@ The process-level proof only decides whether that registration is backed by a ru
 `tests/fm-backend-herdr-agent-exit-shell-e2e.test.sh` pins the live-Pi versus leftover-shell distinction.
 [`verification/runtime-backends.md`](verification/runtime-backends.md#agent-lifecycle-control) owns the versioned evidence.
 
-The session-start sweep and the watcher's dedicated secondmate liveness tick use this probe.
-Idle secondmates remain exempt from stale-pane escalation.
-[Secondmate endpoint recovery](architecture.md) owns the shared supervision mechanism.
+The session-start sweep and the watcher's dedicated project coordinator liveness tick use this probe.
+Idle project coordinators remain exempt from stale-pane escalation.
+[Project coordinator endpoint recovery](architecture.md) owns the shared supervision mechanism.
 
 ## Agent status authority and relaunch
 
 A pane has ONE status authority, and for Pi with the integration installed that authority is the lifecycle hooks - Herdr then skips screen detection for the pane, which is the `full_lifecycle_hook_authority` reason `herdr agent explain` prints for it.
 That authority is bound to a session identity, and in the crew shape the registration outliving its process ([above](#restart-and-liveness-behavior)) is that same binding: the record stays, the agent it named is gone.
 
-An agent started FRESH in such a pane reports a new session and Herdr ignores its reports, so the pane stays frozen at whatever the previous agent last reported - a crewmate running its pipeline reads `idle` until its task ends, and nothing from outside repairs it (measured 2026-09-21 on Herdr 0.9.1 against a real Pi; `pane report-agent-session` and `pane report-agent` for `herdr:pi` are accepted without being applied unless the reporter is the registered pane agent, and `pane release-agent` on the stale record changes nothing).
+An agent started FRESH in such a pane reports a new session and Herdr ignores its reports, so the pane stays frozen at whatever the previous agent last reported - an implementation worker running its pipeline reads `idle` until its task ends, and nothing from outside repairs it (measured 2026-09-21 on Herdr 0.9.1 against a real Pi; `pane report-agent-session` and `pane report-agent` for `herdr:pi` are accepted without being applied unless the reporter is the registered pane agent, and `pane release-agent` on the stale record changes nothing).
 A fresh spawn never meets this: it gets a new pane with nothing bound.
 
 So a **relaunch** preserves the binding instead of fighting it: before the Pi-family launch line is composed, `bin/fm-spawn.sh` reads the pane's recorded session reference through `fm_backend_herdr_pane_agent_session_ref` and passes it back as Pi's own `--session <path-or-id>` (`relaunch_resume_args`; `bin/fm-control-lib.sh`'s `fm_control_relaunch_resume_flag` owns which adapters and which registration labels qualify).
@@ -899,11 +901,11 @@ The Herdr adapter subscribes before reconciling current levels, buffers edges du
 
 The watcher maps the pane back to the task and skips these:
 
-- Secondmate endpoints.
+- Project coordinator endpoints.
 - Declared `paused:` waits, because the worker's declared wait already accounts for its quiet.
   It is left to the watcher's own bounded pause cadence.
 - Verified `captain-held` transfers.
-  A captain-held transfer remains silent without rechecks while the away-posture record exists.
+  A user-held transfer remains silent without rechecks while the away-posture record exists.
 
 ### Polling fallback
 
@@ -941,7 +943,7 @@ In that last case, `bin/fm-afk-launch.sh`:
 3. Records the exact daemon pane.
 4. Closes only that pane on stop.
 
-It never splits the captain's active tab and never uses shell `&`.
+It never splits the user's active tab and never uses shell `&`.
 Recovery reconciles only the recorded exact id.
 
 ### Stopping the daemon
@@ -956,7 +958,7 @@ A fresh entry clears stale transient escalation caches, while durable queue and 
 
 ## Destructive lab safety
 
-Never use ambient `herdr server stop` for Firstmate verification.
+Never use ambient `herdr server stop` for Spudrunner verification.
 An environment-only session selection can silently reach a different running server.
 The ambient stop command has no explicit target.
 
@@ -979,7 +981,7 @@ Tests use thin compatibility wrappers in `tests/herdr-test-safety.sh` and never 
 - Presentation ordering needs protocol 16 and Python and is best-effort only.
 - Project groups need protocol 22 and Python, are tested offline, and were checked live once against Herdr 0.9.5 on protocol 22.
 - Mutable labels can collide; they are never placement or destructive authority.
-- A Firstmate outside Herdr cannot resolve a launcher workspace, so a colliding home label refuses new spawns until the collision is cleared.
+- A Spudrunner outside Herdr cannot resolve a launcher workspace, so a colliding home label refuses new spawns until the collision is cleared.
 - Ghost and placeholder recognition uses ANSI de-emphasis when available; an unstyled glyph row carrying trailing non-idle text fails safely to `unknown`.
 - Supervisor transport support is separate from task-spawn support; see [away-mode supervisor configuration](configuration.md#away-mode-supervisor-backend-fm_supervisor_backend--fm_supervisor_target).
 

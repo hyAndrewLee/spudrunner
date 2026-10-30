@@ -19,6 +19,12 @@ fm_brief_heading_parse() {  # <file|-> <heading> <body|present>
     [ -f "$file" ] || { [ "$mode" = body ]; return; }
   fi
   awk -v heading="$heading" -v mode="$mode" '
+    # Both names remain readable, including callers holding old task records.
+    function canonical(value) {
+      if (value == "## Captain\047s intent") return "## User intent"
+      if (value == "## Firstmate spec") return "## Implementation requirements"
+      return value
+    }
     BEGIN {
       target_level = 0
       while (substr(heading, target_level + 1, 1) == "#") target_level++
@@ -50,7 +56,7 @@ fm_brief_heading_parse() {  # <file|-> <heading> <body|present>
         }
       }
 
-      if (!found && !was_fenced && line == heading) {
+      if (!found && !was_fenced && canonical(line) == canonical(heading)) {
         found = 1
         if (mode == "present") next
         grab = 1

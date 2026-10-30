@@ -1,4 +1,5 @@
-# Firstmate portable test shards
+<a id="firstmate-portable-test-shards"></a>
+# Spudrunner portable test shards
 
 `bin/fm-test-run.sh` owns portable lane composition and execution.
 `bin/fm-test-isolation-proof.sh` owns the proven-isolated candidate set.
@@ -57,7 +58,7 @@ Refresh `portable_parallel_weight_hints` with the slowest completed `duration_ms
 ## Portable serial remainder
 
 `portable-serial` includes every `tests/*.test.sh` that is neither proven-isolated nor `real-herdr-gated`.
-It keeps watcher, lock, AFK, real tmux, daemon, secondmate lifecycle, bootstrap, the `live-harness-optin` family, GUI-backend, and other unproven work serial.
+It keeps watcher, lock, AFK, real tmux, daemon, project coordinator lifecycle, bootstrap, the `live-harness-optin` family, GUI-backend, and other unproven work serial.
 Membership is derived rather than enumerated, so a newly added test lands here by default.
 
 ## Portable serial CI shards

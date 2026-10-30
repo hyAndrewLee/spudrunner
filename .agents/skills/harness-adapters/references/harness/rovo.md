@@ -1,7 +1,7 @@
 # Rovo CLI
 
 Verified 2026-09-02 on Rovo CLI 202609.1.2 for crewmate/scout work only.
-Not verified, and not naturally verifiable, as a secondmate or primary: rovo has no turn-end hook and no primary supervision protocol, the same gap that scopes muse to crewmate/scout.
+Not verified, and not naturally verifiable, as a project coordinator or primary: rovo has no turn-end hook and no primary supervision protocol, the same gap that scopes muse to crewmate/scout.
 
 ## Operating facts
 
@@ -13,9 +13,9 @@ Not verified, and not naturally verifiable, as a secondmate or primary: rovo has
 | Busy state | Rendered-tail fallback, isolated to rovo like Grok's - the animated `Rovo is thinking...` line, matched by `fm_busy_rovo_tail_busy` in `../../../bin/fm-busy-lib.sh` - because rovo's `eventHooks` fire at tool granularity only (`on_tool_start`/`on_tool_end`), never at turn-end, so no semantic writer exists to arm. |
 | Exit command | `/exit` (also `/quit`, and a single idle Ctrl-C); prints `Run rovo --restore <session-id> to resume your conversation`. |
 | Interrupt | Single Escape is the cancel key and prints `Agent cancelled`; `../../../bin/fm-control-lib.sh` records its acknowledgement source as `none` (see "Interrupt: confirmed under real tmux" below), the same conservative choice as claude/codex/grok/kimi/cursor. |
-| Skill invocation | `/<skill>`, the Claude/Grok form, but see "Skill-loading interop gap" below - a rovo worker cannot invoke a firstmate skill until that gap is resolved. |
+| Skill invocation | `/<skill>`, the Claude/Grok form, but see "Skill-loading interop gap" below - a rovo worker cannot invoke a Spudrunner skill until that gap is resolved. |
 | Autonomy | `--disable-permission-checks` (alias `--yolo`) runs every file CRUD operation and bash command without confirmation, though its own printed caveat keeps permission checks on tools accessing Atlassian data and user-provided MCP servers, which crew/scout tasks never touch. |
-| File access | rovo confines every file-tool operation to its launch worktree by default, so the standard instructions/steering/status/report loop - whose files live in the firstmate home outside the worktree - fails until granted. `../../../bin/fm-spawn.sh`'s `rovo_config_override_flag` grants `toolPermissions.allowedExternalPaths` at launch, folded into the single `--config-override` (see Effort), for exactly this task's brief directory, steering inbox, and status file. The grant lifts the file tools only; rovo's bash tool stays worktree-confined regardless, so the crewmate status line's `echo ... >> status` lands only because the worker falls back to its own file tool for the append. See `../../../../docs/verification/rovo.md`. |
+| File access | rovo confines every file-tool operation to its launch worktree by default, so the standard instructions/steering/status/report loop - whose files live in the Spudrunner home outside the worktree - fails until granted. `../../../bin/fm-spawn.sh`'s `rovo_config_override_flag` grants `toolPermissions.allowedExternalPaths` at launch, folded into the single `--config-override` (see Effort), for exactly this task's brief directory, steering inbox, and status file. The grant lifts the file tools only; rovo's bash tool stays worktree-confined regardless, so the implementation worker status line's `echo ... >> status` lands only because the worker falls back to its own file tool for the append. See `../../../../docs/verification/rovo.md`. |
 | Trust dialog | None observed on a clean launch in a fresh worktree; `--yolo` clears crew/scout's confirmation prompts, but it is not the only launch grant the standard flow needs - see File access for the required `allowedExternalPaths` grant. |
 | Environment marker | `ATLASSIAN_AGENT_TYPE=rovo` (most specific) and `ROVODEV_CLI=1`, both set on rovo's tool subprocesses alongside `AGENT=rovodev_cli`, none of which rovo scrubs from an inherited `CLAUDECODE`/`CURSOR_AGENT`/etc - so `../../../bin/fm-harness.sh` tests rovo's markers before the `CLAUDECODE` line (the same ordering hazard cursor already documents, issue #3517) and `../../../bin/fm-spawn.sh` clears foreign markers at the launch boundary too. |
 | Process name | `comm=rovo` on the tool subprocess and the `rovo run` process itself, because the installed wrapper execs the generation's `rovo` shim so argv[0] stays `rovo` even though the on-disk binary is `atlassian_cli_rovodev`. |
@@ -50,8 +50,8 @@ It does not block the launch-then-send gates: readiness leads with the `Welcome 
 
 ## Interrupt: confirmed under real tmux
 
-The original verification scout (`fm-rovo-smoke-s1`, PTY smoke) observed a single Escape print `Agent cancelled` during a running tool call.
-A follow-up live check under real tmux 3.6a - an isolated `tmux -L <private-socket>` session/window, not the shared fleet session - reproduced the scout's exact finding: a single Escape sent during a genuine mid-flight bash tool call printed `Agent cancelled` in the captured pane.
+The original verification investigation worker (`fm-rovo-smoke-s1`, PTY smoke) observed a single Escape print `Agent cancelled` during a running tool call.
+A follow-up live check under real tmux 3.6a - an isolated `tmux -L <private-socket>` session/window, not the shared active work session - reproduced the investigation worker's exact finding: a single Escape sent during a genuine mid-flight bash tool call printed `Agent cancelled` in the captured pane.
 The launch-then-send live guard (`../../../../tests/fm-rovo-signals-live-e2e.test.sh`) now reproduces it over a raw PTY too: an earlier single fixed-timer Escape landed unreliably (the interrupt instant is timing-sensitive over a bare PTY), so the guard sends Escape across the live tool-call window until the cancel renders - a deterministic way to reproduce a timing-sensitive interrupt, and confirmed to print `Agent cancelled` every run.
 Escape is the interrupt key and is what `fm_control_interrupt_key` returns.
 `fm_control_interrupt_ack_source` still records `none` for rovo - the same conservative choice already made for claude/codex/grok/kimi/cursor, a control-plane fact independent of whether the render happens to appear - so the control plane sends the key and lets its own postcondition, not a parsed string, decide whether the agent actually stopped.
@@ -65,12 +65,12 @@ Treat the ~1h access-token lifetime as an ordinary operational fact, not a non-n
 
 ## Skill-loading interop gap
 
-rovo's skill loader rejects every firstmate skill: `Invalid skill definition in .../SKILL.md: 'metadata -> internal': Input should be a valid string`, because firstmate's `metadata.internal` is a boolean and rovo's schema wants a string.
-This blocks `/no-mistakes` and every other firstmate skill invocation inside a rovo worker until firstmate's `SKILL.md` frontmatter is made rovo-compatible (a separate, deferred follow-up - it touches every skill file and the installer contract, per `../../firstmate-coding-guidelines/SKILL.md`).
-A `no-mistakes`-mode rovo ship crewmate is blocked by this gap; a rovo scout, which invokes no skill, is unaffected.
+rovo's skill loader rejects every Spudrunner skill: `Invalid skill definition in .../SKILL.md: 'metadata -> internal': Input should be a valid string`, because Spudrunner's `metadata.internal` is a boolean and rovo's schema wants a string.
+This blocks `/no-mistakes` and every other Spudrunner skill invocation inside a rovo worker until Spudrunner's `SKILL.md` frontmatter is made rovo-compatible (a separate, deferred follow-up - it touches every skill file and the installer contract, per `../../firstmate-coding-guidelines/SKILL.md`).
+A `no-mistakes`-mode rovo ship implementation worker is blocked by this gap; a rovo investigation worker, which invokes no skill, is unaffected.
 
 ## ACP as a future upgrade
 
 `rovo acp` (Agent Client Protocol) and `rovo serve --non-interactive` expose a fully structured, machine-readable turn lifecycle: `session/prompt` returns a real `{"stopReason":"end_turn"}`, and `session/cancel` is a protocol-native interrupt.
-This is a cleaner done-signal than any current adapter has, but consuming it means firstmate runs a JSON-RPC client and owns the session lifecycle itself - a new backend-shaped surface, not a drop-in TUI adapter - so it is out of scope here.
+This is a cleaner done-signal than any current adapter has, but consuming it means Spudrunner runs a JSON-RPC client and owns the session lifecycle itself - a new backend-shaped surface, not a drop-in TUI adapter - so it is out of scope here.
 It remains a deliberate future upgrade for a rovo-as-structured-backend follow-up, not a near-term path; do not build it as part of this TUI-path adapter.

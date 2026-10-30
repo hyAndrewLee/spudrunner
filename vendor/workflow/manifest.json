@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "repository": "poteto/plugins",
+      "revision": "74dd2291e8e37b12fd6dc49b2acbd655c6bdaf12",
+      "source": "pstack/LICENSE",
+      "file": "poteto/LICENSE",
+      "git_blob": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25",
+      "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
+    },
+    {
+      "repository": "poteto/plugins",
+      "revision": "74dd2291e8e37b12fd6dc49b2acbd655c6bdaf12",
+      "source": "pstack/skills/principle-foundational-thinking/SKILL.md",
+      "file": "poteto/principles/foundational-thinking.md",
+      "git_blob": "4661891044fe9d0858510b34e382a7f608bb8d20",
+      "sha256": "03c7be245c88330730906ee77e72507bc4cfcd6574cfc0c9f7b22ed3bd16c7d2"
+    },
+    {
+      "repository": "poteto/plugins",
+      "revision": "74dd2291e8e37b12fd6dc49b2acbd655c6bdaf12",
+      "source": "pstack/skills/principle-subtract-before-you-add/SKILL.md",
+      "file": "poteto/principles/subtract-before-you-add.md",
+      "git_blob": "a78937170b83abebecb6b963fb8cfdd80507c01e",
+      "sha256": "162e4dd99d56d8e225cb3041c56d97eb4f1ab281a885a7178414199b2ad44636"
+    },
+    {
+      "repository": "poteto/plugins",
+      "revision": "74dd2291e8e37b12fd6dc49b2acbd655c6bdaf12",
+      "source": "pstack/skills/principle-fix-root-causes/SKILL.md",
+      "file": "poteto/principles/fix-root-causes.md",
+      "git_blob": "f61616097314d1276595b2cbe7dc867f37382d68",
+      "sha256": "9fdfd4b72413ece5e3666105208966a2ed049a6b28854698f3cfe0e5ab08193d"
+    },
+    {
+      "repository": "poteto/plugins",
+      "revision": "74dd2291e8e37b12fd6dc49b2acbd655c6bdaf12",
+      "source": "pstack/skills/principle-prove-it-works/SKILL.md",
+      "file": "poteto/principles/prove-it-works.md",
+      "git_blob": "088c412cc38eb37442914a71d9e05bc6ee430a1b",
+      "sha256": "9bbe6138505be34d81e9395d95d3639b384f71d71d65cc1903075126e1da1508"
+    },
+    {
+      "repository": "poteto/plugins",
+      "revision": "74dd2291e8e37b12fd6dc49b2acbd655c6bdaf12",
+      "source": "pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+      "file": "poteto/principles/sequence-verifiable-units.md",
+      "git_blob": "737480800564d634347afdcef25dd48851e9f2eb",
+      "sha256": "7478f8160ba5701ca40c742a81e90aff12d45f53ac9191e80ad79b9763e4489f"
+    },
+    {
+      "repository": "poteto/plugins",
+      "revision": "74dd2291e8e37b12fd6dc49b2acbd655c6bdaf12",
+      "source": "pstack/skills/poteto-mode/playbooks/feature.md",
+      "file": "poteto/playbooks/feature.md",
+      "git_blob": "d370d82e240d68dc9368d1a9f24f696f5b0e62e9",
+      "sha256": "00bb89157118846944c3a07559fa6f710a0848ed4efc32eae7ea2f3c76a0b706"
+    },
+    {
+      "repository": "poteto/plugins",
+      "revision": "74dd2291e8e37b12fd6dc49b2acbd655c6bdaf12",
+      "source": "pstack/skills/poteto-mode/playbooks/bug-fix.md",
+      "file": "poteto/playbooks/bug-fix.md",
+      "git_blob": "3af4a9b2056f4b870cd2e5ee26a7d33d39ea7ed7",
+      "sha256": "fff87a68baf57e6440b7ad53ee3d0967fb999c6909b5f97af28559f8e1861c85"
+    },
+    {
+      "repository": "poteto/plugins",
+      "revision": "74dd2291e8e37b12fd6dc49b2acbd655c6bdaf12",
+      "source": "pstack/skills/poteto-mode/playbooks/investigation.md",
+      "file": "poteto/playbooks/investigation.md",
+      "git_blob": "2f1e9ec991597c1263a842517754e75d4f09f671",
+      "sha256": "bb28bfe2912511dbb777057326a8ccff3ef279d219e52271dcb5b10f68a38b5b"
+    },
+    {
+      "repository": "JuliusBrussee/caveman",
+      "revision": "9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4",
+      "source": "LICENSE",
+      "file": "caveman/LICENSE",
+      "git_blob": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "repository": "JuliusBrussee/caveman",
+      "revision": "9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4",
+      "source": "NOTICE",
+      "file": "caveman/NOTICE",
+      "git_blob": "5b6c03199300662964c1c27906d9bdff47349e26",
+      "sha256": "20112dc6e62e91da4f03c29fd10cfa41743a9c526389fdf1396c3649c18216fc"
+    },
+    {
+      "repository": "JuliusBrussee/caveman",
+      "revision": "9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4",
+      "source": "LICENSING.md",
+      "file": "caveman/LICENSING.md",
+      "git_blob": "e270852b0db7b031d9d47ee891023eb35ae166bd",
+      "sha256": "e36ef7b22766ea22f01bce187f629669e62f2346948435154a295f91bd3c3ff2"
+    },
+    {
+      "repository": "JuliusBrussee/caveman",
+      "revision": "9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4",
+      "source": "skills/caveman/SKILL.md",
+      "file": "caveman/SKILL.md",
+      "git_blob": "9a94044529e5ee1576361c891b4a271504518e6f",
+      "sha256": "415d43518f2b1a9498c15a445d4657117b129ee5e81b19454ce348439cc6672b"
+    },
+    {
+      "repository": "JuliusBrussee/caveman",
+      "revision": "9b68f7ed12b05e7efaff18e65c5a3fc2849fd0a4",
+      "source": "LICENSE-MIT",
+      "file": "caveman/LICENSE-MIT",
+      "git_blob": "d8c0ee8a752aeb14ee42044c3238e191f7571ac6",
+      "sha256": "5eb826cd03151bcc7cce3f80d40e87733237fedfc6c36d6908aca5fd650a0bdb"
+    }
+  ]
+}

@@ -164,8 +164,8 @@ const BRANCH_TOOL_NAMES = ["read", "bash", "fm_branch_report"] as const;
 const branchCacheKey = `fm-branch-${createHash("sha256").update(fmHome).digest("hex").slice(0, 24)}`;
 
 const MIRROR_MESSAGE_CAP = 4000;
-const MERGE_NOTE_BOAT = "⛵";
-const VISIBLE_OUTCOME_ANCHOR = "⚓";
+const MERGE_NOTE_BOAT = "Update:";
+const VISIBLE_OUTCOME_ANCHOR = "Decision:";
 const VISIBLE_OUTCOME_ENTRY_TYPE = "fm-branch-visible-outcome";
 // The processing half of the captain-outcome contract. The visible entry
 // above is the DISPLAY: crash-safe and exact-once. This hidden, typed request
@@ -190,12 +190,12 @@ const PROVIDER_REPROBE_BASE_MS = 5 * 60 * 1000;
 const PROVIDER_REPROBE_MAX_MS = 60 * 60 * 1000;
 const PROCESSING_INSTRUCTION =
   "This is a supervision processing request delivered automatically by the supervision branch. " +
-  "It was not typed by the captain. " +
-  "The outcomes below are stored durably, and each was recorded earlier, possibly before a restart or a switch of primary, so the captain may already have seen it and it may already have been handled; each fleet event is already handled, so do not re-drain, re-run, or acknowledge the wake. " +
+  "It was not typed by the user. " +
+  "The outcomes below are stored durably, and each was recorded earlier, possibly before a restart or a switch of primary, so the user may already have seen it and it may already have been handled; each fleet event is already handled, so do not re-drain, re-run, or acknowledge the wake. " +
   "Each outcome says what was true when it was recorded and how long ago, so check the task's current state first. " +
   "An abbreviated line is incomplete: read the full outcome before acting on, relaying, or acknowledging it, using that line's lookup --seqs command. " +
   "First sort the outcomes by that current state into still open and already settled, such as a decision since answered, a PR since merged, or a task since finished. " +
-  "Your reply to the captain covers only the still-open outcomes: give the captain a visible response where one is due, answer or escalate a decision, or act on a blocker or failure. " +
+  "Your reply to the user covers only the still-open outcomes: give the user a visible response where one is due, answer or escalate a decision, or act on a blocker or failure. " +
   "Write that reply as if the settled outcomes had never been listed: leave them out entirely, without naming them, summarizing them, or saying they are settled, because checking them is all the processing they need. " +
   "When every outcome below is processed, call fm_branch_processed with through={N} exactly once. " +
   "Until that call the outcomes stay open and are presented again; an answer that does not make that call never counts as processing.";
@@ -1053,7 +1053,7 @@ export default function (pi: ExtensionAPI) {
       }
       if (!row) {
         deliverBranchHealthNote(
-          `Supervision branch could not present unprocessed captain outcomes: the outcome store listed a row that breaks its contract (${line.slice(0, 200)}). Nothing was marked processed; they are presented again once the store is healthy.`,
+          `Supervision branch could not present unprocessed user outcomes: the outcome store listed a row that breaks its contract (${line.slice(0, 200)}). Nothing was marked processed; they are presented again once the store is healthy.`,
         );
         return null;
       }
@@ -1216,7 +1216,7 @@ export default function (pi: ExtensionAPI) {
       name: "fm_branch_report",
       label: "Report supervision outcome",
       description:
-        "Record the outcome of one handled fleet event: write it durably to the outcome store, then merge it into the captain-facing main conversation. verdict captain persists an exact visible entry and opens one sequence-keyed processing turn on main that stays open until main acknowledges it; routine notes render unless silent marks an eligible no-change outcome.",
+        "Record the outcome of one handled fleet event: write it durably to the outcome store, then merge it into the user-facing main conversation. verdict captain persists an exact visible entry and opens one sequence-keyed processing turn on main that stays open until main acknowledges it; routine notes render unless silent marks an eligible no-change outcome.",
       parameters: Type.Object({
         task: Type.String({ description: "The task id the event belongs to (or 'fleet' for fleet-wide events)" }),
         verdict: Type.Union([Type.Literal("routine"), Type.Literal("captain")], {
@@ -1225,11 +1225,11 @@ export default function (pi: ExtensionAPI) {
         }),
         summary: Type.String({
           description:
-            "One or two sentences in captain outcome language; include the full https:// PR URL when a PR is involved",
+            "One or two sentences in user outcome language; include the full https:// PR URL when a PR is involved",
         }),
         wake: Type.Optional(Type.String({ description: "The wake reason line this outcome answers" })),
         silent: Type.Optional(Type.Boolean({
-          description: "True only for an eligible routine no-change outcome; captain outcomes are never silent, and actions, state changes, or new results stay rendered",
+          description: "True only for an eligible routine no-change outcome; user outcomes are never silent, and actions, state changes, or new results stay rendered",
         })),
       }),
       execute: async (_toolCallId, params) => {
@@ -1929,7 +1929,7 @@ ${context.command}
   // and stays on Pi's generic selector dialog. The effort step follows the
   // model step because the model decides which levels exist.
   pi.registerCommand?.("supervision-model", {
-    description: "Pick the model and reasoning effort Firstmate's Pi supervision branch uses, or follow main's.",
+    description: "Pick the model and reasoning effort Spudrunner's Pi supervision branch uses, or follow main's.",
     handler: async (_args, ctx) => {
       rememberMainModel(ctx);
       const pin = readModelPin();
@@ -2295,7 +2295,7 @@ ${context.command}
     name: "fm_branch_outcomes",
     label: "Read supervision branch outcomes",
     description:
-      "Read the durable outcome store of the supervision branch: what fleet events it handled, each verdict, and each summary. Use when the captain asks what happened in the fleet.",
+      "Read the durable outcome store of the supervision branch: what work events it handled, each verdict, and each summary. Use when the user asks what happened in active work.",
     promptSnippet: "Read what the supervision branch handled (durable outcome store).",
     parameters: Type.Object({
       recent: Type.Optional(Type.Number({ description: "How many most-recent outcomes to read (default 20)" })),
@@ -2357,8 +2357,8 @@ ${context.command}
     name: "fm_branch_processed",
     label: "Acknowledge processed supervision outcomes",
     description:
-      "Acknowledge that every captain-facing supervision outcome up to a sequence number has been processed by this conversation. Call it exactly once after handling a supervision processing request, with through set to the highest sequence that request listed; an outcome that is not acknowledged is presented again.",
-    promptSnippet: "Acknowledge processed captain-facing supervision outcomes by sequence.",
+      "Acknowledge that every user-facing supervision outcome up to a sequence number has been processed by this conversation. Call it exactly once after handling a supervision processing request, with through set to the highest sequence that request listed; an outcome that is not acknowledged is presented again.",
+    promptSnippet: "Acknowledge processed user-facing supervision outcomes by sequence.",
     parameters: Type.Object({
       through: Type.Number({ description: "The highest outcome sequence number this conversation has processed" }),
     }),

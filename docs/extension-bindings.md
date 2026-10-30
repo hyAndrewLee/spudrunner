@@ -7,7 +7,7 @@ This document is the maintainer-architecture owner for the package manifest, ena
 ## Scope and design
 
 The first extension binding is one complete vertical capability, not a general plugin system.
-It lets a trusted package maintained outside Firstmate provide a long-polling process-event adapter while Firstmate core keeps source ownership, process supervision, durable capture, announcement, handling, and retirement.
+It lets a trusted package maintained outside Spudrunner provide a long-polling process-event adapter while Spudrunner core keeps source ownership, process supervision, durable capture, announcement, handling, and retirement.
 The capability is explicitly enabled per home, independently installed per host, and permanently inert when the binding registry is absent.
 It follows the project's vision by keeping consent explicit, commands flat and inspectable, mechanics deterministic, evidence non-authoritative, and the feature independent of every worker harness and session provider.
 
@@ -21,17 +21,17 @@ The host validates identity and accidental or supply-chain change, but an execut
 Do not bind a package that is not trusted to that level.
 
 Protocol responses are still untrusted evidence.
-The host accepts only the fields and operations below, and no response can authorize a captain decision, merge, destination, stronger operation, force, discard, cleanup, or credential use.
+The host accepts only the fields and operations below, and no response can authorize a user decision, merge, destination, stronger operation, force, discard, cleanup, or credential use.
 External adapters do not receive the built-in `answers`, `autohandle`, or `self-announcing` seams.
-A captured external result therefore remains unhandled until the existing Firstmate handling owner acknowledges it.
+A captured external result therefore remains unhandled until the existing Spudrunner handling owner acknowledges it.
 
 ## Discovery and package installation
 
 Discovery reads only regular mode-`0600` JSON files in the effective home's mode-`0700` `config/extensions.d/` directory.
-The effective home follows the repository convention of `FM_HOME`, then `FM_ROOT_OVERRIDE`, then the tracked Firstmate root, but no environment value names a package or binding inside that home.
+The effective home follows the repository convention of `FM_HOME`, then `FM_ROOT_OVERRIDE`, then the tracked Spudrunner root, but no environment value names a package or binding inside that home.
 The current directory, project files, task copies, worker text, Pi packages, and package-manager metadata are never searched.
 A package cannot bind an adapter name already owned by an installed `bin/fm-procevent-<adapter>.sh` built-in.
-If a later Firstmate release adds the same built-in name, already captured extension evidence retains its immutable package owner and is never reinterpreted by that built-in; the pinned extension registration remains explicit until owner-matched retirement.
+If a later Spudrunner release adds the same built-in name, already captured extension evidence retains its immutable package owner and is never reinterpreted by that built-in; the pinned extension registration remains explicit until owner-matched retirement.
 
 `bind` takes one explicit package directory outside the active home and outside every Git project or task copy.
 It rejects path-component symlinks, symlinks anywhere in the package tree, hard-linked files, non-regular entries, files owned by another user, and group or world-writable package paths.
@@ -221,16 +221,16 @@ Ordinary reconciliation continues to publish the retained evidence and retry pol
 A changed error or extension identity remains distinct, and a failure after its matching evidence was handled receives a fresh capture.
 Successful adapter results always retain separate sequences, even when their bytes are identical to host-error evidence.
 A classification, terminal, or silence failure returns no positive verdict.
-Replay uses the exact request id as the package's idempotence key, including a stable pre-capture retry from the generic runner, but Firstmate makes no generic exactly-once or source-side losslessness claim.
+Replay uses the exact request id as the package's idempotence key, including a stable pre-capture retry from the generic runner, but Spudrunner makes no generic exactly-once or source-side losslessness claim.
 The process-event durability boundary remains owned by [`configuration.md`](configuration.md#process-to-event-sources-stateprocevent).
 
 ## Runtime independence
 
-The host runs in the Firstmate home that owns the source, never in a task worker or its session container.
+The host runs in the Spudrunner home that owns the source, never in a task worker or its session container.
 Claude, Codex, OpenCode, Pi, pi-signed, Grok, Kimi, Cursor, Muse, and Rovo therefore expose no package-loading surface for this capability.
 The result reaches every supported primary through the existing bounded `check` wake path, including the unknown-protocol fallback used where no specialized primary continuation exists.
 Runtime session providers are not consulted because a process-event source has no task endpoint.
-Remote and local secondmate homes bind and install independently, and the primary never executes a missing remote-home package locally. `remote-bind` carries one canonical `firstmate.extension-package-transfer.v1` JSON envelope over the existing bounded `fm-on` stdin/stdout job. Its hashed manifest pins the extension id, version, complete package-tree digest, entry count, total bytes, and byte-sorted entries. Entries are limited to normalized relative directories at mode 0755 and single regular files at mode 0644 or 0755, each with an exact size and SHA-256 payload digest. The receiver accepts at most 128 entries, 256 KiB per file, 512 KiB of package bytes, and 900,000 serialized bytes; it rejects malformed or truncated JSON, duplicate keys or paths, collisions, absolute or traversing names, links and special files, noncanonical modes, hash or size mismatches, and duplicate transfer identities.
+Remote and local project coordinator homes bind and install independently, and the primary never executes a missing remote-home package locally. `remote-bind` carries one canonical `firstmate.extension-package-transfer.v1` JSON envelope over the existing bounded `fm-on` stdin/stdout job. Its hashed manifest pins the extension id, version, complete package-tree digest, entry count, total bytes, and byte-sorted entries. Entries are limited to normalized relative directories at mode 0755 and single regular files at mode 0644 or 0755, each with an exact size and SHA-256 payload digest. The receiver accepts at most 128 entries, 256 KiB per file, 512 KiB of package bytes, and 900,000 serialized bytes; it rejects malformed or truncated JSON, duplicate keys or paths, collisions, absolute or traversing names, links and special files, noncanonical modes, hash or size mismatches, and duplicate transfer identities.
 
 The receiver creates the package in a private temporary directory below `data/extensions/staging`, validates ownership, permissions, the package manifest, executable, and complete reconstructed tree, then atomically publishes the transfer before the normal bind handshake and binding publication.
 A failed bind moves the exact transfer identity into `data/extensions/retired-staging` without enabling it.
@@ -238,7 +238,7 @@ A failed bind moves the exact transfer identity into `data/extensions/retired-st
 It refuses missing, ambiguous, drifted, mismatched, in-use, or unrelated state before moving the enabled binding into the staged identity and reversibly moving that exact unit into `data/extensions/retired-staging`.
 If the process stops between those two moves, a retry resumes only when the retained binding and staged receipt, version directory, package, transfer digest, and binding digest still form that one exact retirement identity; altered or coexisting partial state is refused.
 The transfer contains package bytes and declarative metadata only: it carries no environment, credentials, cookies, tokens, destinations, or caller-selected command text and creates no generic file-transfer surface.
-Bindings and credentials are deliberately absent from the inherited secondmate configuration allowlist.
+Bindings and credentials are deliberately absent from the inherited project coordinator configuration allowlist.
 
 ## Runnable example
 

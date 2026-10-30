@@ -14,11 +14,11 @@ Prerequisites:
 - `jq` for JSON responses.
 - The universal harness and toolchain requirements in [`configuration.md`](configuration.md#toolchain).
 
-Select it with local `config/backend` containing `zellij`, `FM_BACKEND=zellij` for one launch, or an explicit request to Firstmate.
+Select it with local `config/backend` containing `zellij`, `FM_BACKEND=zellij` for one launch, or an explicit request to Spudrunner.
 It is never auto-detected.
 A spawn stops before creating a session or acquiring a worktree when Zellij or `jq` is missing or Zellij is below 0.44.
 
-Firstmate uses one shared session named `firstmate` by default.
+Spudrunner uses one shared session named `firstmate` by default.
 `FM_ZELLIJ_SESSION` can select another name for isolated verification.
 Attach with:
 
@@ -35,12 +35,12 @@ Verify setup by spawning a small task and confirming metadata contains `backend=
 
 Every task receives one tab in the shared Zellij session.
 The caller-facing label remains `fm-<id>`, while the visible title is home-scoped as `fm-<home-label>-<id>`.
-The home label is `firstmate` or `2ndmate-<id>` plus a short stable hash of the resolved Firstmate root.
-This prevents task-id collisions between a primary, secondmates, and separate Firstmate installations sharing one session.
+The home label is `firstmate` or `2ndmate-<id>` plus a short stable hash of the resolved Spudrunner root.
+This prevents task-id collisions between a primary, project coordinators, and separate Spudrunner installations sharing one session.
 
 Zellij does not enforce tab-name uniqueness, so the adapter performs its own duplicate check against the scoped title.
 Create, recover, list, and cleanup paths all use the same scoped title owner in `bin/fm-backend-hometag-lib.sh`.
-Moving a Firstmate installation changes its path hash and leaves old titles unmatched, consistent with worktree paths also becoming stale after a move.
+Moving a Spudrunner installation changes its path hash and leaves old titles unmatched, consistent with worktree paths also becoming stale after a move.
 
 A pre-home-tag task remains reachable through its recorded metadata only when exactly one live tab has the old unscoped title.
 Multiple old tabs with the same title cause a refusal rather than a guess.
@@ -97,7 +97,7 @@ Real test cleanup uses only an isolated non-`firstmate` session and the guard in
 - All homes share one session and tab bar; scoped titles prevent cross-home identity collisions but do not create per-home visual containers.
 - There is no native busy or push-event signal, so supervision uses capture/hash polling for screen changes and each harness adapter's semantic lifecycle for worker state.
   Grok alone retains its isolated rendered-tail fallback.
-- There is no verified agent-process liveness signal, so a dead Zellij secondmate is reported inconclusive rather than auto-respawned.
+- There is no verified agent-process liveness signal, so a dead Zellij project coordinator is reported inconclusive rather than auto-respawned.
 - New-tab focus restoration has a narrow visible race.
 - CLI exit status is not meaningful; a target can still disappear after structural readiness checks.
 - Worktree cwd discovery requires the spawn-time marker probe.

@@ -13,7 +13,7 @@ Let the control plane verify postconditions.
 ## Trust and skill submission
 
 Inspect after spawn within the tool's readiness window.
-Select only its documented trust choice from the active Firstmate home, binding `FM_HOME` unless already correct, then inspect again under the router-owned completion postcondition.
+Select only its documented trust choice from the active Spudrunner home, binding `FM_HOME` unless already correct, then inspect again under the router-owned completion postcondition.
 No observed dialog proves only that launch.
 
 Each supported harness handles its folder-trust gate differently, and the tool reference owns the detail.
@@ -42,5 +42,5 @@ Use native resume only when both that reference and the recovery procedure call 
 Deterministic relaunch instead trusts instructions on disk, not a private session, and never needs a session id printed at exit.
 One relaunch-time exception is the runtime's own recorded session identity, used only to keep that runtime's status authority valid across the replacement - `../../../docs/agent-control.md` "Transactional relaunch" owns it.
 
-`../stuck-crewmate-recovery/SKILL.md` owns worker recovery and `../secondmate-provisioning/SKILL.md` owns secondmate recovery; both preserve recorded work.
-The router's recovery scenarios select the additional common references for replacement profiles and secondmates.
+`../stuck-crewmate-recovery/SKILL.md` owns worker recovery and `../secondmate-provisioning/SKILL.md` owns project coordinator recovery; both preserve recorded work.
+The router's recovery scenarios select the additional common references for replacement profiles and project coordinators.

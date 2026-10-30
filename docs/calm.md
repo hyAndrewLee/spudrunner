@@ -1,6 +1,6 @@
 # Calm mode
 
-Calm is Firstmate's conversation-only transcript presentation toggle.
+Calm is Spudrunner's conversation-only transcript presentation toggle.
 This page is for operators who turn Calm on and need to know what it hides and keeps visible on Pi and on Claude Code, and which file owns each part of that behavior.
 
 ## Harness support and default
@@ -11,7 +11,7 @@ This page is for operators who turn Calm on and need to know what it hides and k
 | Claude Code | Available behind that harness's default-off early-access function-hooks flag, as the [Claude Code](#claude-code) section below describes. |
 
 Calm is off by default.
-The last `/calm` choice persists for the effective Firstmate home across session starts and resumes on either harness.
+The last `/calm` choice persists for the effective Spudrunner home across session starts and resumes on either harness.
 Both harnesses keep that choice in the one shared preference file that [`configuration.md`](configuration.md#calm-preference-configcalm) owns.
 
 ## Shared preservation rule for assistant text
@@ -22,42 +22,42 @@ Calm hides such a block only in the first case below:
 | Settled block | Result |
 | --- | --- |
 | Raw text contains no newline, and trimmed length is below `CALM_PRESERVE_MIN_CHARS` (240) | Hidden. |
-| Raw text contains a newline, or trimmed length is at least 240 | Preserved as substantive captain-facing content. |
+| Raw text contains a newline, or trimmed length is at least 240 | Preserved as substantive user-facing content. |
 
 Streaming text and the genuine reply that ends a response remain visible.
 
 ## Pi
 
-### Working boat
+### Working progress indicator
 
-While Calm is active and an agent run is under way, Calm hides Pi's built-in `Working...` row and shows a small two-row animated boat in its place.
+While Calm is active and an agent run is under way, Calm hides Pi's built-in `Working...` row and shows a small two-row animated progress indicator in its place.
 No separate Calm status row is added.
-The boat claims the same Pi working-row widget slot as the standalone Pi Calm extension, so a session that loads both Calms shows one boat rather than two, and turning Firstmate Calm off does not clear the standalone boat.
+The progress indicator claims the same Pi working-row widget slot as the standalone Pi Calm extension, so a session that loads both Calms shows one progress indicator rather than two, and turning Spudrunner Calm off does not clear the standalone progress indicator.
 While Calm is off, Pi's stock working row is left exactly as Pi renders it.
 
-The boat looks like this:
+The progress indicator looks like this:
 
 - The water fills the usable width with low one-cell Unicode bars, all in standard ANSI blue, so the swell shows through bar height alone.
-- The asymmetric three-cell `◿│◣` sail is centered over the five-cell `╲▁▁▁╱` hull.
-- The whole boat is one standard ANSI yellow, including both sail halves, the mast, and the hull.
-- The hull's zero-height interior keeps the swell continuous beneath the boat.
+- A three-cell upper pulse ` · ` is centered above the five-cell lower pulse `[···]`.
+- The complete progress pulse is one standard ANSI yellow.
+- The surrounding low-bar background retains its deterministic animation.
 - Very narrow terminals fall back to a smaller deterministic sprite.
 
-### Boat motion
+### Progress motion
 
-The boat is deliberately calm.
+The progress indicator is deliberately calm.
 It moves one column every 880ms.
-The long smooth wave advances one quarter-cell every 220ms, so the surface stays alive between boat steps.
+The long smooth wave advances one quarter-cell every 220ms, so the surface stays alive between progress indicator steps.
 Deterministically varied half-waves stay between nine and thirteen cells.
-The boat remains phase-locked inside a broad zero-height trough through movement and edge reversals.
+The progress indicator remains phase-locked inside a broad zero-height trough through movement and edge reversals.
 Every resize reflows the sprite without wrapping.
-The boat disappears when the run settles, aborts, or fails.
+The progress indicator disappears when the run settles, aborts, or fails.
 
-### Boat position between working periods
+### Progress position between working periods
 
-Within one Pi session and Calm extension lifetime, the next working period resumes the boat from its last rendered column and travel direction rather than restarting at the left edge.
+Within one Pi session and Calm extension lifetime, the next working period resumes the progress indicator from its last rendered column and travel direction rather than restarting at the left edge.
 Hidden elapsed time does not advance the animation.
-A resize while hidden clamps the frozen boat to the new width without changing its valid travel direction.
+A resize while hidden clamps the frozen progress indicator to the new width without changing its valid travel direction.
 A fresh Pi session or new Calm extension lifetime starts at the normal initial position.
 
 ### What Calm hides on Pi
@@ -67,8 +67,8 @@ Calm hides these rows:
 - Collapsed thinking labels.
 - The mid-turn assistant working-note blocks governed by the [shared preservation rule](#shared-preservation-rule-for-assistant-text) above.
 - The shells for the Pi built-in tool names Calm owns.
-- Firstmate-owned tool shells listed in the [Pi tool audit](calm-mode-feasibility.md#firstmate-pi-tool-audit).
-- Canonically classified Firstmate operational user rows.
+- Spudrunner-owned tool shells listed in the [Pi tool audit](calm-mode-feasibility.md#firstmate-pi-tool-audit).
+- Canonically classified Spudrunner operational user rows.
 
 Pi applies the preservation rule independently to each text block.
 A short working note can therefore hide beside preserved substantive content in the same message.
@@ -81,13 +81,14 @@ The operational inputs Calm classifies remain ordinary user-role messages.
 Pi's transcript layout renders their complete rows at zero height.
 The session-start nudge remains on its existing non-displayed custom-message path.
 
-### Queued Firstmate inputs on Pi
+<a id="queued-firstmate-inputs-on-pi"></a>
+### Queued Spudrunner inputs on Pi
 
-While a turn runs, Calm also keeps those Firstmate inputs out of Pi's queued-message listing.
-The captain's own queued messages stay listed.
-Escape and the dequeue key return only the captain's queued messages to the editor.
-Hidden Firstmate inputs stay queued in their original order and are never shown as raw text or dropped.
-When Escape, or navigating the session tree, stops a run with Firstmate inputs still queued, Pi either drains them itself or Calm starts one new turn to deliver them.
+While a turn runs, Calm also keeps those Spudrunner inputs out of Pi's queued-message listing.
+The user's own queued messages stay listed.
+Escape and the dequeue key return only the user's queued messages to the editor.
+Hidden Spudrunner inputs stay queued in their original order and are never shown as raw text or dropped.
+When Escape, or navigating the session tree, stops a run with Spudrunner inputs still queued, Pi either drains them itself or Calm starts one new turn to deliver them.
 When Calm starts that turn, it shows the one-line notice `Firstmate supervision continues in a new turn.`
 Inputs held behind a running compaction stay there until Pi sends them after compaction, so they start and announce no turn of their own.
 
@@ -96,7 +97,7 @@ Inputs held behind a running compaction stay there until Pi sends them after com
 Outside Pi's same-name built-in override collision described in [Pi compatibility](#pi-compatibility) below, Calm changes presentation only.
 Calm's built-in wrappers preserve Pi's execution behavior.
 Input delivery, ordering, model context, session storage, diagnostics, and `/export` and `/share` operation remain unchanged.
-Every hidden Firstmate input remains available to the model and in serialized session data and exported artifacts.
+Every hidden Spudrunner input remains available to the model and in serialized session data and exported artifacts.
 Legacy operational custom messages remain in session data and Pi's sidebar tree; depending on the Pi version, the main HTML transcript either omits them or includes them as rows hidden by default.
 Toggling Calm off restores ordinary rendering, and `Ctrl+O` expansion state is preserved.
 
@@ -185,8 +186,8 @@ The trusted project auto-loads the mod through the `.claude/skills/firstmate-cal
 Claude Code's early-access function-hooks surface is off by default.
 Claude Code can load modules through its rollout flag, or per session with `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1`.
 The mod independently requires that environment variable to equal `1` before doing anything.
-Firstmate never sets that flag in any project or user settings.
-Enabling it is each captain's own explicit opt-in.
+Spudrunner never sets that flag in any project or user settings.
+Enabling it is each user's own explicit opt-in.
 
 Without that exact value, the mod is a complete no-op, even if Claude Code's rollout flag loads the module:
 
@@ -204,19 +205,19 @@ A preference that cannot be written leaves the current choice unchanged, and the
 The mod reads the preference before the first row draws.
 Toggling Calm redraws every hooked row already on screen, so rows drawn before the toggle hide or restore retroactively.
 
-### Working sailboat on Claude Code
+### Working progress indicator on Claude Code
 
-While Calm is on, the stock working row (`Sauteing... (12s · 300 tokens)`) becomes the same two-row sailboat Pi draws, from the same shared sprite geometry.
-The sailboat fills the row inside the transcript margin.
-It repaints on the boat's 220ms cadence, with the hull moving every 880ms.
+While Calm is on, the stock working row (`Sauteing... (12s · 300 tokens)`) becomes the same two-row progress indicator Pi draws, from the same shared sprite geometry.
+The progress indicator fills the row inside the transcript margin.
+It repaints on the progress indicator's 220ms cadence, with the hull moving every 880ms.
 It reflows on resize, and appears and disappears exactly where the stock row would.
 
-On Claude Code the boat is painted in Claude Code's own theme colors rather than Pi's standard ANSI codes:
+On Claude Code the progress indicator is painted in Claude Code's own theme colors rather than Pi's standard ANSI codes:
 
 | Part | Color source | Dark theme | Light theme |
 | --- | --- | --- | --- |
 | Every water cell | Spinner blue of the active theme family | `#93a5ff` | `#5769f7` |
-| The whole boat: both sail halves, mast, and hull | Claude orange of the stock spinner | `#d77757` | `#d77757` |
+| The complete progress pulse | Claude orange of the stock spinner | `#d77757` | `#d77757` |
 
 The theme family follows the `theme` setting by its prefix, `dark` or `light`, and is re-read when the theme changes.
 It uses the light set as the both-readable fallback for `auto`, custom, missing, or unreadable values.
@@ -229,20 +230,20 @@ Each note is appended to the transcript as its own system-notice row, which Clau
 
 | Line | When |
 | --- | --- |
-| `⛵ <task>: <summary>` | The supervision session recorded a routine outcome that is not silent. |
-| `⚓ [seq N] <task>: <summary>` | It recorded a captain outcome; main still receives and processes it as [`supervision-host.md`](supervision-host.md#captain-outcomes) describes. |
-| `⛵ Supervision session paused after repeated engine errors; main will handle wakes while it cools down.` | The host's broken-session latch trips. |
-| `⛵ Supervision session recovered after a successful cooldown probe.` | That latch clears. |
+| `Update: <task>: <summary>` | The supervision session recorded a routine outcome that is not silent. |
+| `Decision: [seq N] <task>: <summary>` | It recorded a user outcome; main still receives and processes it as [`supervision-host.md`](supervision-host.md#captain-outcomes) describes. |
+| `Update: Supervision session paused after repeated engine errors; main will handle wakes while it cools down.` | The host's broken-session latch trips. |
+| `Update: Supervision session recovered after a successful cooldown probe.` | That latch clears. |
 
 Silent routine outcomes show nothing.
 The mod checks the outcome store's display tail copy and the host's latch file every 3 seconds, so a note can land a few seconds after its outcome.
-On the first tail read in a session, it replays unprocessed captain outcomes and unread visible routine outcomes from the bounded copy, showing at most the newest 20 notes with a count of older due notes within that copy.
+On the first tail read in a session, it replays unprocessed user outcomes and unread visible routine outcomes from the bounded copy, showing at most the newest 20 notes with a count of older due notes within that copy.
 A home whose outcome store predates the copy gains one at its next locked session start, even while away; if the copy first appears after the mod starts, the replay still uses the read and processed markers captured when the session started.
 On later reads, if the copy skips sequence numbers since the last seen outcome, one line counts the missing outcomes.
 The display copy's row and byte bounds are owned by [`fm-branch-outcome.sh`](../bin/fm-branch-outcome.sh); older outcomes and oversized rows cannot always be displayed by the mod, while the outcome store and main's delivery remain authoritative.
 Claude Code keeps each note in the session as a display-only entry and restores it on `claude --continue`, so the mod remembers in its own plugin store how far each session has followed the outcomes, and a resumed session replays only outcomes it has not shown.
 Claude Code keys that store by plugin name, so a session that showed notes before the plugin was renamed from `firstmate-calm` to `fm` and is resumed afterwards replays its still-due notes once.
-The mod only reads outcome and host state: the drain owns off-Pi read-cursor advancement, and main explicitly acknowledges captain outcomes as processed.
+The mod only reads outcome and host state: the drain owns off-Pi read-cursor advancement, and main explicitly acknowledges user outcomes as processed.
 Only a home that runs the supervision host has outcomes to show.
 
 ### What Calm hides on Claude Code
@@ -251,7 +252,7 @@ Tool rows, tool result blocks, and folded tool groups draw at zero height, so a 
 
 A user row draws at zero height when the canonical operational-input parser recognizes its text as one of these:
 
-- A Firstmate session-start, watcher, turn-end guard, away-supervisor, launch-brief, or branch-outcome envelope.
+- A Spudrunner session-start, watcher, turn-end guard, away-supervisor, launch-brief, or branch-outcome envelope.
 - A from-firstmate routed message.
 - One of the narrow pre-protocol shapes kept for old transcripts.
 
@@ -262,12 +263,12 @@ Assistant text follows the [shared per-block preservation rule](#shared-preserva
 ### Record-backed operational doorbell
 
 Claude Code removes the U+2063 that starts those envelopes from every submitted prompt.
-Because of that, Firstmate delivers its away-mode escalations to a Claude Code primary as the record-backed doorbell `bin/fm-operational-input.sh` owns.
+Because of that, Spudrunner delivers its away-mode escalations to a Claude Code primary as the record-backed doorbell `bin/fm-operational-input.sh` owns.
 The doorbell is a plain line naming a record under the home's `state/operational-inbox` that holds the envelope.
 
 Calm reads that record through the mod's file API and hides the doorbell row only when the record holds a current envelope.
 A doorbell-shaped line naming no such record therefore stays visible.
-A verbatim copy of a live doorbell line, pasted back while its record still exists, is treated as Firstmate's and hides.
+A verbatim copy of a live doorbell line, pasted back while its record still exists, is treated as Spudrunner's and hides.
 Record verdicts are cached until a drawing invalidation (including a `/calm` toggle), which rechecks pruned records on redraw.
 
 ### What stays unchanged on Claude Code
@@ -284,21 +285,21 @@ Evidence for 2.1.280 and the record-backed doorbell is also in its [2026-09-25 r
 - The function-hooks surface is early access and default-off.
   Claude Code states that its API may change between releases without notice.
   The mod is verified on Claude Code 2.1.272, 2.1.280, 2.1.282, 2.1.283, and 2.1.284 and refuses nothing newer.
-- Firstmate's typed producers bound for a Claude Code pane ride the record-backed doorbell, so they hide like any operational row.
+- Spudrunner's typed producers bound for a Claude Code pane ride the record-backed doorbell, so they hide like any operational row.
   Those producers are the away-mode daemon's escalations and a worker's launch brief.
   Only an envelope that reaches Claude Code some other way, as bare typed or launch-prompt text, arrives without its U+2063 and stays visible.
 - Every record write prunes operational-inbox records once they reach about seven days of elapsed age (the boundary is approximate).
   Age alone does not remove a record without a later write.
   Once its record is gone, a doorbell is no longer recognized.
-  It draws as a visible user row after Calm rechecks it (for example on `/calm` toggle or `claude --continue`), and `/ahoy` treats it as a captain boundary.
+  It draws as a visible user row after Calm rechecks it (for example on `/calm` toggle or `claude --continue`), and `/ahoy` treats it as a user boundary.
 - On the main-screen layout (not the fullscreen alternate screen), a toggle redraws the live screen by clearing and reprinting it.
   The terminal's own scrollback keeps the earlier rendering above it.
   The fullscreen layout has no such stale copy.
-- The sailboat is painted through Claude Code's Raster element, whose colors are RGB quantized to 256-color escapes rather than the standard 16-color ANSI codes Pi's widget emits.
+- The progress indicator is painted through Claude Code's Raster element, whose colors are RGB quantized to 256-color escapes rather than the standard 16-color ANSI codes Pi's widget emits.
 - The detailed transcript view (`ctrl+o`) keeps its per-message timestamp and model headers where hidden assistant rows sat, because those headers are not a hookable drawing.
 - Collapsed thinking never appears in Claude Code's default view.
 - Supervision notes are system-notice rows rather than Pi's rendered entries: Claude Code draws them in one gray with its own bullet and the plugin's name, so the glyph cannot take its own color as on Pi.
-- A captain outcome still wakes main through a `Stop hook feedback` row, which fires no hookable drawing, so its anchor line appears beside that row rather than replacing it.
+- A user outcome still wakes main through a `Stop hook feedback` row, which fires no hookable drawing, so its anchor line appears beside that row rather than replacing it.
 - The mod has no thinking drawing to hide in other views.
 
 ### Claude Code regression entry points

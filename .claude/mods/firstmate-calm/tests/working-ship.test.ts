@@ -4,8 +4,8 @@
 import { describe, expect, test } from "claude-code/testing";
 import { calmCommand, decodeCells, isStock, rasterOf, spinner, themeChange, unmeasuredSpinner, world } from "./support.ts";
 
-const SAIL = "◿│◣";
-const HULL = "╲▁▁▁╱";
+const SAIL = " · ";
+const HULL = "[···]";
 const DEFAULT = 0x01000000;
 // Claude Code's own theme tables: the spinner blue of each family for the water and
 // the Claude orange of the stock spinner for the boat.

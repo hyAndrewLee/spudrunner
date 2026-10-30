@@ -1,6 +1,6 @@
 # Primary startup and hooks
 
-Load this with the detected primary's tool reference before changing session startup, turn-end handling, pre-tool protection, watcher supervision, or secondmate integration.
+Load this with the detected primary's tool reference before changing session startup, turn-end handling, pre-tool protection, watcher supervision, or project coordinator integration.
 The tool reference establishes either that identity's empirical path or its unsupported boundary.
 
 ## Turn end
@@ -20,7 +20,7 @@ Supported primaries deny watcher-arm anti-patterns before execution, including s
 The tool reference names the integration form.
 Validate changes against the real harness in a scratch project before trusting them.
 
-A primary must also account for built-in delegation that can create work outside Firstmate's durable records.
+A primary must also account for built-in delegation that can create work outside Spudrunner's durable records.
 Claude's verified delegation guard is in `references/harness/claude.md`, and Antigravity's is in `references/harness/agy.md`.
 `../../../docs/subagent-guard.md` owns its full contract, local hardening, escape hatch, and per-harness applicability review.
 Never generalize Claude tool names or permissions without live evidence.

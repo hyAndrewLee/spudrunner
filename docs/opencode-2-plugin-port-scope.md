@@ -31,7 +31,8 @@ Relevant members:
 
 The SDK also exposes the matching server operations `EventSubscribe`, `SessionPrompt`, `SessionPromptAsync`, and the `Tui*` operations (`TuiShowToast`, `TuiSubmitPrompt`, `TuiAppendPrompt`, `TuiExecuteCommand`, `TuiPublish`).
 
-## The three signals firstmate needs
+<a id="the-three-signals-firstmate-needs"></a>
+## The three signals Spudrunner needs
 
 All three are reachable from a v2 server plugin through `ctx.event.subscribe`.
 The live 2.0.21 stream expressed turn and activity state as `session.execution.*`, not the v1 `session.idle`/`session.status`.

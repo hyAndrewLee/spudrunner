@@ -349,7 +349,7 @@ Captain: Nor this tilde-fenced one.
     Captain: An indented example is not the ask either.
 	[captain] Nor a tab-indented one.
 Keep this Firstmate constraint out of captain intent.')
-  assert_equals "" "$words" "fenced or indented Captain lines were extracted as authorized intent"
+  assert_equals "" "$words" "fenced or indented User lines were extracted as authorized intent"
 
   words=$(fm_brief_marked_captain_words '```
 Captain: fenced example
@@ -383,7 +383,7 @@ EOF
   out=$(FM_HOME="$home" FM_STATE_OVERRIDE="$home/state" "$ROOT/bin/fm-promote.sh" "$id" --mode direct-PR --yolo off 2>&1)
   status=$?
   [ "$status" -ne 0 ] || fail "promotion whose only Captain lines are fenced or indented examples should fail"
-  assert_contains "$out" "has no provenance-marked Captain's intent" \
+  assert_contains "$out" "has no provenance-marked User intent" \
     "fenced-example promotion did not refuse like an unmarked legacy brief"
   assert_absent "$home/data/$id/ship-instructions.md" \
     "fenced-example promotion published a fenced sample as captain intent"
@@ -439,6 +439,9 @@ EOF
       assert_grep 'against the base branch `feature/hub`' "$home/data/$id/ship-instructions.md" \
         "promotion did not target the PR at the recorded base"
       assert_grep 'base_branch=feature/hub' "$meta" "promotion dropped the recorded base"
+      assert_grep "$ROOT/.agents/skills/worker-engineering/SKILL.md" "$home/data/$id/ship-instructions.md" "live promotion omitted the absolute policy owner"
+      assert_grep "$ROOT/.agents/skills/worker-engineering/SKILL.md" "$home/data/$id/brief.md" "durable promotion omitted engineering defaults"
+      assert_equals "Fix the hub bug." "$(fm_brief_task_heading_body "$home/data/$id/ship-instructions.md" "## User intent")" "promotion changed original intent"
     else
       [ "$status" -ne 0 ] || fail "promoting a based scout to local-only should be refused"
       assert_contains "$out" "mode=local-only" "the local-only promotion refusal did not explain itself"
@@ -479,7 +482,7 @@ test_worker_role_names_skill_and_fallback_file() {
   path="$ROOT/.agents/skills/firstmate-coding-guidelines/SKILL.md"
   [ -f "$path" ] || fail "Firstmate skill file is missing at $path"
   fm_brief_worker_role "$TMP_ROOT/state" upstream-4751 "$ROOT" >"$role_file"
-  assert_grep "\`CONTRIBUTING.md\` and \`firstmate-coding-guidelines\` for Firstmate changes" "$role_file" \
+  assert_grep "\`CONTRIBUTING.md\` and \`firstmate-coding-guidelines\` for Spudrunner changes" "$role_file" \
     "worker role did not name the skill"
   assert_grep "If the \`firstmate-coding-guidelines\` skill name does not resolve in this session, read \`$path\` instead." "$role_file" \
     "worker role did not name the skill file as the fallback"
@@ -598,5 +601,67 @@ test_external_review_done_without_backup_is_accepted_on_the_url
 test_external_review_done_with_backup_needs_the_copy
 
 test_worker_role_names_skill_and_fallback_file
+
+test_effective_engineering_defaults() {
+  local policy
+  policy=$(fm_brief_worker_policy "$ROOT") || fail "engineering policy did not render"
+  assert_contains "$policy" "$ROOT/.agents/skills/worker-engineering/SKILL.md" "policy owner is not reachable outside the repository"
+  assert_contains "$policy" "take precedence over these defaults" "defaults lost their precedence"
+  assert_contains "$policy" "never widen acceptance criteria or authorize delegation" "defaults gained task authority"
+  assert_contains "$policy" "only review and delivery owner" "defaults added a review owner"
+  assert_contains "$policy" "normal prose in code, comments, commits, saved reports, PRs" "artifact prose was compressed"
+  if fm_brief_worker_policy "$TMP_ROOT/missing-root" >/dev/null 2>&1; then
+    fail "missing policy owner was silently ignored"
+  fi
+  pass "engineering defaults are effective, bounded, and independent of project skill discovery"
+}
+
+test_pinned_workflow_sources() {
+  python3 - "$ROOT" <<'PY'
+import hashlib, json, pathlib, sys
+root = pathlib.Path(sys.argv[1]) / 'vendor/workflow'
+manifest = json.loads((root / 'manifest.json').read_text())
+for source in manifest['files']:
+    data = (root / source['file']).read_bytes()
+    assert hashlib.sha256(data).hexdigest() == source['sha256'], source['file']
+    blob = b'blob ' + str(len(data)).encode() + bytes([0]) + data
+    assert hashlib.sha1(blob).hexdigest() == source['git_blob'], source['file']
+    assert len(source['revision']) == 40
+assert {s['repository'] for s in manifest['files']} == {'poteto/plugins', 'JuliusBrussee/caveman'}
+print('pinned workflow source hashes verified')
+PY
+  [ "$?" -eq 0 ] || fail "pinned source provenance no longer matches the selected bytes"
+  pass "pinned workflow source integrity"
+}
+
+test_heading_compatibility_and_intent_preservation() {
+  local file pair intent_heading spec_heading intent
+  file="$TMP_ROOT/heading-compatibility.md"
+  intent='Fix only the pager. Keep this literal Firstmate example unchanged.'
+  for pair in legacy canonical; do
+    if [ "$pair" = legacy ]; then
+      intent_heading="## Captain's intent"
+      spec_heading="## Firstmate spec"
+    else
+      intent_heading="## User intent"
+      spec_heading="## Implementation requirements"
+    fi
+    printf '%s\n' '# Task' "$intent_heading" "$intent" "" "$spec_heading" "Do not change the API." '# Setup' "Not intent." > "$file"
+    fm_brief_task_content_valid "$file" || fail "$pair headings were refused"
+    assert_equals "$intent" "$(fm_brief_task_heading_body "$file" "## User intent")" "$pair intent changed or absorbed defaults"
+    assert_equals "$intent" "$(fm_brief_task_heading_body "$file" "## Captain's intent")" "legacy caller could not read $pair headings"
+    assert_equals "Do not change the API." "$(fm_brief_task_heading_body "$file" "## Firstmate spec")" "legacy requirements caller failed"
+    if fm_brief_task_placeholders_present "$file"; then fail "$pair content was mistaken for a placeholder"; fi
+    printf '%s\n' '# Task' "$intent_heading" '{TASK}' "$spec_heading" '{FIRSTMATE_SPEC}' > "$file"
+    fm_brief_task_placeholders_present "$file" || fail "$pair placeholders escaped validation"
+  done
+  assert_equals "Keep both." "$(fm_brief_marked_captain_words '[user] Keep both.')" "neutral provenance marker was dropped"
+  assert_equals "Keep both." "$(fm_brief_marked_captain_words '[captain] Keep both.')" "legacy provenance marker was dropped"
+  pass "old and canonical headings and provenance preserve original intent"
+}
+
+test_effective_engineering_defaults
+test_pinned_workflow_sources
+test_heading_compatibility_and_intent_preservation
 
 echo "all fm-dod-lib tests passed"

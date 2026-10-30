@@ -50,7 +50,7 @@ test_branch_prompt_is_byte_stable_and_above_cache_floor() {
     *) fail "branch prompt lost the inlined recovery playbook" ;;
   esac
   case "$out_a" in
-    *"Report verdict captain for the finished result of work the captain requested, even when that result is healthy."*"A start or still-working update on requested work that brings no new artifact, finding, or decision is verdict routine."*"Set silent true for a task-level routine outcome only when it says the worker is still busy, nothing new has happened since the last outcome, and no action was taken."*"Any routine outcome reporting an action, state change, or new result stays rendered; captain outcomes are never silent."*"Keep an unsolicited routine outcome as verdict routine"*"Keep an unchanged fleet review silent"*) ;;
+    *"Report verdict captain for the finished result of work the user requested, even when that result is healthy."*"A start or still-working update on requested work that brings no new artifact, finding, or decision is verdict routine."*"Set silent true for a task-level routine outcome only when it says the worker is still busy, nothing new has happened since the last outcome, and no action was taken."*"Any routine outcome reporting an action, state change, or new result stays rendered; user outcomes are never silent."*"Keep an unsolicited routine outcome as verdict routine"*"Keep an unchanged active work review silent"*) ;;
     *) fail "branch prompt lost the requested-result, progress-routine, or routine-silence rules" ;;
   esac
   case "$out_a" in
@@ -66,7 +66,7 @@ test_branch_prompt_is_byte_stable_and_above_cache_floor() {
     *) fail "branch prompt lost the landed-work cleanup rule" ;;
   esac
   case "$out_a" in
-    *"A second mate's status log is a relay channel for its child work"*"retiring a second mate is MAIN's alone"*"Report a second mate's signal wake from the status lines that wake newly presents"*"A second mate's stale wake is a liveness event: report it even when it presents no new status lines."*) ;;
+    *"A project coordinator's status log is a relay channel for its child work"*"retiring a project coordinator is MAIN's alone"*"Report a project coordinator's signal wake from the status lines that wake newly presents"*"A project coordinator's stale wake is a liveness event: report it even when it presents no new status lines."*) ;;
     *) fail "branch prompt lost the second-mate relay, signal-span, or stale-liveness rule" ;;
   esac
   pass "branch prompt is byte-stable across homes, cwd, timezone, and time, above the cache floor"
@@ -79,17 +79,17 @@ test_branch_prompt_routes_completed_scouts_through_guarded_cleanup() {
   # The emitted system prompt is the contract, not the generator's source or
   # proof that a model will obey it. No live agent or endpoint is involved.
   case "$prompt" in
-    *"For a completed scout, follow the scout-completion and captain-hold-lifecycle policies included below in both postures."*"After their completion gate passes, retain the report, claim the task's lease, and run \`bin/fm-teardown.sh <task>\` with no flags."*"Report the findings and cleanup result in that event's outcome; a refusal is reported with its exact reason and never forced, worked around, or repaired by hand."*) ;;
+    *"For a completed investigation worker, follow the scout-completion and captain-hold-lifecycle policies included below in both postures."*"After their completion gate passes, retain the report, claim the task's lease, and run \`bin/fm-teardown.sh <task>\` with no flags."*"Report the findings and cleanup result in that event's outcome; a refusal is reported with its exact reason and never forced, worked around, or repaired by hand."*) ;;
     *) fail "branch prompt omits the completed-scout cleanup sequence or refusal reporting" ;;
   esac
   assert_contains "$prompt" \
-    "Reporting a scout as finished and idle is not a substitute for that cleanup." \
+    "Reporting an investigation worker as finished and idle is not a substitute for that cleanup." \
     "branch prompt permits stopping after an idle assessment of a completed scout"
   assert_contains "$prompt" \
-    "Missing or incomplete reports, an unreviewed decision inventory or unrecorded captain calls, WIP ships, deliberate external waits, and idle or exited agents are not proof of task completion." \
+    "Missing or incomplete reports, an unreviewed decision inventory or unrecorded user calls, unfinished implementation tasks, deliberate external waits, and idle or exited agents are not proof of task completion." \
     "branch prompt lost the incomplete-work and agent-lifetime boundaries"
   assert_contains "$prompt" \
-    "Ordinary teardown of a confirmed-landed ship or a completed scout, steering, lifecycle control, PR checks, and backlog status moves are yours, under the task's lease." \
+    "Ordinary cleanup of a confirmed-landed implementation task or a completed investigation worker, steering, lifecycle control, PR checks, and backlog status moves are yours, under the task's lease." \
     "branch role limits still exclude completed-scout cleanup"
 
   # This checks delivery of the per-task result contract, not model adherence.

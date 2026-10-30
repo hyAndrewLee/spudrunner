@@ -21,7 +21,7 @@ One term recurs throughout:
 
 ## Session-open tiers
 
-Firstmate ships two session-open tiers.
+Spudrunner ships two session-open tiers.
 The tier is a property of the harness surface, not of the home.
 
 | Tier | What the adapter does | Used by |
@@ -199,8 +199,8 @@ The nudge payload has three parts:
 - It carries the current `session-start` protocol kind.
 - It retains exactly ``Run `bin/fm-session-start.sh` now, exactly once, before executing any other instructions.`` as its body.
 
-The Ahoy skill owns the rule that this marked operational input is never a captain-authored session boundary, including its narrow legacy compatibility cases.
-The Ahoy skill's own step 0 helm check is the fallback that protects a nudge-tier harness whose first command is a skill.
+The Session recap skill owns the rule that this marked operational input is never a captain-authored session boundary, including its narrow legacy compatibility cases.
+The Session recap skill's own step 0 helm check is the fallback that protects a nudge-tier harness whose first command is a skill.
 
 ### Nudge wrapper lock check
 
@@ -259,8 +259,8 @@ Native stdout context injection is supported under `codex exec`.
 
 The Codex interactive TUI is uncovered and has no tracked transport.
 Codex 0.146.0 does not fire the tracked project `SessionStart` hook in its interactive TUI.
-Firstmate ships no global hook and has no tracked compaction or re-emit channel for it.
-Firstmate does not claim instruction-refresh delivery for this surface.
+Spudrunner ships no global hook and has no tracked compaction or re-emit channel for it.
+Spudrunner does not claim instruction-refresh delivery for this surface.
 
 ### Pi and pi-signed
 
@@ -282,7 +282,7 @@ Each mapped session generation starts one native prerequisite.
 #### Pi message delivery
 
 Pi is the only adapter that injects a message rather than hook stdout.
-So whatever it injects must carry operational provenance, or the Ahoy skill would have to guess whether it was captain-authored.
+So whatever it injects must carry operational provenance, or the Session recap skill would have to guess whether it was captain-authored.
 
 For `session_start`, the extension does the following:
 
@@ -336,7 +336,7 @@ So this path is intentionally fail-open and cannot use the run tier.
 
 Grok's guaranteed-loading alternative is a global token-guarded hook like the pattern used by `bin/fm-spawn.sh`.
 That alternative expands trust and writes outside this repository.
-So Firstmate never installs it or grants folder trust automatically.
+So Spudrunner never installs it or grants folder trust automatically.
 
 ### Cursor
 
@@ -374,9 +374,9 @@ A later in-process `clear` re-emits only when this lock owner completed a full s
 
 Antigravity CLI is a run-tier harness.
 `.agents/hooks.json` registers `SessionStart`, anchored to the project root with a 30s timeout, invoking `bin/fm-sessionstart-agy.sh`.
-The wrapper drains stdin for the payload's `source` and delegates to `bin/fm-sessionstart-run.sh`, which owns primary or persistent secondmate home scope, source routing, and the digest.
-In linked crewmate worktrees or foreign checkouts, `bin/fm-sessionstart-run.sh` stands down silently and the wrapper emits `{}`.
-In primary or secondmate homes, the wrapper emits the captured digest as `{injectSteps:[{systemMessage:{systemMessage:$digest}}]}` on stdout with exit 0.
+The wrapper drains stdin for the payload's `source` and delegates to `bin/fm-sessionstart-run.sh`, which owns primary or persistent project coordinator home scope, source routing, and the digest.
+In linked implementation worker worktrees or foreign checkouts, `bin/fm-sessionstart-run.sh` stands down silently and the wrapper emits `{}`.
+In primary or project coordinator homes, the wrapper emits the captured digest as `{injectSteps:[{systemMessage:{systemMessage:$digest}}]}` on stdout with exit 0.
 Native stdout context injection gates the ordered digest into model context before the first agent turn.
 
 ### Cursor compaction
@@ -388,7 +388,7 @@ Delivering one needs its own design and is deliberately deferred to a follow-up.
 A Cursor primary does not re-emit its digest after a compaction.
 
 Cursor's compaction surface is uncovered in the same sense as [Codex's interactive TUI](#codex-interactive-tui).
-Firstmate registers nothing for `preCompact`.
+Spudrunner registers nothing for `preCompact`.
 So a compacted Cursor session keeps whatever context survived rather than receiving a fresh digest.
 
 ## Regression coverage
@@ -443,9 +443,10 @@ It uses a TERM-resistant digest that exceeds its budget and proves that the dige
 - Leaves no completion proof.
 - Exits 0.
 
-### Native startup and Ahoy tests
+<a id="native-startup-and-ahoy-tests"></a>
+### Native startup and Session recap tests
 
-`tests/fm-pi-primary-live-e2e.test.sh` and `tests/fm-opencode-primary-live-e2e.test.sh` exercise native startup paths with first-message and later-message Ahoy regressions.
+`tests/fm-pi-primary-live-e2e.test.sh` and `tests/fm-opencode-primary-live-e2e.test.sh` exercise native startup paths with first-message and later-message Session recap regressions.
 
 ### Cursor tests
 
