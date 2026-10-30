@@ -2,6 +2,7 @@
 # Fresh-machine setup plans, validation, and repeatable configuration without
 # touching the operator's package managers, shell configuration, or credentials.
 set -eu
+# shellcheck source=tests/lib.sh
 . "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 TMP_ROOT=$(test_tmproot spudrunner-setup)
 HOME="$TMP_ROOT/home with spaces"
@@ -64,6 +65,7 @@ assert_absent "$HOME/.bashrc" 'setup edited the user shell rc'
 assert_absent "$HOME/.pi" 'setup copied global agent settings'
 assert_absent "$HOME/.claude" 'setup copied credentials or Claude settings'
 PATH_BEFORE=$PATH
+# shellcheck source=/dev/null
 . "$HOME/.config/spudrunner/env.sh"
 case "$PATH" in *"$HOME/.local/share/spudrunner/npm/bin"*) ;; *) fail 'environment omitted npm executables' ;; esac
 PATH=$PATH_BEFORE
