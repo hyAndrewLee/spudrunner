@@ -6,6 +6,8 @@ See [fork maintenance](docs/fork-maintenance.md) before configuring remotes or p
 
 ## Workflow
 
+Keep PRs atomic with relevant tests and delegate read-only CI observation; [PR delivery](.agents/skills/pr-delivery/SKILL.md) owns the 10-second observer/original-implementer fix loop.
+
 1. Clone this fork as origin, verify its push URL, and ensure only origin is selected as the publication base.
 2. Create a feature branch and make coherent, tested commits.
 3. Use the task's selected delivery owner and configured merge approval.
