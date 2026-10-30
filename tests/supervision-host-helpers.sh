@@ -20,20 +20,20 @@ FM_SUPERVISION_HOST_HELPERS_SOURCED=1
 # shellcheck source=tests/wake-helpers.sh
 . "$(dirname "${BASH_SOURCE[0]}")/wake-helpers.sh"
 
-HOST="$ROOT/bin/fm-supervision-host.sh"
+HOST="$ROOT/bin/supervision-host.sh"
 # shellcheck disable=SC2034 # read by the sourcing fm-supervision-host*.test.sh files
-REPORT="$ROOT/bin/fm-branch-report.sh"
+REPORT="$ROOT/bin/supervision-branch-report.sh"
 # shellcheck disable=SC2034 # read by the sourcing fm-supervision-host*.test.sh files
-DISPATCH="$ROOT/bin/fm-branch-dispatch.mjs"
-CONTRACT="$ROOT/bin/fm-afk-contract.sh"
+DISPATCH="$ROOT/bin/supervision-branch-dispatch.mjs"
+CONTRACT="$ROOT/bin/away-mode-contract.sh"
 # shellcheck disable=SC2034 # read by the sourcing fm-supervision-host*.test.sh files
-LEASE="$ROOT/bin/fm-lease.sh"
+LEASE="$ROOT/bin/supervision-lease.sh"
 
 command -v node >/dev/null 2>&1 || { printf 'skip: node absent\n'; exit 0; }
 command -v perl >/dev/null 2>&1 || { printf 'skip: perl absent\n'; exit 0; }
 
-TMP_ROOT=$(fm_test_tmproot fm-supervision-host)
-FAKEBIN=$(fm_fakebin "$TMP_ROOT/fakebin")
+TMP_ROOT=$(test_tmproot fm-supervision-host)
+FAKEBIN=$(fakebin "$TMP_ROOT/fakebin")
 ln -s /bin/bash "$FAKEBIN/claude"
 FAKE_CLAUDE="$FAKEBIN/claude"
 
@@ -97,9 +97,9 @@ if [ "$mode" = hang ]; then
   sleep "$FM_TEST_STUB_MAX_BLOCK_SECONDS"
   exit 0
 fi
-drain=$("$FM_REPO/bin/fm-wake-drain.sh" 2>&1)
+drain=$("$FM_REPO/bin/supervision-events-drain.sh" 2>&1)
 printf '%s\n' "$drain" > "$FM_HOME/engine-drain.$n"
-ack=$(printf '%s\n' "$drain" | sed -n 's/^WAKE_ACK_REQUIRED: after handling completes run bin\/fm-wake-drain.sh //p' | tail -1)
+ack=$(printf '%s\n' "$drain" | sed -n 's/^WAKE_ACK_REQUIRED: after handling completes run bin\/supervision-events-drain.sh //p' | tail -1)
 task=$(sed -n 's/^tasks=//p' "$STATE/.supervision-host-turn" | awk '{ print $1 }')
 [ -n "$task" ] || task=fleet
 verdict=routine
@@ -108,13 +108,13 @@ case "$mode" in
   fail) exit 3 ;;
   handle|captain|captain-close-before-return|held|captain-held|hold-lease|hold-marker|return|return-silent|return-fail|return-fail-silent|return-many|return-lookup-fail|return-first|noack|emptyresult|go-away)
     case "$mode" in held|captain-held) read -r _ < "$FM_HOME/stub-release" ;; esac
-    [ "$mode" != return-first ] || "$FM_REPO/bin/fm-afk-contract.sh" archive >> "$FM_HOME/engine-return.log" 2>&1
-    [ "$mode" != go-away ] || "$FM_REPO/bin/fm-afk-contract.sh" enter --words 'gone mid-turn' >> "$FM_HOME/engine-return.log" 2>&1
-    "$FM_REPO/bin/fm-lease.sh" claim "$task" >> "$FM_HOME/engine-lease.log" 2>&1
-    [ "$mode" != hold-lease ] || "$FM_REPO/bin/fm-lease.sh" check "$task" >> "$FM_HOME/engine-lease.log" 2>&1
+    [ "$mode" != return-first ] || "$FM_REPO/bin/away-mode-contract.sh" archive >> "$FM_HOME/engine-return.log" 2>&1
+    [ "$mode" != go-away ] || "$FM_REPO/bin/away-mode-contract.sh" enter --words 'gone mid-turn' >> "$FM_HOME/engine-return.log" 2>&1
+    "$FM_REPO/bin/supervision-lease.sh" claim "$task" >> "$FM_HOME/engine-lease.log" 2>&1
+    [ "$mode" != hold-lease ] || "$FM_REPO/bin/supervision-lease.sh" check "$task" >> "$FM_HOME/engine-lease.log" 2>&1
     if [ "$mode" = captain ] || [ "$mode" = captain-held ] \
       || [ "$mode" = captain-close-before-return ]; then
-      "$FM_REPO/bin/fm-branch-report.sh" --task "$task" --verdict captain \
+      "$FM_REPO/bin/supervision-branch-report.sh" --task "$task" --verdict captain \
         --summary "stub escalated: $(printf '%s\n' "$drain" | grep -v '^WAKE_' | tr '\n' ' ' | cut -c1-400)" \
         >> "$FM_HOME/engine-report.log" 2>&1
     else
@@ -124,7 +124,7 @@ case "$mode" in
           report_args=(--task "$task" --verdict routine --summary 'still working; nothing new has happened; no action was taken' --silent true)
           ;;
       esac
-      "$FM_REPO/bin/fm-branch-report.sh" "${report_args[@]}" >> "$FM_HOME/engine-report.log" 2>&1
+      "$FM_REPO/bin/supervision-branch-report.sh" "${report_args[@]}" >> "$FM_HOME/engine-report.log" 2>&1
     fi
     if [ "$mode" = return-many ]; then
       awk -v task="$task" 'BEGIN { for (seq = 2; seq <= 1001; seq++)
@@ -138,7 +138,7 @@ case "$mode" in
       printf 'not-json\n' >> "$STATE/branch-outcomes.jsonl"
     fi
     # shellcheck disable=SC2086 # the printed acknowledgement arguments
-    [ -z "$ack" ] || [ "$mode" = noack ] || "$FM_REPO/bin/fm-wake-drain.sh" $ack >> "$FM_HOME/engine-ack.log" 2>&1
+    [ -z "$ack" ] || [ "$mode" = noack ] || "$FM_REPO/bin/supervision-events-drain.sh" $ack >> "$FM_HOME/engine-ack.log" 2>&1
     case "$mode" in captain-close-before-return)
       watcher=$(cat "$STATE/.watch.lock/pid" 2>/dev/null || true)
       [ -z "$watcher" ] || kill -TERM "$watcher" 2>/dev/null || true
@@ -149,9 +149,9 @@ case "$mode" in
       done
       ;;
     esac
-    [ "$mode" = hold-lease ] || "$FM_REPO/bin/fm-lease.sh" release "$task" >> "$FM_HOME/engine-lease.log" 2>&1
+    [ "$mode" = hold-lease ] || "$FM_REPO/bin/supervision-lease.sh" release "$task" >> "$FM_HOME/engine-lease.log" 2>&1
     case "$mode" in
-      return|return-silent|return-fail|return-fail-silent|return-many|return-lookup-fail) "$FM_REPO/bin/fm-afk-contract.sh" archive >> "$FM_HOME/engine-return.log" 2>&1 ;;
+      return|return-silent|return-fail|return-fail-silent|return-many|return-lookup-fail) "$FM_REPO/bin/away-mode-contract.sh" archive >> "$FM_HOME/engine-return.log" 2>&1 ;;
     esac
     case "$mode" in return-fail|return-fail-silent) exit 3 ;; esac
     [ "$mode" != return-first ] || sleep "$FM_TEST_STUB_MAX_BLOCK_SECONDS"
@@ -159,10 +159,10 @@ case "$mode" in
     if [ "$mode" = hold-marker ]; then
       perl -e 'setpgrp(0, 0); exec @ARGV' bash -c '
         . "$1"
-        fm_lock_acquire_wait "$2" || exit 1
+        lock_acquire_wait "$2" || exit 1
         : > "$3"
         sleep 3
-        fm_lock_release "$2"' _ "$FM_REPO/bin/fm-wake-lib.sh" "$STATE/.watcher-down.lock" "$FM_HOME/marker-held" \
+        lock_release "$2"' _ "$FM_REPO/bin/supervision-events-lib.sh" "$STATE/.watcher-down.lock" "$FM_HOME/marker-held" \
         >/dev/null 2>&1 </dev/null &
       i=0
       while [ ! -e "$FM_HOME/marker-held" ] && [ "$i" -lt 100 ]; do
@@ -224,7 +224,7 @@ suite_cleanup() {
   while IFS= read -r home; do
     [ -n "$home" ] && stop_home_processes "$home"
   done < <(cat "$HOMES_FILE" 2>/dev/null)
-  fm_test_cleanup
+  test_cleanup
 }
 trap suite_cleanup EXIT
 
@@ -235,7 +235,7 @@ make_home() {  # <name> <attended|away|quiet> [config line]
   # wakes are the status appends each case makes.
   printf '#!/usr/bin/env bash\nexit 1\n' > "$home/fakebin/tmux"
   chmod +x "$home/fakebin/tmux"
-  make_fake_crew_state "$home/fakebin" >/dev/null
+  make_fake_worker_state "$home/fakebin" >/dev/null
   printf '%s\n' "${3:-}" > "$home/config/supervision-host"
   [ -n "${3:-}" ] || : > "$home/config/supervision-host"
   printf 'project=demo\nwindow=fm-demo\nharness=claude\n' > "$home/state/demo.meta"
@@ -272,14 +272,14 @@ ln -s "$ROOT/bin" "$MIRROR_ROOT/bin"
 start_host() {  # <home> [park options...]
   local home=$1
   shift
-  FM_HOME="$home" FM_CREW_STATE_BIN="$home/fakebin/fm-crew-state.sh" PATH="$home/fakebin:$PATH" \
+  FM_HOME="$home" FM_CREW_STATE_BIN="$home/fakebin/task-state.sh" PATH="$home/fakebin:$PATH" \
     MIRROR_ROOT="$MIRROR_ROOT" "$FAKE_CLAUDE" -c '
       printf "%s\n" "$$" > "$FM_HOME/state/.lock"
       printf "%s\n" "$$" >> "$FM_HOME/claude-pids"
       rm -f "$FM_HOME/host.rc"
       for seed in "$FM_HOME"/mirror-seed.*; do
         [ -f "$seed" ] || continue
-        FM_ROOT_OVERRIDE="$MIRROR_ROOT" "$MIRROR_ROOT/bin/fm-host-mirror.sh" hook claude < "$seed"
+        FM_ROOT_OVERRIDE="$MIRROR_ROOT" "$MIRROR_ROOT/bin/host-mirror.sh" hook claude < "$seed"
       done
       "$0" park "$@" > "$FM_HOME/host.out" 2>&1
       printf "%s\n" "$?" > "$FM_HOME/host.rc"
@@ -383,10 +383,10 @@ host_exited() { [ -s "$1/host.rc" ]; }
 marker_kind() {  # <home>
   FM_HOME="$1" bash -c '
     . "$1"
-    fm_recovery_marker_read "$2" || exit 1
+    recovery_marker_read "$2" || exit 1
     kind=${FM_RECOVERY_MARKER_TOKEN#*:}
     printf "%s\n" "${kind%%:*}"
-  ' _ "$ROOT/bin/fm-wake-lib.sh" "$1/state/.watcher-down"
+  ' _ "$ROOT/bin/supervision-events-lib.sh" "$1/state/.watcher-down"
 }
 engine_calls() { find "$1" -maxdepth 1 -name 'engine-call.*' 2>/dev/null | wc -l | tr -d ' '; }
 handled_count() { local n; n=$(grep -c '	handled	' "$1/state/.supervision-host.log" 2>/dev/null); printf '%s\n' "${n:-0}"; }
@@ -395,7 +395,7 @@ append_status() {  # <home> <text>
   printf '%s [at=%s]: %s\n' "${3:-working}" "$(date +%s)" "$2" >> "$1/state/demo.status"
 }
 
-# One store row exactly as bin/fm-branch-outcome.sh append writes it, at a
+# One store row exactly as bin/supervision-branch-outcome.sh append writes it, at a
 # chosen epoch, so a case can hold outcomes recorded days before the drain.
 outcome_row() {  # <seq> <epoch> <task> <verdict> <summary>
   printf '{"seq":%s,"epoch":%s,"task":"%s","wake":"signal: %s.status","verdict":"%s","summary":"%s","silent":false,"statusEndpoint":0,"statusIdent":"-"}\n' \
@@ -411,10 +411,10 @@ present_unacknowledged_outcome_twice() {  # <name>
   PRESENTED_HOME="$TMP_ROOT/$1"
   mkdir -p "$PRESENTED_HOME/state" "$PRESENTED_HOME/config"
   : > "$PRESENTED_HOME/config/supervision-host"
-  FM_HOME="$PRESENTED_HOME" "$ROOT/bin/fm-branch-outcome.sh" append --task epsilon --verdict captain \
+  FM_HOME="$PRESENTED_HOME" "$ROOT/bin/supervision-branch-outcome.sh" append --task epsilon --verdict captain \
     --summary 'epsilon PR is ready to merge' >/dev/null || fail "fixture: could not record the captain outcome"
   for _ in 1 2; do
-    drained=$(FM_HOME="$PRESENTED_HOME" "$FAKE_CLAUDE" -c '"$0" 2>&1' "$ROOT/bin/fm-wake-drain.sh")
+    drained=$(FM_HOME="$PRESENTED_HOME" "$FAKE_CLAUDE" -c '"$0" 2>&1' "$ROOT/bin/supervision-events-drain.sh")
     assert_contains "$drained" "epsilon: epsilon PR is ready to merge" "fixture: the drain must present the captain outcome"
   done
   [ "$(cat "$PRESENTED_HOME/state/.branch-outcomes-cursor")" = 1 ] || fail "fixture: the drain did not advance the read cursor"
@@ -447,7 +447,7 @@ turn_main_only_at_second_offer() {  # <home> [quiet|snapshot]
   cat > "$1/fakebin/node" <<SH
 #!/usr/bin/env bash
 case "\$*" in
-  *fm-branch-dispatch.mjs\ offer*)
+  *supervision-branch-dispatch.mjs\ offer*)
     count=\$(cat "\$FM_HOME/offer-count" 2>/dev/null || echo 0)
     count=\$((count + 1))
     printf '%s\n' "\$count" > "\$FM_HOME/offer-count"
@@ -465,7 +465,7 @@ SH
 # --- the Claude re-arm owner around the host ----------------------------------
 
 # A fixture home that is also a genuine primary checkout whose bin is this
-# repo's, so the real Claude Stop hook (bin/fm-claude-stop-autoarm.sh) runs the
+# repo's, so the real Claude Stop hook (bin/claude-stop-autoarm.sh) runs the
 # real host in it.
 make_primary_home() {  # <name>
   local home
@@ -482,13 +482,13 @@ make_primary_home() {  # <name>
 # status and stderr (the rewake banner Claude delivers on exit 2).
 start_hook_session() {  # <home>
   local home=$1
-  FM_HOME="$home" FM_ROOT_OVERRIDE="$home" FM_CREW_STATE_BIN="$home/fakebin/fm-crew-state.sh" \
+  FM_HOME="$home" FM_ROOT_OVERRIDE="$home" FM_CREW_STATE_BIN="$home/fakebin/task-state.sh" \
     PATH="$home/fakebin:$PATH" "$FAKE_CLAUDE" -c '
       printf "%s\n" "$$" > "$FM_HOME/state/.lock"
       printf "%s\n" "$$" >> "$FM_HOME/claude-pids"
       for seed in "$FM_HOME"/mirror-seed.*; do
         [ -f "$seed" ] || continue
-        "$FM_HOME/bin/fm-host-mirror.sh" hook claude < "$seed"
+        "$FM_HOME/bin/host-mirror.sh" hook claude < "$seed"
       done
       while [ ! -e "$FM_HOME/session.stop" ] && [ -d "$FM_HOME" ] \
         && kill -0 "$FM_TEST_SUITE_PID" 2>/dev/null; do
@@ -499,14 +499,14 @@ start_hook_session() {  # <home>
             # whole group down once the hook has exited.
             printf "{\"session_id\":\"sess-host-hook\",\"stop_hook_active\":false}\n" > "$FM_HOME/hook.stdin"
             set -m
-            "$FM_HOME/bin/fm-claude-stop-autoarm.sh" < "$FM_HOME/hook.stdin" > "$FM_HOME/hook.out" 2> "$FM_HOME/hook.err" &
+            "$FM_HOME/bin/claude-stop-autoarm.sh" < "$FM_HOME/hook.stdin" > "$FM_HOME/hook.out" 2> "$FM_HOME/hook.err" &
             printf "%s\n" "$!" > "$FM_HOME/hook.pgid"
             wait "$!"
             printf "%s\n" "$?" > "$FM_HOME/hook.rc"
             set +m
           else
             printf "{\"session_id\":\"sess-host-hook\",\"stop_hook_active\":false}\n" \
-              | "$FM_HOME/bin/fm-claude-stop-autoarm.sh" > "$FM_HOME/hook.out" 2> "$FM_HOME/hook.err"
+              | "$FM_HOME/bin/claude-stop-autoarm.sh" > "$FM_HOME/hook.out" 2> "$FM_HOME/hook.err"
             printf "%s\n" "$?" > "$FM_HOME/hook.rc"
           fi
         fi
@@ -524,8 +524,8 @@ hook_exited() { [ -s "$1/hook.rc" ]; }
 # (MAIN_ACK) when that turn's handling is done.
 main_drain() {  # <home>; prints the drain and sets MAIN_ACK
   local out
-  out=$(FM_HOME="$1" "$FAKE_CLAUDE" -c '"$0" 2>&1' "$ROOT/bin/fm-wake-drain.sh")
-  MAIN_ACK=$(printf '%s\n' "$out" | sed -n 's/^WAKE_ACK_REQUIRED: after handling completes run bin\/fm-wake-drain.sh //p' | tail -1)
+  out=$(FM_HOME="$1" "$FAKE_CLAUDE" -c '"$0" 2>&1' "$ROOT/bin/supervision-events-drain.sh")
+  MAIN_ACK=$(printf '%s\n' "$out" | sed -n 's/^WAKE_ACK_REQUIRED: after handling completes run bin\/supervision-events-drain.sh //p' | tail -1)
   printf '%s\n' "$out"
 }
 
@@ -674,12 +674,12 @@ SH
   append_status "$home" 'wake while the engine is handling'
   wait_until 250 bash -c '! kill -0 "$1" 2>/dev/null' _ "$successor" \
     || fail "restore failure: its watcher did not close during the engine turn"
-  FM_HOME="$home" bash -c '. "$1"; fm_recovery_marker_begin_handling "$2"' _ \
-    "$ROOT/bin/fm-wake-lib.sh" "$home/state/.watcher-down" \
+  FM_HOME="$home" bash -c '. "$1"; recovery_marker_begin_handling "$2"' _ \
+    "$ROOT/bin/supervision-events-lib.sh" "$home/state/.watcher-down" \
     || fail "fixture: could not model the queued successor wake entering handling"
   if [ "$status" = announced ]; then
-    FM_HOME="$home" bash -c '. "$1"; fm_recovery_marker_read "$2" && _fm_recovery_marker_write_locked "$2" handling "${FM_RECOVERY_MARKER_TOKEN##*:}" announced' _ \
-      "$ROOT/bin/fm-wake-lib.sh" "$home/state/.watcher-down" \
+    FM_HOME="$home" bash -c '. "$1"; recovery_marker_read "$2" && _recovery_marker_write_locked "$2" handling "${FM_RECOVERY_MARKER_TOKEN##*:}" announced' _ \
+      "$ROOT/bin/supervision-events-lib.sh" "$home/state/.watcher-down" \
       || fail "fixture: could not model the handling episode as announced"
   fi
   assert_re "^$status:handling:" "$home/state/.watcher-down" \
@@ -699,7 +699,7 @@ SH
 # command line, so a process whose parent is itself an arm is not counted.
 home_arms() {  # <home>
   ps -A -o pid= -o ppid= -o command= 2>/dev/null \
-    | awk -v arm="$1/bin/fm-watch-arm.sh" '
+    | awk -v arm="$1/bin/supervision-watch-arm.sh" '
         $3 ~ /(^|\/)bash$/ && $4 == arm { ppid[$1] = $2; order[++n] = $1 }
         END { for (i = 1; i <= n; i++) if (!(ppid[order[i]] in ppid)) print order[i], ppid[order[i]] }'
 }
@@ -734,7 +734,7 @@ leave_a_cycle_for_main_and_restart() {  # <home>
   [ -n "$LEFT_ARM" ] && [ "$LEFT_ARM" != 1 ] || fail "fixture: the successor watcher has no arm of its own"
   main_drain "$home" >/dev/null
   # shellcheck disable=SC2086 # the printed acknowledgement arguments
-  [ -z "$MAIN_ACK" ] || FM_HOME="$home" "$FAKE_CLAUDE" -c '"$0" "$@" >/dev/null 2>&1' "$ROOT/bin/fm-wake-drain.sh" $MAIN_ACK \
+  [ -z "$MAIN_ACK" ] || FM_HOME="$home" "$FAKE_CLAUDE" -c '"$0" "$@" >/dev/null 2>&1' "$ROOT/bin/supervision-events-drain.sh" $MAIN_ACK \
     || fail "takeover: main's acknowledgement failed: $MAIN_ACK"
   # The session restarts: the old one ends, and a new one holds the lock.
   first_session=$(tail -n 1 "$home/claude-pids")
@@ -777,8 +777,8 @@ quiet_pass_through_successor() {  # <home>
   [ -n "$gen" ] || return 0
   FM_HOME="$home" bash -c '
     . "$1"
-    fm_recovery_marker_ack "$2" "$3"
-  ' _ "$ROOT/bin/fm-wake-lib.sh" "$home/state/.watcher-down" "$gen" \
+    recovery_marker_ack "$2" "$3"
+  ' _ "$ROOT/bin/supervision-events-lib.sh" "$home/state/.watcher-down" "$gen" \
     || fail "fixture: could not acknowledge the successor downtime"
 }
 
@@ -803,9 +803,9 @@ compact_calls() { grep -l '^arg=/compact$' "$1"/engine-call.* 2>/dev/null | wc -
 # fake main session, with a transcript large enough to be due.
 seed_idle_engine_record() {  # <home> <ended-age-seconds>
   local home=$1 key model state="$1/state" ended compacted
-  key=$(FM_HOME="$home" bash -c '. "$1"; . "$2"; fm_supervision_host_main_key "$3"' _ "$ROOT/bin/fm-wake-lib.sh" "$ROOT/bin/fm-supervision-engine-lib.sh" "$state") \
+  key=$(FM_HOME="$home" bash -c '. "$1"; . "$2"; supervision_host_main_key "$3"' _ "$ROOT/bin/supervision-events-lib.sh" "$ROOT/bin/supervision-engine-lib.sh" "$state") \
     || fail "warm-compact: no main-session key"
-  model=$(bash -c '. "$1"; fm_supervision_host_config "$2" claude; printf "%s" "$FM_SUPERVISION_ENGINE_MODEL"' _ "$ROOT/bin/fm-supervision-engine-lib.sh" "$home/config")
+  model=$(bash -c '. "$1"; supervision_host_config "$2" claude; printf "%s" "$FM_SUPERVISION_ENGINE_MODEL"' _ "$ROOT/bin/supervision-engine-lib.sh" "$home/config")
   ended=$(sed -n 's/^ended=//p' "$state/.supervision-host-engine" 2>/dev/null | head -n 1)
   [ -n "$ended" ] || ended=$(( $(date +%s) - $2 ))
   compacted=$(sed -n 's/^compacted=//p' "$state/.supervision-host-engine" 2>/dev/null | head -n 1)
@@ -844,10 +844,10 @@ park_outcome() {  # <name> <park-seconds>; sets PARK_OUTCOME to boundary or hand
 # Main's side of a handed-back wake: drain, then run the printed acknowledgement.
 main_drain_and_ack() {  # <home>
   local out ack
-  out=$(FM_HOME="$1" "$ROOT/bin/fm-wake-drain.sh" 2>&1)
-  ack=$(printf '%s\n' "$out" | sed -n 's/^WAKE_ACK_REQUIRED: after handling completes run bin\/fm-wake-drain.sh //p' | tail -1)
+  out=$(FM_HOME="$1" "$ROOT/bin/supervision-events-drain.sh" 2>&1)
+  ack=$(printf '%s\n' "$out" | sed -n 's/^WAKE_ACK_REQUIRED: after handling completes run bin\/supervision-events-drain.sh //p' | tail -1)
   # shellcheck disable=SC2086 # the printed acknowledgement arguments
-  [ -z "$ack" ] || FM_HOME="$1" "$ROOT/bin/fm-wake-drain.sh" $ack >/dev/null 2>&1 || fail "main's acknowledgement failed: $ack"
+  [ -z "$ack" ] || FM_HOME="$1" "$ROOT/bin/supervision-events-drain.sh" $ack >/dev/null 2>&1 || fail "main's acknowledgement failed: $ack"
 }
 
 
@@ -858,7 +858,7 @@ main_drain_and_ack() {  # <home>
 # start_host.
 start_session() {  # <home>
   local home=$1
-  FM_HOME="$home" FM_CREW_STATE_BIN="$home/fakebin/fm-crew-state.sh" PATH="$home/fakebin:$PATH" \
+  FM_HOME="$home" FM_CREW_STATE_BIN="$home/fakebin/task-state.sh" PATH="$home/fakebin:$PATH" \
     MIRROR_ROOT="$MIRROR_ROOT" "$FAKE_CLAUDE" -c '
       printf "%s\n" "$$" > "$FM_HOME/state/.lock"
       printf "%s\n" "$$" >> "$FM_HOME/claude-pids"
@@ -868,7 +868,7 @@ start_session() {  # <home>
           rm -f "$FM_HOME/park.go"
           for seed in "$FM_HOME"/mirror-seed.*; do
             [ -f "$seed" ] || continue
-            FM_ROOT_OVERRIDE="$MIRROR_ROOT" "$MIRROR_ROOT/bin/fm-host-mirror.sh" hook claude < "$seed"
+            FM_ROOT_OVERRIDE="$MIRROR_ROOT" "$MIRROR_ROOT/bin/host-mirror.sh" hook claude < "$seed"
           done
           "$0" park > "$FM_HOME/host.out" 2>&1
           printf "%s\n" "$?" > "$FM_HOME/host.rc"
@@ -941,16 +941,16 @@ scan_idle() {  # <home>
   [ ! -e "$1/state/.inactive-outcome-reconcile.lock" ] && [ ! -L "$1/state/.inactive-outcome-reconcile.lock" ]
 }
 
-captain_rows() {  # <home>
+user_rows() {  # <home>
   local rows
   rows=$(grep -c '"verdict":"captain"' "$1/state/branch-outcomes.jsonl" 2>/dev/null)
   printf '%s\n' "${rows:-0}"
 }
 
-captain_rows_at_least() { [ "$(captain_rows "$1")" -ge "$2" ]; }
+user_rows_at_least() { [ "$(user_rows "$1")" -ge "$2" ]; }
 
 flood_signal() {  # <home>
-  captain_rows_at_least "$1" 2 || grep -qs '	inactive-outcome:' "$1/state/.wake-queue"
+  user_rows_at_least "$1" 2 || grep -qs '	inactive-outcome:' "$1/state/.wake-queue"
 }
 
 
@@ -994,12 +994,12 @@ assert_lost_handoff_keeps_watching() {  # <boundary|pass-through>
   assert_grep 'supervision-handoff' "$home/main-drain.out" "main must receive the hand-back again"
   [ -n "$MAIN_ACK" ] || fail "$mode: no main acknowledgement"
   [ -f "$home/state/.supervision-handoff-pending" ] || fail "$mode: presentation incorrectly confirmed ownership"
-  FM_HOME="$home" "$FAKE_CLAUDE" -c '"$0" "$@"' "$ROOT/bin/fm-wake-drain.sh" \
+  FM_HOME="$home" "$FAKE_CLAUDE" -c '"$0" "$@"' "$ROOT/bin/supervision-events-drain.sh" \
     --ack-through 0 --recovery-generation "${MAIN_ACK##* }" > "$home/stale-ack.out" 2>&1 \
     || fail "$mode: the stale acknowledgement could not be checked"
   [ -f "$home/state/.supervision-handoff-pending" ] || fail "$mode: a stale acknowledgement confirmed unseen work"
   # shellcheck disable=SC2086 # The drain's printed arguments.
-  FM_HOME="$home" "$FAKE_CLAUDE" -c '"$0" "$@"' "$ROOT/bin/fm-wake-drain.sh" $MAIN_ACK \
+  FM_HOME="$home" "$FAKE_CLAUDE" -c '"$0" "$@"' "$ROOT/bin/supervision-events-drain.sh" $MAIN_ACK \
     || fail "$mode: main could not acknowledge"
   wait_until 150 bash -c '[ ! -e "$1/state/.supervision-handoff-pending" ]' _ "$home" \
     || fail "$mode: acknowledgement did not confirm ownership"

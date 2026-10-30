@@ -2,7 +2,7 @@
 
 Some projects review code through a tool that uploads its own snapshot of the author's local commits, with no git push and no pull request.
 On such a project a worker never needs to push a branch, and must never push a task branch to the project's shared origin, where colleagues would see Spudrunner's delivery branches.
-This document is the design for that rail; `bin/fm-project-mode.sh`'s header owns the registry binding, `bin/fm-dod-lib.sh` owns what it changes for a worker, and [configuration.md](configuration.md#external-review-tool-configexternal-reviewmd-configexternal-review-url-configexternal-review-backup) owns the home configuration schema.
+This document is the design for that rail; `bin/project-mode.sh`'s header owns the registry binding, `bin/task-completion-lib.sh` owns what it changes for a worker, and [configuration.md](configuration.md#external-review-tool-configexternal-reviewmd-configexternal-review-url-configexternal-review-backup) owns the home configuration schema.
 
 ## Why it is a forge value
 
@@ -10,20 +10,20 @@ This document is the design for that rail; `bin/fm-project-mode.sh`'s header own
 Here the artifact is a review that an external tool creates from a snapshot of local commits, so the rail is a fourth value of the existing closed `forge=` binding rather than a separate axis.
 The composition test holds: `local-only` is refused because it publishes nothing, `direct-PR` validates and then uploads with the tool, and `no-mistakes` is refused for now because the pipeline's push, pr, and ci steps would push to the shared origin.
 The binding is never detected, because no protocol fact identifies a snapshot-uploading review tool; the user's registry entry `[direct-PR forge=external]` is the whole binding.
-The tool itself is private home configuration: `config/external-review.md` holds the worker instructions for validating, uploading, reading review state, and the stopping point, and `bin/fm-dod-lib.sh` renders it verbatim into the Definition of done.
+The tool itself is private home configuration: `config/external-review.md` holds the worker instructions for validating, uploading, reading review state, and the stopping point, and `bin/task-completion-lib.sh` renders it verbatim into the Definition of done.
 
 ## The no-push invariant
 
 The invariant is enforced in three layers, from strongest to weakest:
 
-1. A per-task `pre-push` guard, `bin/fm-git-push-guard.sh`, runs from the read-only hooks directory `bin/fm-spawn.sh` installs through `bin/fm-git-strip-ai-trailers.sh install --push-guard`, even when the home keeps AI trailers.
+1. A per-task `pre-push` guard, `bin/git-push-guard.sh`, runs from the read-only hooks directory `bin/task-launch.sh` installs through `bin/git-strip-ai-trailers.sh install --push-guard`, even when the home keeps AI trailers.
    It refuses any push to `origin` or to a URL matching one of origin's URLs, any push of the task branch or a task-prefixed ref to any remote, and any ref outside the backup prefix on the backup remote, then chains to the repository's own `pre-push` hook.
-2. `bin/fm-spawn.sh` refuses `--yolo on`, a missing review tool adapter, and an unusable backup remote before any endpoint exists, and records `forge=external`, `backup_remote=`, and `backup_prefix=` in the task metadata.
+2. `bin/task-launch.sh` refuses `--yolo on`, a missing review tool adapter, and an unusable backup remote before any endpoint exists, and records `forge=external`, `backup_remote=`, and `backup_prefix=` in the task metadata.
 3. The generated brief's first rule forbids every such push, and its Definition of done names the review tool as the only publishing path.
 
 The ready report is `done: review <url> uploaded for review`.
-Spudrunner cannot observe, approve, or merge the review, so `bin/fm-review-check.sh` records `review=` and `review_head=` without arming a merge watch, and the review always escalates to the user whatever the yolo setting.
-An investigation worker launches without the guard and the task record, so `bin/fm-promote.sh` refuses to promote one onto a `forge=external` project; such work starts as a ship.
+Spudrunner cannot observe, approve, or merge the review, so `bin/review-check.sh` records `review=` and `review_head=` without arming a merge watch, and the review always escalates to the user whatever the yolo setting.
+An investigation worker launches without the guard and the task record, so `bin/investigation-implement.sh` refuses to promote one onto a `forge=external` project; such work starts as a ship.
 
 ## The personal backup remote
 

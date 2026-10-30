@@ -3,7 +3,7 @@
 Spudrunner can propagate a W3C [`traceparent`](https://www.w3.org/TR/trace-context/) to every agent it spawns so an external observer can identify each task as exactly one trace and correlate everything that task runs under that one identity.
 The trace boundary is the task: a persistent Project coordinator is routing infrastructure with its own agent identity, never a shared trace root for the unrelated tasks routed through it.
 The capability is default-off, source-owned, vendor-neutral, and deliberately narrow.
-This document is the rationale and current-behavior guide; `docs/configuration.md` owns the configuration schema, `bin/fm-trace-context-lib.sh`'s header owns the exact mechanics, and [`verification/trace-context.md`](verification/trace-context.md) records the repeatable test evidence.
+This document is the rationale and current-behavior guide; `docs/configuration.md` owns the configuration schema, `bin/trace-context-lib.sh`'s header owns the exact mechanics, and [`verification/trace-context.md`](verification/trace-context.md) records the repeatable test evidence.
 
 ## Why this is a source change at all
 
@@ -25,13 +25,13 @@ This feature parents no SDK span by itself.
 Because the injected carrier and the recorded carrier are the same string, an observer that reads the metadata reconstructs exactly the identity the child received.
 The delivery sits at the unconditional pre-launch environment site, so it covers ship and investigation worker spawns across `claude`, `codex`, `opencode`, `pi`, `pi-signed`, `grok`, `kimi`, `cursor`, `gemini`, `muse`, `rovo`, `agy`, `devin`, `commandcode`, `polytoken`, and `cortex`, plus Project coordinator spawns across that same set except the deliberately crewmate-only `gemini`, `muse`, `rovo`, `devin`, `commandcode`, `polytoken`, and `cortex` adapters.
 This is the same coverage `GOTMPDIR` already has and requires no trace-specific `launch_template()` behavior.
-Ship and investigation worker spawns reach that site on every pane-typed spawn backend (`tmux`, `herdr`, `zellij`, `orca`, `cmux`, `paseo`, `rex`); a Project coordinator reaches it on every pane backend that accepts a Project coordinator spawn (`tmux`, `herdr`, `zellij`, `rex`), because `bin/fm-spawn.sh` rejects a Project coordinator on `orca`, `cmux`, and `paseo`.
+Ship and investigation worker spawns reach that site on every pane-typed spawn backend (`tmux`, `herdr`, `zellij`, `orca`, `cmux`, `paseo`, `rex`); a Project coordinator reaches it on every pane backend that accepts a Project coordinator spawn (`tmux`, `herdr`, `zellij`, `rex`), because `bin/task-launch.sh` rejects a Project coordinator on `orca`, `cmux`, and `paseo`.
 `t3code` has no pane, so its `claude` and `codex` ship, investigation worker, and Project coordinator spawns receive the same `TRACEPARENT` value under the same conditions through the backend's [per-directory harness environment](t3code-backend.md#per-directory-harness-environment) instead.
 
 <a id="remote-secondmate-routes"></a>
 ### Remote Project coordinator routes
 
-A Project coordinator on a [remote route](remote-secondmates.md) never reaches that export site in the parent's own process: the parent hands the launch to the configured host, which runs its own `bin/fm-spawn.sh` there.
+A Project coordinator on a [remote route](remote-project-coordinators.md) never reaches that export site in the parent's own process: the parent hands the launch to the configured host, which runs its own `bin/task-launch.sh` there.
 The identity is still the parent's, because the parent home holds the task metadata an observer reads.
 The parent therefore resolves the carrier against that task's own metadata under its own frozen decision - reused verbatim on relaunch, freshly rooted otherwise, never adopting the parent process's ambient `TRACEPARENT` - and passes it to the remote host, which exports it at the same unconditional pre-launch site and returns the carrier its endpoint actually holds.
 The parent records that returned value, so an already-alive remote endpoint that was not relaunched reports the identity its agent really received rather than one the parent merely intended.
@@ -56,7 +56,7 @@ An actual disabled relaunch regenerates the task meta without `traceparent=`, so
 
 ### Enablement is home-session-scoped
 
-Each locked `bin/fm-session-start.sh` run resolves that home's `config/trace-context` plus `FM_TRACE_CONTEXT` exactly once into session-scoped effective state.
+Each locked `bin/session-start.sh` run resolves that home's `config/trace-context` plus `FM_TRACE_CONTEXT` exactly once into session-scoped effective state.
 The decision is atomically published through a same-directory temporary file and bound to the current session lock, so a failed publication cannot reactivate a stale `on` record from an earlier session.
 Every spawn from that home reads only the frozen `on` or `off` decision.
 Later config or environment edits are ignored until that home starts a new session.

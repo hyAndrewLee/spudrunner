@@ -1,0 +1,1 @@
+../../../.claude/mods/calm-interface/lib/calm-progress-sprite.ts

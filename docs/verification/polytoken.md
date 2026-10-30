@@ -16,11 +16,11 @@ polytoken new --help
 polytoken print models
 polytoken models --format json
 polytoken print openapi
-bash bin/fm-test-run.sh tests/fm-polytoken-harness.test.sh
-FM_POLYTOKEN_SIGNALS_LIVE=1 bash bin/fm-test-run.sh tests/fm-polytoken-signals-live-e2e.test.sh
+bash bin/test-run.sh tests/polytoken-harness.test.sh
+FM_POLYTOKEN_SIGNALS_LIVE=1 bash bin/test-run.sh tests/polytoken-signals-live-e2e.test.sh
 ```
 
-The credentialed guard uses a marked disposable `FM_HOME` and the private tmux socket directory supplied by `bin/fm-lab-home.sh`.
+The credentialed guard uses a marked disposable `FM_HOME` and the private tmux socket directory supplied by `bin/lab-home.sh`.
 It stages a copy of provider/model configuration without operator MCP services, and copies the operator's existing license acceptance into an isolated HOME.
 No license acceptance is created or extended, and no trust or license dialog is answered.
 All Polytoken session, configuration, cache, and log writes stay in that lab.
@@ -51,9 +51,9 @@ The portable regression verifies nearest-level mapping and refusal of an unavail
 
 ## Lifecycle evidence
 
-The same live task wrote `80235` from a shell calculation, and a real tool subprocess running `bin/fm-harness.sh` wrote `polytoken`.
+The same live task wrote `80235` from a shell calculation, and a real tool subprocess running `bin/agent-runtime.sh` wrote `polytoken`.
 The semantic record became `idle polytoken-hook stop`, and the turn-ended marker existed.
-A lab watcher emitted both the task status and turn-ended marker as a signal; `bin/fm-crew-state.sh` reported `state: done` from the task's completion status.
+A lab watcher emitted both the task status and turn-ended marker as a signal; `bin/task-state.sh` reported `state: done` from the task's completion status.
 A durable `fm-send` message was read and moved into `handled/` before interrupt verification.
 `fm-control interrupt` reported `verified=agent-alive cancel=cancelled`, and the semantic record became `idle fm-interrupt interrupt`.
 Relaunch bound a different session and completed the requested calculation with `493`.

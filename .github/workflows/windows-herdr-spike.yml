@@ -263,9 +263,9 @@ jobs:
                   export FM_ROOT_OVERRIDE="$GITHUB_WORKSPACE"
                   export FM_HOME="$RUNNER_TEMP/fm-windows-herdr-home"
                   export FM_BACKEND_EVENTS_CAPABILITY_CONFIRMED=1
-                  . "$GITHUB_WORKSPACE/bin/fm-backend.sh"
-                  fm_backend_source herdr
-                  fm_backend_herdr_wait_transition "$session" 3 "$event_state" "$session:$pane_id"
+                  . "$GITHUB_WORKSPACE/bin/runtime-backend.sh"
+                  runtime_backend_source herdr
+                  runtime_backend_herdr_wait_transition "$session" 3 "$event_state" "$session:$pane_id"
                 ) >>"$details" 2>&1; then
                   event_rc=0
                 else

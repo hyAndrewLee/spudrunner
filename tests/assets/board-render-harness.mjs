@@ -1,4 +1,4 @@
-// Render a built bearings board's shipped inline script under a minimal DOM
+// Render a built work_summary board's shipped inline script under a minimal DOM
 // shim and print what the renderer actually produced, so board behavior is
 // asserted through the real template rather than by reading its source.
 //
@@ -56,9 +56,9 @@ class Node {
 const byId = new Map();
 const dataNode = new Node("script");
 dataNode.textContent = html
-  .split('<script id="bearings-data" type="application/json">')[1]
+  .split('<script id="work_summary-data" type="application/json">')[1]
   .split("</script>")[0];
-byId.set("bearings-data", dataNode);
+byId.set("work_summary-data", dataNode);
 
 globalThis.document = {
   createElement: (tag) => new Node(tag),

@@ -5,7 +5,7 @@ Add `references/common/dispatch.md` for configured profile precedence.
 
 ## Axes and precedence
 
-`../../../bin/fm-spawn.sh` accepts concrete `--harness`, `--model`, and `--effort` values selected at intake; scripts never parse natural-language dispatch rules.
+`../../../bin/task-launch.sh` accepts concrete `--harness`, `--model`, and `--effort` values selected at intake; scripts never parse natural-language dispatch rules.
 The tool reference records verified flags, accepted values, omission behavior, and discovery for pane-backed launches.
 For T3 Code, resolve both axes through the [provider catalog contract](../../../../../docs/t3code-backend.md#provider-instances-and-models) before selecting a profile.
 
@@ -18,7 +18,7 @@ Choose intermediate levels as complexity, uncertainty, blast radius, or open-end
 If an adapter lacks `xhigh`, cap at its highest supported non-`max` level rather than silently omitting the intent.
 Never select `max` through this fallback; only an explicit per-task or standing user preference permits it.
 
-The explicit native `ultra` value follows the model-scoped refusal contract in `../../../bin/fm-harness.sh validate-native-effort`; it is never silently omitted or mapped to a Pi level.
+The explicit native `ultra` value follows the model-scoped refusal contract in `../../../bin/agent-runtime.sh validate-native-effort`; it is never silently omitted or mapped to a Pi level.
 [`configuration.md`](../../../../../docs/configuration.md#crew-dispatch-profiles-configcrew-dispatchjson) owns backend-specific refusal or omission behavior for other effort values, including harnesses with no verified interactive effort flag.
 Polytoken uses its [model-scoped selectable-reference contract](../harness/polytoken.md) instead of record-and-omit.
 

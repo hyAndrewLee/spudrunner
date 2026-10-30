@@ -21,7 +21,7 @@ Select tern with local `config/backend` containing `tern`, `FM_BACKEND=tern` for
 It is never runtime auto-detected; see "Selection is explicit" below.
 
 A spawn stops with an actionable setup message when `tern` or `jq` is unavailable, and container creation version-gates at 0.9.4.
-Routine supervision uses `bin/fm-peek.sh <id>` and `FM_HOME=<home> bin/fm-send.sh <id> '<text>'` without focusing the task block.
+Routine supervision uses `bin/task-inspect.sh <id>` and `FM_HOME=<home> bin/task-steer.sh <id> '<text>'` without focusing the task block.
 
 Verify setup by spawning a small task and confirming metadata contains `backend=tern`, `tern_session_id=`, `tern_tab_id=`, `tern_block_id=`, and `window=<session-id>:<block-id>`.
 
@@ -29,7 +29,7 @@ Verify setup by spawning a small task and confirming metadata contains `backend=
 
 | Variable | Role |
 | --- | --- |
-| `FM_TERN_SESSION` | Optional session **name** override for tests/smoke only; default is `fm-<hometag>` from `bin/fm-backend-hometag-lib.sh`. Do not use it alone for destructive cleanup. |
+| `FM_TERN_SESSION` | Optional session **name** override for tests/smoke only; default is `fm-<hometag>` from `bin/runtime-backend-hometag-lib.sh`. Do not use it alone for destructive cleanup. |
 | `FM_BACKEND_TERN_CTL_TIMEOUT` | Seconds bounding each `tern ctl` call (default `5`). |
 | `FM_BACKEND_TERN_SUBMIT_POLLS` | Native-state samples per Enter confirmation budget (default `6`). |
 | `FM_BACKEND_TERN_SUBMIT_MIN_SLEEP` | Minimum per-Enter confirmation budget before polling native state after an idle baseline (default `0.6`). |
@@ -39,7 +39,7 @@ Verify setup by spawning a small task and confirming metadata contains `backend=
 tern is explicit-only, like zellij, orca, and Paseo: `config/backend`, `FM_BACKEND=tern`, or `--backend tern` select it, and nothing else does.
 Tern stamps `TERM_PROGRAM=tern` and `TERN_PANE=<block-id>` (plus `TERN_PANE_SOCKET` and `TERN_WINDOW_KEY`) into every block its session daemon spawns.
 A tmux server or Herdr client started inside a block inherits all of them, so their presence proves only that some ancestor was Tern, never that the user chose it.
-Reading them as a selection would make tern an ambient default, which "Authority is explicit and never inferred" rules out; `fm_backend_detect` therefore ignores them.
+Reading them as a selection would make tern an ambient default, which "Authority is explicit and never inferred" rules out; `runtime_backend_detect` therefore ignores them.
 
 The markers are still useful once tern has been selected explicitly.
 A cleared-environment launch keeps the `TERN_*` identity and, like every backend's launch floor, whatever `TERM_PROGRAM` the pane has, which is `tern` inside a Tern block (see [`configuration.md`](configuration.md#variables-retained-and-where-values-come-from)), and `tests/tern-test-safety.sh` refuses to close a session that hosts the caller's own `$TERN_PANE` block.
@@ -91,7 +91,7 @@ Input splits are explicit:
 
 Key names, `send text` with flag-looking text, and `tern run` semantics were taken from Tern's help and the task brief and are **not** live-verified on this host.
 
-An ordinary metadata-routed `fm-send.sh` text steer becomes a durable steering-inbox record, and only its best-effort constant doorbell passes through tern's submit machinery.
+An ordinary metadata-routed `task-steer.sh` text steer becomes a durable steering-inbox record, and only its best-effort constant doorbell passes through tern's submit machinery.
 On the typed plane, text is typed once; Enter is separate; retries press Enter only and never retype.
 Submit confirmation prefers a native idle baseline followed by a landed-turn signal of `working` or `waiting_input` when `tern ctl` agent state is available; when native state is `unknown`, submit falls through to the shared composer retry core exactly like cmux.
 `waiting_input` is a landed-turn signal for submit confirmation but is not a queued-Enter busy signal.
@@ -126,7 +126,7 @@ Each agent entry's `pane` equals the block id.
 | missing entry / `ctl` failure / unreadable | `unknown` |
 
 Herdr's own `busy_state` folds blocked into idle; tern keeps the extra `blocked` distinction.
-Shared consumers of the dispatcher `busy_state` test the exact word `busy` (`fm-busy-lib.sh` native branch, supervise-daemon `pane_is_busy`, task-inbox ring), so `blocked` is classified not-busy exactly like herdr's idle.
+Shared consumers of the dispatcher `busy_state` test the exact word `busy` (`agent-activity-lib.sh` native branch, supervise-daemon `pane_is_busy`, task-inbox ring), so `blocked` is classified not-busy exactly like herdr's idle.
 This adapter does not change those consumers.
 A `busy` verdict is demoted to `unknown` when `tern process` shows an interactive shell in the foreground.
 
@@ -164,7 +164,7 @@ The only sanctioned teardown is `tern_safe_kill_session <session_id> <want_name>
 ## Active limits
 
 - tern is experimental and has no dedicated real-backend CI lane.
-- Project coordinator spawns are unsupported (`fm-spawn.sh` refuses `--secondmate` on `backend=tern`).
+- Project coordinator spawns are unsupported (`task-launch.sh` refuses `--secondmate` on `backend=tern`).
 - The away-mode `/afk` supervisor backend does not support tern; only `tmux`, `herdr`, and `rex` supervisor panes are accepted.
 - Native agent state requires a Tern window control endpoint; remote-host or headless daemon access that can `ls`/`capture` may still lack `ctl`.
 - Multiplexers swallow TSP: a Tern block hosting tmux or Herdr never shows native Tern agent state.
@@ -177,8 +177,8 @@ The only sanctioned teardown is `tern_safe_kill_session <session_id> <want_name>
 ## Regression entry points
 
 ```sh
-tests/fm-backend-tern.test.sh
-tests/fm-backend-tern-smoke.test.sh
+tests/runtime-backend-tern.test.sh
+tests/runtime-backend-tern-smoke.test.sh
 ```
 
 [`verification/runtime-backends.md`](verification/runtime-backends.md#tern) records the active source, fake-CLI, and live evidence boundaries, including what this host could and could not prove.

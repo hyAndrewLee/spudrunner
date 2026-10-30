@@ -29,8 +29,8 @@ cmux_refuse_if_unsafe() {  # <workspace_id> <want_label>
     fm-test-*) : ;;
     *) echo "cmux safety guard: refusing - label '$want_label' does not carry the fm-test- prefix" >&2; return 1 ;;
   esac
-  want_title=$(fm_backend_cmux_scoped_title "$want_label")
-  title=$(fm_backend_cmux_cli workspace list --json --id-format uuids 2>/dev/null | jq -r --arg id "$wsid" '.workspaces[]? | select(.id == $id) | .title' 2>/dev/null)
+  want_title=$(runtime_backend_cmux_scoped_title "$want_label")
+  title=$(runtime_backend_cmux_cli workspace list --json --id-format uuids 2>/dev/null | jq -r --arg id "$wsid" '.workspaces[]? | select(.id == $id) | .title' 2>/dev/null)
   if [ "$title" != "$want_title" ]; then
     echo "cmux safety guard: refusing - workspace $wsid title '${title:-<not found>}' does not match expected '$want_title'" >&2
     return 1
@@ -47,5 +47,5 @@ cmux_refuse_if_unsafe() {  # <workspace_id> <want_label>
 # rather than risk the wrong target.
 cmux_safe_close_workspace() {  # <workspace_id> <want_label>
   cmux_refuse_if_unsafe "$1" "$2" || return 1
-  fm_backend_cmux_cli close-workspace --workspace "$1" >/dev/null 2>&1 || true
+  runtime_backend_cmux_cli close-workspace --workspace "$1" >/dev/null 2>&1 || true
 }

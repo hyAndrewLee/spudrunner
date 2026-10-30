@@ -1,10 +1,10 @@
 # Local Claude usage threshold warner
 
-`bin/fm-usage-warner.sh` is an opt-in, macOS-only threshold warner for Claude usage windows.
+`bin/usage-warner.sh` is an opt-in, macOS-only threshold warner for Claude usage windows.
 It is a warner, not a viewer: it never renders a live usage report, and it speaks only once when a configured window reaches a configured percentage of itself consumed.
 
 The read itself is not new.
-[`quota-axi`](configuration.md) is the one Claude-quota reader this active work depends on, already exposing `--json`, `--full`, `--tui`, and `--no-credential-refresh`; this script runs that exact read (through `bin/fm-quota-axi-lib.sh`'s own provider-row join) and never re-implements it.
+[`quota-axi`](configuration.md) is the one Claude-quota reader this active work depends on, already exposing `--json`, `--full`, `--tui`, and `--no-credential-refresh`; this script runs that exact read (through `bin/quota-axi-lib.sh`'s own provider-row join) and never re-implements it.
 Every call passes `--no-credential-refresh`, so the read is strictly read-only; the script never passes `--allow-keychain-prompt` or any other credential-refreshing flag.
 
 ## Opt-in is load-bearing
@@ -23,19 +23,19 @@ See [`docs/examples/usage-warner`](examples/usage-warner) for a starting point t
 
 ## Behaviour: one read, two callers, edge-triggered
 
-`check` is the one read with two callers - a human or another script running `fm-usage-warner.sh check` directly (on demand), and the watcher polling the registered shim on its normal `FM_CHECK_INTERVAL` cadence once armed (periodic).
+`check` is the one read with two callers - a human or another script running `usage-warner.sh check` directly (on demand), and the watcher polling the registered shim on its normal `FM_CHECK_INTERVAL` cadence once armed (periodic).
 Both hit the identical function, so this is one program with two callers, not two programs, and there is no daemon and no schedule of its own.
 When the two overlap, they are serialized on `state/.usage-warner.lock`, and a check that finds that lock held exits quietly, so one crossing still warns once.
 
 A window that crosses a configured threshold notifies once, stays quiet while it remains at or above that threshold, and re-arms the moment it next reads back below threshold (an account-level window's own reset does exactly this).
 Each directive is tracked on its own, so tiered thresholds on one window such as `five_hour:80` and `five_hour:95` each warn on their own crossing.
 Multiple windows crossing in the same read are batched into one notification rather than one per window.
-A standing read failure (`quota-axi` missing, `jq` missing, a malformed response, or a read that does not finish inside its bound) is reported once until it changes, the same contract `bin/fm-mail-check.sh` and `bin/fm-tool-update-check.sh` already use for their own standing checks.
+A standing read failure (`quota-axi` missing, `jq` missing, a malformed response, or a read that does not finish inside its bound) is reported once until it changes, the same contract `bin/mail-monitor.sh` and `bin/tool-update-check.sh` already use for their own standing checks.
 The read bound is 10 seconds, or `FM_CHECK_TIMEOUT` minus 3 seconds when that is lower, so the watcher never kills the check first; when that leaves under 1 second the read is skipped and reported as not measured.
 
 ## Notification path
 
-Warnings reach macOS through Notification Center (`osascript display notification`), the same OS-level path Spudrunner's own away-mode wedge alarm resolves to on this platform ([`bin/fm-supervise-daemon.sh`](../bin/fm-supervise-daemon.sh)'s `wedge_alarm_via_osascript`), so the home keeps one alert mechanism rather than two.
+Warnings reach macOS through Notification Center (`osascript display notification`), the same OS-level path Spudrunner's own away-mode wedge alarm resolves to on this platform ([`bin/away-supervision-daemon.sh`](../bin/away-supervision-daemon.sh)'s `wedge_alarm_via_osascript`), so the home keeps one alert mechanism rather than two.
 This script does not source or call into that daemon: production only execs the daemon, and the daemon's own library-mode guard defaults its notifier seam to "discard" whenever it is sourced instead, specifically so a second sourcing consumer can never fire a real notification through it.
 The away-mode config schema and max-defer rate limiting are also specific to buffered escalations, not to this feature's own edge-triggered de-dupe.
 So this script posts the identical OS call under its own title instead, which is the reusable part of "the same alerting path" without reaching into daemon-internal, away-mode-specific state.
@@ -43,7 +43,7 @@ Notification Center is macOS-only, so `arm` refuses on any other platform.
 
 ## Relationship to the quota process-event source
 
-[`bin/fm-procevent-quota.sh`](../bin/fm-procevent-quota.sh) reads the same `quota-axi` snapshot, so the two are worth telling apart.
+[`bin/process-events-quota.sh`](../bin/process-events-quota.sh) reads the same `quota-axi` snapshot, so the two are worth telling apart.
 That source arms a blocking poll that fires at most once, wakes Spudrunner with a durable `check:` event, compares a tracked provider's aggregate `effectivePercentRemaining`, and must be re-armed by hand for any further monitoring.
 This warner is the standing half of that problem: it compares each named window separately and re-arms itself every time a window reads back below its threshold.
 A crossing raises a macOS notification and, once armed, also reaches Spudrunner as one `check:` wake per crossing, because the armed shim's report line is what the watcher turns into that wake.
@@ -52,7 +52,7 @@ Neither replaces the other, and arming both is reasonable: this one warns per wi
 
 ## Arming
 
-Arm once per home with `bin/fm-usage-warner.sh arm` and remove it with `bin/fm-usage-warner.sh disarm`; what each writes or removes, and when `arm` refuses, is owned by [`configuration.md`](configuration.md#local-claude-usage-warner-configusage-warner).
+Arm once per home with `bin/usage-warner.sh arm` and remove it with `bin/usage-warner.sh disarm`; what each writes or removes, and when `arm` refuses, is owned by [`configuration.md`](configuration.md#local-claude-usage-warner-configusage-warner).
 
 ## What this never does
 

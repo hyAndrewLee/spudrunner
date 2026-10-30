@@ -30,10 +30,10 @@ Each family ships as a pair plus its tests.
 
 The watcher's wedge timer is the one caller, and only in a home that lists guards in `config/wedge-evidence-guards`.
 There a live pane about to wedge-escalate asks each listed guard, and a `CRITICAL` answer defers that escalation for a bounded run of windows instead of suppressing it.
-[`configuration.md`](configuration.md#wedge-evidence-guards-configwedge-evidence-guards) owns that opt-in and its example operator family, and `bin/fm-watch.sh`'s `wedge_guard_evidence` owns the exact invocation and fail-open boundaries.
+[`configuration.md`](configuration.md#wedge-evidence-guards-configwedge-evidence-guards) owns that opt-in and its example operator family, and `bin/supervision-watch.sh`'s `wedge_guard_evidence` owns the exact invocation and fail-open boundaries.
 
 ## Adding a family
 
 Copy the smallest existing pair, keep the wrapper under ten lines, and keep every threshold in the engine with a comment naming the resource it bounds.
-Add the family's behavioral test alongside it and run it through `bin/fm-test-run.sh`.
+Add the family's behavioral test alongside it and run it through `bin/test-run.sh`.
 A family that needs a host-specific source (a active work registry, a pool manager, a quota service, or a product's hook store) belongs to the operator's own layer, not this framework.

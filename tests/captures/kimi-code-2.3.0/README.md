@@ -1,6 +1,6 @@
 # Kimi Code CLI 2.3.0 folder-prompt captures
 
-These files are the visible pane of the real Kimi Code CLI 2.3.0 folder prompt, one per wording the `test_kimi_230_*` cases in `../../fm-kimi-harness.test.sh` replay through the fake pane.
+These files are the visible pane of the real Kimi Code CLI 2.3.0 folder prompt, one per wording the `test_kimi_230_*` cases in `../../kimi-harness.test.sh` replay through the fake pane.
 They were recorded on 2026-10-23 on Linux with tmux 3.6, from `kimi --auto` launched bare with a fresh, isolated `HOME` and `KIMI_CODE_HOME` and the updater off (`KIMI_CODE_NO_AUTO_UPDATE=1`), with no login.
 Kimi Code CLI 2.3.1, released the same day, rendered every capture byte for byte the same apart from the directory line.
 
@@ -23,5 +23,5 @@ Pressing Enter on the `root-mcp-json.pane` prompt in the same lab started that c
 
 ## Replay limits
 
-The replays prove how `bin/fm-spawn.sh` answers these exact panes.
-Whether the installed Kimi still renders them is the live guard's question: `tests/fm-kimi-trust-prompt-live-e2e.test.sh`.
+The replays prove how `bin/task-launch.sh` answers these exact panes.
+Whether the installed Kimi still renders them is the live guard's question: `tests/kimi-trust-prompt-live-e2e.test.sh`.

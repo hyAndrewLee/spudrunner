@@ -131,7 +131,7 @@ If Pi removes one of those seams, Calm logs a diagnostic naming the unavailable 
 Keeping hidden queued inputs across Escape also needs members of Pi's live session, which exist only once a session runs.
 Calm checks them for each session on its first queued-listing draw, before hiding anything.
 A session missing any of them keeps its queued rows and Escape exactly as stock, and shows one warning.
-In that case `tests/fm-calm-pi-queue-retention-live-e2e.test.sh` fails naming the installed Pi version.
+In that case `tests/calm-pi-queue-retention-live-e2e.test.sh` fails naming the installed Pi version.
 
 ### Built-in tool override collisions
 
@@ -157,29 +157,29 @@ How Calm handles that shared slot depends on whether Calm was already on when th
 
 - [`calm-mode-feasibility.md`](calm-mode-feasibility.md) owns the version-scoped renderer taxonomy, built-in override constraints, and empirical evidence.
 - [`configuration.md`](configuration.md#calm-preference-configcalm) owns the persisted preference file and resolution rules.
-- `.pi/extensions/lib/fm-calm-visibility.ts` owns the visibility policy.
-- `.claude/mods/firstmate-calm/lib/fm-calm-preservation.ts` owns the shared substantive mid-turn text rule, which Pi imports through its tracked symlink.
-- `.pi/extensions/lib/fm-calm-operational-user-layout.ts` owns the zero-height operational-user row adapter.
-- `.pi/extensions/lib/fm-calm-pending-operational-layout.ts` owns the queued-row adapter and its session capability check.
-- `.pi/extensions/lib/fm-calm-working-ship.ts` owns Pi's animated working presentation over the sprite geometry both harnesses share in `.claude/mods/firstmate-calm/lib/fm-calm-working-ship-sprite.ts`.
+- `.pi/extensions/lib/calm-visibility.ts` owns the visibility policy.
+- `.claude/mods/calm-interface/lib/calm-preservation.ts` owns the shared substantive mid-turn text rule, which Pi imports through its tracked symlink.
+- `.pi/extensions/lib/calm-operational-user-layout.ts` owns the zero-height operational-user row adapter.
+- `.pi/extensions/lib/calm-pending-operational-layout.ts` owns the queued-row adapter and its session capability check.
+- `.pi/extensions/lib/calm-progress.ts` owns Pi's animated working presentation over the sprite geometry both harnesses share in `.claude/mods/calm-interface/lib/calm-progress-sprite.ts`.
 
 ### Pi regression entry points
 
 ```sh
-tests/fm-calm-pi-extension.test.sh
-tests/fm-pi-branch-extension.test.sh
-tests/fm-pi-primary-types.test.sh
-tests/fm-calm-pi-queue-retention-live-e2e.test.sh
-FM_PI_LIVE_E2E=1 tests/fm-pi-primary-live-e2e.test.sh
+tests/calm-pi-extension.test.sh
+tests/pi-branch-extension.test.sh
+tests/pi-primary-types.test.sh
+tests/calm-pi-queue-retention-live-e2e.test.sh
+FM_PI_LIVE_E2E=1 tests/pi-primary-live-e2e.test.sh
 ```
 
 ## Claude Code
 
 ### The Calm mod
 
-Calm on Claude Code is the mod under `.claude/mods/firstmate-calm`, whose plugin name is `fm`.
+Calm on Claude Code is the mod under `.claude/mods/calm-interface`, whose plugin name is `fm`.
 The mod is a Claude Code plugin whose whole behavior lives in one function-hooks module.
-The trusted project auto-loads the mod through the `.claude/skills/firstmate-calm` entry (a symlink into `.claude/mods`), so no `--plugin-dir` or marketplace install is needed.
+The trusted project auto-loads the mod through the `.claude/skills/calm-interface` entry (a symlink into `.claude/mods`), so no `--plugin-dir` or marketplace install is needed.
 
 ### Enabling function hooks
 
@@ -240,9 +240,9 @@ The mod checks the outcome store's display tail copy and the host's latch file e
 On the first tail read in a session, it replays unprocessed user outcomes and unread visible routine outcomes from the bounded copy, showing at most the newest 20 notes with a count of older due notes within that copy.
 A home whose outcome store predates the copy gains one at its next locked session start, even while away; if the copy first appears after the mod starts, the replay still uses the read and processed markers captured when the session started.
 On later reads, if the copy skips sequence numbers since the last seen outcome, one line counts the missing outcomes.
-The display copy's row and byte bounds are owned by [`fm-branch-outcome.sh`](../bin/fm-branch-outcome.sh); older outcomes and oversized rows cannot always be displayed by the mod, while the outcome store and main's delivery remain authoritative.
+The display copy's row and byte bounds are owned by [`supervision-branch-outcome.sh`](../bin/supervision-branch-outcome.sh); older outcomes and oversized rows cannot always be displayed by the mod, while the outcome store and main's delivery remain authoritative.
 Claude Code keeps each note in the session as a display-only entry and restores it on `claude --continue`, so the mod remembers in its own plugin store how far each session has followed the outcomes, and a resumed session replays only outcomes it has not shown.
-Claude Code keys that store by plugin name, so a session that showed notes before the plugin was renamed from `firstmate-calm` to `fm` and is resumed afterwards replays its still-due notes once.
+Claude Code keys that store by plugin name, so a session that showed notes before the plugin was renamed from `calm-interface` to `fm` and is resumed afterwards replays its still-due notes once.
 The mod only reads outcome and host state: the drain owns off-Pi read-cursor advancement, and main explicitly acknowledges user outcomes as processed.
 Only a home that runs the supervision host has outcomes to show.
 
@@ -263,7 +263,7 @@ Assistant text follows the [shared per-block preservation rule](#shared-preserva
 ### Record-backed operational doorbell
 
 Claude Code removes the U+2063 that starts those envelopes from every submitted prompt.
-Because of that, Spudrunner delivers its away-mode escalations to a Claude Code primary as the record-backed doorbell `bin/fm-operational-input.sh` owns.
+Because of that, Spudrunner delivers its away-mode escalations to a Claude Code primary as the record-backed doorbell `bin/operational-input.sh` owns.
 The doorbell is a plain line naming a record under the home's `state/operational-inbox` that holds the envelope.
 
 Calm reads that record through the mod's file API and hides the doorbell row only when the record holds a current envelope.
@@ -291,7 +291,7 @@ Evidence for 2.1.280 and the record-backed doorbell is also in its [2026-09-25 r
 - Every record write prunes operational-inbox records once they reach about seven days of elapsed age (the boundary is approximate).
   Age alone does not remove a record without a later write.
   Once its record is gone, a doorbell is no longer recognized.
-  It draws as a visible user row after Calm rechecks it (for example on `/calm` toggle or `claude --continue`), and `/ahoy` treats it as a user boundary.
+  It draws as a visible user row after Calm rechecks it (for example on `/calm` toggle or `claude --continue`), and `/session-summary` treats it as a user boundary.
 - On the main-screen layout (not the fullscreen alternate screen), a toggle redraws the live screen by clearing and reprinting it.
   The terminal's own scrollback keeps the earlier rendering above it.
   The fullscreen layout has no such stale copy.
@@ -305,7 +305,7 @@ Evidence for 2.1.280 and the record-backed doorbell is also in its [2026-09-25 r
 ### Claude Code regression entry points
 
 ```sh
-tests/fm-calm-claude-mod.test.sh
-tests/fm-calm-claude-mod-plugin.test.sh
-FM_CLAUDE_CALM_LIVE_E2E=1 tests/fm-calm-claude-mod-live-e2e.test.sh
+tests/calm-claude-mod.test.sh
+tests/calm-claude-mod-plugin.test.sh
+FM_CLAUDE_CALM_LIVE_E2E=1 tests/calm-claude-mod-live-e2e.test.sh
 ```

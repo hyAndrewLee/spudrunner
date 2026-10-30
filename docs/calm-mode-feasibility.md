@@ -16,7 +16,7 @@ Changing persisted context to remove hidden content, filtering provider context,
 Pi 0.81.1 was installed when Calm was first built, and Pi 0.82.0 was the later reverification target.
 The inspected Pi CHANGELOG shows no relevant presentation API introduced at either version, so those versions remain verification evidence rather than compatibility bounds.
 The exported classes used by the adapters (`AssistantMessageComponent` and `InteractiveMode`) are undocumented internals with no stated version guarantee.
-`tests/fm-calm-pi-extension.test.sh` records the installed Pi version as evidence without gating on it and covers both newer synthetic versions and an unavailable adapter seam.
+`tests/calm-pi-extension.test.sh` records the installed Pi version as evidence without gating on it and covers both newer synthetic versions and an unavailable adapter seam.
 This host tracks Pi latest, so the version the evidence is pinned to moves; the [2026-09-07 record](#2026-09-07-pi-0851-renderer-and-export-dom-verification) owns the currently pinned version and the renderer comparison behind it.
 
 ### Built-in tool override constraints
@@ -29,7 +29,7 @@ The losing definition's execution and render functions are both discarded, so un
 Pi's `getAllTools()` exposes tool metadata and source identity but not the executable or rendering functions needed to wrap another extension's full definition.
 It is also usable for reliable collision detection only after extension binding, which makes it suitable for the first same-session `/calm` activation but not for synchronous extension loading.
 Deferring registration to `session_start` is not an equivalent path: Pi constructs restored tool rows from an earlier tool-registry snapshot during reload, new-session, fork, and session switching, so those rows retain the definition captured before `session_start`.
-`tests/fm-calm-pi-extension.test.sh` covers the resulting split contract: no load-time claims while Calm is off, synchronous claims while it is already on, collision-checked first activation with a warning, preservation of a contested tool's execution, and the non-retroactive bound for rows rendered before first activation.
+`tests/calm-pi-extension.test.sh` covers the resulting split contract: no load-time claims while Calm is off, synchronous claims while it is already on, collision-checked first activation with a warning, preservation of a contested tool's execution, and the non-retroactive bound for rows rendered before first activation.
 
 ## Pi 0.81.1 end-to-end reproduction
 
@@ -56,8 +56,8 @@ The later duplicate-turn evidence below supersedes custom-message rerouting as a
 
 ### Hidden-block height regression
 
-The 2026-07-23 end-user-aligned reproduction used the installed Pi 0.81.1 TUI at 100 columns by 44 rows, an isolated project and `FM_HOME`, the real `/skill:ahoy` command path, and a deterministic provider that produced five thinking-bearing read calls, five tool results, final hidden thinking, and a visible final response.
-With Calm on and Pi's thinking display collapsed, the completed turn left 14 empty rows between the visible collapsed `[skill] ahoy` content row and the first final assistant row.
+The 2026-07-23 end-user-aligned reproduction used the installed Pi 0.81.1 TUI at 100 columns by 44 rows, an isolated project and `FM_HOME`, the real `/skill:session-summary` command path, and a deterministic provider that produced five thinking-bearing read calls, five tool results, final hidden thinking, and a visible final response.
+With Calm on and Pi's thinking display collapsed, the completed turn left 14 empty rows between the visible collapsed `[skill] session-summary` content row and the first final assistant row.
 With Calm off, the same sequence rendered all six `Thinking...` labels and all five read rows instead of an empty field.
 A controlled baseline containing only the skill row and final response had two standard visible-row separators.
 Adding one final thinking block increased that gap from two rows to four, while adding a tool call without a result or a completed tool call and result left it at two.
@@ -139,7 +139,7 @@ None occurred.
 
 The fix installs a separate idempotent presentation adapter, verified on Pi 0.81.1 through 0.82.0, on the exported `InteractiveMode.addMessageToChat` method.
 The adapter probes for that exact method and, per the [compatibility contract](calm.md#pi-compatibility), degrades independently with a diagnostic rather than gating on a version number.
-It delegates current recognition to `bin/fm-operational-input.sh`, adds only the evidence-backed bare-U+2063 `Supervisor escalate (` presentation compatibility shape, mounts a `UserMessageComponent` subclass that preserves Pi's stock row plus leading spacer while Calm is off, and returns zero rendered lines while Calm is on.
+It delegates current recognition to `bin/operational-input.sh`, adds only the evidence-backed bare-U+2063 `Supervisor escalate (` presentation compatibility shape, mounts a `UserMessageComponent` subclass that preserves Pi's stock row plus leading spacer while Calm is off, and returns zero rendered lines while Calm is on.
 It never intercepts the input event, rewrites the message, changes its role, filters model context, or changes session data.
 Messages containing an image are left on Pi's ordinary path even when their text equals an operational envelope because Spudrunner's authoritative producers are text-only.
 
@@ -154,7 +154,7 @@ Calm replaces Pi's stock working row with a small animated boat while Calm is on
 This path uses only public extension API and patches nothing: `ExtensionUIContext.setWorkingVisible(false)` hides the stock row, and `setWidget()` installs a temporary component factory above the editor.
 Pi's documented custom working-indicator frames are static and width-blind, so they cannot own responsive geometry; a widget component receives `render(width)` and can.
 
-Within Spudrunner Calm, `.pi/extensions/fm-calm.ts` remains the sole owner of its presentation choice and the only caller of `setWorkingVisible()`, while `.pi/extensions/lib/fm-calm-working-ship.ts` owns Pi's ANSI painting and the widget over the sprite geometry, bounce track, cadences, and freeze/resume state in `.claude/mods/firstmate-calm/lib/fm-calm-working-ship-sprite.ts`, the harness-neutral core the Claude Code mod also draws from (reached from the Pi tree through a tracked symlink, because Claude Code refuses a hooks-module import from outside the plugin folder).
+Within Spudrunner Calm, `.pi/extensions/calm.ts` remains the sole owner of its presentation choice and the only caller of `setWorkingVisible()`, while `.pi/extensions/lib/calm-progress.ts` owns Pi's ANSI painting and the widget over the sprite geometry, bounce track, cadences, and freeze/resume state in `.claude/mods/calm-interface/lib/calm-progress-sprite.ts`, the harness-neutral core the Claude Code mod also draws from (reached from the Pi tree through a tracked symlink, because Claude Code refuses a hooks-module import from outside the plugin folder).
 Visibility follows `agent_start` through `agent_settled` rather than turns or tool calls.
 Pi emits `agent_settled` from a `finally` block once a run will not continue automatically, so retries, automatic continuations, queued follow-ups, and compaction inside one run never remove the boat, while settle, abort, and failure all reach the same cleanup.
 Repeated `agent_start` events inside one run are idempotent, and both Calm extensions use the shared `calm-working-ship` widget key, so Pi disposes the previous component before installing a replacement under that key and when it clears extension widgets, while Spudrunner Calm's disposal signal prevents its cleanup from clearing a standalone Calm widget that replaced its own widget.
@@ -181,15 +181,15 @@ Compaction and retry loaders remain stock because Pi exposes no supported replac
 
 ## Central visibility and input policy
 
-`.pi/extensions/lib/fm-calm-visibility.ts` owns only the allowlist-style transcript presentation policy.
-`bin/fm-operational-input.sh` owns current cross-language operational-input construction and parsing, while the thin Pi adapter lives at `.pi/extensions/lib/fm-operational-input.ts`.
+`.pi/extensions/lib/calm-visibility.ts` owns only the allowlist-style transcript presentation policy.
+`bin/operational-input.sh` owns current cross-language operational-input construction and parsing, while the thin Pi adapter lives at `.pi/extensions/lib/operational-input.ts`.
 Only `genuine-user-prompt`, `genuine-agent-response`, and `working-status` are policy-visible.
 Every other audited class is policy-hidden when Pi exposes a supported presentation boundary, but semantic input is never transformed to enforce that preference.
 The home-local persistence schema is owned by [`docs/configuration.md`](configuration.md#calm-preference-configcalm).
 
 On Pi, current session-start, watcher, turn-end guard, away supervisor, and launch-brief inputs use their versioned U+2063 static envelopes.
 The established leading `[fm-from-firstmate]` plus U+2063 routing carrier remains current so running project coordinator charters remain compatible.
-Claude-bound typed away escalations and launch briefs instead use the record-backed carrier owned by `bin/fm-operational-input.sh`; its replay limit is described in [`calm.md`](calm.md#claude-code).
+Claude-bound typed away escalations and launch briefs instead use the record-backed carrier owned by `bin/operational-input.sh`; its replay limit is described in [`calm.md`](calm.md#claude-code).
 Calm classifies only at Pi's transcript-presentation owner through the canonical parser and never replaces, reorders, or weakens those messages.
 
 The session-start nudge already originates as a non-displayed custom message, so it remains on that existing path while retaining model context and session persistence.
@@ -207,9 +207,9 @@ Every tool registered or supplied by Spudrunner under `.pi/extensions` has this 
 | Tool | Registration surface | Calm disposition |
 | --- | --- | --- |
 | `read`, `bash`, `edit`, `write`, `grep`, `find`, `ls` | Calm wrappers for Pi's seven main-session built-ins | Their call and text-result shells hide while Calm is active; ordinary and stock export rendering delegate to Pi's original renderers. |
-| `fm_watch_arm_pi` | Main-session custom tool in `fm-primary-pi-watch.ts` | Its complete self-rendered shell hides while Calm is active and returns unchanged when Calm is off or stock export rendering is active. |
-| `fm_branch_outcomes` | Main-session custom tool in `fm-branch-supervision.ts` | Its complete self-rendered shell hides while Calm is active; when visible, the self-renderer reconstructs Pi's ordinary boxed fallback shell, matches Pi's collapsed or expanded call-argument header, and probes Pi's rendered stock fallback to preserve that installed surface's collapsed or all-line result policy plus expanded state, while stock export rendering deliberately falls through to Pi's structured fallback. |
-| `fm_branch_processed` | Main-session custom tool in `fm-branch-supervision.ts` | Its complete self-rendered shell hides while Calm is active, exactly like `fm_branch_outcomes`; when visible, the self-renderer preserves Pi's call-argument header around the one-line acknowledgement result, while stock export rendering deliberately falls through to Pi's structured fallback. |
+| `fm_watch_arm_pi` | Main-session custom tool in `coordinator-supervision-watch.ts` | Its complete self-rendered shell hides while Calm is active and returns unchanged when Calm is off or stock export rendering is active. |
+| `fm_branch_outcomes` | Main-session custom tool in `supervision-branch.ts` | Its complete self-rendered shell hides while Calm is active; when visible, the self-renderer reconstructs Pi's ordinary boxed fallback shell, matches Pi's collapsed or expanded call-argument header, and probes Pi's rendered stock fallback to preserve that installed surface's collapsed or all-line result policy plus expanded state, while stock export rendering deliberately falls through to Pi's structured fallback. |
+| `fm_branch_processed` | Main-session custom tool in `supervision-branch.ts` | Its complete self-rendered shell hides while Calm is active, exactly like `fm_branch_outcomes`; when visible, the self-renderer preserves Pi's call-argument header around the one-line acknowledgement result, while stock export rendering deliberately falls through to Pi's structured fallback. |
 | `fm_branch_report` | Branch-session custom tool supplied directly to `createAgentSession` | It runs only in the headless supervision session and has no main-session `ToolExecutionComponent`; successful execution writes the outcome store and delivers a routine note or exact user entry through the separately audited delivery path, so the tool cannot emit a dump-shaped row in the user's transcript. |
 | branch-local `read` built-in | Branch-session built-in enabled through `createAgentSession` | It runs only in the headless supervision session and has no main-session `ToolExecutionComponent`, so its file output cannot emit a row in the user's transcript. |
 | branch-local `bash` override | Branch-session replacement supplied directly to `createAgentSession` | It runs only in the headless supervision session and has no main-session `ToolExecutionComponent`, so its command output cannot emit a row in the user's transcript. |
@@ -268,7 +268,7 @@ grok 0.2.106 (bde89716f679)
 
 | Harness | Conclusion | Evidence |
 | --- | --- | --- |
-| Claude Code 2.1.272 (superseding the 2.1.218 row, which found no transcript-row renderer in project hooks or the plugin CLI) | Feasible through the early-access Claude Code mods surface (function hooks), default-off behind `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS`, and initially shipped with the plugin name `firstmate-calm` (now `fm`; see [`calm.md`](calm.md#the-calm-mod)). | A `ui.render` hook draws per-component transcript rows and the working row, `$.ui.invalidate` redraws the transcript, and `$.ui.blit` animates a `Raster`; the [2026-09-15 record](#2026-09-15-claude-code-21272-mods-feasibility-and-the-shipped-mod) owns the spike-verified working animation, gapless hiding and retroactive redraw of tool, narration, and operational rows, the persisted per-home toggle, and the three bounded gaps: an early-access API that may change, main-screen scrollback keeping pre-toggle copies, and 256-color Raster paint. |
+| Claude Code 2.1.272 (superseding the 2.1.218 row, which found no transcript-row renderer in project hooks or the plugin CLI) | Feasible through the early-access Claude Code mods surface (function hooks), default-off behind `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS`, and initially shipped with the plugin name `calm-interface` (now `fm`; see [`calm.md`](calm.md#the-calm-mod)). | A `ui.render` hook draws per-component transcript rows and the working row, `$.ui.invalidate` redraws the transcript, and `$.ui.blit` animates a `Raster`; the [2026-09-15 record](#2026-09-15-claude-code-21272-mods-feasibility-and-the-shipped-mod) owns the spike-verified working animation, gapless hiding and retroactive redraw of tool, narration, and operational rows, the persisted per-home toggle, and the three bounded gaps: an early-access API that may change, main-screen scrollback keeping pre-toggle copies, and 256-color Raster paint. |
 | Codex CLI 0.144.6 | Not feasible through the inspected supported project surface. | The tracked hooks expose session, pre-tool, and stop handling, while the plugin and feature inventories expose no TUI tool-row renderer or transcript redraw control. |
 | OpenCode 1.17.18 | Not feasible without violating the preservation boundary. | Plugins expose events and tool execution hooks, not a built-in transcript-row renderer; same-name tool replacement changes execution rather than presentation alone. |
 | Pi (verified 0.81.1 through 0.82.0) | Partially feasible with two API-probed exported-class adapters. | Public APIs control working visibility, collapsed labels, known tool slots, custom entries, and expansion redraws; exported assistant and interactive-mode classes provide the collapsed-thinking and operational-user layout boundaries, gated on the exact method's presence rather than a version number, while generic user, tool, and status filtering remains unavailable. |
@@ -300,33 +300,33 @@ The same real-Pi reproduction then delivered the notification exactly once in a 
 
 ## Regression coverage
 
-`tests/fm-calm-pi-extension.test.sh` compares wrapped and stock renderers and verifies all seven built-ins plus `fm_watch_arm_pi`; its rendered HTML export check accepts either omission or default-hidden hook rows for legacy synthetic messages while rejecting visible leakage.
-`tests/fm-pi-branch-extension.test.sh` verifies both `fm_branch_outcomes` and `fm_branch_processed` call headers against pre-0.99 and 0.99+ Pi stock rendering, plus Calm toggling, capability-probed all-line versus collapsed stock result output, exact expanded output, and export rendering for outcomes.
+`tests/calm-pi-extension.test.sh` compares wrapped and stock renderers and verifies all seven built-ins plus `fm_watch_arm_pi`; its rendered HTML export check accepts either omission or default-hidden hook rows for legacy synthetic messages while rejecting visible leakage.
+`tests/pi-branch-extension.test.sh` verifies both `fm_branch_outcomes` and `fm_branch_processed` call headers against pre-0.99 and 0.99+ Pi stock rendering, plus Calm toggling, capability-probed all-line versus collapsed stock result output, exact expanded output, and export rendering for outcomes.
 Together they exercise redraw of already-rendered tool, thinking, current operational-user, and legacy synthetic rows, and cover every policy class.
 It covers persisted preference restoration across every session-start reason and a real restart, proves the working-ship presentation and Calm-off stock `Working...` row through a delayed deterministic provider, asserts no Calm status row, verifies operational messages remain exact ordinary user-role session entries and complete exports, and drives genuine 100 by 44, 160 by 36, and 180 by 44 terminal fixtures.
-A native deterministic `/skill:ahoy` turn produces thinking, tool-call, and tool-result blocks, asserts that the collapsed skill-to-final gap equals the two-row visible-only baseline, expands and re-collapses original thinking, restores Calm-off rendering, verifies persisted hidden history, and repeats the geometry assertion after restart with `terminal.clearOnShrink` explicitly off.
+A native deterministic `/skill:session-summary` turn produces thinking, tool-call, and tool-result blocks, asserts that the collapsed skill-to-final gap equals the two-row visible-only baseline, expands and re-collapses original thinking, restores Calm-off rendering, verifies persisted hidden history, and repeats the geometry assertion after restart with `terminal.clearOnShrink` explicitly off.
 The operational provider path covers Calm loaded on, loaded off, default preference, extension absent, exact watcher delivery, narrow bare-marker legacy input, persisted restart replay, a genuine user prompt, and adjacent notifications coalesced into one intended processing turn.
 It asserts one persisted and rendered user answer, exact user-role operational envelopes in order, no replacement custom messages, one processing result, zero operational transcript rows, and the two-row neighboring-assistant geometry for live, adjacent, and restart paths.
 Quoted current markers, ASCII-only labels, ordinary text before a marker, unrelated U+2063 placement, and image-bearing input remain visible in component and native transcript checks.
 Queued-row coverage drives Pi's real listing and restore methods over a stand-in session for each capability-check branch, including a hidden row kept when the classifier cannot answer again and a refused continuation that re-queues instead of dropping, and repeats Escape in a real Pi TUI with Calm on, with a user message queued beside the notification, and with Calm off.
-`tests/fm-calm-pi-queue-retention-live-e2e.test.sh` is the default-on, token-free guard that probes a running Pi session for every member the check requires and fails naming the installed Pi version.
-`tests/fm-pi-primary-live-e2e.test.sh` also proves the working ship replaces the built-in `Working...` row while Calm is active on the credentialed provider path, and that it clears when the run settles, before continuing its ordinary watcher lifecycle.
-[`tests/fm-pi-primary-types.test.sh`](../tests/fm-pi-primary-types.test.sh) owns the strict production-consumer typecheck and its dependency contract.
-`tests/fm-calm-claude-mod.test.sh` needs no Claude Code binary: it proves the mod is one hooks module with no command, skill, agent, or classic hook path around its opt-in, that Pi's working ship renders byte-for-byte the shared sprite core painted in ANSI at every width and step, that the Raster packing lays that frame out exactly, that the mod resolves its home like Pi, that its live and restored working-note classifiers enforce the visibility boundaries [`calm.md`](calm.md#claude-code) owns, and that its operational-input classifier agrees with `bin/fm-operational-input.sh` on a corpus the shell owner itself encodes plus legacy shapes and near misses.
-`tests/fm-calm-claude-mod-plugin.test.sh` runs wherever `claude` is installed without spending a model turn: strict `claude plugin validate` on the folder and on the `.claude/skills` auto-load path, then the mod's own `claude plugin test` suites, which drive the hooks module in the engine's host against a mocked clock, environment, file system, and drawing surface.
-`tests/fm-calm-claude-mod-live-e2e.test.sh` is the opt-in credentialed guard in a real Claude Code TUI under tmux: flag off is a complete no-op with the preference already on, flag on shows the moving boat, hides tool and operational rows, toggles and persists through `/calm`, and `claude --continue` restores the hidden rows.
+`tests/calm-pi-queue-retention-live-e2e.test.sh` is the default-on, token-free guard that probes a running Pi session for every member the check requires and fails naming the installed Pi version.
+`tests/pi-primary-live-e2e.test.sh` also proves the working ship replaces the built-in `Working...` row while Calm is active on the credentialed provider path, and that it clears when the run settles, before continuing its ordinary watcher lifecycle.
+[`tests/pi-primary-types.test.sh`](../tests/pi-primary-types.test.sh) owns the strict production-consumer typecheck and its dependency contract.
+`tests/calm-claude-mod.test.sh` needs no Claude Code binary: it proves the mod is one hooks module with no command, skill, agent, or classic hook path around its opt-in, that Pi's working ship renders byte-for-byte the shared sprite core painted in ANSI at every width and step, that the Raster packing lays that frame out exactly, that the mod resolves its home like Pi, that its live and restored working-note classifiers enforce the visibility boundaries [`calm.md`](calm.md#claude-code) owns, and that its operational-input classifier agrees with `bin/operational-input.sh` on a corpus the shell owner itself encodes plus legacy shapes and near misses.
+`tests/calm-claude-mod-plugin.test.sh` runs wherever `claude` is installed without spending a model turn: strict `claude plugin validate` on the folder and on the `.claude/skills` auto-load path, then the mod's own `claude plugin test` suites, which drive the hooks module in the engine's host against a mocked clock, environment, file system, and drawing surface.
+`tests/calm-claude-mod-live-e2e.test.sh` is the opt-in credentialed guard in a real Claude Code TUI under tmux: flag off is a complete no-op with the preference already on, flag on shows the moving boat, hides tool and operational rows, toggles and persists through `/calm`, and `claude --continue` restores the hidden rows.
 
 The relevant commands are:
 
 ```sh
-tests/fm-calm-pi-extension.test.sh
-tests/fm-pi-branch-extension.test.sh
-FM_PI_LIVE_E2E=1 tests/fm-pi-primary-live-e2e.test.sh
-tests/fm-pi-primary-types.test.sh
-tests/fm-calm-pi-queue-retention-live-e2e.test.sh
-tests/fm-calm-claude-mod.test.sh
-tests/fm-calm-claude-mod-plugin.test.sh
-FM_CLAUDE_CALM_LIVE_E2E=1 tests/fm-calm-claude-mod-live-e2e.test.sh
+tests/calm-pi-extension.test.sh
+tests/pi-branch-extension.test.sh
+FM_PI_LIVE_E2E=1 tests/pi-primary-live-e2e.test.sh
+tests/pi-primary-types.test.sh
+tests/calm-pi-queue-retention-live-e2e.test.sh
+tests/calm-claude-mod.test.sh
+tests/calm-claude-mod-plugin.test.sh
+FM_CLAUDE_CALM_LIVE_E2E=1 tests/calm-claude-mod-live-e2e.test.sh
 ```
 
 ## 2026-07-23 verification record
@@ -338,26 +338,26 @@ The credentialed live regression remains opt-in and was not required because thi
 $ pi --version
 0.81.1
 
-$ tests/fm-calm-pi-extension.test.sh
+$ tests/calm-pi-extension.test.sh
 ok - Pi calm extension is presentation-only with one persisted visibility choice, no Calm status row, native working visibility, supported redraw controls, and the Firstmate watcher-tool integration
 ok - Pi calm resolves its persistent home independently of Pi's launch directory
 ok - Pi calm centralizes transcript visibility, preserves execution/export data, keeps native working visible, and persists its choice across session starts
 ok - Pi operational follow-up E2E processes exact user-role notifications once while Calm hides current and adjacent rows, Calm off and absent render them, and restart preserves semantics
-ok - Pi Calm native /skill:ahoy geometry keeps every collapsed thinking and tool block at zero height while preserving expansion, history, restart, and Calm-off rendering
+ok - Pi Calm native /skill:session-summary geometry keeps every collapsed thinking and tool block at zero height while preserving expansion, history, restart, and Calm-off rendering
 ok - Pi calm native E2E keeps Working and captain turns visible, hides exact operational user rows without changing persistence, restores them Calm-off, survives restart, and preserves export plus Ctrl+O behavior
 
-$ tests/fm-pi-primary-types.test.sh
+$ tests/pi-primary-types.test.sh
 ok - tracked Pi extensions pass strict no-emit typecheck against Pi 0.81.1
 
-$ bin/fm-lint.sh
-fm-lint.sh: ShellCheck 0.11.0 (pinned 0.11.0)
+$ bin/lint.sh
+lint.sh: ShellCheck 0.11.0 (pinned 0.11.0)
 
-$ bin/fm-test-run.sh --changed --base origin/main
+$ bin/test-run.sh --changed --base origin/main
 FM_TEST_SUMMARY total=38 failed=0 skipped_gate=7 duration_ms=166881
 FM_TEST_SUMMARY_FAMILY family=live-harness-optin count=7 duration_ms=192 failed=0
 FM_TEST_SUMMARY_FAMILY family=pure-contract-unit count=31 duration_ms=165384 failed=0
 
-$ tests/fm-pi-primary-live-e2e.test.sh
+$ tests/pi-primary-live-e2e.test.sh
 skip: set FM_PI_LIVE_E2E=1 to run the isolated interactive Pi regression
 ```
 
@@ -370,15 +370,15 @@ The globally installed declaration package remained 0.81.1, so the strict typech
 $ pi --version
 0.82.0
 
-$ tests/fm-calm-pi-extension.test.sh
+$ tests/calm-pi-extension.test.sh
 ok - Pi calm extension is presentation-only with one persisted visibility choice, no Calm status row, native working visibility, supported redraw controls, and the Firstmate watcher-tool integration
 ok - Pi calm resolves its persistent home independently of Pi's launch directory
 ok - Pi calm centralizes transcript visibility, preserves execution/export data, keeps native working visible, and persists its choice across session starts
 ok - Pi operational follow-up E2E processes exact user-role notifications once while Calm hides current and adjacent rows, Calm off and absent render them, and restart preserves semantics
-ok - Pi Calm native /skill:ahoy geometry keeps every collapsed thinking and tool block at zero height while preserving expansion, history, restart, and Calm-off rendering
+ok - Pi Calm native /skill:session-summary geometry keeps every collapsed thinking and tool block at zero height while preserving expansion, history, restart, and Calm-off rendering
 ok - Pi calm native E2E keeps Working and captain turns visible, hides exact operational user rows without changing persistence, restores them Calm-off, survives restart, and preserves export plus Ctrl+O behavior
 
-$ tests/fm-pi-primary-types.test.sh
+$ tests/pi-primary-types.test.sh
 ok - tracked Pi extensions pass strict no-emit typecheck against Pi 0.81.1
 ```
 
@@ -395,27 +395,27 @@ The real-TUI regression captures two frames at different hull columns, resizes t
 $ pi --version
 0.82.0
 
-$ tests/fm-calm-pi-extension.test.sh
+$ tests/calm-pi-extension.test.sh
 ok - Pi calm resolves its persistent home independently of Pi's launch directory
 ok - Pi calm compatibility evidence never rejects a Pi version for being newer than 0.82.0, and still fails closed on a missing or malformed version
 ok - a missing collapsed-thinking presentation API degrades only that Calm adapter with a clear skip reason, while the rest of Calm still registers
 ok - missing Pi presentation class exports reach the independent adapter degradation path
 ok - Pi calm centralizes transcript visibility, preserves execution/export data, keeps Pi's stock working row visible while no run is active, and persists its choice across session starts
 ok - Pi operational follow-up E2E processes exact user-role notifications once while Calm hides current and adjacent rows, Calm off and absent render them, and restart preserves semantics
-ok - Pi Calm native /skill:ahoy geometry keeps every collapsed thinking and tool block at zero height while preserving expansion, history, restart, and Calm-off rendering
+ok - Pi Calm native /skill:session-summary geometry keeps every collapsed thinking and tool block at zero height while preserving expansion, history, restart, and Calm-off rendering
 ok - Pi Calm working ship renders an exact two-row full-width sprite, clamps every resize, bounces at both edges, falls back deterministically when narrow, and installs and removes one timer-owning widget across starts, settle, abort, failure, shutdown, reload, replacement, and Calm toggles
 ok - Pi calm native E2E replaces the stock working row with a moving, resize-clamped working ship that clears on abort, keeps captain turns visible, hides exact operational user rows without changing persistence, restores stock rendering Calm-off, survives restart, and preserves export plus Ctrl+O behavior
 
-$ tests/fm-pi-primary-types.test.sh
+$ tests/pi-primary-types.test.sh
 ok - tracked Pi extensions pass strict no-emit typecheck against Pi 0.81.1
 
-$ bin/fm-lint.sh
-fm-lint.sh: ShellCheck 0.11.0 (pinned 0.11.0)
+$ bin/lint.sh
+lint.sh: ShellCheck 0.11.0 (pinned 0.11.0)
 
-$ bin/fm-doc-audience-check.sh
+$ bin/doc-audience-check.sh
 fm-doc-audience-check: ok surfaces=57 local_links=160
 
-$ bin/fm-test-run.sh --changed --base origin/main
+$ bin/test-run.sh --changed --base origin/main
 FM_TEST_SUMMARY total=32 failed=0 skipped_gate=7 duration_ms=196009
 FM_TEST_SUMMARY_FAMILY family=live-harness-optin count=7 duration_ms=202 failed=0
 FM_TEST_SUMMARY_FAMILY family=pure-contract-unit count=25 duration_ms=194670 failed=0
@@ -447,16 +447,16 @@ It was verified against the installed Pi 0.82.0 CLI with a deterministic in-proc
 $ pi --version
 0.82.0
 
-$ tests/fm-pi-primary-types.test.sh
+$ tests/pi-primary-types.test.sh
 ok - tracked Pi extensions pass strict no-emit typecheck against Pi 0.81.1
 
-$ bin/fm-lint.sh
-fm-lint.sh: ShellCheck 0.11.0 (pinned 0.11.0)
+$ bin/lint.sh
+lint.sh: ShellCheck 0.11.0 (pinned 0.11.0)
 
-$ bin/fm-doc-audience-check.sh
+$ bin/doc-audience-check.sh
 fm-doc-audience-check: ok surfaces=57 local_links=163
 
-$ bin/fm-test-run.sh --changed --base origin/main
+$ bin/test-run.sh --changed --base origin/main
 FM_TEST_SUMMARY total=32 failed=0 skipped_gate=7 duration_ms=386738
 FM_TEST_SUMMARY_FAMILY family=live-harness-optin count=7 duration_ms=257 failed=0
 FM_TEST_SUMMARY_FAMILY family=pure-contract-unit count=25 duration_ms=383010 failed=0
@@ -514,7 +514,7 @@ interactive-mode setToolsExpanded:
   }
 ```
 
-The regression is pinned by the real-terminal `/export` case in `tests/fm-calm-pi-extension.test.sh`, which now asserts the confirmation is still on screen after Calm's redraw has settled and that the redraw restored every Calm-hidden row.
+The regression is pinned by the real-terminal `/export` case in `tests/calm-pi-extension.test.sh`, which now asserts the confirmation is still on screen after Calm's redraw has settled and that the redraw restored every Calm-hidden row.
 Reverting only the extension fix fails that assertion deterministically rather than racing the roughly 50ms window the confirmation used to survive:
 
 ```text
@@ -522,7 +522,7 @@ not ok - Calm's post-export repaint overwrote Pi's export confirmation (missing:
 ```
 
 ```text
-$ tests/fm-calm-pi-extension.test.sh
+$ tests/calm-pi-extension.test.sh
 ok - Pi calm resolves its persistent home independently of Pi's launch directory
 ok - Pi calm compatibility evidence never rejects a Pi version for being newer than 0.82.0, and still fails closed on a missing or malformed version
 ok - a missing collapsed-thinking presentation API degrades only that Calm adapter with a clear skip reason, while the rest of Calm still registers
@@ -532,20 +532,20 @@ ok - Calm's first same-session /calm activation claims every uncontested built-i
 ok - Pi calm centralizes transcript visibility, preserves execution/export data, keeps Pi's stock working row visible while no run is active, and persists its choice across session starts
 ok - Pi calm on collapses mid-turn assistant working notes to zero height while Calm off keeps them, leaves streaming, truncated-final, and genuine final replies untouched, never mutates the messages, ignores every /calm argument, and restores a legacy persisted max as ordinary Calm on
 ok - Pi operational follow-up E2E processes exact user-role notifications once while Calm hides current and adjacent rows, Calm off and absent render them, and restart preserves semantics
-ok - Pi Calm native /skill:ahoy geometry keeps every collapsed thinking and tool block at zero height while preserving expansion, history, restart, and Calm-off rendering
+ok - Pi Calm native /skill:session-summary geometry keeps every collapsed thinking and tool block at zero height while preserving expansion, history, restart, and Calm-off rendering
 ok - Pi Calm working ship moves on a slow independent cadence over faster fixed-cell blue water, paints the complete boat standard yellow with balanced resets, keeps ANSI-stripped width exact, flips the directional sail on the exact bounce at both edges and every width, clamps visible and hidden resizes, falls back deterministically when narrow, freezes and resumes column/direction across settle/start without hidden-time jumps or duplicate timers, resets only on a fresh session, and installs and removes one scheduler-owning widget across starts, settle, abort, failure, shutdown, reload, replacement, and Calm toggles while leaving Calm-off visibility untouched
 ok - Pi calm native E2E replaces the stock working row with a moving, resize-clamped working ship that freezes and resumes across two working periods in one Pi session, clears on abort, keeps user turns visible, hides exact operational user rows without changing persistence, restores stock rendering Calm-off, survives restart, and preserves export plus Ctrl+O behavior
 
-$ tests/fm-pi-primary-types.test.sh
+$ tests/pi-primary-types.test.sh
 ok - tracked Pi extensions pass strict no-emit typecheck against Pi 0.80.10
 
-$ bin/fm-lint.sh
-fm-lint.sh: ShellCheck 0.11.0 (pinned 0.11.0)
+$ bin/lint.sh
+lint.sh: ShellCheck 0.11.0 (pinned 0.11.0)
 
-$ bin/fm-doc-audience-check.sh
+$ bin/doc-audience-check.sh
 fm-doc-audience-check: ok surfaces=68 local_links=253
 
-$ bin/fm-test-run.sh --changed --base origin/main
+$ bin/test-run.sh --changed --base origin/main
 FM_TEST_SUMMARY total=46 failed=0 skipped_gate=16 duration_ms=279390
 FM_TEST_SUMMARY_FAMILY family=live-harness-optin count=16 duration_ms=431 failed=0
 FM_TEST_SUMMARY_FAMILY family=pure-contract-unit count=30 duration_ms=277700 failed=0
@@ -560,7 +560,7 @@ Calm still hides the complete row while active, restores the probed stock behavi
 The real installed-package comparison and the portable legacy-capability case are both executable through:
 
 ```sh
-bin/fm-test-run.sh tests/fm-pi-branch-extension.test.sh
+bin/test-run.sh tests/pi-branch-extension.test.sh
 ```
 
 Observed against installed `@earendil-works/pi-coding-agent` 0.84.4:
@@ -568,7 +568,7 @@ Observed against installed `@earendil-works/pi-coding-agent` 0.84.4:
 ```text
 ok - fm_branch_outcomes hides through ToolExecutionComponent while Calm-off and HTML export stay stock
 ok - the installed Pi still bounds the picker's list and ranks its search
-FM_TEST_END 2026-08-29T01:01:30Z tests/fm-pi-branch-extension.test.sh exit=0 duration_ms=22418 gate_skip=false
+FM_TEST_END 2026-08-29T01:01:30Z tests/pi-branch-extension.test.sh exit=0 duration_ms=22418 gate_skip=false
 ```
 
 The real renderer comparison exercised twelve outcome lines and reported collapsed and expanded parity with Pi stock, zero visible rows under Calm, restored stock parity after toggling Calm off, and delegated stock HTML export fallback.
@@ -579,7 +579,7 @@ This host tracks Pi latest, so the version this contract's evidence is pinned to
 The renderer and lifecycle evidence below was taken against installed `@earendil-works/pi-coding-agent` 0.85.1 with `@earendil-works/pi-server` 0.85.0 also installed globally.
 
 Calm's rendered rows are unchanged across 0.84.4, 0.85.0, and 0.85.1.
-`FM_PI_PACKAGE_DIR` points `tests/fm-calm-pi-extension.test.sh` at an isolated install, so each comparison ran against its own temporary dependency tree and never mutated the globally installed packages.
+`FM_PI_PACKAGE_DIR` points `tests/calm-pi-extension.test.sh` at an isolated install, so each comparison ran against its own temporary dependency tree and never mutated the globally installed packages.
 
 ```text
 $ pi --version
@@ -591,11 +591,11 @@ $ npm ls -g --depth 0 @earendil-works/pi-coding-agent @earendil-works/pi-server
 ```
 
 ```text
-$ FM_PI_PACKAGE_DIR=<pi 0.84.4> tests/fm-calm-pi-extension.test.sh
+$ FM_PI_PACKAGE_DIR=<pi 0.84.4> tests/calm-pi-extension.test.sh
 ok - Pi calm centralizes transcript visibility, preserves execution/export data, keeps Pi's stock working row visible while no run is active, and persists its choice across session starts
-$ FM_PI_PACKAGE_DIR=<pi 0.85.0> tests/fm-calm-pi-extension.test.sh
+$ FM_PI_PACKAGE_DIR=<pi 0.85.0> tests/calm-pi-extension.test.sh
 ok - Pi calm centralizes transcript visibility, preserves execution/export data, keeps Pi's stock working row visible while no run is active, and persists its choice across session starts
-$ FM_PI_PACKAGE_DIR=<pi 0.85.1> tests/fm-calm-pi-extension.test.sh
+$ FM_PI_PACKAGE_DIR=<pi 0.85.1> tests/calm-pi-extension.test.sh
 ok - Pi calm centralizes transcript visibility, preserves execution/export data, keeps Pi's stock working row visible while no run is active, and persists its choice across session starts
 ```
 
@@ -603,7 +603,7 @@ Reaching that parity on 0.85 took one contract adaptation, landed earlier in 85a
 Pi 0.84 and older silently substituted a built-in's stock definition when a `ToolExecutionComponent` was constructed without one, so the calm-off equivalence baseline could be built definition-less and still read as stock.
 Pi 0.85 removed that substitution, so the definition-less baseline renders Pi's generic text fallback instead - which is what produced `read collapsed rendering changed while calm mode was off`.
 The renderer change was real, and it was the contract's baseline that had to adapt, not Calm's wrappers: the wrapped rows matched Pi stock before and after.
-`tests/fm-calm-pi-extension.test.sh` now builds each baseline from the real stock tool-definition factories that `dist/core/tools/index.js` exports, calling the built-in's own factory with `process.cwd()`, which reads as stock on 0.84.4 and on 0.85.x alike and no longer depends on the removed substitution.
+`tests/calm-pi-extension.test.sh` now builds each baseline from the real stock tool-definition factories that `dist/core/tools/index.js` exports, calling the built-in's own factory with `process.cwd()`, which reads as stock on 0.84.4 and on 0.85.x alike and no longer depends on the removed substitution.
 
 Pi 0.85.0 alone requires a package it does not declare.
 Its `dist/experimental/server.js` statically imports `@earendil-works/pi-server`, which is absent from 0.85.0's `dependencies`, `peerDependencies`, and `optionalDependencies`, so a clean install of 0.85.0 on its own cannot load Pi's interactive mode at all:
@@ -628,7 +628,7 @@ It still retries a bounded number of Chrome start-ups and, when every attempt fa
 The complete Calm suite against installed Pi 0.85.1, with `FM_CHROME_BIN` naming the Chrome the render step used:
 
 ```text
-$ FM_CHROME_BIN=<chrome> tests/fm-calm-pi-extension.test.sh
+$ FM_CHROME_BIN=<chrome> tests/calm-pi-extension.test.sh
 ok - Pi calm resolves its persistent home independently of Pi's launch directory
 ok - Pi calm compatibility evidence never rejects a Pi version for being newer than 0.82.0, and still fails closed on a missing or malformed version
 ok - a missing collapsed-thinking presentation API degrades only that Calm adapter with a clear skip reason, while the rest of Calm still registers
@@ -638,7 +638,7 @@ ok - Calm's first same-session /calm activation claims every uncontested built-i
 ok - Pi calm centralizes transcript visibility, preserves execution/export data, keeps Pi's stock working row visible while no run is active, and persists its choice across session starts
 ok - Pi calm on collapses mid-turn assistant working notes to zero height while Calm off keeps them, leaves streaming, truncated-final, and genuine final replies untouched, never mutates the messages, ignores every /calm argument, and restores a legacy persisted max as ordinary Calm on
 ok - Pi operational follow-up E2E processes exact user-role notifications once while Calm hides current and adjacent rows, Calm off and absent render them, and restart preserves semantics
-ok - Pi Calm native /skill:ahoy geometry keeps every collapsed thinking and tool block at zero height while preserving expansion, history, restart, and Calm-off rendering
+ok - Pi Calm native /skill:session-summary geometry keeps every collapsed thinking and tool block at zero height while preserving expansion, history, restart, and Calm-off rendering
 ok - Pi Calm working ship moves on a slow independent cadence over faster fixed-cell blue water, paints the complete boat standard yellow with balanced resets, keeps ANSI-stripped width exact, flips the directional sail on the exact bounce at both edges and every width, clamps visible and hidden resizes, falls back deterministically when narrow, freezes and resumes column/direction across settle/start without hidden-time jumps or duplicate timers, resets only on a fresh session, and installs and removes one scheduler-owning widget across starts, settle, abort, failure, shutdown, reload, replacement, and Calm toggles while leaving Calm-off visibility untouched
 ok - the rendered-export-DOM guard renders in one pass, retries a bounded number of Chrome start-up failures, and reports the Chrome binary, Chrome version, Pi version, exit status, and Chrome diagnostic when every attempt fails
 ok - Pi calm native E2E replaces the stock working row with a moving, resize-clamped working ship that freezes and resumes across two working periods in one Pi session, clears on abort, keeps user turns visible, hides exact operational user rows without changing persistence, restores stock rendering Calm-off, survives restart, and preserves export plus Ctrl+O behavior
@@ -651,9 +651,9 @@ Every Pi run used a scratch home, project, agent directory, and session director
 
 ```sh
 pi --version
-tests/fm-calm-pi-queue-retention-live-e2e.test.sh
-tests/fm-calm-pi-extension.test.sh
-tests/fm-pi-primary-types.test.sh
+tests/calm-pi-queue-retention-live-e2e.test.sh
+tests/calm-pi-extension.test.sh
+tests/pi-primary-types.test.sh
 ```
 
 ```text
@@ -664,7 +664,7 @@ ok - Pi 0.87.1 with Calm on keeps a queued Spudrunner notification unlisted, out
 ok - tracked Pi extensions pass strict no-emit typecheck against Pi 0.87.1
 ```
 
-The rest of `tests/fm-calm-pi-extension.test.sh` passed unchanged in the same run.
+The rest of `tests/calm-pi-extension.test.sh` passed unchanged in the same run.
 With a member name the running session does not have added to the adapter's required list, the live guard failed as designed:
 
 ```text
@@ -678,7 +678,7 @@ With the queued-row adapter left uninstalled, the real-Pi Escape case failed on 
 Claude Code 2.1.272 exposes exactly the capability the 2026-07-22 row found missing, through its early-access "Claude Mods" surface, whose engineering primitive is the function hook: a plugin whose behavior lives in one hooks module exporting `register(on, options)`, hooking dotted engine events as `($, e, next)` middleware, with `ui.render` drawing per-component transcript rows and the working row, `$.ui.invalidate("ui.render")` redrawing every hooked drawing, and `$.ui.blit` repainting a mounted `Raster` without a render pass.
 The surface is default-off: hooks modules load only when the `tengu_plugin_hooks_modules` rollout flag or the `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS` environment variable turns them on, never under safe mode, `disableAllHooks`, or a managed-hooks-only policy, and only after workspace trust is accepted.
 The generated declarations (`/plugin-types`) carry the header "EARLY ACCESS: this surface may change between releases without notice", and the public proposal invites testing behind that variable while the feature is not yet in the public docs or CHANGELOG.
-The feasibility spike (scout `fm-claude-mods-calm-sailboat-s1`, whose private report holds the raw captures) and the shipped `firstmate-calm` mod both use only that documented-in-binary plugin API; the shipped mod also checks that `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS` is exactly `1` before any preference read, transcript read, timer, command registration, or drawing change, so loading its module through the rollout flag alone remains a complete no-op. Nothing patches installed Claude Code code, and no prompt, tool, or session event is rewritten.
+The feasibility spike (scout `fm-claude-mods-calm-sailboat-s1`, whose private report holds the raw captures) and the shipped `calm-interface` mod both use only that documented-in-binary plugin API; the shipped mod also checks that `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS` is exactly `1` before any preference read, transcript read, timer, command registration, or drawing change, so loading its module through the rollout flag alone remains a complete no-op. Nothing patches installed Claude Code code, and no prompt, tool, or session event is rewritten.
 
 ```text
 $ claude --version
@@ -735,55 +735,55 @@ An escape-preserving capture of the boat from the spike, taken before the palett
 
 ### Bounded gaps
 
-1. The whole surface is early access and default-off, and its API may change between releases without notice; the real TUI behavior is verified on Claude Code 2.1.272, the plugin compatibility guard also passes on 2.1.273, the mod refuses nothing newer, and `tests/fm-calm-claude-mod-plugin.test.sh` is the check that says when a newer Claude Code stops accepting it.
+1. The whole surface is early access and default-off, and its API may change between releases without notice; the real TUI behavior is verified on Claude Code 2.1.272, the plugin compatibility guard also passes on 2.1.273, the mod refuses nothing newer, and `tests/calm-claude-mod-plugin.test.sh` is the check that says when a newer Claude Code stops accepting it.
 2. On the main-screen (non-fullscreen) layout a toggle redraws the live screen by clearing and reprinting the whole conversation, and the terminal's own scrollback keeps the previous rendering above it; the fullscreen layout has no such stale copy.
 3. The Raster paints RGB through a quantized palette, so the boat renders as 256-color escapes rather than Pi's standard 16-color ANSI codes.
 
-Three further observations, recorded so they are not read as failures: the `ctrl+o` detailed transcript view keeps its per-message timestamp and model headers where hidden assistant rows sat, because those headers are not a render component; on 2.1.272 the `/calm` toggle's answer was a transient toast under the prompt (`firstmate-calm: Calm on`) that expired within a few seconds and never became a transcript row; and the engine logs one benign debug-level warning at load, `options requested but its manifest declares no userConfig`, for every hooks module whose manifest declares no configuration fields, which an empty `userConfig` object does not silence.
+Three further observations, recorded so they are not read as failures: the `ctrl+o` detailed transcript view keeps its per-message timestamp and model headers where hidden assistant rows sat, because those headers are not a render component; on 2.1.272 the `/calm` toggle's answer was a transient toast under the prompt (`calm-interface: Calm on`) that expired within a few seconds and never became a transcript row; and the engine logs one benign debug-level warning at load, `options requested but its manifest declares no userConfig`, for every hooks module whose manifest declares no configuration fields, which an empty `userConfig` object does not silence.
 
 ### The shipped mod
 
-`.claude/mods/firstmate-calm` holds the plugin: its manifest, `hooks/hooks.json` naming the one module, `hooks/register.ts` (the only file that touches `$`), and pure libraries the tests drive under Node: the sprite core both harnesses share, the Raster packing, the presentation policy, and a port of `bin/fm-operational-input.sh`'s `classify` guarded by a corpus parity test.
-`.agents/skills/firstmate-calm` is a symlink to it, so the project's `.claude/skills` scan adopts it, and it carries no `SKILL.md` so other harnesses' skill loaders see nothing.
+`.claude/mods/calm-interface` holds the plugin: its manifest, `hooks/hooks.json` naming the one module, `hooks/register.ts` (the only file that touches `$`), and pure libraries the tests drive under Node: the sprite core both harnesses share, the Raster packing, the presentation policy, and a port of `bin/operational-input.sh`'s `classify` guarded by a corpus parity test.
+`.agents/skills/calm-interface` is a symlink to it, so the project's `.claude/skills` scan adopts it, and it carries no `SKILL.md` so other harnesses' skill loaders see nothing.
 The mod declares no command file, skill, agent, or classic hook; its function-hooks handlers independently require the exact environment opt-in before `/calm` registration or any other side effect, including when Claude Code loads the module through its rollout flag.
 Working-note and preserved-reply keys are recorded from `turn.step` per text block and seeded from `$.session.messages()` for a restored transcript, with [`calm.md`](calm.md#claude-code) owning the exact Claude Code visibility contract.
 
 ```text
-$ CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1 claude plugin validate --strict .claude/mods/firstmate-calm
+$ CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1 claude plugin validate --strict .claude/mods/calm-interface
   ❯ ./register.ts hooks: session.start, command.run{command=calm}, config.set{key=theme}, turn.step, ui.render{component=Spinner}, ui.render{component=ToolUse}, ui.render{component=ToolResult}, ui.render{component=ToolGroup}, ui.render{component=UserMessage}, ui.render{component=AssistantMessage}
-  ❯ ./register.ts calls: $.clock.every (via load), $.command.register, $.config.list (via readTheme), $.env.get (via isActivated, load), $.fs.read (via readPreference), $.fs.write, $.session.messages (via load), $.ui.blit (via repaintShip), $.ui.invalidate, $.ui.resolve, $.ui.toast
+  ❯ ./register.ts calls: $.clock.every (via load), $.command.register, $.config.list (via readTheme), $.env.get (via isActivated, load), $.fs.read (via readPreference), $.fs.write, $.session.messages (via load), $.ui.blit (via repaintProgress), $.ui.invalidate, $.ui.resolve, $.ui.toast
   ❯ ./register.ts env writes: nothing
   ❯ ./register.ts env reads: CLAUDE_CODE_ENABLE_FUNCTION_HOOKS, FM_CONFIG_OVERRIDE, FM_HOME, FM_ROOT_OVERRIDE
 ✔ Validation passed
 
-$ CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1 claude plugin test .claude/mods/firstmate-calm
+$ CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1 claude plugin test .claude/mods/calm-interface
  40 pass
  0 fail
 Ran 40 tests across 2 files.
 
-$ bin/fm-test-run.sh tests/fm-calm-claude-mod.test.sh
+$ bin/test-run.sh tests/calm-claude-mod.test.sh
 ok - the Calm mod is one hooks module, linked into the project's auto-load path, with no command, skill, agent, or classic hook path that bypasses its exact opt-in
 ok - the Pi working ship renders byte-for-byte the shared sprite core's frame painted in standard ANSI, at every width, cadence step, freeze, clamp, and reset
 ok - the Raster packing lays the shared frame out row-major with the sprite's palette, plain padding, default backgrounds, BMP glyphs, clipping, and a standard base64 encoding
 ok - the Calm policy resolves the shared preference exactly as Pi does, reads on, max, and off as Pi does, and shares Pi's 240-character-or-newline preservation behavior while classifying working notes by stop reason, tool use, and restored transcript shape
-ok - the mod's operational-input classifier agrees with bin/fm-operational-input.sh on all 77 corpus cases: every current kind the owner encodes, every legacy shape, and every near miss
+ok - the mod's operational-input classifier agrees with bin/operational-input.sh on all 77 corpus cases: every current kind the owner encodes, every legacy shape, and every near miss
 
-$ bin/fm-test-run.sh tests/fm-calm-pi-extension.test.sh
+$ bin/test-run.sh tests/calm-pi-extension.test.sh
 FM_TEST_SUMMARY total=1 failed=0 skipped_gate=0 duration_ms=68438
 ```
 
 The Pi suite above ran against the extracted sprite core with every one of its thirteen cases green, including the working-ship geometry and the interactive TUI case, which is the evidence that the extraction left Pi's drawing unchanged.
-Later the same day the installed Claude Code auto-updated to 2.1.273, and `tests/fm-calm-claude-mod-plugin.test.sh` passed there as well: strict validation accepts the mod from both paths, including the theme hook and configuration read shown above, and the plugin-kit suites pass with the theme cases added.
+Later the same day the installed Claude Code auto-updated to 2.1.273, and `tests/calm-claude-mod-plugin.test.sh` passed there as well: strict validation accepts the mod from both paths, including the theme hook and configuration read shown above, and the plugin-kit suites pass with the theme cases added.
 
 The opt-in live guard, run on this host against the installed Claude Code 2.1.272 with tmux 3.6a and Haiku, through the shipped `.claude/skills` auto-load path, an isolated project and `FM_HOME`, and the preference already `on` before the flag-off session:
 
 ```text
-$ FM_CLAUDE_CALM_LIVE_E2E=1 tests/fm-calm-claude-mod-live-e2e.test.sh
+$ FM_CLAUDE_CALM_LIVE_E2E=1 tests/calm-claude-mod-live-e2e.test.sh
 ok - Claude Code 2.1.272 (Claude Code) with the flag unset: no hooks module, no /calm, stock working row, stock tool rows, preference on ignored
 ok - Claude Code 2.1.272 (Claude Code) with the flag on: the mod auto-loads from .claude/skills, /calm exists, the sailboat replaces and moves in the working row, tool and operational rows draw at zero height, /calm restores and re-hides them while persisting the shared preference
 ok - Claude Code 2.1.272 (Claude Code) resumes the transcript with Calm's hidden rows still hidden and the preference intact
 
-$ bin/fm-test-run.sh tests/fm-calm-claude-mod-plugin.test.sh
+$ bin/test-run.sh tests/calm-claude-mod-plugin.test.sh
 ok - Claude Code 2.1.272 (Claude Code) validates the Calm mod strictly at its folder and its auto-load path, hooking exactly the working row, tool, user, and assistant drawings and /calm
 ok - Claude Code 2.1.272 (Claude Code) runs the Calm mod's plugin test suites clean: persisted toggle, hidden rows, working notes, and the clock-driven working ship
 ```
@@ -805,9 +805,9 @@ The flag-off session's settled screen, with the preference `on` on disk, drew Cl
 Claude Code 2.1.280 removes invisible characters, U+2063 included, from every submitted prompt, whether typed, pasted, or passed as the launch prompt.
 A typed operational envelope first shows `Removed 1 invisible character · review and press Enter to send`, and the next Enter stores it as plain `FIRSTMATE_OP: ...` text that no consumer can tell apart from a human message.
 No setting or environment variable turns the removal off.
-For the current delivery and presentation contracts, see [`fm-operational-input.sh`](../bin/fm-operational-input.sh) and [`calm.md`](calm.md#claude-code).
+For the current delivery and presentation contracts, see [`operational-input.sh`](../bin/operational-input.sh) and [`calm.md`](calm.md#claude-code).
 
-2.1.280 also logs the module load as `hooks module firstmate-calm@<source> loaded` (`@skills-dir` for the project auto-load path), so the live guard matches either form.
+2.1.280 also logs the module load as `hooks module calm-interface@<source> loaded` (`@skills-dir` for the project auto-load path), so the live guard matches either form.
 
 Observed on 2.1.280 with the flag on, beyond the live guard:
 
@@ -815,11 +815,11 @@ Observed on 2.1.280 with the flag on, beyond the live guard:
 $ claude --version
 2.1.280 (Claude Code)
 
-$ bash tests/fm-calm-claude-mod.test.sh
-ok - the mod's operational-input classifier agrees with bin/fm-operational-input.sh on all 77 corpus cases: every current kind the owner encodes, every legacy shape, and every near miss
-ok - the mod's doorbell port agrees with bin/fm-operational-input.sh doorbell-kind on all 28 cases: every record the owner writes and every unbacked or malformed near miss
+$ bash tests/calm-claude-mod.test.sh
+ok - the mod's operational-input classifier agrees with bin/operational-input.sh on all 77 corpus cases: every current kind the owner encodes, every legacy shape, and every near miss
+ok - the mod's doorbell port agrees with bin/operational-input.sh doorbell-kind on all 28 cases: every record the owner writes and every unbacked or malformed near miss
 
-$ bash tests/fm-calm-claude-mod-plugin.test.sh
+$ bash tests/calm-claude-mod-plugin.test.sh
 ok - Claude Code 2.1.280 (Claude Code) validates the Calm mod strictly at its folder and its auto-load path, hooking exactly the working row, tool, user, and assistant drawings and /calm
 ok - Claude Code 2.1.280 (Claude Code) runs the Calm mod's plugin test suites clean: persisted toggle, hidden rows, working notes, and the clock-driven working ship
 ```
@@ -838,7 +838,7 @@ The failure was reproduced end to end on the installed Claude Code 2.1.282 in a 
 $ claude --version
 2.1.282 (Claude Code)
 
-$ FM_CLAUDE_CALM_LIVE_E2E=1 bash tests/fm-calm-claude-mod-live-e2e.test.sh
+$ FM_CLAUDE_CALM_LIVE_E2E=1 bash tests/calm-claude-mod-live-e2e.test.sh
 ok - Claude Code 2.1.282 (Claude Code) with the flag unset: no hooks module, no /calm, stock working row, stock tool rows, preference on ignored
 ok - Claude Code 2.1.282 (Claude Code) with the flag on: the mod auto-loads from .claude/skills, /calm exists, the sailboat replaces and moves in the working row, tool rows and the record-backed operational doorbell draw at zero height, /calm restores and re-hides them while persisting the shared preference
 ok - Claude Code 2.1.282 (Claude Code) resumes the transcript with Calm's hidden rows still hidden and the preference intact
@@ -846,10 +846,10 @@ ok - Claude Code 2.1.282 (Claude Code) resumes the transcript with Calm's hidden
 
 ## 2026-09-28 Claude Code 2.1.283 supervision notes
 
-The mod's supervision notes were verified on the installed Claude Code 2.1.283 in disposable lab homes and projects on private tmux sockets, with the outcome store written by the real `bin/fm-branch-outcome.sh`.
+The mod's supervision notes were verified on the installed Claude Code 2.1.283 in disposable lab homes and projects on private tmux sockets, with the outcome store written by the real `bin/supervision-branch-outcome.sh`.
 
-- `$.ui.log` draws each note as its own system-notice row: a gray `⏺` bullet, then the mod's name, then the text, for example `⏺ firstmate-calm: ⚓ [seq 1] fm-quiet-hold-for-return-landing-r1: PR https://...`, wrapped at the terminal width.
-- The note is stored in the session transcript as a display-only entry, `{"type":"system","subtype":"informational","content":"firstmate-calm: ⚓ [seq 2] fm-live-b: LIVE_REPLAY_CAPTAIN still open","level":"notice",...}`, and `claude --continue` restores it.
+- `$.ui.log` draws each note as its own system-notice row: a gray `⏺` bullet, then the mod's name, then the text, for example `⏺ calm-interface: ⚓ [seq 1] fm-quiet-hold-for-return-landing-r1: PR https://...`, wrapped at the terminal width.
+- The note is stored in the session transcript as a display-only entry, `{"type":"system","subtype":"informational","content":"calm-interface: ⚓ [seq 2] fm-live-b: LIVE_REPLAY_CAPTAIN still open","level":"notice",...}`, and `claude --continue` restores it.
   The 2.1.274 plugin declarations say only that the line is not sent to the model, so the mod records how far each session has shown the store in its plugin store and replays only newer outcomes on resume.
 - A Haiku turn asked to quote every sailboat or anchor line in the conversation quoted none of the notes on screen, so they did not reach the model.
 - Every rejected `$.fs.read` or `$.fs.stat` is logged as `[ERROR]` in the debug log, so the mod checks `$.fs.exists` first for the files it polls.
@@ -858,11 +858,11 @@ The mod's supervision notes were verified on the installed Claude Code 2.1.283 i
 $ claude --version
 2.1.283 (Claude Code)
 
-$ bash tests/fm-calm-claude-mod-plugin.test.sh
+$ bash tests/calm-claude-mod-plugin.test.sh
 ok - Claude Code 2.1.283 (Claude Code) validates the Calm mod strictly at its folder and its auto-load path, hooking exactly the working row, tool, user, and assistant drawings and /calm, and logging supervision notes
 ok - Claude Code 2.1.283 (Claude Code) runs the Calm mod's plugin test suites clean: persisted toggle, hidden rows, working notes, the clock-driven working ship, and supervision notes
 
-$ FM_CLAUDE_CALM_LIVE_E2E=1 bash tests/fm-calm-claude-mod-live-e2e.test.sh
+$ FM_CLAUDE_CALM_LIVE_E2E=1 bash tests/calm-claude-mod-live-e2e.test.sh
 ok - Claude Code 2.1.283 (Claude Code) with the flag unset: no hooks module, no /calm, stock working row, stock tool rows, preference on ignored
 ok - Claude Code 2.1.283 (Claude Code) with the flag on: the mod auto-loads from .claude/skills, /calm exists, the sailboat replaces and moves in the working row, tool rows and the record-backed operational doorbell draw at zero height, /calm restores and re-hides them while persisting the shared preference
 ok - Claude Code 2.1.283 (Claude Code) resumes the transcript with Calm's hidden rows still hidden and the preference intact
@@ -873,20 +873,20 @@ ok - Claude Code 2.1.283 (Claude Code) with Calm off shows the supervision notes
 
 The label in front of each supervision note is Claude Code's, not the mod's, so the plugin is named `fm` to keep it short.
 
-- The mod hands `$.ui.log` the glyph-first line, as the debug log shows: `[DEBUG] [firstmate-calm] $.ui.log: ⚓ [seq 1] fm-repro-a: REPRO_CAPTAIN open`.
+- The mod hands `$.ui.log` the glyph-first line, as the debug log shows: `[DEBUG] [calm-interface] $.ui.log: ⚓ [seq 1] fm-repro-a: REPRO_CAPTAIN open`.
 - Claude Code 2.1.284 turns every transcript `$.ui.log` line into a system-notice entry whose content is `<plugin name>: <text>`, after the `ui.log` hook chain has run; `UiLogOptions` offers only `to: "transcript" | "debug"`, no `ui.render` component draws that row, and no other `$` call appends a transcript row.
-- With the manifest named `fm`, the row draws as `⏺ fm: ⚓ [seq 1] fm-repro-a: REPRO_CAPTAIN open`, is stored as `"content":"fm: ⚓ [seq 1] ..."`, and the module loads as `hooks module fm@skills-dir loaded`; the folders keep their `firstmate-calm` names, which `claude plugin validate --strict` accepts.
+- With the manifest named `fm`, the row draws as `⏺ fm: ⚓ [seq 1] fm-repro-a: REPRO_CAPTAIN open`, is stored as `"content":"fm: ⚓ [seq 1] ..."`, and the module loads as `hooks module fm@skills-dir loaded`; the folders keep their `calm-interface` names, which `claude plugin validate --strict` accepts.
 - `$.store` lives in one file per plugin id under Claude Code's configuration directory (`plugins/store/fm_skills-dir-<hash>.json`), so the rename starts an empty store and a session resumed across it replays its still-due notes once.
 
 ```text
 $ claude --version
 2.1.284 (Claude Code)
 
-$ bash tests/fm-calm-claude-mod-plugin.test.sh
+$ bash tests/calm-claude-mod-plugin.test.sh
 ok - Claude Code 2.1.284 (Claude Code) validates the Calm mod strictly at its folder and its auto-load path, hooking exactly the working row, tool, user, and assistant drawings and /calm, and logging supervision notes
 ok - Claude Code 2.1.284 (Claude Code) runs the Calm mod's plugin test suites clean: persisted toggle, hidden rows, working notes, the clock-driven working ship, and supervision notes
 
-$ FM_CLAUDE_CALM_LIVE_E2E=1 bash tests/fm-calm-claude-mod-live-e2e.test.sh
+$ FM_CLAUDE_CALM_LIVE_E2E=1 bash tests/calm-claude-mod-live-e2e.test.sh
 ok - Claude Code 2.1.284 (Claude Code) with the flag unset: no hooks module, no /calm, stock working row, stock tool rows, preference on ignored
 ok - Claude Code 2.1.284 (Claude Code) with the flag on: the mod auto-loads from .claude/skills, /calm exists, the sailboat replaces and moves in the working row, tool rows and the record-backed operational doorbell draw at zero height, /calm restores and re-hides them while persisting the shared preference
 ok - Claude Code 2.1.284 (Claude Code) resumes the transcript with Calm's hidden rows still hidden and the preference intact

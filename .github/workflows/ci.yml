@@ -26,8 +26,8 @@ concurrency:
   group: ci-${{ github.workflow }}-${{ github.event_name }}-${{ (github.event_name == 'push' && 'main') || (github.event.action == 'labeled' && github.event.label.name != 'full-ci' && github.run_id) || github.event.pull_request.number }}
   cancel-in-progress: ${{ !(github.event.action == 'labeled' && github.event.label.name != 'full-ci') }}
 
-# Timeout policy: docs/fm-test-portable-shards.md "Timeouts" owns the three
-# tiers and their rationale; tests/fm-ci-workflow.test.sh guards this workflow.
+# Timeout policy: docs/test-portable-shards.md "Timeouts" owns the three
+# tiers and their rationale; tests/ci-workflow.test.sh guards this workflow.
 # Each job comment identifies the tier implemented by its executable value.
 
 # Fork opt-out: a fork sets the repository variable FM_CI_SKIP_PUSH to 1 to
@@ -69,12 +69,12 @@ jobs:
       - name: Install pinned ShellCheck
         run: |
           set -eu
-          bin/fm-install-shellcheck.sh "$RUNNER_TEMP/bin"
+          bin/install-shellcheck.sh "$RUNNER_TEMP/bin"
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
       - name: Install pinned actionlint
         run: |
           set -eu
-          bin/fm-install-actionlint.sh "$RUNNER_TEMP/bin"
+          bin/install-actionlint.sh "$RUNNER_TEMP/bin"
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
       # Single owner of the lint definition (shell file set, config, version,
       # and GitHub workflow lint). Do not re-spell the checks here; keep CI
@@ -89,7 +89,7 @@ jobs:
         run: |
           set -eu
           mkdir -p "$RUNNER_TEMP/fm-lint"
-          bin/fm-lint.sh --partition "${{ matrix.partition }}of${{ strategy.job-total }}" \
+          bin/lint.sh --partition "${{ matrix.partition }}of${{ strategy.job-total }}" \
             --telemetry "$RUNNER_TEMP/fm-lint/partition-${{ matrix.partition }}.tsv"
       - name: Upload lint telemetry
         if: always()
@@ -113,10 +113,10 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Prove complete regression partition
-        run: bin/fm-test-run.sh --check-coverage
+        run: bin/test-run.sh --check-coverage
 
   # Two duration-balanced portable parallel shards of the Phase 2 proven-isolated
-  # set only. Composition owner: bin/fm-test-run.sh (docs/fm-test-portable-shards.md).
+  # set only. Composition owner: bin/test-run.sh (docs/test-portable-shards.md).
   tests-portable-parallel-1:
     name: ${{ (github.event.action == 'labeled' && github.event.label.name != 'full-ci') && 'Not run for label - ' || '' }}Behavior portable parallel 1
     runs-on: ubuntu-24.04
@@ -130,12 +130,12 @@ jobs:
       - name: Install pinned ShellCheck
         run: |
           set -eu
-          bin/fm-install-shellcheck.sh "$RUNNER_TEMP/bin"
+          bin/install-shellcheck.sh "$RUNNER_TEMP/bin"
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
       - name: Install pinned actionlint
         run: |
           set -eu
-          bin/fm-install-actionlint.sh "$RUNNER_TEMP/bin"
+          bin/install-actionlint.sh "$RUNNER_TEMP/bin"
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
       - name: Install tasks-axi
         run: |
@@ -151,7 +151,7 @@ jobs:
         run: |
           set -eu
           mkdir -p "$RUNNER_TEMP/fm-test"
-          bin/fm-test-run.sh --lane portable-parallel-1 \
+          bin/test-run.sh --lane portable-parallel-1 \
             --fail-on-gate-skip 'Pi extension typecheck prerequisite not found' \
             --json "$RUNNER_TEMP/fm-test/fm-test-timing-portable-parallel-1.json"
       - name: Upload shard 1 timing artifact
@@ -175,12 +175,12 @@ jobs:
       - name: Install pinned ShellCheck
         run: |
           set -eu
-          bin/fm-install-shellcheck.sh "$RUNNER_TEMP/bin"
+          bin/install-shellcheck.sh "$RUNNER_TEMP/bin"
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
       - name: Install pinned actionlint
         run: |
           set -eu
-          bin/fm-install-actionlint.sh "$RUNNER_TEMP/bin"
+          bin/install-actionlint.sh "$RUNNER_TEMP/bin"
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
       - name: Install tasks-axi
         run: |
@@ -191,7 +191,7 @@ jobs:
         run: |
           set -eu
           mkdir -p "$RUNNER_TEMP/fm-test"
-          bin/fm-test-run.sh --lane portable-parallel-2 \
+          bin/test-run.sh --lane portable-parallel-2 \
             --json "$RUNNER_TEMP/fm-test/fm-test-timing-portable-parallel-2.json"
       - name: Upload shard 2 timing artifact
         if: always()
@@ -205,8 +205,8 @@ jobs:
   # ambiguous, and other stateful tests. Real Herdr stays in tests-herdr.
   # Split across separate runners so no two of these stateful scripts ever share
   # a machine: each shard is still strictly serial in itself. Shard membership
-  # and the shard count both belong to bin/fm-test-run.sh, which refuses a lane
-  # whose "ofN" disagrees with it (docs/fm-test-portable-shards.md).
+  # and the shard count both belong to bin/test-run.sh, which refuses a lane
+  # whose "ofN" disagrees with it (docs/test-portable-shards.md).
   tests-portable-serial:
     name: ${{ (github.event.action == 'labeled' && github.event.label.name != 'full-ci') && 'Not run for label - ' || '' }}Behavior portable serial ${{ matrix.shard }}
     runs-on: ubuntu-24.04
@@ -225,12 +225,12 @@ jobs:
       - name: Install pinned ShellCheck
         run: |
           set -eu
-          bin/fm-install-shellcheck.sh "$RUNNER_TEMP/bin"
+          bin/install-shellcheck.sh "$RUNNER_TEMP/bin"
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
       - name: Install pinned actionlint
         run: |
           set -eu
-          bin/fm-install-actionlint.sh "$RUNNER_TEMP/bin"
+          bin/install-actionlint.sh "$RUNNER_TEMP/bin"
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
       - name: Require tmux for e2e tests
         run: |
@@ -246,7 +246,7 @@ jobs:
           npm install -g tasks-axi
           tasks-axi --version
       # Runtime-facing Pi extension probes need the installed public package
-      # to avoid capability skips. tests/fm-pi-primary-types.test.sh owns its
+      # to avoid capability skips. tests/pi-primary-types.test.sh owns its
       # separate compiler dependencies.
       - name: Install the Pi package for the Pi extension tests
         run: |
@@ -256,14 +256,14 @@ jobs:
       - name: Run portable serial shard ${{ matrix.shard }}
         env:
           # job-total rather than a literal, so shrinking or growing the matrix
-          # without matching bin/fm-test-run.sh is refused instead of quietly
+          # without matching bin/test-run.sh is refused instead of quietly
           # leaving a shard of the required lane unrun.
           FM_SERIAL_LANE: portable-serial-${{ matrix.shard }}of${{ strategy.job-total }}
           FM_SERIAL_SHARD: ${{ matrix.shard }}
         run: |
           set -eu
           mkdir -p "$RUNNER_TEMP/fm-test"
-          bin/fm-test-run.sh --lane "$FM_SERIAL_LANE" \
+          bin/test-run.sh --lane "$FM_SERIAL_LANE" \
             --fail-on-gate-skip 'Pi extension typecheck prerequisite not found' \
             --json "$RUNNER_TEMP/fm-test/fm-test-timing-portable-serial-${FM_SERIAL_SHARD}.json"
       - name: Upload portable serial shard ${{ matrix.shard }} timing artifact
@@ -302,14 +302,14 @@ jobs:
       - name: Install pinned Herdr
         run: |
           set -eu
-          bin/fm-install-herdr.sh "$RUNNER_TEMP/bin"
+          bin/install-herdr.sh "$RUNNER_TEMP/bin"
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
       - name: Install pinned Treehouse
         run: |
           set -eu
           # Several real-herdr-gated E2E scripts require treehouse for spawn
           # worktree acquisition (presentation, workspace-per-home, autodetect).
-          bin/fm-install-treehouse.sh "$RUNNER_TEMP/bin"
+          bin/install-treehouse.sh "$RUNNER_TEMP/bin"
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
       - name: Assert Herdr pin and protocol floor
         run: |
@@ -363,7 +363,7 @@ jobs:
         run: |
           set -eu
           mkdir -p "$RUNNER_TEMP/fm-herdr"
-          bin/fm-herdr-ci-cleanup.sh snapshot "$RUNNER_TEMP/fm-herdr/sessions-before.json"
+          bin/herdr-ci-cleanup.sh snapshot "$RUNNER_TEMP/fm-herdr/sessions-before.json"
       - name: Run real-Herdr family (serial, required)
         id: run-real-herdr-family
         # Heavy tier step tripwire: above the healthy 7-10 minute wall and far
@@ -374,7 +374,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/fm-test"
           # Serial only. Fail if any script reports herdr not found. Live
           # harness credential tests stay outside this family (opt-in env only).
-          bin/fm-test-run.sh --family real-herdr-gated \
+          bin/test-run.sh --family real-herdr-gated \
             --fail-on-gate-skip 'herdr not found' \
             --json "$RUNNER_TEMP/fm-test/fm-test-timing-herdr.json"
       - name: Cleanup job-owned Herdr lab sessions
@@ -382,7 +382,7 @@ jobs:
         if: always()
         run: |
           set -eu
-          bin/fm-herdr-ci-cleanup.sh teardown "$RUNNER_TEMP/fm-herdr/sessions-before.json" || {
+          bin/herdr-ci-cleanup.sh teardown "$RUNNER_TEMP/fm-herdr/sessions-before.json" || {
             echo "::warning::lab session cleanup reported a problem; see logs"
             # Surface diagnostics without weakening the suite result above.
             herdr session list --json || true
@@ -429,7 +429,7 @@ jobs:
             echo "::warning::no per-lane timing JSON found to aggregate"
             exit 0
           fi
-          bin/fm-test-run.sh --aggregate-json \
+          bin/test-run.sh --aggregate-json \
             "$RUNNER_TEMP/fm-test/fm-test-timing-aggregate.json" \
             "${inputs[@]}"
       - name: Upload aggregate timing artifact
@@ -462,7 +462,7 @@ jobs:
           command -v jq >/dev/null || { echo "::error::jq is required"; exit 1; }
 
           shell_inventory="$RUNNER_TEMP/fm-shell-inventory"
-          bin/fm-lint.sh --list-files > "$shell_inventory"
+          bin/lint.sh --list-files > "$shell_inventory"
           parse_fail=0
           while IFS= read -r f; do
             /bin/bash -n "$f" || { echo "::error::stock macOS Bash 3.2 failed to parse $f"; parse_fail=1; }
@@ -478,27 +478,27 @@ jobs:
           # Each suite declares its own TAP plan; the helper fails an early
           # exit 0 that does not reach FM_TEST_COMPLETE or whose ok count
           # disagrees with the plan. Per-suite totals live in the test files.
-          /bin/bash bin/fm-test-tap-verify.sh tests/fm-fleet-snapshot-view.test.sh
-          /bin/bash bin/fm-test-tap-verify.sh tests/fm-bearings-snapshot.test.sh
+          /bin/bash bin/test-tap-verify.sh tests/active-work-snapshot-view.test.sh
+          /bin/bash bin/test-tap-verify.sh tests/work-summary-snapshot.test.sh
 
           # The full public-followup suite is not a stock-bash snapshot; run only
           # the empty-lock register regression under real /bin/bash 3.2.
-          FM_TEST_STOCK_BASH=1 /bin/bash bin/fm-test-tap-verify.sh \
-            tests/fm-public-followup.test.sh
+          FM_TEST_STOCK_BASH=1 /bin/bash bin/test-tap-verify.sh \
+            tests/public-followup.test.sh
 
           # Same shape for the watcher's churn-deferral regression: an already-
           # marked churn window expands an empty array that only stock Bash
           # treats as an unbound variable under set -u.
-          FM_TEST_STOCK_BASH=1 /bin/bash bin/fm-test-tap-verify.sh \
-            tests/fm-watch-triage.test.sh
+          FM_TEST_STOCK_BASH=1 /bin/bash bin/test-tap-verify.sh \
+            tests/supervision-watch-triage.test.sh
 
           # The fork-free hot-path helpers must stay byte-identical to the
           # commands they replace under stock Bash 3.2, which lacks the
           # printf %(...)T clock and falls back to date.
-          /bin/bash bin/fm-test-tap-verify.sh tests/fm-fork-free-helpers.test.sh
+          /bin/bash bin/test-tap-verify.sh tests/fork-free-helpers.test.sh
 
           FM_TEST_STOCK_BASH=1 FM_TEST_BASH=/bin/bash \
-            /bin/bash bin/fm-test-tap-verify.sh tests/fm-backend.test.sh
+            /bin/bash bin/test-tap-verify.sh tests/runtime-backend.test.sh
 
   invariants:
     name: ${{ (github.event.action == 'labeled' && github.event.label.name != 'full-ci') && 'Not run for label - ' || '' }}Repo invariants

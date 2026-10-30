@@ -7,7 +7,7 @@ Original-upstream publication is a separate action requiring explicit consent, n
 ## Remote roles and publication
 
 Clone the fork as `origin`; an optional `upstream` remote is read-only consumption context.
-Before publishing, verify `git remote -v`, the push URL, and `bin/fm-role.sh`'s selected publication target.
+Before publishing, verify `git remote -v`, the push URL, and `bin/publication-authority.sh`'s selected publication target.
 Only `origin` should be marked `remote.origin.gh-resolved=base`; a competing base marker can select the wrong repository.
 Without a base marker the compatibility resolver may prefer `upstream`, so merely changing origin is insufficient.
 Configure this only in the intended repository, never in global configuration or an unrelated running home.

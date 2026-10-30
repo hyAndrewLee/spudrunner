@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 // tests/t3-fake-server.mjs - a fake T3 Code server for the t3code backend
-// suites (tests/fm-t3-mcp.test.sh, tests/fm-backend-t3code.test.sh).
+// suites (tests/t3code-mcp.test.sh, tests/runtime-backend-t3code.test.sh).
 //
 // It serves T3's headless OAuth sign-in (/oauth/mcp/register, /decision,
 // /token) and the Orchestrator V2 `/mcp` streamable-HTTP endpoint with the
-// tool subset bin/fm-t3-mcp.mjs drives. Shapes follow T3 main 50647de0 and
+// tool subset bin/t3code-mcp.mjs drives. Shapes follow T3 main 50647de0 and
 // 0.0.46 nightly as recorded in docs/verification/runtime-backends.md,
 // including the protocol facts a simpler fake would hide:
 //   - t3_thread_list pages by cursor (default 50, at most 100) and reports
