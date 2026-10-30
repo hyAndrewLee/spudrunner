@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Single owner of a ship task's mode-specific "Definition of done" block and of
+# Single owner of an implementation task's mode-specific "Definition of done" block and of
 # the named-head reachability gate that accepts a ship `done:` claim.
 # Sourced by bin/fm-brief.sh, which renders it into a generated ship brief, and by
-# bin/fm-promote.sh, which renders it into the ship instructions a promoted scout
+# bin/fm-promote.sh, which renders it into the ship instructions a promoted investigation worker
 # receives. Both paths must hand the worker the same contract: a promoted
 # no-mistakes worker that never received the ask-user escalation rule or the
 # `--yes` ban is the exact delivery hole this single owner exists to close.
@@ -29,12 +29,12 @@
 # other mode or forge.
 # The optional sixth argument is the task's recorded upstream consent for a
 # firstmate-repository contribution (bin/fm-role-lib.sh owns the boundary): a
-# captain-approved <host>/<owner>/<repo> publication scope for this one task,
+# user-approved <host>/<owner>/<repo> publication scope for this one task,
 # rendered as an `upstream-consent=<scope>` suffix token on the Delivery
 # contract line so brief, spawn record, and worker instructions agree.
 # Callers of the gate are bin/fm-crew-state.sh (current-state done),
 # bin/fm-pr-check.sh (PR registration), and bin/fm-inactive-reconcile.sh
-# (secondmate ledger-first publish of a child done). A ship `done:` is not
+# (project coordinator ledger-first publish of a child done). A ship `done:` is not
 # accepted while the named head exists only in the worker's disposable copy.
 # The check tests that head, not whether some branch moved. In no-mistakes
 # mode the pre-validation `done: {summary}` is the pipeline handoff and is
@@ -96,41 +96,41 @@
 # declares a paused wait instead. bin/fm-pr-check.sh refuses to arm merge
 # monitoring on a draft through the same reading bin/fm-pr-merge.sh uses.
 # This file is the one owner of the no-mistakes `--intent` contract: only the
-# brief's `## Captain's intent` subsection plus later captain words, never
-# `## Firstmate spec` and never the worker's own tradeoffs.
+# brief's `## User intent` subsection plus later user words, never
+# `## Implementation requirements` and never the worker's own tradeoffs.
 # Author the subsection body and later relays as the actual words, without
 # adding speaker labels or direct address: the heading supplies provenance and
-# is not part of --intent. A legacy mixed Task instead marks each captain line
-# with `[captain] `; the selector returns its words, not that metadata prefix.
+# is not part of --intent. A legacy mixed Task instead marks each user line
+# with `[user] `; the selector returns its words, not that metadata prefix.
 # That selector skips fenced blocks and indented examples like the heading
-# reader, so a quoted `Captain:` sample is never authorized intent.
+# reader, so a quoted `User:` sample is never authorized intent.
 # Previously stored speaker labels remain readable for compatibility only.
-# Never scrub literal examples or other content the captain actually supplied.
+# Never scrub literal examples or other content the user actually supplied.
 # The string passed must be self-sufficient - it plus the codebase reconstructs
 # roughly the same specification - so a report, decision, or PR the intent
 # refers to is written into it as substance, never left as a pointer.
 # bin/fm-brief.sh scaffolds those two `# Task` subsections; bin/fm-spawn.sh and
 # bin/fm-promote.sh refuse leftover `{TASK}` / `{FIRSTMATE_SPEC}` placeholders
-# and a `## Captain's intent` line opening with a Captain label or address
+# and a `## User intent` line opening with a User label or address
 # through the helpers below. Other mentions of `--intent` point here rather than
 # restating the rule.
 # Every heredoc here stays outside a command substitution: `VAR=$(cat <<EOF ...)`
 # breaks parsing of the whole file on Bash 3.2 (tests/fm-brief.test.sh).
 # fm_brief_worker_role owns the ship/scout role scope. bin/fm-spawn.sh is its one
 # emitter, supplying it first in every ship/scout launch brief and never to a
-# secondmate charter. It names the one task-owned steering inbox without
+# project coordinator charter. It names the one task-owned steering inbox without
 # relaxing isolation from every other home's endpoint namespace. Like
 # fm_brief_intent_overlay it is a distinctly titled launch section that states
 # its own precedence, so a brief or project instruction that authors a
 # conflicting role is superseded rather than duplicated.
-# The code root argument is the Firstmate checkout that holds
-# .agents/skills/firstmate-coding-guidelines/SKILL.md. A worker in a Firstmate
+# The code root argument is the Spudrunner checkout that holds
+# .agents/skills/firstmate-coding-guidelines/SKILL.md. A worker in a Spudrunner
 # worktree loads that skill by name from its own checkout. A worker whose
 # session does not register the skill, such as one in another project's
 # worktree, cannot, so the role also names the file as the fallback to read;
 # the Claude launch grants the skills directory that holds it.
 # fm_ship_rule_one owns the mode-specific first ship safety rule shared by an
-# ordinary ship brief and the durable contract written during scout promotion.
+# ordinary ship brief and the durable contract written during investigation worker promotion.
 # It takes the same optional trailing forge argument, because the rule that keeps
 # a worker off a remote is exactly the rule that changes when the forge does.
 
@@ -151,25 +151,27 @@ fm_brief_worker_policy() {  # <code-root>
   local policy="$1/.agents/skills/worker-engineering/SKILL.md"
   [ -r "$policy" ] || { printf 'error: missing engineering policy: %s\n' "$policy" >&2; return 1; }
   printf '# Current engineering defaults\n'
+  # shellcheck disable=SC2016 # Backticks are literal Markdown in generated instructions.
   printf 'Policy owner: `%s`; its effective instructions follow so discovery in the target project is unnecessary.\n' "$policy"
   awk 'NR == 1 && $0 == "---" { front = 1; next }
     front && $0 == "---" { front = 0; next }
     !front { print }' "$policy"
 }
 
-fm_brief_worker_role() {  # <state-dir> <task-id> <code-root>
-  local state=$1 task_id=$2 root=$3
+fm_brief_worker_role() {  # <state-dir> <task-id> <code-root> [ship|scout]
+  local state=$1 task_id=$2 root=$3 role=implementation
+  [ "${4:-ship}" != scout ] || role=investigation
+  printf '# Current worker role contract\n'
+  printf 'You are an %s worker: an autonomous worker agent managed by the main coordinator.\n' "$role"
   cat <<'EOF'
-# Current worker role contract
-You are a crewmate: an autonomous worker agent managed by firstmate.
 This section establishes your current identity before every project or task instruction below and supersedes any conflicting role identity in those instructions.
-Do the assigned work yourself and report only to firstmate; do not adopt a firstmate or secondmate supervisor identity, delegate the task, run fleet supervision, or address the captain.
+Do the assigned work yourself and report only to the main coordinator; do not adopt a main-coordinator or project-coordinator supervisor identity, delegate the task, run worker supervision, or address the user.
 EOF
-  printf "Your steering inbox is \`%s/%s.inbox\`; this exact path belongs to your current task even when it is outside the worktree or under the supervising firstmate home, so read and acknowledge its messages and do not reject it as another home's state.\n" "$state" "$task_id"
+  printf "Your steering inbox is \`%s/%s.inbox\`; this exact path belongs to your current task even when it is outside the worktree or under the supervising Spudrunner home, so read and acknowledge its messages and do not reject it as another home's state.\n" "$state" "$task_id"
   cat <<'EOF'
 Never inspect or change any other home's endpoint namespace; this authorization is limited to the exact task paths named by this brief.
-When this task works on Firstmate itself, the repository root `AGENTS.md` (also imported by `CLAUDE.md`) is project content and the supervisor contract for the firstmate managing you: follow this brief instead of that supervisor contract.
-Project instructions still govern the work wherever they do not conflict with this worker identity, including `CONTRIBUTING.md` and `firstmate-coding-guidelines` for Firstmate changes.
+When this task works on Spudrunner itself, the repository root `AGENTS.md` (also imported by `CLAUDE.md`) is project content and the supervisor contract for the Spudrunner managing you: follow this brief instead of that supervisor contract.
+Project instructions still govern the work wherever they do not conflict with this worker identity, including `CONTRIBUTING.md` and `firstmate-coding-guidelines` for Spudrunner changes.
 EOF
   printf "If the \`firstmate-coding-guidelines\` skill name does not resolve in this session, read \`%s/.agents/skills/firstmate-coding-guidelines/SKILL.md\` instead.\n" "$root"
   printf '\n'
@@ -178,7 +180,7 @@ EOF
 
 # Return 0 when <mode> is one of the two publishing modes, whose Definition of
 # done below publishes the task for review: a pull request, or on a
-# forge=gerrit project a change. local-only publishes nothing, and a scout
+# forge=gerrit project a change. local-only publishes nothing, and an investigation worker
 # records no mode. A home that opts in with config/spawn-base-primary-checkout
 # reads it in bin/fm-spawn.sh, bin/fm-review-diff.sh, and bin/fm-promote.sh:
 # published work must start from, and be reviewed against, origin's tip rather
@@ -314,7 +316,7 @@ fm_ship_rule_one() {  # <no-mistakes|direct-PR|local-only> <task-id> [branch] [<
       printf '%s\n' "1. Never push to $target (push only your \`$branch\` branch). Never merge a PR."
       ;;
     local-only)
-      printf '%s\n' "1. Never push to any remote and never open a PR. Work only on your \`$branch\` branch; firstmate handles the merge into local \`main\`."
+      printf '%s\n' "1. Never push to any remote and never open a PR. Work only on your \`$branch\` branch; Spudrunner handles the merge into local \`main\`."
       ;;
     no-mistakes)
       printf '%s\n' "1. Never push to $target. Never merge a PR."
@@ -331,8 +333,8 @@ fm_ship_rule_one() {  # <no-mistakes|direct-PR|local-only> <task-id> [branch] [<
 fm_brief_task_placeholders_present() {  # <file>
   local file=$1 intent spec
   [ -f "$file" ] || return 1
-  intent=$(fm_brief_task_heading_body "$file" "## Captain's intent")
-  spec=$(fm_brief_task_heading_body "$file" "## Firstmate spec")
+  intent=$(fm_brief_task_heading_body "$file" "## User intent")
+  spec=$(fm_brief_task_heading_body "$file" "## Implementation requirements")
   [ "$(printf '%s' "$intent" | tr -d '[:space:]')" = '{TASK}' ] && return 0
   [ "$(printf '%s' "$spec" | tr -d '[:space:]')" = '{FIRSTMATE_SPEC}' ] && return 0
   return 1
@@ -341,7 +343,7 @@ fm_brief_task_placeholders_present() {  # <file>
 # Print the words of every provenance-marked line in a legacy `# Task` body.
 # The marker is read the way bin/fm-brief-heading-lib.sh reads a heading: a
 # line inside a ``` or ~~~ fenced block, or indented four spaces or a tab as an
-# indented example, is never a marked line, so a fenced `Captain:` sample cannot
+# indented example, is never a marked line, so a fenced `User:` sample cannot
 # pass the provenance gate as the ship contract's intent (issue 3608).
 fm_brief_marked_captain_words() {  # <task-body>
   printf '%s\n' "$1" | awk '
@@ -368,7 +370,7 @@ fm_brief_marked_captain_words() {  # <task-body>
         next
       }
       if (fenced || substr(scan, 1, 1) ~ /^[ \t]$/) next
-      if (match(scan, /^(\[captain\]|Captain('\''s (words|ask|intent))?:)[[:space:]]*/)) {
+      if (match(scan, /^(\[(captain|user)\]|(Captain|User)('\''s (words|ask|intent))?:)[[:space:]]*/)) {
         words = substr(scan, RLENGTH + 1)
         if (words ~ /[^[:space:]]/) print words
       }
@@ -380,13 +382,13 @@ fm_brief_intent_overlay() {  # <captain-intent>
   cat <<'EOF'
 
 # Current no-mistakes intent contract
-This section supersedes every earlier brief instruction about constructing `--intent`, but not later clarifications actually supplied by the captain.
-Use everything under `## Captain intent authorized for --intent` through the end of this brief, including any nested subheadings but excluding that heading, plus any later words the captain actually supplied as `--intent`; never include Firstmate specification or other mixed Task content.
+This section supersedes every earlier brief instruction about constructing `--intent`, but not later clarifications actually supplied by the user.
+Use everything under `## User intent authorized for --intent` through the end of this brief, including any nested subheadings but excluding that heading, plus any later words the user actually supplied as `--intent`; never include implementation requirements or other mixed Task content.
 Preserve those words without adding speaker labels or direct address.
-Firstmate-authored constraints, acceptance criteria, implementation details, decisions, and tradeoffs are specification, not captain intent.
+Coordinator-authored constraints, acceptance criteria, implementation details, decisions, and tradeoffs are specification, not user intent.
 The Definition of done's rule that `--intent` must be self-sufficient still governs the string you pass: resolve any report, decision, or PR the intent below refers to into its substance rather than passing the pointer.
 
-## Captain intent authorized for --intent
+## User intent authorized for --intent
 EOF
   printf '%s\n' "$1"
 }
@@ -396,12 +398,12 @@ EOF
 fm_brief_task_content_valid() {  # <file>
   local file=$1 intent spec task has_intent=0 has_spec=0
   [ -f "$file" ] && [ -r "$file" ] || return 1
-  fm_brief_task_heading_present "$file" "## Captain's intent" && has_intent=1
-  fm_brief_task_heading_present "$file" "## Firstmate spec" && has_spec=1
+  fm_brief_task_heading_present "$file" "## User intent" && has_intent=1
+  fm_brief_task_heading_present "$file" "## Implementation requirements" && has_spec=1
   if [ "$has_intent" -eq 1 ] || [ "$has_spec" -eq 1 ]; then
     [ "$has_intent" -eq 1 ] && [ "$has_spec" -eq 1 ] || return 1
-    intent=$(fm_brief_task_heading_body "$file" "## Captain's intent")
-    spec=$(fm_brief_task_heading_body "$file" "## Firstmate spec")
+    intent=$(fm_brief_task_heading_body "$file" "## User intent")
+    spec=$(fm_brief_task_heading_body "$file" "## Implementation requirements")
     [ -n "$(printf '%s' "$intent" | tr -d '[:space:]')" ] || return 1
     [ -n "$(printf '%s' "$spec" | tr -d '[:space:]')" ] || return 1
     return 0
@@ -410,11 +412,11 @@ fm_brief_task_content_valid() {  # <file>
   [ -n "$(printf '%s' "$task" | tr -d '[:space:]')" ]
 }
 
-# Print the first `## Captain's intent` body line that opens with an operator
+# Print the first `## User intent` body line that opens with an operator
 # address spelling; fail when there is none. The body is never rewritten.
 fm_brief_intent_address_line() {  # <file>
-  fm_brief_task_heading_body "$1" "## Captain's intent" | awk '
-    /^[[:space:]]*(Captain('\''s (words|ask|intent))?:|Captain,)/ { print; found = 1; exit }
+  fm_brief_task_heading_body "$1" "## User intent" | awk '
+    /^[[:space:]]*((Captain|User)('\''s (words|ask|intent))?:|(Captain|User),)/ { print; found = 1; exit }
     END { exit !found }
   '
 }
@@ -467,13 +469,13 @@ ${pr_return_line}Whenever a drive call returns without a gate or an outcome - it
   cat <<EOF
 You drive no-mistakes by responding to its gates, not by implementing fixes.
 Follow the guidance no-mistakes itself provides for the mechanics: it loads when you invoke /no-mistakes, and \`no-mistakes axi run --help\` plus the \`help\` lines in each \`axi\` response are authoritative and version-matched to the installed binary.
-When starting no-mistakes, pass \`--intent\` as only this brief's \`## Captain's intent\` subsection body, not its heading, plus any later words the captain actually said.
+When starting no-mistakes, pass \`--intent\` as only this brief's \`## User intent\` subsection body, not its heading, plus any later words the user actually said.
 Preserve the actual words without adding speaker labels or direct address; the subsection heading supplies provenance outside the pipeline input.
-For a legacy brief with no such subsection, include only words on lines marked \`[captain] \`, excluding that metadata prefix; never copy its mixed \`# Task\` wholesale.
-If it has no provenance-marked captain words, stop and ask firstmate instead of starting no-mistakes.
-Do not include \`## Firstmate spec\`, later Firstmate build constraints, or your own decisions and tradeoffs.
+For a legacy brief with no such subsection, include only words on lines marked \`[user] \` (or legacy \`[captain] \`), excluding that metadata prefix; never copy its mixed \`# Task\` wholesale.
+If it has no provenance-marked user words, stop and ask Spudrunner instead of starting no-mistakes.
+Do not include \`## Implementation requirements\`, later Spudrunner build constraints, or your own decisions and tradeoffs.
 The \`--intent\` string you pass must be self-sufficient: that string plus the codebase must let a reader reconstruct roughly the same specification, without depending on a separate report, a PR, or context that lives only in this conversation.
-When the captain's intent refers to a report, decision, or PR ("do items 1, 2, 3, and 7 of the report"), write the substance of the referenced items into \`--intent\` in the captain's terms, not only the pointer; that substance is the captain's ask by reference, while Firstmate's build instructions and your own decisions still stay out.
+When the user's intent refers to a report, decision, or PR ("do items 1, 2, 3, and 7 of the report"), write the substance of the referenced items into \`--intent\` in the user's terms, not only the pointer; that substance is the user's ask by reference, while Spudrunner's build instructions and your own decisions still stay out.
 This replaces the no-mistakes skill's advice to enrich \`--intent\` with decisions and tradeoffs; that advice does not apply to Firstmate-dispatched work.
 Do not hand-edit, commit, or fix findings yourself while a run is active - the pipeline applies every fix.
 
@@ -482,8 +484,8 @@ A killed or timed-out call is never evidence the daemon died: the daemon accepts
 Reattach and keep going rather than reporting the pipeline blocked; rule 7 owns the checks that decide when a pipeline block is real.
 
 Two firstmate-specific rules layer on top of that guidance:
-- ask-user findings are never yours to answer: escalate to firstmate using rule 6's ask-user format and stop.
-  Firstmate applies \`ask-user-authority\` and obtains any required captain decision.
+- ask-user findings are never yours to answer: escalate to Spudrunner using rule 6's ask-user format and stop.
+  Spudrunner applies \`ask-user-authority\` and obtains any required user decision.
   When the decision comes back, feed it to the gate with \`no-mistakes axi respond\` and let the pipeline apply it - do not route the question to "the user" or implement the fix yourself.
 - NEVER pass \`--yes\` (or \`-y\`) to \`no-mistakes axi run\` or \`no-mistakes axi respond\`. It is banned fleet-wide.
   It auto-resolves every gate including ask-user findings with no escalation, and answering your own ask-user finding is a hard rule violation.
@@ -502,13 +504,13 @@ Publish from this copy with \`gerrit-axi\`, never with \`git push\`:
    It is one push to \`refs/for/<branch>\` that turns every commit since your branch left the server's branch into ONE change carrying the oldest commit's message, so that message is the review description: make it the one you want reviewed.
    It keeps any \`Change-Id\` a commit already carries and stamps one into the oldest commit when it has none, rewriting your local branch's messages only.
    Never edit, remove, or regenerate a \`Change-Id\`: a different one creates a different change and orphans the first one's review, while the same one adds a patch set to it.
-   Never pass \`--stack\`: a stack of changes is not published from this fleet until it can be watched by its membership pinned when its watch is armed, and the watch follows exactly one change.
+   Never pass \`--stack\`: a stack of changes is not published from this active work until it can be watched by its membership pinned when its watch is armed, and the watch follows exactly one change.
 3. Read the record it prints: \`ok\` must be \`true\`, and the one row of its \`changes\` table is your change. Its \`url\` is the change URL; when \`url\` is null, write \`https://<host>/c/<project>/+/<change>\` from your \`origin\` remote's host and that row's \`project\` and \`change\`.
    A failure prints a typed error record instead; fix what it names and publish again, which updates the same change rather than creating another.
 Then append \`done [at=<epoch>]: PR {change url} published for review\` to the status file and stop. You are finished.
 That \`done:\` is accepted only when the change's current patch set on the server carries this copy's HEAD tree, so commit nothing after publishing; if you must change the work, commit it and publish again before reporting done.
 A \`done:\` whose URL is not the canonical \`https://<host>/c/<project>/+/<number>\` change URL is refused.
-There is no pull request, no \`gh-axi\` call, and no forge CI result to report: a human reviewer approves and submits the change on the server, and firstmate relays that outcome.
+There is no pull request, no \`gh-axi\` call, and no forge CI result to report: a human reviewer approves and submits the change on the server, and Spudrunner relays that outcome.
 EOF
 }
 
@@ -529,7 +531,7 @@ This project's pull-request text is written by hand: the pipeline's \`pr\` step 
 Pass \`--skip pr,ci\` on every \`no-mistakes axi run\` for this task, and skip nothing else: \`review\`, \`test\`, \`document\`, \`lint\`, and \`push\` still run, and \`ci\` has no pipeline-opened PR to watch.
 The task is complete only when committed on your branch.
 When you believe it is complete, append \`done [at=<epoch>]: {summary}\` to the status file and stop.
-Firstmate will then instruct you to run /no-mistakes to validate and push.
+Spudrunner will then instruct you to run /no-mistakes to validate and push.
 That first \`done:\` is the handoff that starts the pipeline, which owns the push; it is not a request to push from this copy.
 ${nm_base}
 EOF
@@ -537,7 +539,7 @@ EOF
   cat <<EOF
 
 When the run's outcome is passed, passed-with-skips, or passed-with-override, write the PR title and body yourself and publish them with \`$forge_cli\`:
-1. Write the PR body to a file of your own under the scratch location rule 2 names, and verify it with \`head\` before using it. Match the title and body style of the project's recent merged PRs and its contribution guide, in plain English for a reviewer who lacks your context, with no direct address, and keep any issue reference the captain's intent names.
+1. Write the PR body to a file of your own under the scratch location rule 2 names, and verify it with \`head\` before using it. Match the title and body style of the project's recent merged PRs and its contribution guide, in plain English for a reviewer who lacks your context, with no direct address, and keep any issue reference the user's intent names.
 2. Find the PR for your branch first (\`$forge_cli pr list --head <branch>\`). If one exists, update its title and body with \`$forge_cli pr edit <number> --title '<title>' --body-file <path>\`. Otherwise open it with \`$forge_cli pr create\` from the branch the run pushed, ready for review, not a draft$pr_base.
 3. Never post a comment or review on the PR or on any other thread, and never rely on the pipeline for the PR text: it is yours on every push.
 4. Wait for the PR's checks with \`$forge_cli pr checks <number> --watch\`, under the ten-minute command limit as the driving block bounds its waits, and run the same command again whenever it returns with checks still pending. \`$forge_cli pr checks\` exits 1 when the project reports no checks at all: that is not a failed check and needs no fix. If a check fails, commit the fix, drive a new run with the same \`--skip pr,ci\`, and update the PR text if the change affects it.
@@ -600,7 +602,7 @@ Pass \`--skip push,pr,ci\` on every \`no-mistakes axi run\` for this task, and s
 Those three are the only steps that reach a forge, and skipping them is a supported outcome, not a degraded one.
 The task is complete only when committed on your branch.
 When you believe it is complete, append \`done [at=<epoch>]: {summary}\` to the status file and stop.
-Firstmate will then instruct you to run /no-mistakes to validate.
+Spudrunner will then instruct you to run /no-mistakes to validate.
 That first \`done:\` is the handoff that starts the pipeline; it is not a request to publish.
 
 EOF
@@ -617,7 +619,7 @@ An unrecovered fix round is an unfinished task, never housekeeping: publishing w
 Your ready report is refused while the run still holds your branch, while its outcome is missing or not passing, or while your HEAD's tree differs from the run's result.
 
 When the run's outcome is passed, passed-with-skips, or passed-with-override and step 3 holds, publish.
-The squashed change carries only the oldest commit's message, so the pipeline's own fix commits never reach the reviewer's description; your report is how they reach the captain.
+The squashed change carries only the oldest commit's message, so the pipeline's own fix commits never reach the reviewer's description; your report is how they reach the user.
 After publishing and immediately before your ready report, append one line \`note [at=<epoch>]: pipeline changes: {finding} - {fix it made}; {finding} - {fix it made}\` to the status file, one short clause per finding the run fixed, taken from the run's \`fixes\` table and the gate findings its drive calls returned (\`no-mistakes axi logs --step <step> --full\` has the detail); write \`note [at=<epoch>]: pipeline changes: none\` when it fixed nothing.
 EOF
       fm_gerrit_publish_block
@@ -646,7 +648,7 @@ EOF
         printf '%s\n' "Commit nothing after uploading; if you must change the work, commit it and upload again before reporting done."
       fi
       cat <<EOF
-Do NOT run /no-mistakes. A human approves and merges the review; firstmate relays the outcome.
+Do NOT run /no-mistakes. A human approves and merges the review; Spudrunner relays the outcome.
 
 ## Review tool instructions (home configuration)
 EOF
@@ -665,7 +667,7 @@ A draft cannot be merged, so a done report on one leaves the merge unasked.
 Then append \`done [at=<epoch>]: PR {url}\` to the status file and stop.
 That \`done:\` is accepted only when this copy's HEAD - your latest commit - is pushed to your PR branch; the check tests that commit, not merely that a branch moved.
 If you deliberately keep the PR a draft, append \`paused [at=<epoch>]: {why the draft is held}\` instead of done.
-Do NOT run /no-mistakes. The configured merge authority decides whether to merge the PR; firstmate relays the outcome.
+Do NOT run /no-mistakes. The configured merge authority decides whether to merge the PR; Spudrunner relays the outcome.
 EOF
       ;;
     local-only:*)
@@ -678,7 +680,7 @@ The task is complete only when committed on your branch \`$branch\`. Do NOT push
 A \`done:\` is accepted when the named head is on this project's shared local branch, not only on a detached copy; the check tests that head, not merely that a branch moved.
 Keep your branch a clean fast-forward onto the current default branch - if \`main\` has advanced, rebase onto it so the eventual merge stays a fast-forward.
 When it is implemented and committed, append \`done [at=<epoch>]: ready in branch $branch\` to the status file and stop.
-The configured merge authority approves the ready branch, then firstmate merges it into local \`main\` through the guarded fast-forward path.
+The configured merge authority approves the ready branch, then Spudrunner merges it into local \`main\` through the guarded fast-forward path.
 EOF
       ;;
     no-mistakes:*)
@@ -694,7 +696,7 @@ Delivery contract: mode=no-mistakes$contract_forge$contract_consent
 Ship branch: $branch
 The task is complete only when committed on your branch.
 When you believe it is complete, append \`done [at=<epoch>]: {summary}\` to the status file and stop.
-Firstmate will then instruct you to run /no-mistakes to validate and ship a PR.
+Spudrunner will then instruct you to run /no-mistakes to validate and ship a PR.
 That first \`done:\` is the handoff that starts the pipeline, which owns the push; it is not a request to push from this copy.
 ${nm_base}
 EOF
@@ -771,7 +773,7 @@ fm_dod_review_url_from_done_note() {  # <note>
   printf '%s\n' "$url"
 }
 
-# The forge=external half of the gate. The snapshot lives in a tool firstmate
+# The forge=external half of the gate. The snapshot lives in a tool Spudrunner
 # cannot read, so a URL that passes fm_external_review_url_parse is the whole
 # claim unless spawn recorded a personal backup remote (backup_remote= and
 # backup_prefix= in <meta>); then HEAD must also be on that remote's backup
@@ -898,7 +900,7 @@ fm_dod_forge_head_is_named_head() {  # <mode>
 # bin/fm-pr-check.sh recorded the forge's pr_head= for it in no-mistakes mode,
 # or the merge poll recorded it merged (<state>/<id>.pr-poll-merge-notified,
 # bin/fm-pr-lib.sh). That head is stored outside the worker copy even when
-# this clone never fetched it or fleet sync pruned its branch after a squash
+# this clone never fetched it or active work sync pruned its branch after a squash
 # merge. A recorded Gerrit change needs neither: its pr= is written only after
 # the live published-tree check accepted it.
 fm_dod_recorded_pr_on_forge() {  # <state> <id> <meta> <mode> <url>

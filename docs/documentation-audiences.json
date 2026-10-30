@@ -715,6 +715,22 @@
     {
       "path": "vendor/workflow/caveman/SKILL.md",
       "audience": "maintainer-architecture"
+    },
+    {
+      "path": "docs/naming-conventions.md",
+      "audience": "operator-current"
+    },
+    {
+      "path": ".agents/skills/status-summary/SKILL.md",
+      "audience": "agent-runtime"
+    },
+    {
+      "path": ".agents/skills/session-recap/SKILL.md",
+      "audience": "agent-runtime"
+    },
+    {
+      "path": ".agents/skills/updatespudrunner/SKILL.md",
+      "audience": "agent-runtime"
     }
   ]
 }

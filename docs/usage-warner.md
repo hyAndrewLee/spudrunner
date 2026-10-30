@@ -4,7 +4,7 @@
 It is a warner, not a viewer: it never renders a live usage report, and it speaks only once when a configured window reaches a configured percentage of itself consumed.
 
 The read itself is not new.
-[`quota-axi`](configuration.md) is the one Claude-quota reader this fleet depends on, already exposing `--json`, `--full`, `--tui`, and `--no-credential-refresh`; this script runs that exact read (through `bin/fm-quota-axi-lib.sh`'s own provider-row join) and never re-implements it.
+[`quota-axi`](configuration.md) is the one Claude-quota reader this active work depends on, already exposing `--json`, `--full`, `--tui`, and `--no-credential-refresh`; this script runs that exact read (through `bin/fm-quota-axi-lib.sh`'s own provider-row join) and never re-implements it.
 Every call passes `--no-credential-refresh`, so the read is strictly read-only; the script never passes `--allow-keychain-prompt` or any other credential-refreshing flag.
 
 ## Opt-in is load-bearing
@@ -35,7 +35,7 @@ The read bound is 10 seconds, or `FM_CHECK_TIMEOUT` minus 3 seconds when that is
 
 ## Notification path
 
-Warnings reach macOS through Notification Center (`osascript display notification`), the same OS-level path firstmate's own away-mode wedge alarm resolves to on this platform ([`bin/fm-supervise-daemon.sh`](../bin/fm-supervise-daemon.sh)'s `wedge_alarm_via_osascript`), so the home keeps one alert mechanism rather than two.
+Warnings reach macOS through Notification Center (`osascript display notification`), the same OS-level path Spudrunner's own away-mode wedge alarm resolves to on this platform ([`bin/fm-supervise-daemon.sh`](../bin/fm-supervise-daemon.sh)'s `wedge_alarm_via_osascript`), so the home keeps one alert mechanism rather than two.
 This script does not source or call into that daemon: production only execs the daemon, and the daemon's own library-mode guard defaults its notifier seam to "discard" whenever it is sourced instead, specifically so a second sourcing consumer can never fire a real notification through it.
 The away-mode config schema and max-defer rate limiting are also specific to buffered escalations, not to this feature's own edge-triggered de-dupe.
 So this script posts the identical OS call under its own title instead, which is the reusable part of "the same alerting path" without reaching into daemon-internal, away-mode-specific state.
@@ -44,9 +44,9 @@ Notification Center is macOS-only, so `arm` refuses on any other platform.
 ## Relationship to the quota process-event source
 
 [`bin/fm-procevent-quota.sh`](../bin/fm-procevent-quota.sh) reads the same `quota-axi` snapshot, so the two are worth telling apart.
-That source arms a blocking poll that fires at most once, wakes firstmate with a durable `check:` event, compares a tracked provider's aggregate `effectivePercentRemaining`, and must be re-armed by hand for any further monitoring.
+That source arms a blocking poll that fires at most once, wakes Spudrunner with a durable `check:` event, compares a tracked provider's aggregate `effectivePercentRemaining`, and must be re-armed by hand for any further monitoring.
 This warner is the standing half of that problem: it compares each named window separately and re-arms itself every time a window reads back below its threshold.
-A crossing raises a macOS notification and, once armed, also reaches firstmate as one `check:` wake per crossing, because the armed shim's report line is what the watcher turns into that wake.
+A crossing raises a macOS notification and, once armed, also reaches Spudrunner as one `check:` wake per crossing, because the armed shim's report line is what the watcher turns into that wake.
 Naming the window is the point, because the session and weekly windows exhaust at very different times, so an aggregate figure does not say which one is about to run out.
 Neither replaces the other, and arming both is reasonable: this one warns per window on every crossing while a window is still closing, and the other fires once on a provider-wide aggregate until it is re-armed by hand.
 

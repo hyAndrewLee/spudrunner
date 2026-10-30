@@ -1,7 +1,7 @@
 ---
 name: harness-adapters
 description: >-
-  Load before spawning or recovering a crewmate or secondmate, handling a trust dialog, sending a harness-specific skill invocation, interrupting or exiting an agent, resuming an exited agent, or verifying a new harness adapter.
+  Load before spawning or recovering an implementation worker or project coordinator, handling a trust dialog, sending a harness-specific skill invocation, interrupting or exiting an agent, resuming an exited agent, or verifying a new harness adapter.
 user-invocable: false
 metadata:
   internal: true
@@ -9,7 +9,7 @@ metadata:
 
 # harness-adapters
 
-This is the one skill, trigger, and routing owner for harness-specific Firstmate operations.
+This is the one skill, trigger, and routing owner for harness-specific Spudrunner operations.
 Load this router first, then exactly the common reference and one harness reference selected below.
 When an action spans rows, load the union once rather than every reference.
 Files under `references/` are resources of this skill, not additional catalogued skills.
@@ -18,32 +18,32 @@ Files under `references/` are resources of this skill, not additional catalogued
 
 The skill directory is the directory containing this `SKILL.md`.
 Resolve on-demand reference links and relative links to their executable, documentation, or sibling-skill owners against the skill directory, including links named by a nested reference.
-Operational paths keep the context named by their owner: `config/` and active-home settings belong to the active Firstmate home, `state/` belongs to that home, and project settings such as `.claude/settings.json` belong to the target project.
+Operational paths keep the context named by their owner: `config/` and active-home settings belong to the active Spudrunner home, `state/` belongs to that home, and project settings such as `.claude/settings.json` belong to the target project.
 
 ## Non-negotiable safety
 
-Never dispatch a crewmate or secondmate on an unverified adapter.
-If `config/crew-harness` or `config/secondmate-harness` names one, tell the captain under `../../../AGENTS.md` section 9 that the requested worker runtime is not verified, use firstmate's own verified runtime for current work, and ask only whether to verify the requested runtime for future work.
+Never dispatch an implementation worker or project coordinator on an unverified adapter.
+If `config/crew-harness` or `config/secondmate-harness` names one, tell the user under `../../../AGENTS.md` section 9 that the requested worker runtime is not verified, use Spudrunner's own verified runtime for current work, and ask only whether to verify the requested runtime for future work.
 Do not pause current work for that choice.
 
-On `unknown`, ask the captain instead of guessing.
-A current captain override beats detection, while a per-task override governs only that dispatch.
+On `unknown`, ask the user instead of guessing.
+A current user override beats detection, while a per-task override governs only that dispatch.
 For recovery and control, use the exact `harness=` in `state/<id>.meta`; never infer it from a model or provider.
 
 Deliver lifecycle actions only through `../../../bin/fm-control.sh <task-id> interrupt|exit|relaunch`.
 Never type an interrupt key or exit command through `fm-send`, where routing-marked lifecycle text becomes chat.
 Trust handling is complete only when inspection proves the target started processing its instructions; delivery success alone is not proof.
-Muse, Gemini, Devin, Command Code, Polytoken, and Cortex are verified only for crewmate and scout work, never a secondmate or primary.
+Muse, Gemini, Devin, Command Code, Polytoken, and Cortex are verified only for implementation worker and investigation worker work, never a project coordinator or primary.
 
 ## Detection
 
-`../../../bin/fm-harness.sh` prints firstmate's own harness from verified environment markers and process ancestry, and owns how they combine.
+`../../../bin/fm-harness.sh` prints Spudrunner's own harness from verified environment markers and process ancestry, and owns how they combine.
 A marker names its harness, but a structural ancestor of a different harness outranks it, because a marker is ordinary environment state a child or a multiplexer can retain while ancestry is what proves who owns the process tree.
 Only `FM_PI_HARNESS=pi-signed` at the launch boundary together with `PI_CODING_AGENT=true` selects Pi-signed; shared unmarked launcher ancestry remains Pi.
-omp publishes no marker of its own; `FM_OMP_HARNESS=omp` is Firstmate's launch marker and the anchored process name `omp` is its ancestry evidence, as `references/harness/omp.md` records.
+omp publishes no marker of its own; `FM_OMP_HARNESS=omp` is Spudrunner's launch marker and the anchored process name `omp` is its ancestry evidence, as `references/harness/omp.md` records.
 `../../../bin/fm-spawn.sh` owns worker marker establishment, while the README launch command owns the signed-primary boundary.
-`../../../bin/fm-harness.sh crew` resolves `config/crew-harness`, where absent or `default` means firstmate's own harness.
-[`docs/configuration.md`](../../../docs/configuration.md#choose-the-secondmate-harness) owns secondmate pin resolution, including per-mate overrides; [`bin/fm-harness.sh`](../../../bin/fm-harness.sh) owns the resolver commands.
+`../../../bin/fm-harness.sh crew` resolves `config/crew-harness`, where absent or `default` means Spudrunner's own harness.
+[`docs/configuration.md`](../../../docs/configuration.md#choose-the-secondmate-harness) owns project coordinator pin resolution, including per-mate overrides; [`bin/fm-harness.sh`](../../../bin/fm-harness.sh) owns the resolver commands.
 `../../../bin/fm-spawn.sh` re-resolves on every spawn, and an explicit per-spawn argument wins for that spawn.
 A new adapter's verified marker and command name must land in `../../../bin/fm-harness.sh`.
 

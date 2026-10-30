@@ -26,16 +26,14 @@
 // session or new extension lifetime calls reset() and starts at the normal initial
 // position. State is never a module-level or process-global singleton.
 
-// The asymmetric three-cell sail is centered over a five-cell hull. The one-cell
-// quarter triangle keeps the left sail lighter than the full right sail, and the whole
-// boat (both sail halves, mast, and hull) is one color so the sprite reads as one shape.
-// The hull's inner cells retain zero-height water glyphs instead of interrupting the trough.
-const LEFT_SAIL = "◿";
-const MAST = "│";
-const RIGHT_SAIL = "◣";
-const HULL_LEFT = "╲";
-const HULL_WATER = "▁▁▁";
-const HULL_RIGHT = "╱";
+// A neutral progress pulse retains the established three/five-column geometry.
+// Exported names and palette keys remain compatibility interfaces, not display roles.
+const LEFT_SAIL = " ";
+const MAST = "·";
+const RIGHT_SAIL = " ";
+const HULL_LEFT = "[";
+const HULL_WATER = "···";
+const HULL_RIGHT = "]";
 const SAIL_OFFSET = 1;
 
 /** The complete sail as drawn, left to right. */

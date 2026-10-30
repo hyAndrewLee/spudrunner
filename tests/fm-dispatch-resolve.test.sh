@@ -1010,7 +1010,7 @@ expect_withheld() {  # <label> <stderr fragment> [<value that must not print>...
   local label=$1 fragment=$2
   shift 2
   expect_code 0 "$code" "$label exits 0"
-  assert_equals '' "$out" "$label prints nothing on stdout, so firstmate uses its existing intake"
+  assert_equals '' "$out" "$label prints nothing on stdout, so Spudrunner uses its existing intake"
   assert_contains "$err" "dispatch-resolve: off ($fragment" "$label names why on stderr"
   assert_contains "$err" 'nothing sent)' "$label says nothing was sent"
   assert_equals '1' "$(grep -c . <<<"$err")" "$label prints one diagnostic line"
@@ -1121,7 +1121,7 @@ reset_log
 TYPESAFE_API_KEY=$KEY run code out err "$BRIEF"
 expect_code 0 "$code" "absent rules file exits 0"
 assert_contains "$out" '  status: escalate' "absent rules file is non-clear"
-assert_contains "$out" '  reason: no rules to match' "absent rules file returns control to firstmate"
+assert_contains "$out" '  reason: no rules to match' "absent rules file returns control to Spudrunner"
 assert_not_contains "$out" '  profile:' "absent rules file emits no profile"
 assert_absent "$LOG/argv" "absent rules file never calls curl"
 assert_absent "$LOG/quota-axi.calls" "absent rules file never reads quota"
@@ -1136,7 +1136,7 @@ for direct_rules in "$DEFAULT_ONLY" "$EMPTY_RULES"; do
   TYPESAFE_API_KEY=$KEY run code out err "$BRIEF"
   expect_code 0 "$code" "no-rule resolution exits 0: $direct_rules"
   assert_contains "$out" '  status: escalate' "no-rule resolution is non-clear: $direct_rules"
-  assert_contains "$out" '  reason: no rules to match' "no-rule resolution returns control to firstmate: $direct_rules"
+  assert_contains "$out" '  reason: no rules to match' "no-rule resolution returns control to Spudrunner: $direct_rules"
   assert_not_contains "$out" '  profile:' "no-rule resolution emits no profile: $direct_rules"
   assert_absent "$LOG/argv" "no-rule resolution never calls curl: $direct_rules"
   assert_absent "$LOG/quota-axi.calls" "no-rule resolution never reads quota: $direct_rules"
@@ -1283,18 +1283,29 @@ reset_log
 write_response "$RESPONSE" rule_4 0.9
 TYPESAFE_API_KEY=$KEY run code out err "$SCAFFOLD_BRIEF"
 sent=$(jq -r .state.task.brief "$LOG/body")
-assert_contains "$sent" $'## Captain\'s intent\nAdd a flag to the pager.' "the captain's intent section is sent"
-assert_contains "$sent" $'## Firstmate spec\nTouch pager.sh only.' "the Firstmate spec section is sent"
+assert_contains "$sent" $'## User intent\nAdd a flag to the pager.' "the user's intent section is sent"
+assert_contains "$sent" $'## Implementation requirements\nTouch pager.sh only.' "the Implementation requirements section is sent"
 assert_contains "$sent" $'# Not a heading inside a fence\n## Setup\n```\n### Out of scope\nAnything else.' "fenced lines and subheadings stay inside the section"
 assert_not_contains "$sent" 'BOILERPLATE' "scaffold boilerplate after the task sections is not sent"
 assert_not_contains "$sent" '# Task' "the enclosing Task heading is not sent"
-assert_not_contains "$sent" 'Brief kind:' "a brief without a scout contract line gets no kind line"
+assert_not_contains "$sent" 'Brief kind:' "a brief without an investigation worker contract line gets no kind line"
+
+# New headings and legacy headings route identical task content.
+LEGACY_SENT=$sent
+CANONICAL_BRIEF="$TMP_ROOT/canonical-brief.md"
+canonical=$(cat "$SCAFFOLD_BRIEF")
+canonical=${canonical//"## Captain's intent"/"## User intent"}
+canonical=${canonical//"## Firstmate spec"/"## Implementation requirements"}
+printf '%s\n' "$canonical" > "$CANONICAL_BRIEF"
+reset_log
+TYPESAFE_API_KEY=$KEY run code out err "$CANONICAL_BRIEF"
+assert_equals "$LEGACY_SENT" "$(jq -r .state.task.brief "$LOG/body")" "old and canonical headings route the same task, excluding lifecycle boilerplate"
 
 SPEC_ONLY_BRIEF="$TMP_ROOT/spec-only-brief.md"
 printf '%s\n' '# Task' '## Firstmate spec' 'Spec text.' '## Rules' 'RULES-TEXT' > "$SPEC_ONLY_BRIEF"
 reset_log
 TYPESAFE_API_KEY=$KEY run code out err "$SPEC_ONLY_BRIEF"
-assert_equals $'## Firstmate spec\nSpec text.' "$(jq -r .state.task.brief "$LOG/body")" "one recognized section is enough"
+assert_equals $'## Implementation requirements\nSpec text.' "$(jq -r .state.task.brief "$LOG/body")" "one recognized section is enough"
 
 printf '%s\n' '# Task' '## Firstmate spec   ' 'Spec text.' '## Rules' 'RULES-TEXT' > "$SPEC_ONLY_BRIEF"
 reset_log
@@ -1311,7 +1322,7 @@ KIND_BRIEF="$TMP_ROOT/kind-brief.md"
 reset_log
 TYPESAFE_API_KEY=$KEY run code out err "$KIND_BRIEF"
 sent=$(jq -r .state.task.brief "$LOG/body")
-assert_contains "$sent" $'## Captain\'s intent\nAdd a flag to the pager.' "a ship brief still sends its task sections"
+assert_contains "$sent" $'## User intent\nAdd a flag to the pager.' "a ship brief still sends its task sections"
 assert_not_contains "$sent" 'Brief kind:' "a ship brief gets no kind line"
 assert_not_contains "$sent" 'mode=' "a ship brief's delivery mode is not sent"
 
@@ -1319,8 +1330,8 @@ assert_not_contains "$sent" 'mode=' "a ship brief's delivery mode is not sent"
 reset_log
 TYPESAFE_API_KEY=$KEY run code out err "$KIND_BRIEF"
 sent=$(jq -r .state.task.brief "$LOG/body")
-assert_contains "$sent" $'Brief kind: scout (report only)\n\n## Captain\'s intent' "a scout brief's contract line names its kind"
-assert_not_contains "$sent" 'This is a SCOUT task' "the scout contract line itself is not sent"
+assert_contains "$sent" $'Brief kind: investigation worker (report only)\n\n## User intent' "an investigation worker brief's contract line names its kind"
+assert_not_contains "$sent" 'This is a SCOUT task' "the investigation worker contract line itself is not sent"
 
 reset_log
 TYPESAFE_API_KEY=$KEY run code out err "$BRIEF"
@@ -1333,7 +1344,7 @@ write_response "$RESPONSE" rule_3 0.95
 TYPESAFE_API_KEY=$KEY run code out err "$BRIEF"
 expect_code 0 "$code" "escalate exits 0"
 assert_contains "$out" '  status: escalate' "approval-gated rule escalates"
-assert_contains "$out" "  reason: rule requires the captain's explicit approval before dispatch" "escalate names the approval gate"
+assert_contains "$out" "  reason: rule requires the user's explicit approval before dispatch" "escalate names the approval gate"
 assert_contains "$out" 'candidate: claude:fable  provider=claude  scope=model:fable  remaining=15%  spendPriority=-0.79  runway=projected_exhaustion  bounds=all_models:79%/projected_exhaustion,model:fable:15%/projected_exhaustion  -> eligible' "approval escalation preserves matched candidate evidence"
 assert_not_contains "$out" '  profile:' "escalate emits no profile line"
 pass "escalate: a rule declared approval: captain never yields a profile"

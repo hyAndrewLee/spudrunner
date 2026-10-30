@@ -3021,8 +3021,8 @@ const ESC = "\u001b";
 const BLUE = `${ESC}[34m`;
 const YELLOW = `${ESC}[33m`;
 const RESET = `${ESC}[39m`;
-const SAIL = "◿│◣";
-const HULL = "╲▁▁▁╱";
+const SAIL = " · ";
+const HULL = "[···]";
 const WAVE_BARS = "▁▂▃▄";
 const strip = (text) => text.replace(new RegExp(`${ESC}\\[[0-9;]*m`, "g"), "");
 const check = (condition, message) => {
@@ -3178,20 +3178,20 @@ const sailOf = (frame) => strip(frame[0]).includes(SAIL) ? SAIL : "none";
     // Both sail halves and the mast are one yellow run, so the sail never splits into
     // mismatched colors, and the hull is one yellow run whose interior is not blue.
     check(
-      sailRow.includes(`${YELLOW}◿│◣${RESET}`),
+      sailRow.includes(`${YELLOW} · ${RESET}`),
       `sail was not painted as one unified yellow run: ${JSON.stringify(sailRow)}`,
     );
     check(
-      visibleWidth("◿") === 1 && visibleWidth(SAIL) === 3,
+      visibleWidth("·") === 1 && visibleWidth(SAIL) === 3,
       "the width-safe smaller sail broke the three-cell sprite",
     );
     check(
-      waterRow.includes(`${YELLOW}╲▁▁▁╱${RESET}`),
+      waterRow.includes(`${YELLOW}[···]${RESET}`),
       `hull was not painted as one unified yellow run: ${JSON.stringify(waterRow)}`,
     );
     // Every water cell outside the hull is blue whatever its height, so the swell
     // reads through glyph height alone rather than a crest-versus-trough color split.
-    const waterCells = waterRow.replace(`${YELLOW}╲▁▁▁╱${RESET}`, "").match(/\u001b\[\d+m[▁▂▃▄]\u001b\[39m/g) ?? [];
+    const waterCells = waterRow.replace(`${YELLOW}[···]${RESET}`, "").match(/\u001b\[\d+m[▁▂▃▄]\u001b\[39m/g) ?? [];
     check(waterCells.length > 0, "no colored water cells surrounded the hull");
     check(
       waterCells.every((cell) => cell.startsWith(BLUE)),
@@ -3202,7 +3202,7 @@ const sailOf = (frame) => strip(frame[0]).includes(SAIL) ? SAIL : "none";
       "the checked frame carried no crest cell, so the all-blue assertion proved nothing",
     );
     check(
-      /^[▁▂▃▄╲╱]+$/.test(strip(waterRow)),
+      /^[▁▂▃▄[\\]·]+$/.test(strip(waterRow)),
       `water row contained a non-wave glyph: ${JSON.stringify(strip(waterRow))}`,
     );
     animation.tick();
@@ -4642,21 +4642,21 @@ JS
   active_screen_wait=0
   while [ "$active_screen_wait" -lt 200 ]; do
     tmux -L "$TMUX_SOCKET" capture-pane -p -t "$TMUX_SESSION" >"$working_snapshot"
-    if grep -Fq '╲▁▁▁╱' "$working_snapshot"; then
+    if grep -Fq '[···]' "$working_snapshot"; then
       break
     fi
     sleep 0.025
     active_screen_wait=$((active_screen_wait + 1))
   done
   cp "$working_snapshot" "$boat_frame_one"
-  assert_contains "$(cat "$boat_frame_one")" '╲▁▁▁╱' "Calm did not show the working ship during a real provider wait"
-  assert_contains "$(cat "$boat_frame_one")" '◿│◣' "the working ship lost its centered asymmetric sail"
+  assert_contains "$(cat "$boat_frame_one")" '[···]' "Calm did not show the working ship during a real provider wait"
+  assert_contains "$(cat "$boat_frame_one")" ' · ' "the working ship lost its centered asymmetric sail"
   assert_not_contains "$(cat "$boat_frame_one")" "Working" "Calm left Pi's stock working row visible while the ship was shown"
   assert_not_contains "$(cat "$boat_frame_one")" "calm transcript" "the real provider wait showed a persistent Calm status row"
   assert_not_contains "$(cat "$boat_frame_one")" "FIRSTMATE WATCHER WAKE: signal: /tmp/probe.status" "the real provider wait restored a hidden operational row"
-  boat_hull_line=$(grep -F '╲▁▁▁╱' "$boat_frame_one" | head -1)
-  boat_hull_column=$(awk 'index($0,"╲▁▁▁╱"){print index($0,"╲▁▁▁╱"); exit}' "$boat_frame_one")
-  boat_sail_column=$(awk 'index($0,"◿│◣"){print index($0,"◿│◣"); exit}' "$boat_frame_one")
+  boat_hull_line=$(grep -F '[···]' "$boat_frame_one" | head -1)
+  boat_hull_column=$(awk 'index($0,"[···]"){print index($0,"[···]"); exit}' "$boat_frame_one")
+  boat_sail_column=$(awk 'index($0," · "){print index($0," · "); exit}' "$boat_frame_one")
   [ "$boat_sail_column" -eq $((boat_hull_column + 1)) ] \
     || fail "the working ship sail was not centered over its five-cell hull"
   assert_not_contains "$boat_hull_line" "Working" "the ship row carried extra status copy"
@@ -4682,11 +4682,11 @@ JS
     *) fail "the hull was not rendered with standard ANSI yellow" ;;
   esac
   case "$boat_sail_line" in
-    *'[33m'*'◿│◣'*) : ;;
+    *'[33m'*' · '*) : ;;
     *) fail "the sail was not rendered as one standard ANSI yellow run" ;;
   esac
   case "$boat_color_line" in
-    *'[33m'*'╲▁▁▁╱'*) : ;;
+    *'[33m'*'[···]'*) : ;;
     *) fail "the hull was not rendered as one standard ANSI yellow run" ;;
   esac
   case "$boat_color_line$boat_sail_line" in
@@ -4695,14 +4695,14 @@ JS
   esac
 
   # The water animates on its own faster cadence while the boat holds its column.
-  boat_column_one=$(awk 'index($0,"╲▁▁▁╱"){print index($0,"╲▁▁▁╱"); exit}' "$boat_frame_one")
+  boat_column_one=$(awk 'index($0,"[···]"){print index($0,"[···]"); exit}' "$boat_frame_one")
   boat_water_changed=0
-  boat_water_first=$(grep -F '╲▁▁▁╱' "$boat_frame_one" | head -1)
+  boat_water_first=$(grep -F '[···]' "$boat_frame_one" | head -1)
   active_screen_wait=0
   while [ "$active_screen_wait" -lt 60 ]; do
     tmux -L "$TMUX_SOCKET" capture-pane -p -t "$TMUX_SESSION" >"$boat_water_snapshot"
-    boat_water_line=$(grep -F '╲▁▁▁╱' "$boat_water_snapshot" | head -1)
-    boat_column_two=$(awk 'index($0,"╲▁▁▁╱"){print index($0,"╲▁▁▁╱"); exit}' "$boat_water_snapshot")
+    boat_water_line=$(grep -F '[···]' "$boat_water_snapshot" | head -1)
+    boat_column_two=$(awk 'index($0,"[···]"){print index($0,"[···]"); exit}' "$boat_water_snapshot")
     if [ -n "$boat_water_line" ] && [ "$boat_column_two" = "$boat_column_one" ] &&
       [ "$boat_water_line" != "$boat_water_first" ]; then
       boat_water_changed=1
@@ -4719,7 +4719,7 @@ JS
   active_screen_wait=0
   while [ "$active_screen_wait" -lt 200 ]; do
     tmux -L "$TMUX_SOCKET" capture-pane -p -t "$TMUX_SESSION" >"$boat_frame_two"
-    boat_column_two=$(awk 'index($0,"╲▁▁▁╱"){print index($0,"╲▁▁▁╱"); exit}' "$boat_frame_two")
+    boat_column_two=$(awk 'index($0,"[···]"){print index($0,"[···]"); exit}' "$boat_frame_two")
     if [ -n "$boat_column_two" ] && [ "$boat_column_two" != "$boat_column_one" ]; then
       break
     fi
@@ -4736,25 +4736,25 @@ JS
   active_screen_wait=0
   while [ "$active_screen_wait" -lt 200 ]; do
     tmux -L "$TMUX_SOCKET" capture-pane -p -t "$TMUX_SESSION" >"$boat_resized_snapshot"
-    boat_hull_line=$(grep -F '╲▁▁▁╱' "$boat_resized_snapshot" | head -1)
+    boat_hull_line=$(grep -F '[···]' "$boat_resized_snapshot" | head -1)
     if [ -n "$boat_hull_line" ] && [ "${#boat_hull_line}" -eq 100 ]; then
       break
     fi
     sleep 0.05
     active_screen_wait=$((active_screen_wait + 1))
   done
-  assert_contains "$(cat "$boat_resized_snapshot")" '╲▁▁▁╱' "the working ship left the screen after a resize"
-  boat_hull_line=$(grep -F '╲▁▁▁╱' "$boat_resized_snapshot" | head -1)
+  assert_contains "$(cat "$boat_resized_snapshot")" '[···]' "the working ship left the screen after a resize"
+  boat_hull_line=$(grep -F '[···]' "$boat_resized_snapshot" | head -1)
   [ "${#boat_hull_line}" -eq 100 ] \
     || fail "after resizing to 100 columns the ship row was ${#boat_hull_line} cells instead of exactly 100"
   # Exactly one wave row means the two-row sprite reflowed rather than wrapping.
-  [ "$(grep -c -F '╲▁▁▁╱' "$boat_resized_snapshot")" -eq 1 ] \
+  [ "$(grep -c -F '[···]' "$boat_resized_snapshot")" -eq 1 ] \
     || fail "the working ship wrapped onto more than one water row after the resize"
   while IFS= read -r boat_line; do
     [ "${#boat_line}" -le 100 ] \
       || fail "a rendered line was ${#boat_line} cells after resizing to 100 columns"
   done <"$boat_resized_snapshot"
-  boat_column_one=$(awk 'index($0,"╲▁▁▁╱"){print index($0,"╲▁▁▁╱"); exit}' "$boat_resized_snapshot")
+  boat_column_one=$(awk 'index($0,"[···]"){print index($0,"[···]"); exit}' "$boat_resized_snapshot")
   [ "$boat_column_one" -le 96 ] \
     || fail "the working ship hull started at column $boat_column_one and cannot fit in 100 columns"
 
@@ -4763,7 +4763,7 @@ JS
   active_screen_wait=0
   while [ "$active_screen_wait" -lt 200 ]; do
     tmux -L "$TMUX_SOCKET" capture-pane -p -t "$TMUX_SESSION" >"$boat_resized_snapshot"
-    boat_column_two=$(awk 'index($0,"╲▁▁▁╱"){print index($0,"╲▁▁▁╱"); exit}' "$boat_resized_snapshot")
+    boat_column_two=$(awk 'index($0,"[···]"){print index($0,"[···]"); exit}' "$boat_resized_snapshot")
     if [ -n "$boat_column_two" ] && [ "$boat_column_two" != "$boat_column_one" ]; then
       break
     fi
@@ -4783,7 +4783,7 @@ JS
   active_screen_wait=0
   while [ "$active_screen_wait" -lt 400 ]; do
     tmux -L "$TMUX_SOCKET" capture-pane -p -t "$TMUX_SESSION" >"$boat_narrow_snapshot"
-    boat_narrow_column=$(awk 'index($0,"╲▁▁▁╱"){print index($0,"╲▁▁▁╱"); exit}' "$boat_narrow_snapshot")
+    boat_narrow_column=$(awk 'index($0,"[···]"){print index($0,"[···]"); exit}' "$boat_narrow_snapshot")
     if [ -n "$boat_narrow_previous" ] && [ -n "$boat_narrow_column" ] &&
       [ "$boat_narrow_column" -ne "$boat_narrow_previous" ]; then
       boat_narrow_next_direction=1
@@ -4801,7 +4801,7 @@ JS
   done
   [ "$boat_narrow_reversed" -eq 1 ] \
     || fail "the working ship never reversed direction on a narrow track"
-  boat_hull_line=$(grep -F '╲▁▁▁╱' "$boat_narrow_snapshot" | head -1)
+  boat_hull_line=$(grep -F '[···]' "$boat_narrow_snapshot" | head -1)
   [ "${#boat_hull_line}" -eq 12 ] \
     || fail "the narrow working-ship row was ${#boat_hull_line} cells instead of exactly 12"
   tmux -L "$TMUX_SOCKET" resize-window -t "$TMUX_SESSION" -x 100 -y 30
@@ -4819,10 +4819,10 @@ JS
   # Capture the last on-screen column and sail before settling so the next working
   # period in this same Pi session can prove freeze/resume continuity.
   tmux -L "$TMUX_SOCKET" capture-pane -p -t "$TMUX_SESSION" >"$boat_freeze_snapshot"
-  boat_freeze_column=$(awk 'index($0,"╲▁▁▁╱"){print index($0,"╲▁▁▁╱"); exit}' "$boat_freeze_snapshot")
-  boat_freeze_sail=$(grep -F '◿│◣' "$boat_freeze_snapshot" | tail -1 || true)
+  boat_freeze_column=$(awk 'index($0,"[···]"){print index($0,"[···]"); exit}' "$boat_freeze_snapshot")
+  boat_freeze_sail=$(grep -F ' · ' "$boat_freeze_snapshot" | tail -1 || true)
   case "$boat_freeze_sail" in
-    *'◿│◣'*) boat_freeze_sail='◿│◣' ;;
+    *' · '*) boat_freeze_sail=' · ' ;;
     *) fail "could not read the freeze-frame centered asymmetric sail" ;;
   esac
   [ -n "$boat_freeze_column" ] && [ "$boat_freeze_column" -gt 1 ] \
@@ -4835,7 +4835,7 @@ JS
   active_screen_wait=0
   while [ "$active_screen_wait" -lt 200 ]; do
     tmux -L "$TMUX_SOCKET" capture-pane -p -t "$TMUX_SESSION" -S -600 >"$boat_cleared_snapshot"
-    if ! grep -Fq '╲▁▁▁╱' "$boat_cleared_snapshot" &&
+    if ! grep -Fq '[···]' "$boat_cleared_snapshot" &&
       [ "$(grep -Fc 'Operation aborted' "$boat_cleared_snapshot" || true)" -ge 1 ]; then
       break
     fi
@@ -4845,7 +4845,7 @@ JS
     sleep 0.05
     active_screen_wait=$((active_screen_wait + 1))
   done
-  assert_not_contains "$(cat "$boat_cleared_snapshot")" '╲▁▁▁╱' "Escape did not remove the working ship"
+  assert_not_contains "$(cat "$boat_cleared_snapshot")" '[···]' "Escape did not remove the working ship"
   assert_not_contains "$(cat "$boat_cleared_snapshot")" "CALM_WORKING_E2E_RESPONSE" "the long-delay fixture settled instead of aborting on Escape"
   assert_not_contains "$(cat "$boat_cleared_snapshot")" "FOCUSPROBE" "the editor kept the focus probe text after Escape"
 
@@ -4859,11 +4859,11 @@ JS
   active_screen_wait=0
   while [ "$active_screen_wait" -lt 200 ]; do
     tmux -L "$TMUX_SOCKET" capture-pane -p -t "$TMUX_SESSION" >"$boat_resume_snapshot"
-    if grep -Fq '╲▁▁▁╱' "$boat_resume_snapshot"; then
-      boat_resume_column=$(awk 'index($0,"╲▁▁▁╱"){print index($0,"╲▁▁▁╱"); exit}' "$boat_resume_snapshot")
-      boat_resume_sail=$(grep -F '◿│◣' "$boat_resume_snapshot" | tail -1 || true)
+    if grep -Fq '[···]' "$boat_resume_snapshot"; then
+      boat_resume_column=$(awk 'index($0,"[···]"){print index($0,"[···]"); exit}' "$boat_resume_snapshot")
+      boat_resume_sail=$(grep -F ' · ' "$boat_resume_snapshot" | tail -1 || true)
       case "$boat_resume_sail" in
-        *'◿│◣'*) boat_resume_sail='◿│◣' ;;
+        *' · '*) boat_resume_sail=' · ' ;;
       esac
       break
     fi
@@ -4886,7 +4886,7 @@ JS
   active_screen_wait=0
   while [ "$active_screen_wait" -lt 200 ]; do
     tmux -L "$TMUX_SOCKET" capture-pane -p -t "$TMUX_SESSION" -S -600 >"$boat_cleared_snapshot"
-    if ! grep -Fq '╲▁▁▁╱' "$boat_cleared_snapshot" &&
+    if ! grep -Fq '[···]' "$boat_cleared_snapshot" &&
       [ "$(grep -Fc 'Operation aborted' "$boat_cleared_snapshot" || true)" -ge 2 ]; then
       break
     fi
@@ -4896,7 +4896,7 @@ JS
     sleep 0.05
     active_screen_wait=$((active_screen_wait + 1))
   done
-  assert_not_contains "$(cat "$boat_cleared_snapshot")" '╲▁▁▁╱' "Escape did not remove the resumed working ship"
+  assert_not_contains "$(cat "$boat_cleared_snapshot")" '[···]' "Escape did not remove the resumed working ship"
 
   # Calm off restores Pi's stock working row and never shows the ship.
   tmux -L "$TMUX_SOCKET" send-keys -t "$TMUX_SESSION" -l "/calm"
@@ -4922,13 +4922,13 @@ JS
     active_screen_wait=$((active_screen_wait + 1))
   done
   assert_contains "$(cat "$working_snapshot")" "Working" "Calm off did not keep Pi's stock working row"
-  assert_not_contains "$(cat "$working_snapshot")" '╲▁▁▁╱' "Calm off showed the working ship"
+  assert_not_contains "$(cat "$working_snapshot")" '[···]' "Calm off showed the working ship"
   wait_for_text "$working_response_snapshot" "CALM_WORKING_E2E_RESPONSE" \
     || fail "the deterministic provider did not settle after proving Pi's stock working row"
 
   # No blank-row residue: settling returns to the same layout Calm off started from.
   tmux -L "$TMUX_SOCKET" capture-pane -p -t "$TMUX_SESSION" >"$boat_cleared_snapshot"
-  assert_not_contains "$(cat "$boat_cleared_snapshot")" '╲▁▁▁╱' "a settled run left the working ship on screen"
+  assert_not_contains "$(cat "$boat_cleared_snapshot")" '[···]' "a settled run left the working ship on screen"
 
   # Restore Calm for the persistence restart below.
   tmux -L "$TMUX_SOCKET" send-keys -t "$TMUX_SESSION" -l "/calm"

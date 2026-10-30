@@ -114,14 +114,14 @@ for (const width of [0, 1, 2, 3, 4, 5, 6, 9, 12, 24, 40, 80, 121]) {
       }
       if (width >= 5) {
         check(frame.length === 2, \`width \${width} did not paint two rows\`);
-        check(JSON.stringify(frame[0].slice(1)) === JSON.stringify([{ text: "◿│◣", color: "boat" }]), "the sail is not one boat-colored run");
+        check(JSON.stringify(frame[0].slice(1)) === JSON.stringify([{ text: " · ", color: "boat" }]), "the sail is not one boat-colored run");
         check(frame[0][0].color === "plain" && /^ +$/.test(frame[0][0].text), "sail padding is not plain spaces");
-        const hullAt = frame[1].findIndex((run) => run.text === "╲▁▁▁╱");
+        const hullAt = frame[1].findIndex((run) => run.text === "[···]");
         check(hullAt >= 0, "the hull is not one run");
         check(frame[1][hullAt].color === "boat", "the hull is not boat-colored");
         check(frame[1].filter((_run, index) => index !== hullAt).every((run) => run.text.length === 1 && run.color === "water"), "water outside the hull is not one water-colored bar per cell");
       } else if (width >= 3) {
-        check(frame.length === 1 && cells(frame[0]).includes("◿│◣"), \`width \${width} lost the sail-only fallback\`);
+        check(frame.length === 1 && cells(frame[0]).includes(" · "), \`width \${width} lost the sail-only fallback\`);
       } else {
         check(frame.length === 1 && /^[▁▂▃▄]+$/.test(cells(frame[0])), \`width \${width} lost the water-only fallback\`);
       }
@@ -221,10 +221,10 @@ for (const [family, colors] of Object.entries(palettes)) for (const width of [1,
 }
 // A run wider than the grid is clipped, never wrapped into the next row.
 {
-  const packed = raster.packCalmShipRasterCells([[{ text: "▁▁▁▁▁▁▁▁", color: "water" }], [{ text: "◿│◣", color: "boat" }]], 4);
+  const packed = raster.packCalmShipRasterCells([[{ text: "▁▁▁▁▁▁▁▁", color: "water" }], [{ text: " · ", color: "boat" }]], 4);
   check(packed.rows === 2, "clip changed the row count");
   const grid = decode(packed.cells, 4, 2);
-  check(grid[0].map((c) => c.glyph).join("") === "▁▁▁▁" && grid[1].map((c) => c.glyph).join("") === "◿│◣ ", "clip wrapped or dropped cells");
+  check(grid[0].map((c) => c.glyph).join("") === "▁▁▁▁" && grid[1].map((c) => c.glyph).join("") === " ·  ", "clip wrapped or dropped cells");
 }
 check(raster.packCalmShipRasterCells([], 3).rows === 1, "an empty frame did not pack one blank row");
 check(raster.calmShipRasterColumns(undefined) === 78, "unmeasured viewport width");
@@ -356,39 +356,39 @@ same(notes.firstmateStateDirectory({ FM_HOME: "/h", FM_STATE_OVERRIDE: "/s" }, p
 const rows = notes.parseOutcomeTail(read(".branch-outcomes-tail.jsonl") + '{"seq":6,"epoch":');
 same(rows.map((row) => row.seq), [1, 2, 3, 4, 5], "rows the store owner wrote");
 same(rows.map(notes.outcomeNoteLine), [
-  '⛵ fm-a: worker healthy, "quoted"',
+  'Update: fm-a: worker healthy, "quoted"',
   undefined,
-  "⚓ [seq 3] fm-c: PR https://example.test/pr/3 green merge?",
-  "⚓ [seq 4] fm-d: decision answered",
-  "⛵ fm-e: reconciled the backlog",
+  "Decision: [seq 3] fm-c: PR https://example.test/pr/3 green merge?",
+  "Decision: [seq 4] fm-d: decision answered",
+  "Update: fm-e: reconciled the backlog",
 ], "Pi's line for each row");
 const cursor = notes.parseOutcomeMarker(readFileSync(process.env.NOTES_START_CURSOR, "utf8"));
 same(notes.replayOutcomeNotes(rows, notes.parseOutcomeMarker(read(".branch-outcomes-cursor")), 4), [],
   "the markers after the drain read seq 5 would drop its sailboat, so the replay judges by the session-start cursor");
 same(notes.replayOutcomeNotes(rows, cursor, notes.parseOutcomeMarker(read(".branch-outcomes-processed"))),
-  ["⛵ fm-e: reconciled the backlog"], "replay after main processed seq 4");
+  ["Update: fm-e: reconciled the backlog"], "replay after main processed seq 4");
 same(notes.replayOutcomeNotes(rows, cursor, notes.parseOutcomeMarker(undefined)),
-  ["⚓ [seq 3] fm-c: PR https://example.test/pr/3 green merge?", "⚓ [seq 4] fm-d: decision answered", "⛵ fm-e: reconciled the backlog"],
+  ["Decision: [seq 3] fm-c: PR https://example.test/pr/3 green merge?", "Decision: [seq 4] fm-d: decision answered", "Update: fm-e: reconciled the backlog"],
   "an absent processed marker replays every captain row, the safe direction");
 for (const bad of ["", "x", "07", "-1", "99999999999999999999"]) same(notes.parseOutcomeMarker(bad), 0, `marker ${bad}`);
 const many = Array.from({ length: 25 }, (_, i) => ({ seq: i + 1, epoch: 0, task: `t${i + 1}`, verdict: "routine", summary: "s", silent: false }));
 const replay = notes.replayOutcomeNotes(many, 0, 0);
 same(replay.length, 21, "replay bound");
-same(replay[0], "⛵ 5 earlier supervision notes not replayed; bin/fm-branch-outcome.sh list shows them", "omitted count");
-same(replay[1], "⛵ t6: s", "the newest rows are kept");
-same(notes.newOutcomeNotes(rows, 4), { lines: ["⛵ fm-e: reconciled the backlog"], lastSeen: 5 }, "rows above the anchor");
+same(replay[0], "Update: 5 earlier supervision notes not replayed; bin/fm-branch-outcome.sh list shows them", "omitted count");
+same(replay[1], "Update: t6: s", "the newest rows are kept");
+same(notes.newOutcomeNotes(rows, 4), { lines: ["Update: fm-e: reconciled the backlog"], lastSeen: 5 }, "rows above the anchor");
 same(notes.newOutcomeNotes(rows, 5), { lines: [], lastSeen: 5 }, "nothing new");
 same(notes.newOutcomeNotes(rows.slice(0, 2), 5), { lines: [], lastSeen: 2 }, "a replaced store re-anchors without replay");
 same(notes.newOutcomeNotes(rows.slice(2), 1), {
   lines: [
-    "⛵ 1 earlier supervision outcome not shown; bin/fm-branch-outcome.sh list shows them",
-    "⚓ [seq 3] fm-c: PR https://example.test/pr/3 green merge?",
-    "⚓ [seq 4] fm-d: decision answered",
-    "⛵ fm-e: reconciled the backlog",
+    "Update: 1 earlier supervision outcome not shown; bin/fm-branch-outcome.sh list shows them",
+    "Decision: [seq 3] fm-c: PR https://example.test/pr/3 green merge?",
+    "Decision: [seq 4] fm-d: decision answered",
+    "Update: fm-e: reconciled the backlog",
   ],
   lastSeen: 5,
 }, "rows that left the tail before a poll are counted, not dropped silently");
-same(notes.replayOutcomeNotes(rows, cursor, 0, 3), ["⚓ [seq 4] fm-d: decision answered", "⛵ fm-e: reconciled the backlog"],
+same(notes.replayOutcomeNotes(rows, cursor, 0, 3), ["Decision: [seq 4] fm-d: decision answered", "Update: fm-e: reconciled the backlog"],
   "rows this session already showed are not replayed on resume");
 same(notes.replayOutcomeNotes(rows, cursor, 0, 99).length, 3, "a shown sequence past the tail is a replaced store");
 let stored = notes.recordSessionShownThrough(undefined, "s1", 4);
@@ -399,8 +399,8 @@ same([notes.sessionShownThrough(stored, "s1"), notes.sessionShownThrough(stored,
 for (let i = 0; i < 30; i += 1) stored = notes.recordSessionShownThrough(stored, `x${i}`, i + 1);
 same([stored.length, stored[stored.length - 1]], [20, ["x29", 30]], "the store keeps the newest 20 sessions");
 const health = (key, cooldown) => notes.parseHostHealth(`key=${key}\nerrors=2\ncooldown=${cooldown}\nretry_after=9\n`);
-const paused = "⛵ Supervision session paused after repeated engine errors; main will handle wakes while it cools down.";
-const recovered = "⛵ Supervision session recovered after a successful cooldown probe.";
+const paused = "Update: Supervision session paused after repeated engine errors; main will handle wakes while it cools down.";
+const recovered = "Update: Supervision session recovered after a successful cooldown probe.";
 same(notes.parseHostHealth(undefined), undefined, "no latch file");
 same(notes.hostHealthNote(health("k", 0), health("k", 300)), paused, "trip");
 same(notes.hostHealthNote(health("k", 300), health("k", 600)), undefined, "a longer cooldown is not a new trip");

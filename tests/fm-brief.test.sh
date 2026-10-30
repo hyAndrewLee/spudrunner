@@ -211,8 +211,8 @@ test_ship_modes_generate_clean_briefs() {
       || fail "$id: brief did not record its machine-readable delivery contract line"
     assert_grep "{TASK}" "$brief" "$id: brief missing the {TASK} placeholder"
     assert_grep "{FIRSTMATE_SPEC}" "$brief" "$id: brief missing the {FIRSTMATE_SPEC} placeholder"
-    assert_grep "## Captain's intent" "$brief" "$id: brief missing Captain's intent subsection"
-    assert_grep "## Firstmate spec" "$brief" "$id: brief missing Firstmate spec subsection"
+    assert_grep "## User intent" "$brief" "$id: brief missing User intent subsection"
+    assert_grep "## Implementation requirements" "$brief" "$id: brief missing Implementation requirements subsection"
     assert_grep 'never a bare number such as "PR 108"' "$brief" "$id: brief missing the full-PR-URL rule"
     assert_grep "mid-task \`working:\` line (including setup complete) is nonterminal" "$brief" \
       "$id: brief missing nonterminal working:/setup-complete gate protection"
@@ -393,7 +393,7 @@ test_ship_mode_is_explicit_not_registry() {
   brief="$home/data/brief-explicit-a5/brief.md"
   grep -qx "Delivery contract: mode=no-mistakes" "$brief" \
     || fail "registered direct-PR posture overrode the explicit --mode"
-  assert_grep "Firstmate will then instruct you to run /no-mistakes" "$brief" \
+  assert_grep "Spudrunner will then instruct you to run /no-mistakes" "$brief" \
     "explicit no-mistakes brief did not render the pipeline definition of done"
 
   # An unregistered project is not a blocker either, because nothing is looked up.
@@ -434,24 +434,24 @@ test_faster_paths_use_configured_authority_without_stacked_review() {
   id="brief-direct-authority-a4"
   FM_HOME="$home" "$ROOT/bin/fm-brief.sh" "$id" direct-proj --mode direct-PR >/dev/null 2>&1
   brief="$home/data/$id/brief.md"
-  assert_grep "The configured merge authority decides whether to merge the PR; firstmate relays the outcome." "$brief" \
+  assert_grep "The configured merge authority decides whether to merge the PR; Spudrunner relays the outcome." "$brief" \
     "direct-PR brief lost configured merge authority"
-  assert_no_grep "The captain reviews and merges the PR" "$brief" \
+  assert_no_grep "The user reviews and merges the PR" "$brief" \
     "direct-PR brief hard-coded captain-only authority"
   id="brief-local-authority-a4"
   FM_HOME="$home" "$ROOT/bin/fm-brief.sh" "$id" local-proj --mode local-only >/dev/null 2>&1
   brief="$home/data/$id/brief.md"
-  assert_grep "The configured merge authority approves the ready branch, then firstmate merges it into local \`main\` through the guarded fast-forward path." "$brief" \
+  assert_grep "The configured merge authority approves the ready branch, then Spudrunner merges it into local \`main\` through the guarded fast-forward path." "$brief" \
     "local-only brief lost configured merge authority and guarded landing"
-  assert_no_grep "The captain approves the ready branch" "$brief" \
+  assert_no_grep "The user approves the ready branch" "$brief" \
     "local-only brief hard-coded captain-only authority"
-  assert_no_grep "Firstmate then reviews your branch diff" "$brief" \
+  assert_no_grep "Spudrunner then reviews your branch diff" "$brief" \
     "local-only brief retained a personal review stacked on the selected delivery path"
-  assert_no_grep "pass \`--intent\` as only this brief's \`## Captain's intent\`" "$home/data/$id/brief.md" \
+  assert_no_grep "pass \`--intent\` as only this brief's \`## User intent\`" "$home/data/$id/brief.md" \
     "local-only brief must not include the no-mistakes --intent contract"
   id="brief-direct-intent-a4"
   FM_HOME="$home" "$ROOT/bin/fm-brief.sh" "$id" direct-proj --mode direct-PR >/dev/null 2>&1
-  assert_no_grep "pass \`--intent\` as only this brief's \`## Captain's intent\`" "$home/data/$id/brief.md" \
+  assert_no_grep "pass \`--intent\` as only this brief's \`## User intent\`" "$home/data/$id/brief.md" \
     "direct-PR brief must not include the no-mistakes --intent contract"
   pass "fm-brief.sh: faster paths use configured authority without stacked review"
 }
@@ -506,11 +506,11 @@ test_no_mistakes_dod_wording() {
   # shellcheck disable=SC2016  # single quotes are deliberate: the backticks must stay literal
   assert_grep '`help`' "$brief" \
     "no-mistakes DOD must render literal backticks around help"
-  assert_grep "pass \`--intent\` as only this brief's \`## Captain's intent\`" "$brief" \
+  assert_grep "pass \`--intent\` as only this brief's \`## User intent\`" "$brief" \
     "no-mistakes DOD must require --intent to be the Captain's intent subsection"
-  assert_grep "plus any later words the captain actually said" "$brief" \
+  assert_grep "plus any later words the user actually said" "$brief" \
     "no-mistakes DOD must allow later captain words in --intent"
-  assert_grep "Do not include \`## Firstmate spec\`" "$brief" \
+  assert_grep "Do not include \`## Implementation requirements\`" "$brief" \
     "no-mistakes DOD must keep Firstmate spec out of --intent"
   assert_grep "or your own decisions and tradeoffs" "$brief" \
     "no-mistakes DOD must keep worker tradeoffs out of --intent"
@@ -593,9 +593,9 @@ test_ask_user_escalation_format() {
 
   # The DOD's own ask-user paragraph must point back at rule 6's format
   # (one-owner rule) rather than restating or bare-citing it.
-  assert_grep "escalate to firstmate using rule 6's ask-user format" "$brief" \
+  assert_grep "escalate to Spudrunner using rule 6's ask-user format" "$brief" \
     "no-mistakes DOD ask-user paragraph must point at rule 6's format instead of a bare citation"
-  assert_no_grep "escalate to firstmate (rule 6) and stop." "$brief" \
+  assert_no_grep "escalate to Spudrunner (rule 6) and stop." "$brief" \
     "no-mistakes DOD ask-user paragraph still uses the old bare rule-6 pointer"
 
   other_id="brief-no-ask-user-scout"
@@ -668,7 +668,7 @@ test_herdr_lab_contract_is_explicit_and_complete() {
     "Herdr lab brief missing the forbidden server-global command list"
   assert_grep "records the live default session before provisioning" "$brief" \
     "Herdr lab brief missing the before tripwire"
-  assert_grep "verifies the identical fleet state after teardown" "$brief" \
+  assert_grep "verifies the identical active work state after teardown" "$brief" \
     "Herdr lab brief missing the after tripwire"
   assert_no_grep "Herdr lifecycle declaration - NOT ENABLED" "$brief" \
     "Herdr lab brief retained the unguarded declaration"
@@ -776,11 +776,11 @@ test_secondmate_no_projects_charter() {
     "project-less charter operating model lost the pooled-worktree note"
   assert_no_grep "The projects above are local clones" "$brief" \
     "project-less charter kept the with-projects operating-model line"
-  assert_grep '# The captain and the parent channel' "$brief" \
+  assert_grep '# The user and the parent channel' "$brief" \
     "secondmate charter lost the parent-channel section"
   assert_grep 'Nobody reads this chat' "$brief" \
     "secondmate charter no longer says the chat is unread"
-  assert_grep 'in this home it IS the captain' "$brief" \
+  assert_grep 'in this home it IS the user' "$brief" \
     "secondmate charter no longer names the parent channel as the captain"
   assert_grep 'working [key=<work-slug>]' "$brief" \
     "secondmate charter did not key material routed-work phases"
@@ -844,13 +844,13 @@ test_secondmate_marked_request_reporting_contract() {
     "secondmate charter lost terse result reporting"
   assert_grep 'append a status line that points to that doc' "$brief" \
     "secondmate charter lost detailed document pointers"
-  assert_grep 'Report only true captain-relevant outcomes or a declared external wait' "$brief" \
+  assert_grep 'Report only true user-relevant outcomes or a declared external wait' "$brief" \
     "secondmate charter lost declared external waits"
-  assert_grep 'a captain decision, a real blocker, a failure, work ready for review, or work you landed' "$brief" \
+  assert_grep 'a user decision, a real blocker, a failure, work ready for review, or work you landed' "$brief" \
     "secondmate charter lost decisions, blockers, failures, ready outcomes, or landed work"
   # Under standing merge authority nothing is ever "ready for review", so the
   # landed merge is the trigger a charter without this line silently omits.
-  assert_grep 'a merge you performed yourself under standing merge authority and one the captain merged on the forge' "$brief" \
+  assert_grep 'a merge you performed yourself under standing merge authority and one the user merged on the forge' "$brief" \
     "secondmate charter did not name a landed merge as a reporting trigger"
   assert_grep 'States: working, needs-decision, blocked, paused, done, failed.' "$brief" \
     "secondmate charter changed the preserved status vocabulary"
@@ -1079,7 +1079,7 @@ test_ship_and_scout_teach_validation_round_pause() {
       "$kind brief did not require declaring a background-work wait"
     assert_grep 'before waiting on your own pipeline run or a long foreground command' "$brief" \
       "$kind brief did not require declaring a pipeline or foreground wait"
-    assert_grep 'Firstmate may still raise one first-sight alert' "$brief" \
+    assert_grep 'Spudrunner may still raise one first-sight alert' "$brief" \
       "$kind brief incorrectly promised to suppress the first alert"
     assert_grep 'Do not declare active implementation or reasoning as a wait' "$brief" \
       "$kind brief did not limit the declaration to actual waits"
@@ -1121,9 +1121,9 @@ test_scout_completion_write_exception_is_task_scoped() {
       "scout did not receive the empty-inventory command for its own task and home"
     assert_grep 'This exception permits only that command, not direct metadata edits, another task, or any backlog write.' "$brief" \
       "scout completion exception granted broader write authority"
-    assert_grep 'If any captain call remains, ask firstmate to register the inventory and attest completion before you report done.' "$brief" \
+    assert_grep 'If any user call remains, ask Spudrunner to register the inventory and attest completion before you report done.' "$brief" \
       "scout was instructed to write a non-empty inventory itself"
-    assert_grep 'If the command refuses, report the refusal to firstmate and stop rather than bypassing the completion gate.' "$brief" \
+    assert_grep 'If the command refuses, report the refusal to Spudrunner and stop rather than bypassing the completion gate.' "$brief" \
       "scout was allowed to bypass a refused completion"
   done
   pass "fm-brief.sh: scouts may attest only their own empty inventory through the guarded command"
@@ -1148,11 +1148,11 @@ test_scout_lavish_line_follows_presentation_floor() {
       || fail "$label: scout scaffold failed"
     brief="$case_dir/home/data/scout-lavish/brief.md"
     if [ "$expect" = hosting ]; then
-      assert_grep "$hosting" "$brief" "$label: scout brief did not offer the Lavish review loop"
-      assert_no_grep "$text_only" "$brief" "$label: scout brief withheld Lavish from a compatible build"
+      assert_grep "$hosting" "$brief" "$label: investigation worker brief did not offer the Lavish review loop"
+      assert_no_grep "$text_only" "$brief" "$label: investigation worker brief withheld Lavish from a compatible build"
     else
-      assert_grep "$text_only" "$brief" "$label: scout brief did not ask for a text report"
-      assert_no_grep "$hosting" "$brief" "$label: scout brief offered a below-floor Lavish"
+      assert_grep "$text_only" "$brief" "$label: investigation worker brief did not ask for a text report"
+      assert_no_grep "$hosting" "$brief" "$label: investigation worker brief offered a below-floor Lavish"
     fi
   done <<'ROWS'
 lavish-axi at the board compatibility floor^0.1.77^hosting
@@ -1172,20 +1172,20 @@ test_scout_and_secondmate_scaffold() {
     || fail "fm-brief.sh scout scaffold exited non-zero"
   brief="$BRIEF_HOME/data/brief-scout-q6/brief.md"
   assert_present "$brief" "scout brief was not scaffolded"
-  assert_grep "SCOUT task" "$brief" "scout brief must declare itself a scout task"
-  assert_grep "report.md" "$brief" "scout brief must point at the report deliverable"
-  assert_grep "## Captain's intent" "$brief" "scout brief missing Captain's intent subsection"
-  assert_grep "## Firstmate spec" "$brief" "scout brief missing Firstmate spec subsection"
-  assert_grep "{FIRSTMATE_SPEC}" "$brief" "scout brief missing the spec placeholder"
+  assert_grep "SCOUT task" "$brief" "investigation worker brief must declare itself an investigation worker task"
+  assert_grep "report.md" "$brief" "investigation worker brief must point at the report deliverable"
+  assert_grep "## User intent" "$brief" "investigation worker brief missing User intent subsection"
+  assert_grep "## Implementation requirements" "$brief" "investigation worker brief missing Implementation requirements subsection"
+  assert_grep "{FIRSTMATE_SPEC}" "$brief" "investigation worker brief missing the spec placeholder"
 
   FM_SECONDMATE_CHARTER='Supervise the alpha domain.' \
     FM_HOME="$BRIEF_HOME" "$ROOT/bin/fm-brief.sh" brief-sm-q6 --secondmate alpha >/dev/null 2>&1 \
     || fail "fm-brief.sh secondmate scaffold exited non-zero"
   brief="$BRIEF_HOME/data/brief-sm-q6/brief.md"
   assert_present "$brief" "secondmate charter was not scaffolded"
-  assert_grep "persistent second mate" "$brief" \
+  assert_grep "persistent project coordinator" "$brief" \
     "secondmate charter must declare its role"
-  assert_no_grep "## Captain's intent" "$brief" \
+  assert_no_grep "## User intent" "$brief" \
     "secondmate charter must not grow ship/scout Task subsections"
   assert_no_grep "{FIRSTMATE_SPEC}" "$brief" \
     "secondmate charter must not carry the Firstmate spec placeholder"
@@ -1263,7 +1263,7 @@ test_workers_wait_without_spending_turns() {
   brief="$home/data/brief-wait-sm/brief.md"
   assert_grep "Do not poll or list the inbox while waiting; a waiting instruction rings." "$brief" \
     "secondmate: polling the inbox while waiting is not forbidden"
-  assert_grep "natural checkpoint" "$brief" "secondmate: the flag dropped the natural-checkpoint inbox check"
+  assert_grep "natural checkpoint" "$brief" "project coordinator: the flag dropped the natural-checkpoint inbox check"
   pass "fm-brief: workers end the turn on a decision, wait in one bounded shell command, and never poll"
 }
 
@@ -1331,10 +1331,10 @@ test_worker_role_scope() {
   FM_HOME="$home" FM_SECONDMATE_CHARTER='Supervise assigned work.' \
     "$ROOT/bin/fm-brief.sh" supervisor --secondmate --no-projects >/dev/null || fail "secondmate scaffold failed"
   brief="$home/data/supervisor/brief.md"
-  assert_no_grep '# Current worker role contract' "$brief" "secondmate received the worker exception"
-  assert_no_grep 'do not adopt the supervisor identity' "$brief" "secondmate received the worker exception"
-  assert_grep "The local \`AGENTS.md\` is your job description" "$brief" "secondmate lost its supervisor contract"
-  assert_grep 'That file is your parent channel' "$brief" "secondmate lost its parent channel"
+  assert_no_grep '# Current worker role contract' "$brief" "project coordinator received the worker exception"
+  assert_no_grep 'do not adopt the supervisor identity' "$brief" "project coordinator received the worker exception"
+  assert_grep "The local \`AGENTS.md\` is your job description" "$brief" "project coordinator lost its supervisor contract"
+  assert_grep 'That file is your parent channel' "$brief" "project coordinator lost its parent channel"
   pass "fm-brief: scaffolds leave the worker role scope to the launch boundary and keep the secondmate contract"
 }
 
@@ -1382,7 +1382,7 @@ test_home_brief_include_is_appended_last() {
 
   FM_HOME="$home" FM_SECONDMATE_CHARTER='Supervise assigned work.' \
     "$ROOT/bin/fm-brief.sh" include-mate --secondmate --no-projects >/dev/null || fail "secondmate scaffold failed with an include"
-  assert_no_grep '# Home brief additions' "$home/data/include-mate/brief.md" "a secondmate charter took the brief include"
+  assert_no_grep '# Home brief additions' "$home/data/include-mate/brief.md" "a project coordinator charter took the brief include"
 
   FM_HOME="$home" FM_CONFIG_OVERRIDE="$TMP_ROOT/include-empty-config" \
     "$ROOT/bin/fm-brief.sh" include-override some-proj --scout >/dev/null || fail "scout scaffold failed under FM_CONFIG_OVERRIDE"
@@ -1655,9 +1655,9 @@ test_crewmate_scaffolds_forbid_pool_administration() {
   FM_HOME="$home" "$ROOT/bin/fm-brief.sh" brief-pool-scout alpha --scout >/dev/null 2>&1 \
     || fail "fm-brief.sh --scout exited non-zero"
   brief="$home/data/brief-pool-scout/brief.md"
-  assert_grep "worktree pool" "$brief" "scout brief did not name the shared worktree pool"
+  assert_grep "worktree pool" "$brief" "investigation worker brief did not name the shared worktree pool"
   # shellcheck disable=SC2016 # Literal backticks and braces must remain unexpanded.
-  assert_grep 'blocked [at=<epoch>]: {what you need}' "$brief" "scout brief gave the prohibition no exit"
+  assert_grep 'blocked [at=<epoch>]: {what you need}' "$brief" "investigation worker brief gave the prohibition no exit"
 
   # One shared string, not two copies: the emitted rule must be byte-identical
   # across the ship and scout scaffolds so a later edit cannot fix one and miss
@@ -1673,10 +1673,10 @@ test_crewmate_scaffolds_forbid_pool_administration() {
   [ -n "$ship_cd_rule" ] || fail "ship brief emitted no leading-cd rule"
   [ "$ship_cd_rule" = "$scout_cd_rule" ] \
     || fail "scout brief leading-cd rule is missing or differs from the ship brief"
-  assert_grep "every sub-agent you launch" "$brief" "scout brief did not pass the leading-cd rule to sub-agents"
+  assert_grep "every sub-agent you launch" "$brief" "investigation worker brief did not pass the leading-cd rule to sub-agents"
 
   # The daemon half of the rule survived the fold.
-  assert_grep "no-mistakes" "$brief" "scout brief lost the shared no-mistakes daemon rule"
+  assert_grep "no-mistakes" "$brief" "investigation worker brief lost the shared no-mistakes daemon rule"
   # shellcheck disable=SC2016 # Literal backticks and braces must remain unexpanded.
   assert_grep 'blocked [at=<epoch>]: {the daemon error}' "$brief" \
     "scout brief lost the daemon-error reporting instruction"

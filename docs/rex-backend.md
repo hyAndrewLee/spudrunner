@@ -6,10 +6,10 @@ It provides task tabs and their terminal blocks while Treehouse continues to pro
 
 ## Setup
 
-Pick Rex when you already run Firstmate inside Rex and want each task as its own tab next to your session.
-The Rex server must run on the same machine as Firstmate because spawn and liveness checks compare Rex-reported process and filesystem data with local machine state.
+Pick Rex when you already run Spudrunner inside Rex and want each task as its own tab next to your session.
+The Rex server must run on the same machine as Spudrunner because spawn and liveness checks compare Rex-reported process and filesystem data with local machine state.
 For a new spawn, only a `unix://` endpoint reported by `rex whoami --json` is accepted as proof of locality; other transports, including local TCP endpoints, or an unreadable endpoint are refused before a tab is created or a worktree is leased.
-Use [remote second mates](remote-secondmates.md) to run workers on another host.
+Use [remote project coordinators](remote-secondmates.md) to run workers on another host.
 Rex is in beta, and its sessions live in a personal server that does not keep them across a server stop.
 
 Prerequisites:
@@ -21,7 +21,7 @@ Prerequisites:
 Rex ships its CLI inside the server bundle and exports `REX_BIN_DIR` into every block, but shell startup files commonly reset `PATH`.
 The adapter therefore prefers `$REX_BIN_DIR/rex`, then `rex` on `PATH`, then the server bundle path under `~/Library/Application Support/com.superlogical.rex/`.
 
-Select Rex by running Firstmate directly inside a Rex block (see "Auto-detection"), with local `config/backend` containing `rex`, with `FM_BACKEND=rex` for one launch, or with an explicit request to Firstmate.
+Select Rex by running Spudrunner directly inside a Rex block (see "Auto-detection"), with local `config/backend` containing `rex`, with `FM_BACKEND=rex` for one launch, or with an explicit request to Spudrunner.
 A spawn stops with an actionable setup message when the CLI, `jq`, the API revision, or the server is unavailable.
 
 Routine supervision uses `bin/fm-peek.sh <id>` and `FM_HOME=<home> bin/fm-send.sh <id> '<text>'` without bringing any tab forward.
@@ -34,17 +34,17 @@ Rex exports `TERM_PROGRAM=rex` with `REX_SESSION`, `REX_BLOCK`, `REX_SERVER`, an
 `TERM_PROGRAM=rex` together with `REX_BLOCK` selects Rex, checked after `$TMUX` and `HERDR_ENV=1` and before cmux.
 A tmux or Herdr started inside a Rex block rewrites `TERM_PROGRAM` but inherits the `REX_*` variables, so a nested multiplexer is detected as itself and `REX_BLOCK` alone never selects Rex.
 Auto-detected Rex stays silent, and explicit `--backend`, `FM_BACKEND`, or `config/backend` always win.
-Spawned workers keep the `REX_*` variables and `TERM_PROGRAM`, so a secondmate launched from a Rex-hosted home stays on Rex too.
+Spawned workers keep the `REX_*` variables and `TERM_PROGRAM`, so a project coordinator launched from a Rex-hosted home stays on Rex too.
 
 ## Task shape and metadata
 
 Rex's hierarchy is server > session > window (a tab) > block (a pane), and each task is one window holding one block.
-When Firstmate itself runs directly inside a Rex block, every task tab opens in Firstmate's own session, once the server confirms that the block named by `REX_BLOCK` lives in the session named by `REX_SESSION`.
+When Spudrunner itself runs directly inside a Rex block, every task tab opens in Spudrunner's own session, once the server confirms that the block named by `REX_BLOCK` lives in the session named by `REX_SESSION`.
 A claim the server cannot confirm refuses rather than guessing a placement.
-Otherwise, and always for a secondmate's own home, the tab opens in one session per home labeled with the home tag (`firstmate-<hash>` or `2ndmate-<id>-<hash>`), adopted when exactly one session carries that label, created once when none does, and refused when several do.
-A newly created local secondmate session is placed immediately after the launching session when `REX_SESSION` is available; a respawned secondmate tab in an adopted session is moved to the first position ahead of its crews.
+Otherwise, and always for a project coordinator's own home, the tab opens in one session per home labeled with the home tag (`firstmate-<hash>` or `2ndmate-<id>-<hash>`), adopted when exactly one session carries that label, created once when none does, and refused when several do.
+A newly created local project coordinator session is placed immediately after the launching session when `REX_SESSION` is available; a respawned project coordinator tab in an adopted session is moved to the first position ahead of its crews.
 Both ordering steps are best-effort: a failure warns without failing the launch.
-The secondmate session label's hash is based on the secondmate home, not the launching home's code root.
+The project coordinator session label's hash is based on the project coordinator home, not the launching home's code root.
 
 Tabs in an existing session are created with `window new --focus=false`; when a per-home session must be created, its initial window becomes the first task's tab.
 An unviewed block starts at 80x24, so the adapter attempts to resize each new task block to 200x50 and warns if resizing fails; a client that later views it takes ownership and applies its own size.
@@ -95,7 +95,7 @@ The reader subscribes first and the current program status of each block is reco
 A trusted `blocked` program status takes the immediate escalation path instead of waiting for the stale-pane timer; [push verification](verification/runtime-backends.md#push-events) records measured latency.
 It counts only when the process that reported it passes the same foreground-chain rule as native busy state, and its wake reason carries Rex's blocked kind (`permission`, `question`, or `auth`) and the program's message, cut at 160 characters.
 [`bin/fm-transition-lib.sh`](../bin/fm-transition-lib.sh) owns the shared policy and per-block escalation dedupe contract.
-The watcher skips secondmate endpoints, declared waits, and captain-held work exactly as it does for Herdr's push path.
+The watcher skips project coordinator endpoints, declared waits, and user-held work exactly as it does for Herdr's push path.
 
 When a watched block's program exits or the block closes, the wait ends at once so the watcher's next poll reconciles that task immediately.
 That never wakes the supervisor by itself, because a routine cleanup closes blocks too.
@@ -109,8 +109,8 @@ Task tabs in a second Rex session stay on polling, because one reader covers one
 Cleanup closes only the task's block, which closes its tab, and then proves it gone: only an exact not-found after the close counts, so a close that failed or left the block alive keeps the task's records.
 An already-gone block counts as closed.
 A per-home session left with no tabs is then killed, but only the exact recorded session carrying this home's label, never the launcher session, and never when its view cannot be read.
-An omitted `windows` field is treated as an empty session for both retirement and adoption, so a crewless secondmate can relaunch into its emptied session.
-When main retires a local secondmate, it checks and retires that secondmate's session using the secondmate home's identity; sessions with tabs or renamed labels are preserved.
+An omitted `windows` field is treated as an empty session for both retirement and adoption, so a crewless project coordinator can relaunch into its emptied session.
+When main retires a local project coordinator, it checks and retires that project coordinator's session using the project coordinator home's identity; sessions with tabs or renamed labels are preserved.
 Spawning, reclaiming, and that retirement share one home-wide lock (`state/.rex-session.lock`), so a new tab can never land in a session between its empty check and its kill.
 
 `bin/fm-control.sh` `exit` and `relaunch` work on Rex; [`agent-control.md`](agent-control.md#reclaiming-a-task-whose-endpoint-is-gone) owns the recorded-server absence proof, stopped-server recovery, reclaim placement, and reclaim-only shell-husk cleanup.
@@ -118,12 +118,12 @@ An ordinary spawn refuses any block carrying the task's scoped label.
 
 ## Attention marks
 
-Opt-in: with `config/rex-status-marks` set to `on`, the captain sees which worker needs them from Rex itself.
+Opt-in: with `config/rex-status-marks` set to `on`, the user sees which worker needs them from Rex itself.
 `bin/fm-rex-marks.sh` turns each Rex task's latest status into one program-status record (OSC 7501, `app=firstmate`, `id=fm`) on that worker's pane, so Rex badges its tab, session, and Activity entry while the worker's own agent keeps the pane's root status.
 
 | Worker status | Record | Message |
 | --- | --- | --- |
-| `needs-decision`, or a captain hold | `blocked`, kind `question` | `Needs your decision: <note>` |
+| `needs-decision`, or a user hold | `blocked`, kind `question` | `Needs your decision: <note>` |
 | `blocked` naming a credential or login | `blocked`, kind `auth` | `Blocked: <note>` |
 | other `blocked` | `blocked`, kind `permission` | `Blocked: <note>` |
 | `failed` | `error` | `Failed: <note>` |
@@ -131,10 +131,10 @@ Opt-in: with `config/rex-status-marks` set to `on`, the captain sees which worke
 | other `done` | `done` | `Done: <note>` |
 | anything else | removed | |
 
-Each record's title is the task's tab label, `fm-<id>`, so Rex labels it with the name Firstmate gave the tab rather than a branch or the agent's terminal title.
-Each new record that needs the captain also carries an OSC 777 desktop notification titled with the tab label, because Rex sounds and notifications follow each pane's root program status, not a child record.
-Firstmate never writes the root record: the harness owns it, and a second root report for the same turn makes Rex notify twice.
-Firstmate's own records never count as the worker's state, for busy detection or for push escalation.
+Each record's title is the task's tab label, `fm-<id>`, so Rex labels it with the name Spudrunner gave the tab rather than a branch or the agent's terminal title.
+Each new record that needs the user also carries an OSC 777 desktop notification titled with the tab label, because Rex sounds and notifications follow each pane's root program status, not a child record.
+Spudrunner never writes the root record: the harness owns it, and a second root report for the same turn makes Rex notify twice.
+Spudrunner's own records never count as the worker's state, for busy detection or for push escalation.
 The notification fires once per change, never on a repeated sync.
 Rex has no API to set a record, so the mark is one small write to the pane's terminal device; a `working` or `blocked` record is dropped when the agent's shell prints its next prompt or exits, and the next sync writes it again.
 The watcher runs `fm-rex-marks.sh sync` once per poll only while `config/rex-status-marks` or `config/rex-tint` exists or a cached record remains, and cleanup clears a cached mark before closing the pane.
@@ -146,23 +146,23 @@ Every write addresses the task's recorded block id, so a mark never lands on ano
 ### Validation progress
 
 While marks are on and a ship validates through no-mistakes with no mark, its pane carries a second record, `id=fm/validate` in state `working`, whose progress is the share of pipeline steps done and whose message names the active step, for example `Validating: review 3/9, auto-fix 1/3`.
-Rex shows it in the tab and pane hover cards, so the captain can see how far each validation is without opening the worker.
+Rex shows it in the tab and pane hover cards, so the user can see how far each validation is without opening the worker.
 The sync reads the run on the task's branch with one bounded `no-mistakes axi status` at most every 30 seconds per task (`FM_REX_PROGRESS_INTERVAL`), and removes the record when the run ends or the task gets a mark; clearing the mark also removes the record beneath it.
 `state/.rex-progress-<id>` caches the last plan.
 
 ### State tint
 
-`config/rex-tint` opts in to a subtle background tint on a worker that waits on the captain or on help (a `blocked` mark) or has failed (an `error` mark): `off` (the default when the file is absent), `subtle` for a dark theme, or `subtle-light` for a light theme.
+`config/rex-tint` opts in to a subtle background tint on a worker that waits on the user or on help (a `blocked` mark) or has failed (an `error` mark): `off` (the default when the file is absent), `subtle` for a dark theme, or `subtle-light` for a light theme.
 A running or finished worker is never tinted, and the tint is reset when the mark leaves that state, at cleanup, and when the tint is turned off.
 Rex applies a theme set through its API only to a pane no client owns, and the app owns every pane it shows, so the tint is an in-band OSC 11 written to the pane's terminal and the reset is OSC 111.
 It changes only cells the program leaves at the default background, a harness that picked its colors from the background at startup keeps them, and a tint left by a stopped watcher stays until the next sync.
-Firstmate never sends an OSC 11 query, because the answer would arrive in the worker as typed text.
+Spudrunner never sends an OSC 11 query, because the answer would arrive in the worker as typed text.
 `state/.rex-tint-<id>` records the tint written, since a tint cannot be read back.
 
 ## Away mode
 
-A Rex-hosted Firstmate can run away and quiet supervision: the supervisor target is discovered from `REX_SESSION` and `REX_BLOCK`, and the away daemon runs in its own dedicated Rex session, never as a tab or split in yours, which `/afk` exit kills by its exact recorded id.
-Naming `rex` in `config/wedge-alarm` adds an opt-in wedge alarm on Firstmate's own pane: a blocked `id=fm-wedge` record plus a desktop notification, removed after the next delivered digest; `auto` never adds it.
+A Rex-hosted Spudrunner can run away and quiet supervision: the supervisor target is discovered from `REX_SESSION` and `REX_BLOCK`, and the away daemon runs in its own dedicated Rex session, never as a tab or split in yours, which `/afk` exit kills by its exact recorded id.
+Naming `rex` in `config/wedge-alarm` adds an opt-in wedge alarm on Spudrunner's own pane: a blocked `id=fm-wedge` record plus a desktop notification, removed after the next delivered digest; `auto` never adds it.
 
 ## Active limits
 
@@ -175,13 +175,13 @@ Naming `rex` in `config/wedge-alarm` adds an opt-in wedge alarm on Firstmate's o
 
 ## Deferred upstream asks
 
-These asks to Superlogical are deliberately unfiled, pending a later decision; each line names the Firstmate impact that would go away.
+These asks to Superlogical are deliberately unfiled, pending a later decision; each line names the Spudrunner impact that would go away.
 
 - **Viewport-only capture**: the viewport would be read directly instead of derived from the last `size.rows` rows of a full capture, removing the resize skew.
 - **Cursor position as a JSON field**: the adapter would stop parsing the cursor out of the trailing escape sequence of the `format` read.
 - **Dropping `working` and `blocked` program-status records when their owner exits**: native busy state could be trusted without cross-checking every record against the live process view.
 - **A documented compatibility floor and machine-readable version output with the API revision**: the version gate would stop parsing `rex version` text.
-- **A per-session or per-block opt-out for the agent hook's automatic session rename**: a harness running in a task tab could not rename the session that holds the captain's or other tasks' tabs.
+- **A per-session or per-block opt-out for the agent hook's automatic session rename**: a harness running in a task tab could not rename the session that holds the user's or other tasks' tabs.
 - **A configurable default size for unviewed blocks**: spawn would no longer need to resize every new 80x24 task block to 200x50.
 - **`rex` on `PATH` inside blocks even when shell startup files reset it**: the adapter could drop its `REX_BIN_DIR` and server-bundle fallbacks.
 

@@ -1,4 +1,5 @@
-# Firstmate test isolation proof
+<a id="firstmate-test-isolation-proof"></a>
+# Spudrunner test isolation proof
 
 This record owns concurrent isolation evidence for the portable parallel candidate set and admitted runner families.
 `bin/fm-test-isolation-proof.sh` is the authoritative harness and `docs/fm-test-isolation-proof.json` is the portable pool's machine-readable result.
@@ -182,7 +183,8 @@ That its duration landed within 3% of the two clean runs is evidence the elevate
 These durations are not comparable with the six-member run above: that measurement was taken on a different machine state, and the gap is far larger than two short scripts can account for, so it is not evidence about the two new members.
 For the same reason the 1.72x four-worker figure recorded above is left as a statement about that measurement rather than restated as current.
 
-### secondmate: admitted
+<a id="secondmate-admitted"></a>
+### project coordinator: admitted
 
 - Date: 2026-09-03
 - Command: `bin/fm-test-isolation-proof.sh --pool secondmate --jobs 4`
@@ -194,7 +196,7 @@ For the same reason the 1.72x four-worker figure recorded above is left as a sta
 | 2 | `FM_ISOLATION_SUMMARY total=21 failed=0 concurrency=4 duration_ms=571247` |
 
 An earlier proof on 2026-09-03 refused this family on `tests/fm-backlog-handoff.test.sh`, failing two runs of three with `Task "pre-move-crash" not found in this backlog`.
-The cause was in the case's crash injection, not in shared secondmate state.
+The cause was in the case's crash injection, not in shared project coordinator state.
 Its fake `tasks-axi` killed the handoff and then slept a fixed second before delegating to the real binary, expecting to be torn down during that pause.
 Nothing tore it down: the fake outlives the process it kills, so on a host slow enough for the case's next assertions to take longer than a second, the orphan woke up and completed the very move the case requires left undone, which then made the recovery step fail.
 Direct observation of the source and destination backlogs during the injected crash showed exactly that, the item moving one second after the crash while the case was still asserting.
@@ -244,7 +246,7 @@ Its current live-backend result is recorded under [workspace-removal focus safet
 `tests/fm-claude-stop-autoarm-live-e2e.test.sh` gate-skips on its opt-in variable and is now `live-harness-optin`, since a candidate that gate-skips cannot prove concurrency.
 
 One member needs a current Pi to pass at all.
-`tests/fm-pi-branch-extension.test.sh` compares firstmate's supervision-branch extension against the stock renderers of the installed `@earendil-works/pi-coding-agent`, and the proof host's global install was stale at 0.81.1 while the published release was 0.84.4.
+`tests/fm-pi-branch-extension.test.sh` compares Spudrunner's supervision-branch extension against the stock renderers of the installed `@earendil-works/pi-coding-agent`, and the proof host's global install was stale at 0.81.1 while the published release was 0.84.4.
 On the stale package the case fails serially as well as concurrently, so it is a prerequisite rather than a concurrency result; both runs above pinned the current package with `FM_PI_PACKAGE_DIR`, and on a host whose global install is current the plain command reproduces them.
 
 ## Production runner effect of the 2026-09-03 admissions

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# fm-dispatch-resolve.sh - resolve one concrete crewmate or scout dispatch
+# fm-dispatch-resolve.sh - resolve one concrete implementation worker or investigation worker dispatch
 # profile from a task brief with a configurable model provider, opt-in.
 #
 # Usage:
@@ -43,8 +43,8 @@
 #   refuse an unsupported activation before it writes anything.
 #
 # What it does when on with at least one rule: one POST with the project name and the brief's
-#   `## Captain's intent` and `## Firstmate spec` sections, tagged when it is a
-#   scout brief (the whole brief when it has neither section), as state and
+#   `## User intent` and `## Implementation requirements` sections, tagged when it is a
+#   investigation worker brief (the whole brief when it has neither section), as state and
 #   ONE Choice question whose options are every rule's `when` from
 #   config/crew-dispatch.json plus one fixed generic none option. The provider
 #   returns the matched rule, a probability per option, and a confidence. Everything
@@ -62,7 +62,7 @@
 #   authorizing another family.
 #   The model never sees quota, catalogs, approvals, preferred_provider,
 #   confidence floors, `why`, or `use`. With no rules, it returns a non-clear
-#   result so firstmate keeps using the existing intake.
+#   result so Spudrunner keeps using the existing intake.
 #
 # Shared-quota opt-out: an optional top-level "shared_quota": true in the
 #   rules file declares this home draws every provider's usage from one single
@@ -100,7 +100,7 @@
 #     profile: --harness <h> [--model <m>] [--effort <e>]     (status clear only)
 #   clear     -> pass the profile line to fm-spawn.sh unless you state a reason to override
 #   ambiguous -> confidence below the floor; decide as today from the probabilities
-#   escalate  -> the rule requires captain approval, no candidate is rankable, or a genuine tie
+#   escalate  -> the rule requires user approval, no candidate is rankable, or a genuine tie
 #   error     -> API, network, response, quota-axi, or declared credential source failure; decide as today
 #   Every outcome exits 0 so an intake is never blocked by this tool.
 #   Exit 2 only for a usage or configuration error (unreadable brief, an
@@ -115,7 +115,7 @@
 #   FM_DISPATCH_API_KEY, TYPESAFE_API_KEY, OPENROUTER_API_KEY, and
 #   OPENAI_API_KEY are read from the environment or $FM_HOME/.env.
 #
-# Authority: this tool never replaces firstmate's judgment, quota-array-dispatch,
+# Authority: this tool never replaces Spudrunner's judgment, quota-array-dispatch,
 #   the captain-approval gate, or fm-spawn.sh validation; it publishes one
 #   inspectable answer plus every candidate's evidence, in code.
 set -u
@@ -440,18 +440,18 @@ never_send_check() {
 }
 
 # Send Jev only the task-specific sections bin/fm-brief.sh scaffolds, plus a
-# scout tag from the scout contract line; the rest of a scaffolded brief is
+# investigation worker tag from the investigation worker contract line; the rest of a scaffolded brief is
 # standard boilerplate whose safety language reads as high stakes on every task.
 # A brief with neither section goes whole. Ship delivery mode is deliberately
 # not sent: live runs showed it pushing routine ship briefs to the top tier.
 brief_kind() {
   if grep -qxF 'This is a SCOUT task: the deliverable is a written report, not a PR.' "$BRIEF"; then
-    printf 'Brief kind: scout (report only)\n\n'
+    printf 'Brief kind: investigation worker (report only)\n\n'
   fi
 }
 task_sections() {
   local heading
-  for heading in "## Captain's intent" "## Firstmate spec"; do
+  for heading in "## User intent" "## Implementation requirements"; do
     fm_brief_task_heading_present "$BRIEF" "$heading" || continue
     printf '%s\n%s\n\n' "$heading" "$(fm_brief_task_heading_body "$BRIEF" "$heading")"
   done
@@ -677,7 +677,7 @@ RESULT=$(jq -n --arg floor "$CONFIDENCE_FLOOR" --argjson lat "$LAT_MS" --arg non
    end) as $answer_use |
   (if $choice != "default" and $rule == null then {invalid: "rule \($choice) is not in the rules file"}
    elif $rule == null then {source: "default", use: profiles($cfg.default // null), note: "no rule matched"}
-   elif ($rule.approval // "") == "captain" then {source: $choice, escalate: "rule requires the captain'"'"'s explicit approval before dispatch"}
+   elif ($rule.approval // "") == "captain" then {source: $choice, escalate: "rule requires the user'"'"'s explicit approval before dispatch"}
    elif $rule_floor_state == "unknown" then {source: $choice, escalate: "rule \($choice) floor \($rule.floor.provider)/\($rule.floor.scope) is unverifiable"}
    elif $rule_floor_state == "below"
      then {source: "default", use: profiles($cfg.default // null), note: "rule \($choice) floor \($rule.floor.scope) below \($rule.floor.min_percent)%: fall through to default"}

@@ -1,11 +1,12 @@
-# Remote second mates
+<a id="remote-second-mates"></a>
+# Remote project coordinators
 
-This page covers how to set up, provision, run, and retire a second mate whose Firstmate home lives on another host.
-It is for operators who run a remote second mate and for anyone checking its transport and safety behavior.
+This page covers how to set up, provision, run, and retire a project coordinator whose Spudrunner home lives on another host.
+It is for operators who run a remote project coordinator and for anyone checking its transport and safety behavior.
 
-Remote second mates place a whole persistent Firstmate home on another SSH-reachable host.
+Remote project coordinators place a whole persistent Spudrunner home on another SSH-reachable host.
 The primary still owns routing and supervision, while the remote home owns its own projects, backlog, and workers.
-Firstmate does not support placing an individual worker remotely or failing a remote route over to a local replacement.
+Spudrunner does not support placing an individual worker remotely or failing a remote route over to a local replacement.
 
 ## Find a topic
 
@@ -14,7 +15,7 @@ Firstmate does not support placing an individual worker remotely or failing a re
 | Prepare the primary and the remote host | [Prerequisites](#prerequisites) and [non-interactive tool contract](#non-interactive-tool-contract) |
 | Check whether a host is ready, or repair it | [Readiness, repair, and the human steps](#readiness-repair-and-the-human-steps) |
 | Create the route and the remote home | [Provision a route](#provision-a-route) |
-| Launch, recover, message, and read a remote second mate | [Normal operation](#normal-operation) |
+| Launch, recover, message, and read a remote project coordinator | [Normal operation](#normal-operation) |
 | Move queued work to the remote home | [Backlog handoff](#backlog-handoff) |
 | Push configuration, relaunch, update, or retire | [Sync, update, and retirement](#sync-update-and-retirement) |
 | Run the tests or a real-host smoke test | [Verification](#verification) |
@@ -24,12 +25,12 @@ Firstmate does not support placing an individual worker remotely or failing a re
 The remote second-mate agent itself always runs on the [Herdr backend](herdr-backend.md) in the shared `fm-remote` session.
 Every path that provisions or launches one refuses a host that is not ready for it.
 
-- `fm-remote` is reserved for remote fleet work and must not be used for personal work.
+- `fm-remote` is reserved for remote active work work and must not be used for personal work.
 - The user's interactive Herdr session remains `default` and is not a remote-secondmate prerequisite.
 - Herdr's remote-session server belongs to the host's own GUI login session rather than to the SSH connection.
   As a result, the agent's endpoint survives every disconnection the primary's supervision depends on.
-- Local second mates are unaffected and keep their ordinary backend and session selection.
-  So do the workers a remote second mate supervises inside its own home.
+- Local project coordinators are unaffected and keep their ordinary backend and session selection.
+  So do the workers a remote project coordinator supervises inside its own home.
 
 ## Prerequisites
 
@@ -37,7 +38,7 @@ Every path that provisions or launches one refuses a host that is not ready for 
 
 1. Configure an SSH alias in the primary account's normal OpenSSH configuration.
 2. Use ordinary public-key authentication, strict host-key verification, and a dedicated remote account where practical.
-3. Do not enable agent forwarding for Firstmate.
+3. Do not enable agent forwarding for Spudrunner.
 
 `fm-on.sh` adds its own protections:
 
@@ -48,7 +49,7 @@ Its [script header](../bin/fm-on.sh) owns the keepalive defaults and environment
 
 ### Remote clone and entrypoint
 
-1. Clone Firstmate on the remote host at an absolute code-root path.
+1. Clone Spudrunner on the remote host at an absolute code-root path.
 2. Expose that clone's fixed entrypoint on the account's non-interactive SSH `PATH`, for example:
 
 ```sh
@@ -70,7 +71,7 @@ The entrypoint authorizes that bootstrap in one of two ways:
 
 ### The remote job worker
 
-After setup, every other command goes through Firstmate's account-owned remote job worker.
+After setup, every other command goes through Spudrunner's account-owned remote job worker.
 Each such command takes these steps:
 
 1. It verifies the worker.
@@ -124,14 +125,14 @@ A caller cancels its job instead of abandoning it when, before the job completes
 
 As a result, retries never convoy behind abandoned work.
 
-A worker stops itself once its configured code root stops being a Firstmate checkout, so a worker started from a worktree cannot outlive that worktree.
+A worker stops itself once its configured code root stops being a Spudrunner checkout, so a worker started from a worktree cannot outlive that worktree.
 `bin/fm-remote-job-reap-orphans.sh` clears any worker already left behind that way.
 It never touches a worker whose checkout still exists.
 
 ### What the remote account must provide
 
 - The remote account must provide the required toolchain, the selected worker runtime, the selected session backend, and credentials that work on that host.
-- A [worker account pin](configuration.md#worker-account-pin-configclaude-account-configpi-account) for the second mate or its workers lives in the remote home's own configuration on that host.
+- A [worker account pin](configuration.md#worker-account-pin-configclaude-account-configpi-account) for the project coordinator or its workers lives in the remote home's own configuration on that host.
 - The origin URL named for each project must be reachable from the remote account, because projects are cloned on that host rather than copied from the primary.
 
 ## Non-interactive tool contract
@@ -217,7 +218,7 @@ chmod +x ~/.local/bin/tasks-axi
 
 ## Readiness, repair, and the human steps
 
-`bin/fm-remote-doctor.sh` is the single owner of what "ready for a remote second mate" means.
+`bin/fm-remote-doctor.sh` is the single owner of what "ready for a remote project coordinator" means.
 
 ### Check a host
 
@@ -285,7 +286,7 @@ It acts on whichever server owns the `fm-remote` socket:
 | --- | --- |
 | Nothing | Execs the server in the foreground under launchd. |
 | An Aqua-born server | Exits 0. |
-| Any other (foreign) server | Stops the foreign server and takes the session over, closing its panes so the parent firstmate relaunches its mates into the Aqua-born server. |
+| Any other (foreign) server | Stops the foreign server and takes the session over, closing its panes so the parent Spudrunner relaunches its mates into the Aqua-born server. |
 
 `KeepAlive={SuccessfulExit=false}` lets that exit 0 rest instead of respawning against a held socket.
 The guard's header owns the decision table, and [`bin/fm-remote-herdr-owner-lib.sh`](../bin/fm-remote-herdr-owner-lib.sh) owns the birth markers it reads.
@@ -315,8 +316,8 @@ These steps are never automated and are always reported rather than silently att
 - Installing any missing required tool that no safe wrapper can resolve.
 - Each worker runtime's own `/login`, and any keychain password prompt that login needs.
 
-Firstmate never writes an auto-login password, never changes FileVault, and never stores an account password.
-A file at `~/.local/bin/fm-remote-entrypoint.sh` that is not Firstmate's own symlink is reported for the operator to inspect and is never overwritten.
+Spudrunner never writes an auto-login password, never changes FileVault, and never stores an account password.
+A file at `~/.local/bin/fm-remote-entrypoint.sh` that is not Spudrunner's own symlink is reported for the operator to inspect and is never overwritten.
 
 ### Required remote tools
 
@@ -328,7 +329,7 @@ A file at `~/.local/bin/fm-remote-entrypoint.sh` that is not Firstmate's own sym
 
 ## Provision a route
 
-1. Create and fill the normal secondmate charter first.
+1. Create and fill the normal project coordinator charter first.
 2. Then run:
 
 ```sh
@@ -337,21 +338,21 @@ bin/fm-remote-home-seed.sh <id> <ssh-alias> <remote-root> <remote-home> {<projec
 
 | Argument | Meaning |
 | --- | --- |
-| `<remote-root>` | The remote Firstmate code clone that supplies tracked scripts. |
-| `<remote-home>` | A separate absolute path for the persistent secondmate home that must not overlap the code root. |
+| `<remote-root>` | The remote Spudrunner code clone that supplies tracked scripts. |
+| `<remote-home>` | A separate absolute path for the persistent project coordinator home that must not overlap the code root. |
 
 ### Project origins
 
 Name each project's origin as `<project>=<origin-url>`.
 Resolve the concrete origin from any of these sources rather than imposing one URL template:
 
-- The captain.
+- The user.
 - The project registry.
 - An existing clone anywhere.
 - The forge.
 - An explicit paste.
 
-Seeding a project this machine has never cloned needs no clone under `projects/`, no `no-mistakes` initialization here, and no fleet sync first.
+Seeding a project this machine has never cloned needs no clone under `projects/`, no `no-mistakes` initialization here, and no active work sync first.
 A bare `<project>` is still accepted when this machine happens to have `projects/<project>`.
 That clone's configured origin is then read instead of being retyped.
 
@@ -377,11 +378,11 @@ The seed takes these steps:
 1. It records `host:`, `root:`, and `home:` in `data/secondmates.md`.
 2. It gates the host on readiness.
 3. It sends a bounded manifest.
-4. It lets the remote host clone its own Firstmate home and project origins.
+4. It lets the remote host clone its own Spudrunner home and project origins.
 
 It does not copy project trees or the primary process environment.
 In the primary home, its durable registration effects are limited to that route and the charter brief under `data/<id>`.
-Launch records are created only when the secondmate is launched.
+Launch records are created only when the project coordinator is launched.
 
 ### The seed's readiness gate
 
@@ -410,15 +411,15 @@ The promised-public-reply subsystem is same-filesystem by construction, so a rem
 
 ### Local and remote routes together
 
-Local secondmates keep the existing route form and need no migration.
-A fleet may contain local and remote routes together.
+Local project coordinators keep the existing route form and need no migration.
+A active work may contain local and remote routes together.
 Use `bin/fm-home-seed.sh validate` to validate either form.
 
 ## Normal operation
 
 ### Launch or recover
 
-Launch or recover the remote second mate with the same command used for a local route:
+Launch or recover the remote project coordinator with the same command used for a local route:
 
 ```sh
 bin/fm-spawn.sh <id> --secondmate
@@ -426,12 +427,12 @@ bin/fm-spawn.sh <id> --secondmate
 
 The primary then takes these steps:
 
-1. It resolves the verified secondmate harness and optional model and effort.
+1. It resolves the verified project coordinator harness and optional model and effort.
 2. It runs the same readiness gate the seed runs.
 3. It transfers the inherited-material allowlist.
 4. It asks the remote host to launch on Herdr in `fm-remote`.
 
-All remote secondmates on one host share `fm-remote` and retain separate `2ndmate-<id>` workspaces inside it.
+All remote project coordinators on one host share `fm-remote` and retain separate `2ndmate-<id>` workspaces inside it.
 
 ### Refused and unsupported launches
 
@@ -439,12 +440,12 @@ All remote secondmates on one host share `fm-remote` and retain separate `2ndmat
 - An existing remote endpoint recorded in another Herdr session, including `default`, is classified as unverified and left untouched.
   Launch, liveness recovery, control, and retirement refuse it until an operator explicitly migrates it, instead of attempting a live cutover.
 - A launch after a host has drifted out of readiness fails with the doctor's own gap text instead of leaving a half-created endpoint.
-- Raw launch commands are not accepted for remote secondmates.
-- Backends that already refuse secondmate launch, currently Orca, cmux, and paseo, remain unsupported on the remote host.
+- Raw launch commands are not accepted for remote project coordinators.
+- Backends that already refuse project coordinator launch, currently Orca, cmux, and paseo, remain unsupported on the remote host.
 
 ### Liveness recovery
 
-Startup liveness recovery relaunches a dead or missing remote second mate through this same command.
+Startup liveness recovery relaunches a dead or missing remote project coordinator through this same command.
 So recovery passes the same readiness gate rather than a weaker one.
 
 The watcher's liveness tick applies the identical rule during ordinary supervision through the shared `bin/fm-secondmate-liveness-lib.sh`:
@@ -457,7 +458,7 @@ The watcher's liveness tick applies the identical rule during ordinary supervisi
 
 A persistent remote route's parent metadata intentionally has no local spawn-generation marker.
 It identifies the route by its recorded host instead.
-The Bearings inventory-reconcile hook therefore handles these markerless routes as follows:
+The Status summary inventory-reconcile hook therefore handles these markerless routes as follows:
 
 - It accepts them.
 - It revalidates the sampled host at delivery.
@@ -609,7 +610,7 @@ Semantic callers preserve the route or pending request:
 - An operation that is not idempotent requires same-host reconciliation rather than a blind resend.
 - An unconfirmed steer may be retried only through the correlation-preserving command described above.
 
-An unavailable remote home is projected as unknown and is never replaced by a local second mate.
+An unavailable remote home is projected as unknown and is never replaced by a local project coordinator.
 
 ## Backlog handoff
 
@@ -634,36 +635,39 @@ There is no two-phase journal and no additional tasks-axi release requirement.
 ### Inherited-material transfer
 
 Locked startup convergence and `bin/fm-config-push.sh` transfer only the declared inherited-material allowlist.
-The receiver accepts only the items its own remote Firstmate code root declares, so a remote secondmate must run code at least as new as its primary before the primary pushes newly declared inherited material it actually has: an older receiver refuses a present `config/t3code-instances`, and the remaining items of that push are skipped.
+The receiver accepts only the items its own remote Spudrunner code root declares, so a remote project coordinator must run code at least as new as its primary before the primary pushes newly declared inherited material it actually has: an older receiver refuses a present `config/t3code-instances`, and the remaining items of that push are skipped.
 When the primary does not have a newly declared item, the older receiver's refusal of its `absent` record counts as `unchanged` and the push continues, so a home that never configures `config/t3code-instances` converges as before.
-That item still costs one extra `absent` call on every inheritance push to a remote secondmate, on every home, including one that never selects `config/backend=t3code`: the remote job worker runs one home's commands one after another, and the lifecycle test legs that push inheritance measure about 5-12% slower; an older remote code root tolerates the call as above.
+That item still costs one extra `absent` call on every inheritance push to a remote project coordinator, on every home, including one that never selects `config/backend=t3code`: the remote job worker runs one home's commands one after another, and the lifecycle test legs that push inheritance measure about 5-12% slower; an older remote code root tolerates the call as above.
 The [`secondmate-provisioning` skill](../.agents/skills/secondmate-provisioning/SKILL.md#charter-and-seed) owns the placement-specific re-read contract, including changed transfers, unchanged retries, and partial or unknown completion.
 
-### Relaunch a live remote second mate
+<a id="relaunch-a-live-remote-second-mate"></a>
+### Relaunch a live remote project coordinator
 
-A live remote second mate is restarted with `relaunch`, which runs the ordinary [control plane](agent-control.md) on that host.
+A live remote project coordinator is restarted with `relaunch`, which runs the ordinary [control plane](agent-control.md) on that host.
 The endpoint record there was written by a host-local launch and carries no remote placement.
 So the transaction, its checkpoint, and its postconditions are the local ones.
 
 The primary passes `<harness> <model|default|-> <effort|default|->` explicitly, using `default` when an axis has no parent pin.
-It passes them explicitly because `config/secondmate-harness` is not inherited into a second mate's home, and the file on that host belongs to a different home.
+It passes them explicitly because `config/secondmate-harness` is not inherited into a project coordinator's home, and the file on that host belongs to a different home.
 Letting the far side re-resolve it would silently move the mate onto another runtime.
 SSH exit 255 leaves completion unknown and the route preserved, exactly as every other verb here.
-Move a live remote second mate onto a newly pinned harness, model, or effort with [`bin/fm-remote-secondmate-relaunch.sh`](../bin/fm-remote-secondmate-relaunch.sh) rather than calling `relaunch` through `fm-on.sh` directly: the host-local relaunch it drives can only rewrite the host's own endpoint record, so this wrapper reads the confirmed identity back from that record afterward and republishes the primary's own route metadata to match, the same way launch already records a fresh route.
+Move a live remote project coordinator onto a newly pinned harness, model, or effort with [`bin/fm-remote-secondmate-relaunch.sh`](../bin/fm-remote-secondmate-relaunch.sh) rather than calling `relaunch` through `fm-on.sh` directly: the host-local relaunch it drives can only rewrite the host's own endpoint record, so this wrapper reads the confirmed identity back from that record afterward and republishes the primary's own route metadata to match, the same way launch already records a fresh route.
 
-### Firstmate code convergence
+<a id="firstmate-code-convergence"></a>
+### Spudrunner code convergence
 
-Session start and every remote launch converge the persistent remote home on the primary's own default-branch commit rather than on the Firstmate copy that host keeps.
+Session start and every remote launch converge the persistent remote home on the primary's own default-branch commit rather than on the Spudrunner copy that host keeps.
 The [`secondmate-provisioning` skill](../.agents/skills/secondmate-provisioning/SKILL.md) owns the guarded convergence contract, including the distinct `/updatefirstmate` behavior, and [`bin/fm-remote-secondmate-control.sh`](../bin/fm-remote-secondmate-control.sh) owns the commit-import mechanics.
-Neither session start nor launch moves the host's own Firstmate copy.
+Neither session start nor launch moves the host's own Spudrunner copy.
 An unsafe or unavailable target is reported and left untouched.
 A completed sync reports which watched instruction paths its advance changed.
 The primary needs that fact because it cannot diff a checkout it cannot read.
 It uses the fact to decide whether the running remote agent must be replaced to actually reload.
 
-### Retire a remote second mate
+<a id="retire-a-remote-second-mate"></a>
+### Retire a remote project coordinator
 
-Retire a remote second mate with the normal guarded command:
+Retire a remote project coordinator with the normal guarded command:
 
 ```sh
 bin/fm-teardown.sh <id>
@@ -676,15 +680,15 @@ It refuses while any of these holds:
 - The primary has an unfinished backlog outbox.
 - A routed reply remains unresolved.
 
-It closes only the retiring secondmate's panes or `2ndmate-<id>` workspace in `fm-remote`.
-It never stops the shared session or removes a sibling secondmate's workspace or panes.
+It closes only the retiring project coordinator's panes or `2ndmate-<id>` workspace in `fm-remote`.
+It never stops the shared session or removes a sibling project coordinator's workspace or panes.
 SSH exit 255 preserves both the route and local records because completion is unknown.
-`--force` remains the explicit discard path and requires the same captain authority as local secondmate discard.
+`--force` remains the explicit discard path and requires the same user authority as local project coordinator discard.
 
 No generic remote delete or write surface exists:
 
 - Remote writes are confined to inherited allowlist files and backlog handoff scratch files.
-- Remote home removal is reachable only through guarded secondmate retirement.
+- Remote home removal is reachable only through guarded project coordinator retirement.
 
 ## Verification
 
@@ -776,9 +780,9 @@ For a real-host smoke test:
 
 1. Provision a disposable remote account and project.
 2. Run the doctor and its repair against that account.
-3. Launch the second mate.
+3. Launch the project coordinator.
 4. Send one marked request.
-5. Verify its correlated reply and structured fleet projection.
+5. Verify its correlated reply and structured active work projection.
 6. Simulate an unreachable host to confirm unknown-without-failover behavior.
 7. Retire only after the remote queue is empty.
 
