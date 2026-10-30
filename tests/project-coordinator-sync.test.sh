@@ -820,7 +820,7 @@ SH
     "$ROOT/bin/task-launch.sh" sm "$w/sm" codex --secondmate >/dev/null 2>"$err" || true
 
   assert_contains "$(cat "$err")" \
-    "warning: secondmate sm sync skipped before launch: dirty working tree" \
+    "warning: project coordinator sm sync skipped before launch: dirty working tree" \
     "spawn warning reports the skipped sync reason"
   [ "$(head_of "$w/sm")" = "$before" ] || fail "dirty spawn home HEAD moved"
   grep -q 'uncommitted local edit' "$w/sm/AGENTS.md" || fail "dirty spawn edit was discarded"
@@ -1217,7 +1217,7 @@ test_bootstrap_syncs_remote_home_to_primary_commit() {
   w=$(new_remote_world remote-bootstrap)
   # remote-command.sh only routes commands this primary checkout genuinely tracks, so the
   # fixture primary carries the real tooling the parent legs invoke.
-  cp "$ROOT"/bin/fm-remote-*.sh "$w/main/bin/"
+  cp "$ROOT"/bin/remote-*.sh "$w/main/bin/" || fail "could not copy remote tooling"
   git -C "$w/main" add -A
   git -C "$w/main" commit -qm "primary tooling"
   git -C "$w/main" push -q origin main
@@ -1264,7 +1264,7 @@ test_bootstrap_syncs_remote_home_to_primary_commit() {
 test_bootstrap_reports_outdated_host_actionably() {
   local w c1 home fakebin out
   w=$(new_remote_world remote-outdated)
-  cp "$ROOT"/bin/fm-remote-*.sh "$w/main/bin/"
+  cp "$ROOT"/bin/remote-*.sh "$w/main/bin/" || fail "could not copy remote tooling"
   git -C "$w/main" add -A
   git -C "$w/main" commit -qm "primary tooling"
   git -C "$w/main" push -q origin main
@@ -1304,7 +1304,7 @@ test_bootstrap_reports_outdated_host_actionably() {
 remote_nudge_world() {  # <name> -> world dir with a remote home sm on the primary's tooling commit
   local w
   w=$(new_remote_world "$1")
-  cp "$ROOT"/bin/fm-remote-*.sh "$w/main/bin/"
+  cp "$ROOT"/bin/remote-*.sh "$w/main/bin/" || fail "could not copy remote tooling"
   git -C "$w/main" add -A
   git -C "$w/main" commit -qm "primary tooling"
   git -C "$w/main" push -q origin main

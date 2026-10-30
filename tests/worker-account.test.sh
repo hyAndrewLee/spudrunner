@@ -480,7 +480,7 @@ test_remote_project_coordinator_account_override_refuses_locally() {
     "$id" > "$HOME_DIR/data/secondmates.md"
   out=$(test_run_spawn "$HOME_DIR" "$WT" "$FAKEBIN" "$id" --secondmate); rc=$?
   expect_code 1 "$rc" "a primary-side remote account override must refuse"
-  assert_refused_before_launch "$id" "$out" "$HOME_DIR/config/secondmate-accounts/$id/claude-account cannot pin remote secondmate"
+  assert_refused_before_launch "$id" "$out" "$HOME_DIR/config/secondmate-accounts/$id/claude-account cannot pin remote project coordinator"
   assert_absent "$CASE/claude-checks" "a remote refusal must not inspect a local login"
   pass "a remote route refuses a primary-side account override instead of silently ignoring it"
 }
