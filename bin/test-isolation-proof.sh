@@ -164,7 +164,7 @@ exclusion_reason() {
 # Exact candidate set from the archived concurrent proof. Adding or removing a
 # path requires a new audit and proof archive.
 list_parallel_candidates() {
-  cat <<'EOF'
+  LC_ALL=C sort <<'EOF'
 tests/supervision-pretool-check.test.sh
 tests/runtime-backend-herdr.test.sh
 tests/runtime-backend-t3code.test.sh
