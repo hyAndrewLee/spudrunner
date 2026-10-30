@@ -3202,7 +3202,7 @@ const sailOf = (frame) => strip(frame[0]).includes(SAIL) ? SAIL : "none";
       "the checked frame carried no crest cell, so the all-blue assertion proved nothing",
     );
     check(
-      /^[▁▂▃▄[\\]·]+$/.test(strip(waterRow)),
+      /^[▁▂▃▄\[\]·]+$/.test(strip(waterRow)),
       `water row contained a non-wave glyph: ${JSON.stringify(strip(waterRow))}`,
     );
     animation.tick();
