@@ -1220,7 +1220,7 @@ test_squash_merged_same_file_different_content_refuses() {
 test_squash_merged_rebased_local_with_unlanded_commit_refuses() {
   local case_dir rc pr_head local_head
   case_dir=$(make_case squash-rebased-unlanded)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   pr_head=$(setup_squash_rebased_history "$case_dir" rebased-plus-unlanded)
   local_head=$(git -C "$case_dir/wt" rev-parse HEAD)
   printf '%s\n' \
@@ -1242,7 +1242,7 @@ test_squash_merged_rebased_local_with_unlanded_commit_refuses() {
 test_squash_merged_stale_local_refuses_when_forge_unreachable() {
   local case_dir rc pr_head local_head
   case_dir=$(make_case squash-stale-offline)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   pr_head=$(setup_squash_rebased_history "$case_dir" stale)
   local_head=$(git -C "$case_dir/wt" rev-parse HEAD)
   printf '%s\n' \
@@ -1264,7 +1264,7 @@ test_squash_merged_stale_local_refuses_when_forge_unreachable() {
 test_pr_check_does_not_refresh_stale_pr_head() {
   local case_dir rc pr_head new_head count
   case_dir=$(make_case pr-check-stale)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit_file "$case_dir" feature.txt hello "add feature"
   pr_head=$(git -C "$case_dir/wt" rev-parse HEAD)
   add_gh_pr_merged_for_head "$case_dir" "$pr_head"
@@ -1300,7 +1300,7 @@ test_pr_check_does_not_refresh_stale_pr_head() {
 test_pr_check_records_remote_head_when_local_lags() {
   local case_dir local_head pr_head
   case_dir=$(make_case pr-check-local-lags)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit_file "$case_dir" feature.txt hello "add feature"
   local_head=$(git -C "$case_dir/wt" rev-parse HEAD)
   pr_head=$(commit_tree_from_wt_head "$case_dir" "$local_head" "no-mistakes follow-up")
@@ -1324,7 +1324,7 @@ test_content_fallback_git_capability_boundary() {
   local mode case_dir rc head
   for mode in unsupported contained conflict unlanded error; do
     case_dir=$(make_case "content-git-$mode")
-    write_meta "$case_dir" no-mistakes ship
+    write_case_meta "$case_dir" no-mistakes ship
     wt_commit_file "$case_dir" feature.txt hello "add feature"
     case "$mode" in
       conflict) land_on_origin_main "$case_dir" feature.txt different ;;
@@ -1405,7 +1405,7 @@ SH
 test_content_in_default_fallback_allows() {
   local case_dir rc
   case_dir=$(make_case content-landed)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   # No pr= recorded and the default gh-axi mock reports no PR, so the merged-PR path
   # cannot fire and the content check must carry it. The branch adds feature.txt, and
   # the same net change has independently landed on origin/main via a squash commit.
@@ -1439,7 +1439,7 @@ test_content_fallback_uses_recorded_base_branch() {
   local case_dir rc landed tmp
   for landed in base default; do
     case_dir=$(make_case "content-base-$landed")
-    write_meta "$case_dir" direct-PR ship
+    write_case_meta "$case_dir" direct-PR ship
     printf 'base_branch=feature/hub\n' >> "$case_dir/state/task-x1.meta"
     tmp="$case_dir/_hub"
     git clone -q "$case_dir/origin.git" "$tmp"
@@ -1482,7 +1482,7 @@ SH
 test_content_fallback_refreshes_stale_origin_ref() {
   local case_dir rc
   case_dir=$(make_case content-stale-ref)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit_file "$case_dir" feature.txt hello "add feature"
   git -C "$case_dir/project" config --unset-all remote.origin.fetch
   git -C "$case_dir/project" config --add remote.origin.fetch '+refs/heads/not-main:refs/remotes/origin/not-main'
@@ -1501,7 +1501,7 @@ test_content_fallback_refreshes_stale_origin_ref() {
 test_dirty_worktree_refuses() {
   local case_dir rc pr_head
   case_dir=$(make_case dirty-wt)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   printf '%s\n' 'pr=https://github.com/example/repo/pull/7' >> "$case_dir/state/task-x1.meta"
   # The committed work has fully landed (merged PR + content in default), but an
   # uncommitted edit remains. Dirtiness must refuse regardless: the reset would
@@ -1527,7 +1527,7 @@ test_hidden_untracked_work_refuses_before_return() {
   local case_dir rc head state
   for state in dirty clean; do
     case_dir=$(make_case "hidden-untracked-$state")
-    write_meta "$case_dir" no-mistakes ship
+    write_case_meta "$case_dir" no-mistakes ship
     git -C "$case_dir/wt" config status.showUntrackedFiles no
     head=$(git -C "$case_dir/wt" rev-parse HEAD)
     cp "$case_dir/state/task-x1.meta" "$case_dir/meta-before"
@@ -1570,7 +1570,7 @@ SH
 assert_dirty_diagnostic() {
   local kind=$1 mode=$2 case_dir rc before n
   case_dir=$(make_case "dirty-$kind-$mode")
-  write_meta "$case_dir" "$mode" ship
+  write_case_meta "$case_dir" "$mode" ship
   wt_commit_file "$case_dir" feature.txt hello
   # Exercise both dirty refusal sites: remote-reachable work and local-only
   # work merged into local main but absent from every remote.
@@ -1719,7 +1719,7 @@ test_investigation_nested_clone_returns_with_no_untracked_entries() {
   local case_dir wt rc
   case_dir=$(make_case scout-nested-clean)
   wt="$case_dir/wt"
-  write_meta "$case_dir" no-mistakes scout
+  write_case_meta "$case_dir" no-mistakes scout
   prepare_investigation_teardown "$case_dir"
   seed_nested_clone_and_scratch "$case_dir" "$wt"
   add_treehouse_clean_fd "$case_dir"
@@ -1741,7 +1741,7 @@ test_implementation_nested_clone_is_refused_and_bytes_stay() {
   local case_dir wt rc head before after
   case_dir=$(make_case ship-nested-refuse)
   wt="$case_dir/wt"
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   seed_nested_clone_and_scratch "$case_dir" "$wt"
   before=$(cksum "$wt/scratch-clone/payload.txt")
   head=$(git -C "$wt" rev-parse HEAD)
@@ -1776,7 +1776,7 @@ test_dirty_return_warns_which_slot_was_lost() {
   local case_dir wt rc
   case_dir=$(make_case dirty-return)
   wt=$(move_case_to_pool_slot "$case_dir" 9)
-  write_meta "$case_dir" no-mistakes scout "$wt"
+  write_case_meta "$case_dir" no-mistakes scout "$wt"
   prepare_investigation_teardown "$case_dir"
   add_treehouse_that_leaves_residue "$case_dir"
 
@@ -1801,7 +1801,7 @@ test_dirty_return_warns_even_when_a_later_step_refuses() {
   local case_dir wt rc
   case_dir=$(make_case dirty-return-later-refusal)
   wt=$(move_case_to_pool_slot "$case_dir" 8)
-  write_meta "$case_dir" no-mistakes scout "$wt"
+  write_case_meta "$case_dir" no-mistakes scout "$wt"
   prepare_investigation_teardown "$case_dir"
   add_treehouse_that_leaves_residue "$case_dir"
   cat > "$case_dir/fakebin/tmux" <<'SH'
@@ -1832,7 +1832,7 @@ SH
 test_forced_project_coordinator_child_investigation_nested_clone_returns_clean() {
   local case_dir home child_wt rc
   case_dir=$(make_case secondmate-child-nested-clean)
-  write_meta "$case_dir" local-only secondmate
+  write_case_meta "$case_dir" local-only secondmate
   home="$case_dir/secondmate-home"
   mkdir -p "$home/state" "$home/data" "$home/config" "$home/projects"
   printf '%s\n' task-x1 > "$home/.fm-secondmate-home"
@@ -1882,7 +1882,7 @@ SH
 test_forced_project_coordinator_dirty_child_return_warns_and_completes() {
   local case_dir home child_wt rc
   case_dir=$(make_case secondmate-child-dirty-return)
-  write_meta "$case_dir" local-only secondmate
+  write_case_meta "$case_dir" local-only secondmate
   home="$case_dir/secondmate-home"
   mkdir -p "$home/state" "$home/data" "$home/config" "$home/projects"
   printf '%s\n' task-x1 > "$home/.fm-secondmate-home"
@@ -1918,7 +1918,7 @@ test_return_that_removes_copy_warns_cannot_verify() {
   local case_dir wt rc
   case_dir=$(make_case return-removes-copy)
   wt=$(move_case_to_pool_slot "$case_dir" 7)
-  write_meta "$case_dir" no-mistakes scout "$wt"
+  write_case_meta "$case_dir" no-mistakes scout "$wt"
   prepare_investigation_teardown "$case_dir"
   add_treehouse_that_removes_copy "$case_dir"
 
@@ -1939,7 +1939,7 @@ test_investigation_ignored_files_survive_scratch_clean() {
   local case_dir wt rc
   case_dir=$(make_case scout-ignored-survives)
   wt="$case_dir/wt"
-  write_meta "$case_dir" no-mistakes scout
+  write_case_meta "$case_dir" no-mistakes scout
   prepare_investigation_teardown "$case_dir"
   printf '%s\n' 'ignored-cache/' > "$wt/.gitignore"
   git -C "$wt" add .gitignore
@@ -1966,7 +1966,7 @@ test_investigation_ignored_files_survive_scratch_clean() {
 test_gh_error_and_content_absent_refuses() {
   local case_dir rc
   case_dir=$(make_case gh-error)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   printf '%s\n' 'pr=https://github.com/example/repo/pull/7' >> "$case_dir/state/task-x1.meta"
   # Real content not pushed, the PR lookup errors, and origin/main never gained the
   # content. The fail-safe must refuse rather than allow on a transient gh failure.
@@ -2418,7 +2418,7 @@ test_legacy_record_never_accepts_a_corrupt_spawn_gen() {
 test_stale_index_lock_cleared_and_teardown_succeeds() {
   local case_dir rc lock
   case_dir=$(make_case stale-index-lock)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit "$case_dir" "shippable work"
   git -C "$case_dir/wt" push -q origin fm/task-x1
   git -C "$case_dir/project" fetch -q origin
@@ -2447,7 +2447,7 @@ test_stale_index_lock_cleared_and_teardown_succeeds() {
 test_live_index_lock_is_never_removed_and_teardown_refuses() {
   local case_dir rc lock
   case_dir=$(make_case live-index-lock)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit "$case_dir" "shippable work"
   git -C "$case_dir/wt" push -q origin fm/task-x1
   git -C "$case_dir/project" fetch -q origin
@@ -2479,7 +2479,7 @@ test_live_index_lock_is_never_removed_and_teardown_refuses() {
 test_lsof_error_never_clears_index_lock() {
   local case_dir rc lock
   case_dir=$(make_case lsof-error-index-lock)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit "$case_dir" "shippable work"
   git -C "$case_dir/wt" push -q origin fm/task-x1
   git -C "$case_dir/project" fetch -q origin
@@ -2510,7 +2510,7 @@ test_lsof_error_never_clears_index_lock() {
 test_stale_index_lock_cleanup_rechecks_dirty_worktree() {
   local case_dir rc lock
   case_dir=$(make_case stale-lock-dirty-recheck)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit_file "$case_dir" feature.txt landed "landed work"
   git -C "$case_dir/wt" push -q origin fm/task-x1
   git -C "$case_dir/project" fetch -q origin
@@ -2547,7 +2547,7 @@ test_non_linked_index_lock_path_is_checked_from_worktree() {
   git -C "$case_dir/project" worktree remove --force "$case_dir/wt"
   git clone -q "$case_dir/origin.git" "$case_dir/wt"
   git -C "$case_dir/wt" checkout -q -b fm/task-x1
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit "$case_dir" "shippable normal clone work"
   git -C "$case_dir/wt" push -q origin fm/task-x1
   git -C "$case_dir/wt" fetch -q origin
@@ -2583,7 +2583,7 @@ test_index_lock_mtime_read_failure_refuses() {
     return
   fi
   case_dir=$(make_case mtime-error-index-lock)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit "$case_dir" "shippable work"
   git -C "$case_dir/wt" push -q origin fm/task-x1
   git -C "$case_dir/project" fetch -q origin
@@ -2617,7 +2617,7 @@ test_index_lock_mtime_read_failure_refuses() {
 test_transient_index_lock_clears_after_first_attempt_and_retry_succeeds() {
   local case_dir rc lock attempt_file
   case_dir=$(make_case transient-index-lock-retry)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit "$case_dir" "shippable work"
   git -C "$case_dir/wt" push -q origin fm/task-x1
   git -C "$case_dir/project" fetch -q origin
@@ -2657,7 +2657,7 @@ test_transient_index_lock_clears_after_first_attempt_and_retry_succeeds() {
 test_persistent_index_lock_exhausts_retries_and_refuses_loudly() {
   local case_dir rc lock
   case_dir=$(make_case persistent-index-lock)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit "$case_dir" "shippable work"
   git -C "$case_dir/wt" push -q origin fm/task-x1
   git -C "$case_dir/project" fetch -q origin
@@ -2695,7 +2695,7 @@ test_persistent_index_lock_exhausts_retries_and_refuses_loudly() {
 test_empty_retry_wait_uses_default_without_aborting() {
   local case_dir rc lock attempt_file
   case_dir=$(make_case empty-retry-wait)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit "$case_dir" "shippable work"
   git -C "$case_dir/wt" push -q origin fm/task-x1
   git -C "$case_dir/project" fetch -q origin
@@ -2731,7 +2731,7 @@ test_empty_retry_wait_uses_default_without_aborting() {
 test_fractional_legacy_retry_wait_refuses_without_arithmetic_error() {
   local case_dir rc lock
   case_dir=$(make_case fractional-legacy-retry-wait)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit "$case_dir" "shippable work"
   git -C "$case_dir/wt" push -q origin fm/task-x1
   git -C "$case_dir/project" fetch -q origin
@@ -2763,7 +2763,7 @@ test_fractional_legacy_retry_wait_refuses_without_arithmetic_error() {
 test_local_only_force_overrides_unpushed() {
   local case_dir rc
   case_dir=$(make_case force-override)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   wt_commit "$case_dir" "unpushed work"
 
   set +e
@@ -2806,7 +2806,7 @@ test_project_coordinator_pr_registration_publishes_ready_line() {
   configure_project_coordinator_home "$case_dir" local "$case_dir/parent"
   mkdir -p "$case_dir/parent/state"
   channel="$case_dir/parent/state/mate-x.status"
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit_file "$case_dir" feature.txt hello "add feature"
   pr_head=$(git -C "$case_dir/wt" rev-parse HEAD)
   add_gh_pr_merged_for_head "$case_dir" "$pr_head"
@@ -2826,7 +2826,7 @@ test_project_coordinator_pr_registration_publishes_ready_line() {
     || fail "mate-pr-ready: re-registration duplicated the ready line"
 
   case_dir=$(make_case main-pr-ready)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit_file "$case_dir" feature.txt hello "add feature"
   add_gh_pr_merged_for_head "$case_dir" "$(git -C "$case_dir/wt" rev-parse HEAD)"
   FM_ROOT_OVERRIDE="$ROOT" FM_STATE_OVERRIDE="$case_dir/state" \
@@ -2850,7 +2850,7 @@ test_project_coordinator_pr_ready_line_waits_for_green_when_opted_in() {
   configure_project_coordinator_home "$case_dir" local "$case_dir/parent"
   mkdir -p "$case_dir/parent/state" "$case_dir/home/config"
   channel="$case_dir/parent/state/mate-x.status"
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit_file "$case_dir" feature.txt hello "add feature"
   pr_head=$(git -C "$case_dir/wt" rev-parse HEAD)
   add_gh_pr_merged_for_head "$case_dir" "$pr_head"
@@ -2898,7 +2898,7 @@ test_project_coordinator_pr_ready_line_follows_green_report_with_trailing_text()
   configure_project_coordinator_home "$case_dir" local "$case_dir/parent"
   mkdir -p "$case_dir/parent/state" "$case_dir/home/config"
   channel="$case_dir/parent/state/mate-x.status"
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   wt_commit_file "$case_dir" feature.txt hello "add feature"
   pr_head=$(git -C "$case_dir/wt" rev-parse HEAD)
   add_gh_pr_merged_for_head "$case_dir" "$pr_head"
@@ -2934,7 +2934,7 @@ test_project_coordinator_home_teardown_delivers_final_line_or_refuses() {
   configure_project_coordinator_home "$case_dir" local "$case_dir/parent"
   mkdir -p "$case_dir/parent/state"
   channel="$case_dir/parent/state/mate-x.status"
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   wt_commit "$case_dir" "merged work"
   wt_head=$(git -C "$case_dir/wt" rev-parse HEAD)
   git -C "$case_dir/project" update-ref refs/heads/main "$wt_head"
@@ -2954,7 +2954,7 @@ test_project_coordinator_home_teardown_delivers_final_line_or_refuses() {
   # The channel path is occupied by a directory, so no line can be appended.
   mkdir -p "$case_dir/parent/state/mate-x.status"
   channel="$case_dir/parent/state/mate-x.status"
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   mkdir -p "$case_dir/tasktmp"
   printf '!\n' > "$case_dir/state/task-x1.grok-turnend-token"
   printf '!\n' > "$case_dir/state/task-x1.kimi-turnend-token"
@@ -2997,7 +2997,7 @@ test_project_coordinator_home_teardown_delivers_final_line_or_refuses() {
 test_teardown_missing_busy_sidecar_completes() {
   local case_dir gen rc
   case_dir=$(make_case missing-busy-sidecar)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   gen=$("$ROOT/bin/agent-activity-event.sh" arm "$case_dir/state" task-x1)
   printf 'busy_gen=%s\n' "$gen" >> "$case_dir/state/task-x1.meta"
   rm -f "$case_dir/state/task-x1.busy-gen"
@@ -3018,7 +3018,7 @@ test_teardown_missing_busy_sidecar_completes() {
 test_teardown_preserves_opencode_busy_plugin_on_pool_return() {
   local case_dir rc plugin
   case_dir=$(make_case opencode-busy-wiring)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   printf 'harness=opencode\n' >> "$case_dir/state/task-x1.meta"
   # Keep scratch cleanup from removing the file independently of hook retirement.
   printf '.opencode/\n' >> "$(git -C "$case_dir/wt" rev-parse --git-path info/exclude)"
@@ -3047,7 +3047,7 @@ seed_polytoken_wiring() {
 test_teardown_retires_polytoken_wiring_on_pool_return() {
   local case_dir rc
   case_dir=$(make_case polytoken-wiring)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   printf 'harness=polytoken\n' >> "$case_dir/state/task-x1.meta"
   seed_polytoken_wiring "$case_dir"
   rc=0
@@ -3063,7 +3063,7 @@ test_teardown_retires_polytoken_wiring_on_pool_return() {
 test_teardown_preserves_tracked_polytoken_layer() {
   local case_dir rc
   case_dir=$(make_case polytoken-tracked)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   printf 'harness=polytoken\n' >> "$case_dir/state/task-x1.meta"
   seed_polytoken_wiring "$case_dir"
   git -C "$case_dir/wt" add -f .polytoken/hooks.json
@@ -3084,7 +3084,7 @@ test_teardown_preserves_ignored_project_polytoken_layer() {
   # Scratch/--force cleanup deliberately discards non-ignored untracked
   # files. An ignored project layer isolates the adapter ownership check.
   printf '.polytoken/\n' >> "$(git -C "$case_dir/wt" rev-parse --git-path info/exclude)"
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   printf 'harness=polytoken\n' >> "$case_dir/state/task-x1.meta"
   mkdir -p "$case_dir/wt/.polytoken"
   printf '[{"name":"project-own","event":"stop","handler":{"bash":"/bin/true"}}]\n' \
@@ -3103,7 +3103,7 @@ test_teardown_leaves_polytoken_layer_for_other_harnesses() {
   # Scratch/--force cleanup deliberately discards non-ignored untracked
   # files. An ignored project layer isolates the adapter ownership check.
   printf '.polytoken/\n' >> "$(git -C "$case_dir/wt" rev-parse --git-path info/exclude)"
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   printf 'harness=claude\n' >> "$case_dir/state/task-x1.meta"
   seed_polytoken_wiring "$case_dir"
   rc=0
@@ -3119,7 +3119,7 @@ test_teardown_leaves_polytoken_layer_for_other_harnesses() {
 test_herdr_teardown_clears_escalation_marker() {
   local case_dir marker
   case_dir=$(make_case herdr-marker-cleanup)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   sed -i.bak 's/^window=.*/window=default:wG:pQ/' "$case_dir/state/task-x1.meta"
   rm -f "$case_dir/state/task-x1.meta.bak"
   printf '%s\n' \
@@ -3216,7 +3216,7 @@ SH
 test_herdr_flat_teardown_refuses_orphaning_records_then_retry_completes() {
   local case_dir log closed lock ready release holder_pid rc thlog
   case_dir=$(make_case herdr-orphan-refusal)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   configure_flat_herdr_teardown_case "$case_dir"
   log="$case_dir/herdr.log"; : > "$log"
   closed="$case_dir/closed"
@@ -3291,7 +3291,7 @@ SH
 test_herdr_flat_teardown_refuses_records_on_unparseable_presence() {
   local case_dir log closed rc
   case_dir=$(make_case herdr-garbage-presence)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   configure_flat_herdr_teardown_case "$case_dir"
   log="$case_dir/herdr.log"; : > "$log"
   closed="$case_dir/closed"
@@ -3314,7 +3314,7 @@ test_herdr_flat_teardown_refuses_records_on_unparseable_presence() {
 assert_herdr_teardown_preflight_refuses_before_changes() {
   local mode=$1 case_dir log closed rc thlog teardown_bin
   case_dir=$(make_case "herdr-preflight-$mode")
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   configure_flat_herdr_teardown_case "$case_dir"
   log="$case_dir/herdr.log"; : > "$log"
   closed="$case_dir/closed"
@@ -3437,7 +3437,7 @@ run_herdr_lock_ns_teardown() {  # <case-dir> <fake-uid> [stat-spec]
 new_herdr_lock_ns_case() {  # <name>
   local case_dir
   case_dir=$(make_case "$1")
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   configure_flat_herdr_teardown_case "$case_dir"
   configure_herdr_lock_ns_shims "$case_dir"
   : > "$case_dir/herdr.log"
@@ -3570,7 +3570,7 @@ SH
 test_forced_project_coordinator_herdr_child_preflight_refuses_before_changes() {
   local case_dir home log closed rc thlog
   case_dir=$(make_case herdr-child-preflight)
-  write_meta "$case_dir" local-only secondmate
+  write_case_meta "$case_dir" local-only secondmate
   configure_project_coordinator_with_herdr_child "$case_dir"
   home="$case_dir/secondmate-home"
   log="$case_dir/herdr.log"; closed="$case_dir/closed"; thlog="$case_dir/treehouse.log"
@@ -3619,7 +3619,7 @@ configure_project_coordinator_with_tmux_children() {  # <case-dir>
 test_forced_project_coordinator_teardown_holds_descendant_lifecycle_locks() {
   local case_dir home lock ready release holder_pid rc waited=0 child
   case_dir=$(make_case descendant-locks)
-  write_meta "$case_dir" local-only secondmate
+  write_case_meta "$case_dir" local-only secondmate
   configure_project_coordinator_with_tmux_children "$case_dir"
   home="$case_dir/secondmate-home"
   : > "$case_dir/kill.log"
@@ -3693,7 +3693,7 @@ SH
 test_forced_project_coordinator_herdr_child_retains_records_when_close_unconfirmed() {
   local case_dir home log closed rc
   case_dir=$(make_case herdr-child-unconfirmed-close)
-  write_meta "$case_dir" local-only secondmate
+  write_case_meta "$case_dir" local-only secondmate
   configure_project_coordinator_with_herdr_child "$case_dir"
   home="$case_dir/secondmate-home"
   log="$case_dir/herdr.log"; closed="$case_dir/closed"; : > "$log"
@@ -3765,7 +3765,7 @@ SH
 test_forced_teardown_retains_nested_project_coordinator_home_when_grandchild_close_unconfirmed() {
   local case_dir home nested_home log closed rc
   case_dir=$(make_case herdr-grandchild-unconfirmed-close)
-  write_meta "$case_dir" local-only secondmate
+  write_case_meta "$case_dir" local-only secondmate
   configure_nested_project_coordinator_with_herdr_grandchild "$case_dir"
   home="$case_dir/secondmate-home"; nested_home="$home/nested-home"
   log="$case_dir/herdr.log"; closed="$case_dir/closed"; : > "$log"
@@ -3869,7 +3869,7 @@ SH
 test_herdr_projection_teardown_retires_journal_only_after_confirmed_close() {
   local case_dir log closed restored
   case_dir=$(make_case herdr-projection-confirmed-close)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   configure_herdr_projection_teardown_case "$case_dir"
   log="$case_dir/herdr.log"; closed="$case_dir/closed"; restored="$case_dir/restored"; : > "$log"
 
@@ -3888,7 +3888,7 @@ test_herdr_projection_teardown_retires_journal_only_after_confirmed_close() {
 test_herdr_projection_teardown_retains_journal_when_close_unconfirmed() {
   local case_dir log closed restored
   case_dir=$(make_case herdr-projection-unconfirmed-close)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   configure_herdr_projection_teardown_case "$case_dir"
   log="$case_dir/herdr.log"; closed="$case_dir/closed"; restored="$case_dir/restored"; : > "$log"
 
@@ -3915,7 +3915,7 @@ test_herdr_projection_teardown_retains_journal_when_close_unconfirmed() {
 test_herdr_projection_teardown_surfaces_restore_failure_without_blocking_cleanup() {
   local case_dir log closed restored
   case_dir=$(make_case herdr-projection-restore-failure)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   configure_herdr_projection_teardown_case "$case_dir"
   log="$case_dir/herdr.log"; closed="$case_dir/closed"; restored="$case_dir/restored"; : > "$log"
 
@@ -3946,7 +3946,7 @@ seed_watcher_markers() {  # <case-dir> <task-id>
 test_teardown_retires_task_watcher_markers_and_orphan_journal() {
   local case_dir log closed restored marker
   case_dir=$(make_case retire-watcher-markers)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   configure_herdr_projection_teardown_case "$case_dir"
   log="$case_dir/herdr.log"; closed="$case_dir/closed"; restored="$case_dir/restored"; : > "$log"
   # The projected workspace is already gone before teardown runs, so the close
@@ -3974,7 +3974,7 @@ test_teardown_retires_task_watcher_markers_and_orphan_journal() {
 test_teardown_retains_journal_bound_to_another_pane() {
   local case_dir log closed restored
   case_dir=$(make_case retain-drifted-journal)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   configure_herdr_projection_teardown_case "$case_dir"
   log="$case_dir/herdr.log"; closed="$case_dir/closed"; restored="$case_dir/restored"; : > "$log"
   : > "$closed"
@@ -4058,7 +4058,7 @@ SH
 test_teardown_retires_v1_journal_when_projected_workspace_gone() {
   local case_dir log closed
   case_dir=$(make_case retire-v1-journal-workspace-gone)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   configure_herdr_v1_orphan_workspace_case "$case_dir"
   log="$case_dir/herdr.log"; closed="$case_dir/closed"; : > "$log"
 
@@ -4077,7 +4077,7 @@ test_teardown_retires_v1_journal_when_projected_workspace_gone() {
 test_teardown_retains_v1_journal_when_projected_workspace_present() {
   local case_dir log closed
   case_dir=$(make_case retain-v1-journal-workspace-present)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   configure_herdr_v1_orphan_workspace_case "$case_dir"
   log="$case_dir/herdr.log"; closed="$case_dir/closed"; : > "$log"
 
@@ -4098,7 +4098,7 @@ test_teardown_retains_v1_journal_when_projected_workspace_present() {
 test_teardown_retains_v1_journal_when_workspace_query_ambiguous() {
   local case_dir log closed
   case_dir=$(make_case retain-v1-journal-workspace-ambiguous)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   configure_herdr_v1_orphan_workspace_case "$case_dir"
   log="$case_dir/herdr.log"; closed="$case_dir/closed"; : > "$log"
 
@@ -4200,7 +4200,7 @@ land_shippable_commit() {
 test_teardown_records_the_task_pipeline_spend() {
   local case_dir rc=0 ledger
   case_dir=$(make_case pipeline-spend)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   : > "$case_dir/config/pipeline-spend"
   land_shippable_commit "$case_dir"
   mkdir -p "$case_dir/nm"
@@ -4251,7 +4251,7 @@ PY
 test_teardown_skips_pipeline_spend_when_disabled() {
   local case_dir rc=0
   case_dir=$(make_case pipeline-spend-disabled)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   run_teardown "$case_dir" > "$case_dir/stdout" 2> "$case_dir/stderr" || rc=$?
   expect_code 0 "$rc" "pipeline-spend-disabled: teardown should succeed"
@@ -4284,7 +4284,7 @@ test_teardown_records_unavailable_spend_for_a_gone_worktree() {
 test_parked_own_run_is_aborted_before_teardown() {
   local case_dir rc head
   case_dir=$(make_case parked-run-abort)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   head=$(git -C "$case_dir/wt" rev-parse HEAD)
 
@@ -4308,7 +4308,7 @@ test_parked_own_run_is_aborted_before_teardown() {
 test_parked_run_in_a_resolved_workspace_home_is_aborted() {
   local case_dir head rc=0
   case_dir=$(make_case parked-run-resolved-home)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   head=$(git -C "$case_dir/wt" rev-parse HEAD)
   mkdir -p "$case_dir/workspace-nm"
@@ -4339,7 +4339,7 @@ SH
 test_parked_own_run_concludes_on_passed_with_override_after_abort() {
   local case_dir rc head
   case_dir=$(make_case parked-run-abort-passed-with-override)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   head=$(git -C "$case_dir/wt" rev-parse HEAD)
 
@@ -4364,7 +4364,7 @@ ci_override_reason: "live checks not all passed: Lint (fail)"' \
 test_parked_own_run_concludes_on_passed_with_skips_after_abort() {
   local case_dir rc head
   case_dir=$(make_case parked-run-abort-passed-with-skips)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   head=$(git -C "$case_dir/wt" rev-parse HEAD)
 
@@ -4395,7 +4395,7 @@ automatic_skips: "publication skipped: no-mistakes.yaml pr.enabled=false"' \
 test_parked_run_advanced_past_unfetched_head_is_still_aborted() {
   local case_dir rc advanced_short anchor_short
   case_dir=$(make_case parked-run-pipeline-advanced-unfetched)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   anchor_short=$(git -C "$case_dir/wt" rev-parse --short=7 HEAD)
   advanced_short=$(make_unfetched_pipeline_heads "$case_dir")
@@ -4424,7 +4424,7 @@ EOF
 test_parked_run_with_mismatched_ledger_head_is_never_aborted() {
   local case_dir rc advanced_short anchor_short
   case_dir=$(make_case parked-run-mismatched-ledger-head)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   anchor_short=$(git -C "$case_dir/wt" rev-parse --short=7 HEAD)
   advanced_short=$(make_unfetched_pipeline_heads "$case_dir")
@@ -4449,7 +4449,7 @@ EOF
 test_parked_run_with_malformed_ledger_row_is_never_aborted() {
   local case_dir rc advanced_short anchor_short
   case_dir=$(make_case parked-run-malformed-ledger-row)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   anchor_short=$(git -C "$case_dir/wt" rev-parse --short=7 HEAD)
   advanced_short=$(make_unfetched_pipeline_heads "$case_dir")
@@ -4474,7 +4474,7 @@ EOF
 test_parked_run_with_impossible_ledger_date_is_never_aborted() {
   local case_dir rc advanced_short anchor_short
   case_dir=$(make_case parked-run-impossible-ledger-date)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   anchor_short=$(git -C "$case_dir/wt" rev-parse --short=7 HEAD)
   advanced_short=$(make_unfetched_pipeline_heads "$case_dir")
@@ -4502,7 +4502,7 @@ EOF
 test_terminal_status_with_gate_never_queries_or_aborts_ledger_fallback() {
   local case_dir rc advanced_short anchor_short terminal_status
   case_dir=$(make_case parked-run-terminal-status-gate)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   anchor_short=$(git -C "$case_dir/wt" rev-parse --short=7 HEAD)
   advanced_short=$(make_unfetched_pipeline_heads "$case_dir")
@@ -4539,7 +4539,7 @@ EOF
 test_parked_run_advanced_head_locally_fetched_is_still_aborted() {
   local case_dir rc advanced_short
   case_dir=$(make_case parked-run-advanced-fetched)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   advanced_short=$(make_unfetched_pipeline_heads "$case_dir")
   # The one changed condition vs the defect case: fetch the fix commits into
@@ -4570,7 +4570,7 @@ test_parked_run_advanced_head_locally_fetched_is_still_aborted() {
 test_parked_advanced_run_without_anchor_is_never_aborted() {
   local case_dir rc advanced_short
   case_dir=$(make_case parked-run-advanced-no-anchor)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   advanced_short=$(make_unfetched_pipeline_heads "$case_dir")
   assert_head_absent_from_worktree "$case_dir/wt" "$advanced_short" "parked-run-advanced-no-anchor"
@@ -4598,7 +4598,7 @@ EOF
 test_parked_advanced_run_ancestor_anchor_is_never_aborted() {
   local case_dir rc advanced_short parent_short
   case_dir=$(make_case parked-run-advanced-ancestor-anchor)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   parent_short=$(git -C "$case_dir/wt" rev-parse --short=7 HEAD~1)
   advanced_short=$(make_unfetched_pipeline_heads "$case_dir")
@@ -4627,7 +4627,7 @@ EOF
 test_parked_terminal_unfetched_row_is_never_aborted() {
   local case_dir rc advanced_short anchor_short
   case_dir=$(make_case parked-run-terminal-unfetched)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   anchor_short=$(git -C "$case_dir/wt" rev-parse --short=7 HEAD)
   advanced_short=$(make_unfetched_pipeline_heads "$case_dir")
@@ -4660,7 +4660,7 @@ EOF
 test_parked_run_terminal_newest_row_at_own_head_is_never_aborted() {
   local case_dir rc advanced_short anchor_short
   case_dir=$(make_case parked-run-terminal-newest-at-head)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   anchor_short=$(git -C "$case_dir/wt" rev-parse --short=7 HEAD)
   advanced_short=$(make_unfetched_pipeline_heads "$case_dir")
@@ -4694,7 +4694,7 @@ EOF
 test_parked_run_behind_diverged_newer_row_is_never_aborted() {
   local case_dir rc advanced_short diverged_short
   case_dir=$(make_case parked-run-behind-newer-row)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   advanced_short=$(make_unfetched_pipeline_heads "$case_dir")
   assert_head_absent_from_worktree "$case_dir/wt" "$advanced_short" "parked-run-behind-newer-row"
@@ -4735,7 +4735,7 @@ EOF
 test_parked_advanced_run_ambiguous_rows_are_never_aborted() {
   local case_dir rc advanced_short anchor_short
   case_dir=$(make_case parked-run-advanced-ambiguous)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   anchor_short=$(git -C "$case_dir/wt" rev-parse --short=7 HEAD)
   advanced_short=$(make_unfetched_pipeline_heads "$case_dir" 2)
@@ -4765,7 +4765,7 @@ EOF
 test_ledger_proven_continuation_never_aborts_active_run() {
   local case_dir rc advanced_short anchor_short
   case_dir=$(make_case parked-run-ledger-active)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   anchor_short=$(git -C "$case_dir/wt" rev-parse --short=7 HEAD)
   advanced_short=$(make_unfetched_pipeline_heads "$case_dir")
@@ -4790,7 +4790,7 @@ EOF
 test_mismatched_run_after_abort_refuses_unconfirmed() {
   local case_dir rc head
   case_dir=$(make_case parked-run-replaced)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   head=$(git -C "$case_dir/wt" rev-parse HEAD)
 
@@ -4810,7 +4810,7 @@ test_mismatched_run_after_abort_refuses_unconfirmed() {
 test_empty_status_after_abort_refuses_unconfirmed() {
   local case_dir rc head
   case_dir=$(make_case parked-run-empty-confirmation)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   head=$(git -C "$case_dir/wt" rev-parse HEAD)
 
@@ -4828,7 +4828,7 @@ test_empty_status_after_abort_refuses_unconfirmed() {
 test_not_found_status_after_abort_confirms_completion() {
   local case_dir rc head
   case_dir=$(make_case parked-run-not-found-confirmation)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   head=$(git -C "$case_dir/wt" rev-parse HEAD)
 
@@ -4845,7 +4845,7 @@ test_not_found_status_after_abort_confirms_completion() {
 test_parked_own_run_refuses_when_abort_is_unconfirmed() {
   local case_dir rc head pid
   case_dir=$(make_case parked-run-abort-unconfirmed)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   head=$(git -C "$case_dir/wt" rev-parse HEAD)
   ( cd "$case_dir/wt" && exec sleep 300 ) &
@@ -4881,7 +4881,7 @@ EOF
 test_another_branchs_parked_run_is_never_touched() {
   local case_dir rc
   case_dir=$(make_case parked-run-not-ours)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
 
   local rc=0
@@ -4903,7 +4903,7 @@ test_another_branchs_parked_run_is_never_touched() {
 test_own_autonomous_run_is_left_alone() {
   local case_dir rc head
   case_dir=$(make_case autonomous-run-left-alone)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   head=$(git -C "$case_dir/wt" rev-parse HEAD)
 
@@ -4923,7 +4923,7 @@ test_own_autonomous_run_is_left_alone() {
 test_leaked_worktree_process_is_reaped() {
   local case_dir rc pid
   case_dir=$(make_case leaked-process-reap)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
 
   # A backgrounded, disowned process rooted (by cwd) under the task's own
@@ -4952,7 +4952,7 @@ test_leaked_worktree_process_is_reaped() {
 test_leaked_tasktmp_process_is_reaped() {
   local case_dir rc pid
   case_dir=$(make_case leaked-tasktmp-reap)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   printf '%s\n' "tasktmp=$case_dir/tasktmp" >> "$case_dir/state/task-x1.meta"
   mkdir -p "$case_dir/tasktmp"
   land_shippable_commit "$case_dir"
@@ -4979,7 +4979,7 @@ test_leaked_tasktmp_process_is_reaped() {
 test_lsof_absent_reaps_tmux_process_group() {
   local case_dir rc pid path_without_lsof
   case_dir=$(make_case lsof-absent-process-group-reap)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   path_without_lsof=$(make_path_without_lsof "$case_dir")
   PATH="$path_without_lsof" command -v lsof >/dev/null 2>&1 \
@@ -5016,7 +5016,7 @@ EOF
 test_lsof_error_refuses_before_removal() {
   local case_dir rc
   case_dir=$(make_case lsof-error-refusal)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   cat > "$case_dir/fakebin/lsof" <<'SH'
 #!/usr/bin/env bash
@@ -5043,7 +5043,7 @@ EOF
 test_reused_pid_identity_is_not_force_killed() {
   local case_dir rc pid
   case_dir=$(make_case reused-pid-identity)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
 
   perl -e '$SIG{TERM} = "IGNORE"; sleep 300' &
@@ -5090,7 +5090,7 @@ SH
 test_exec_changed_process_is_still_reaped() {
   local case_dir rc pid marker done_flag survived=0
   case_dir=$(make_case exec-changed-process)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   marker="$case_dir/exec-now"
   done_flag="$case_dir/exec-done"
@@ -5152,7 +5152,7 @@ SH
 test_process_spawned_during_grace_is_reaped_on_later_pass() {
   local case_dir rc pid child_file child_pid="" parent_survived=0 child_survived=0
   case_dir=$(make_case grace-spawn-convergence)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   child_file="$case_dir/child.pid"
 
@@ -5195,7 +5195,7 @@ test_process_spawned_during_grace_is_reaped_on_later_pass() {
 test_persistent_scan_refuses_after_bounded_retries() {
   local case_dir rc wt_path fake_pid=99999999
   case_dir=$(make_case persistent-reap-refusal)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   wt_path=$(cd "$case_dir/wt" && pwd -P)
   cat > "$case_dir/fakebin/lsof" <<EOF
@@ -5228,7 +5228,7 @@ SH
 test_process_exit_during_identity_lookup_does_not_refuse() {
   local case_dir rc wt_path fake_pid=99999998
   case_dir=$(make_case identity-exit-convergence)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   wt_path=$(cd "$case_dir/wt" && pwd -P)
   cat > "$case_dir/fakebin/lsof" <<EOF
@@ -5269,7 +5269,7 @@ EOF
 test_run_abort_precedes_process_reap_precedes_worktree_removal() {
   local case_dir rc head pid abort_log
   case_dir=$(make_case abort-then-reap-then-remove-order)
-  write_meta "$case_dir" no-mistakes ship
+  write_case_meta "$case_dir" no-mistakes ship
   land_shippable_commit "$case_dir"
   head=$(git -C "$case_dir/wt" rev-parse HEAD)
   abort_log="$case_dir/nm-abort.log"
@@ -5362,7 +5362,7 @@ assert_source_refusal_preserved_state() {  # <case-dir> <label> <stderr-needle>
 test_missing_startup_source_refuses_before_cleanup() {
   local case_dir rc
   case_dir=$(make_case missing-startup-source)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   prepare_teardown_source_copy "$case_dir"
   rm -f "$case_dir/test-root/bin/validation-run-lib.sh"
   rc=0
@@ -5374,7 +5374,7 @@ test_missing_startup_source_refuses_before_cleanup() {
 test_unreadable_startup_source_refuses_before_cleanup() {
   local case_dir rc
   case_dir=$(make_case unreadable-startup-source)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   prepare_teardown_source_copy "$case_dir"
   rm -f "$case_dir/test-root/bin/validation-run-lib.sh"
   cp "$ROOT/bin/validation-run-lib.sh" "$case_dir/test-root/bin/validation-run-lib.sh"
@@ -5392,7 +5392,7 @@ test_unreadable_startup_source_refuses_before_cleanup() {
 test_missing_adapter_sibling_refuses_before_cleanup() {
   local case_dir rc
   case_dir=$(make_case missing-adapter-sibling)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   prepare_teardown_source_copy "$case_dir"
   rm -f "$case_dir/test-root/bin/session-lock-lib.sh"
   rc=0
@@ -5404,7 +5404,7 @@ test_missing_adapter_sibling_refuses_before_cleanup() {
 test_forced_child_missing_adapter_sibling_refuses_before_cleanup() {
   local case_dir home rc
   case_dir=$(make_case missing-child-adapter-sibling)
-  write_meta "$case_dir" local-only secondmate
+  write_case_meta "$case_dir" local-only secondmate
   configure_project_coordinator_with_herdr_child "$case_dir"
   home="$case_dir/secondmate-home"
   prepare_teardown_source_copy "$case_dir"
@@ -5489,7 +5489,7 @@ test_status_archive_opt_in() {
   local case_dir rc mode
   for mode in off on; do
     case_dir=$(make_case "status-archive-$mode")
-    write_meta "$case_dir" local-only ship
+    write_case_meta "$case_dir" local-only ship
     printf 'working: started\nneeds-decision [key=choice]: choose\nresolved [key=choice]: chosen\ndone: complete\n' > "$case_dir/state/task-x1.status"
     cp "$case_dir/state/task-x1.status" "$case_dir/expected"
     mkdir -p "$case_dir/data/old"
@@ -5513,7 +5513,7 @@ test_status_archive_opt_in() {
 test_record_export_config_absent_never_reads_the_exporter() {
   local case_dir rc=0
   case_dir=$(make_case record-export-off)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   prepare_teardown_source_copy "$case_dir"
   rm -f "$case_dir/test-root/bin/record-export.sh"
   mkdir -p "$case_dir/state/task-x1.inbox/handled"
@@ -5529,7 +5529,7 @@ test_record_export_config_absent_never_reads_the_exporter() {
 test_record_export_unopted_symlinked_config_does_not_block_teardown() {
   local case_dir rc=0
   case_dir=$(make_case record-export-symlink-config-off)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   prepare_teardown_source_copy "$case_dir"
   rm -f "$case_dir/test-root/bin/record-export.sh"
   mv "$case_dir/config" "$case_dir/config-target"
@@ -5545,7 +5545,7 @@ test_record_export_archives_before_teardown_or_preserves_sources_on_failure() {
   local case_dir export_root archive rc mode
   for mode in success failure inaccessible-config; do
     case_dir=$(make_case "record-export-$mode")
-    write_meta "$case_dir" local-only ship
+    write_case_meta "$case_dir" local-only ship
     export_root="$case_dir/export"
     printf '%s\n' "$export_root" > "$case_dir/config/record-export-root"
     mkdir -p "$case_dir/state/task-x1.inbox/handled"
@@ -5591,7 +5591,7 @@ test_record_export_archives_before_teardown_or_preserves_sources_on_failure() {
 test_record_export_captures_forced_project_coordinator_sub_state() {
   local case_dir home export_root archive rc=0
   case_dir=$(make_case record-export-secondmate-child)
-  write_meta "$case_dir" local-only secondmate
+  write_case_meta "$case_dir" local-only secondmate
   home="$case_dir/secondmate-home"
   export_root="$case_dir/export"
   mkdir -p "$home/state/child.inbox/handled" "$home/data" "$home/config" "$home/projects"
@@ -5623,7 +5623,7 @@ test_record_export_captures_forced_project_coordinator_sub_state() {
 test_record_export_waits_for_endpoint_quiescence_before_archiving() {
   local case_dir export_root archive rc=0
   case_dir=$(make_case record-export-close-retry)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   export_root="$case_dir/export"
   printf '%s\n' "$export_root" > "$case_dir/config/record-export-root"
   mkdir -p "$case_dir/state/task-x1.inbox/handled"
@@ -5671,7 +5671,7 @@ SH
 test_status_archive_reuse_and_retention() {
   local case_dir rc archive
   case_dir=$(make_case status-archive-reuse)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   touch "$case_dir/config/status-archive"
   mkdir -p "$case_dir/data/task-x1" "$case_dir/data/old" "$case_dir/outside"
   printf 'first generation\n' > "$case_dir/data/task-x1/status.log"
@@ -5702,7 +5702,7 @@ test_status_archive_unsafe_paths_refuse() {
   local case_dir rc unsafe
   for unsafe in source data task children; do
     case_dir=$(make_case "status-archive-unsafe-$unsafe")
-    write_meta "$case_dir" local-only ship
+    write_case_meta "$case_dir" local-only ship
     touch "$case_dir/config/status-archive"
     mkdir -p "$case_dir/outside"
     printf 'untouched\n' > "$case_dir/outside/sentinel"
@@ -5734,7 +5734,7 @@ test_status_archive_unsafe_paths_refuse() {
 # exercise the failure and watcher window on the pre-fix implementation.
 prepare_status_archive_presentation() {
   local case_dir=$1
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   touch "$case_dir/config/status-archive" "$case_dir/config/supervision-host-off"
   printf 'note: archived note\ndone: archived outcome\n' > "$case_dir/state/task-x1.status"
   FM_STATE_OVERRIDE="$case_dir/state" FM_CONFIG_OVERRIDE="$case_dir/config" FM_DATA_OVERRIDE="$case_dir/data" \
@@ -5857,7 +5857,7 @@ test_status_archive_pruning_failure_warns_and_completes() {
   local case_dir rc operation
   for operation in rm find; do
     case_dir=$(make_case "status-archive-prune-failure-$operation")
-    write_meta "$case_dir" local-only ship
+    write_case_meta "$case_dir" local-only ship
     touch "$case_dir/config/status-archive"
     printf 'done: current history\n' > "$case_dir/state/task-x1.status"
     mkdir -p "$case_dir/data/unrelated-old"
@@ -5885,7 +5885,7 @@ SH
 test_status_archive_missing_status_noop() {
   local case_dir rc
   case_dir=$(make_case status-archive-missing-status)
-  write_meta "$case_dir" local-only ship
+  write_case_meta "$case_dir" local-only ship
   touch "$case_dir/config/status-archive"
   mkdir -p "$case_dir/state/.status-presentation-lock"
   printf '%s\n' "$$" > "$case_dir/state/.status-presentation-lock/pid"
@@ -5908,7 +5908,7 @@ test_status_archive_nested_project_coordinator_children() {
   local case_dir home nested_home rc unsafe
   for unsafe in none children; do
     case_dir=$(make_case "status-archive-nested-$unsafe")
-    write_meta "$case_dir" local-only secondmate
+    write_case_meta "$case_dir" local-only secondmate
     home="$case_dir/secondmate-home"
     nested_home="$home/nested-home"
     mkdir -p "$home/state" "$home/data" "$home/config" "$home/projects" \

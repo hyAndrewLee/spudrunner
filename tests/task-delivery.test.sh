@@ -398,18 +398,18 @@ STUB
       "$mode: promoted worker was not told to verify its physical worktree"
     assert_grep "git rev-parse --show-toplevel" "$payload" \
       "$mode: promoted worker was not told to verify its repository root"
-    assert_grep "If either does not resolve to the worktree you were launched in, stop and escalate to firstmate" "$payload" \
+    assert_grep "If either does not resolve to the worktree you were launched in, stop and escalate to Spudrunner" "$payload" \
       "$mode: promoted worker was not told to stop for any wrong worktree"
     assert_grep "git checkout -b fm/$id --" "$payload" \
       "$mode: promoted worker was not told to leave the scratch base for its ship branch"
-    assert_grep "## Captain's intent" "$payload" \
+    assert_grep "## User intent" "$payload" \
       "$mode: promoted worker did not receive the Captain's intent subsection"
-    assert_grep "## Firstmate spec" "$payload" \
+    assert_grep "## Implementation requirements" "$payload" \
       "$mode: promoted worker did not receive the Firstmate spec subsection"
 
     # Both the delivered prompt and persisted relaunch brief are public outputs.
     for contract in "$payload" "$home/data/$id/brief.md"; do
-      assert_grep "This replaces the scout rule limiting outside-worktree writes to the report and status file." "$contract" \
+      assert_grep "This replaces the investigation worker rule limiting outside-worktree writes to the report and status file." "$contract" \
         "$mode: $contract retained the scout-only write restriction"
       assert_grep "Keep project edits inside this worktree; keep proof and scratch output outside it, under \`$home/data/$id/\` or a temporary directory." "$contract" \
         "$mode: $contract omitted the ship scratch-location rule"
@@ -434,7 +434,7 @@ STUB
   done
 
   payload="$TMP_ROOT/promote-dod/payload-promote-dod-no-mistakes"
-  assert_grep "ask-user findings are never yours to answer: escalate to firstmate" "$payload" \
+  assert_grep "ask-user findings are never yours to answer: escalate to Spudrunner" "$payload" \
     "promoted no-mistakes worker did not receive the ask-user escalation rule"
   assert_grep "write only the ask-user findings, verbatim and unparaphrased (id, severity, file, line, description, authority)" "$payload" \
     "promoted no-mistakes worker did not receive the ask-user-only snapshot contract"
@@ -447,7 +447,7 @@ STUB
     "promoted no-mistakes worker did not receive the fleet-wide ban wording"
 
   payload="$TMP_ROOT/promote-dod/payload-promote-dod-direct-pr"
-  assert_grep "supersede the scout delivery rules and report-based Definition of done" "$payload" \
+  assert_grep "supersede the investigation worker delivery rules and report-based Definition of done" "$payload" \
     "promoted worker retained the scout delivery contract"
   assert_grep "status protocol; the instruction inbox and its acknowledgement; the escalation rules, including ask-user; and every safety rule" "$payload" \
     "promoted worker lost the scout protocols and safety rules that still apply"
@@ -819,7 +819,7 @@ EOF
   [ "$status" -ne 0 ] || fail "spawn of an unfilled ship brief should exit non-zero"
   assert_contains "$out" "still contains {TASK} or {FIRSTMATE_SPEC}" \
     "unfilled ship spawn did not name the leftover placeholders"
-  assert_contains "$out" "## Captain's intent" \
+  assert_contains "$out" "## User intent" \
     "unfilled ship spawn did not name the intent subsection to fill"
   assert_absent "$home/state/$id.meta" "unfilled ship spawn wrote task metadata"
 
@@ -921,9 +921,9 @@ EOF
   assert_grep "supersedes every earlier brief instruction about constructing \`--intent\`" \
     "$home/data/$id/launch-brief.md" \
     "marked legacy spawn did not override its stale intent instruction"
-  assert_grep "plus any later words the captain actually supplied" \
+  assert_grep "plus any later words the user actually supplied" \
     "$home/data/$id/launch-brief.md" \
-    "marked legacy launch contract excluded later captain clarifications"
+    "marked legacy launch contract excluded later user clarifications"
   authorized=$(awk '$0 == "## User intent authorized for --intent" { emit=1; next } emit && /^$/ { exit } emit { print }' "$home/data/$id/launch-brief.md")
   assert_contains "$authorized" "Fix the legacy dispatch boundary." \
     "marked legacy launch contract omitted captain words"
@@ -955,9 +955,9 @@ EOF
   assert_grep "supersedes every earlier brief instruction about constructing \`--intent\`" \
     "$home/data/$id/launch-brief.md" \
     "migrated launch contract did not supersede its stale mixed-Task DoD"
-  assert_grep "plus any later words the captain actually supplied" \
+  assert_grep "plus any later words the user actually supplied" \
     "$home/data/$id/launch-brief.md" \
-    "migrated launch contract excluded later captain clarifications"
+    "migrated launch contract excluded later user clarifications"
   assert_grep "The Definition of done's rule that \`--intent\` must be self-sufficient still governs" \
     "$home/data/$id/launch-brief.md" \
     "migrated launch contract's overlay dropped the self-sufficiency pointer"
@@ -1005,7 +1005,7 @@ EOF
   out=$(run_spawn "$home" "$fakebin" "$id" "$proj" claude --mode direct-PR --yolo off)
   status=$?
   [ "$status" -ne 0 ] || fail "spawn of empty Task subsections should exit non-zero"
-  assert_contains "$out" "must contain nonempty ## Captain's intent and ## Firstmate spec" \
+  assert_contains "$out" "must contain nonempty ## User intent and ## Implementation requirements" \
     "empty Task subsections were not rejected semantically"
   assert_absent "$home/state/$id.meta" "empty-subsection spawn wrote task metadata"
 
@@ -1018,7 +1018,7 @@ EOF
   out=$(FM_HOME="$home" FM_STATE_OVERRIDE="$home/state" "$PROMOTE" "$id" --mode direct-PR --yolo on 2>&1)
   status=$?
   [ "$status" -ne 0 ] || fail "promotion of an unfilled scout brief should exit non-zero"
-  assert_contains "$out" "preserve the original ask in ## Captain's intent" \
+  assert_contains "$out" "preserve the original ask in ## User intent" \
     "unfilled promotion did not preserve the original captain ask boundary"
   assert_contains "$out" "promotion generates a separate ship-time spec" \
     "unfilled promotion did not distinguish scout and ship Firstmate specs"
@@ -1054,7 +1054,7 @@ EOF
   out=$(FM_HOME="$home" FM_STATE_OVERRIDE="$home/state" "$PROMOTE" "$id" --mode direct-PR --yolo off 2>&1)
   status=$?
   [ "$status" -ne 0 ] || fail "promotion without provenance-marked captain intent should fail"
-  assert_contains "$out" "has no provenance-marked Captain's intent" \
+  assert_contains "$out" "has no provenance-marked User intent" \
     "unmarked legacy promotion did not explain the missing intent provenance"
   assert_absent "$home/data/$id/ship-instructions.md" \
     "unmarked legacy promotion published empty captain intent"
@@ -1535,7 +1535,7 @@ test_forge_gerrit_changes_what_no_mistakes_means() {
   # The forge changes the contract's head and tail only: how the pipeline is
   # driven, what --intent may carry, and the two firstmate-specific rules are the
   # same text a GitHub-forge worker receives.
-  assert_grep 'ask-user findings are never yours to answer: escalate to firstmate' "$brief" \
+  assert_grep 'ask-user findings are never yours to answer: escalate to Spudrunner' "$brief" \
     "the gerrit worker lost the ask-user escalation rule"
   # shellcheck disable=SC2016 # Backticks are literal generated Markdown.
   assert_grep 'NEVER pass `--yes` (or `-y`)' "$brief" "the gerrit worker lost the --yes ban"
@@ -1721,7 +1721,7 @@ EOF
   out=$(run_spawn "$home" "$fakebin" prefix-dev-a1 "$proj" claude --mode no-mistakes --yolo off)
   assert_contains "$out" "ships branch=fm/prefix-dev-a1 while proj registers the ship-branch prefix 'fix/'" \
     "no deviation notice for shipping the legacy prefix past a registered override"
-  assert_contains "$out" "will read as firstmate-authored" \
+  assert_contains "$out" "will read as coordinator-authored" \
     "the deviation notice did not name the cost of the drift"
 
   FM_HOME="$home" "$BRIEF" prefix-dev-a2 proj --mode no-mistakes --branch-prefix fix/ >/dev/null \

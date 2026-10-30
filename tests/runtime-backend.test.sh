@@ -12,8 +12,8 @@
 #      binaries and fixtures as the REFACTORED versions in this checkout, then
 #      diffs the two command logs byte-for-byte - the report's P1 checklist
 #      item "run current main scripts and refactored scripts against the same
-#      fake tools and compare command logs". The teardown old-vs-new case also
-#      overlays a content-historical permissive tmux kill fixture: after the
+#      fake tools and compare command logs". The teardown old-vs-new case uses
+#      a coherent historical tree with permissive tmux kill selectors: after the
 #      exact-selector change lands on the default branch, merge-base with main
 #      collapses to HEAD and can no longer supply that baseline.
 #   3. Asserts the `--backend`/`FM_BACKEND` selection refuses unknown backends
@@ -160,8 +160,8 @@ resolve_permissive_tmux_kill_ref() {
 # before it reaches the behavior under test.
 # FM_ROOT_OVERRIDE pointed at this dir's root makes
 # "$FM_ROOT/bin/project-mode.sh" (etc.) resolve correctly.
-# The teardown conformance case applies its explicitly historical tmux adapter
-# after this complete baseline has been materialized.
+# The teardown conformance case selects the permissive revision for the whole
+# tree as well, keeping its adapter and dispatcher on the same interface.
 
 build_old_bin() {  # <name> -> echoes root dir (root/bin/<script> is the entry point)
   local name=$1 root archive base_ref
@@ -177,6 +177,7 @@ build_old_bin() {  # <name> -> echoes root dir (root/bin/<script> is the entry p
   # Historical revisions predate semantic entrypoints; keep their own helpers.
   [ -e "$root/bin/task-inspect.sh" ] || ln -s fm-peek.sh "$root/bin/task-inspect.sh"
   [ -e "$root/bin/task-cleanup.sh" ] || ln -s fm-teardown.sh "$root/bin/task-cleanup.sh"
+  [ -e "$root/bin/supervision-health.sh" ] || ln -s fm-guard.sh "$root/bin/supervision-health.sh"
   printf '%s\n' "$root"
 }
 
@@ -1213,8 +1214,7 @@ SH
 
 # run_teardown_case <script> <fm-root-override> <fakebin> <log> <state> <data> <config> <id>
 # FM_ROOT_OVERRIDE is passed separately from <script> so both the old and new
-# runs can point it at the SAME neutral (non-git) shim root - that root's
-# bin/supervision-health.sh is a symlink to the real, unchanged script, so the
+# runs can point it at the SAME neutral (non-git) shim root, so the
 # worktree-tangle check runs identically (and silently) for both, regardless
 # of which task-cleanup.sh (old or new) is actually being invoked.
 run_teardown_case() {
@@ -1231,15 +1231,13 @@ test_teardown_conformance_old_vs_new() {
   local state_old state_new config_old config_new data log_old log_new out_old out_new rc_old rc_new
   # Force the post-squash topology inside this case: merge-base with main may
   # equal HEAD on default-branch CI, and that must not make the legacy kill
-  # fixture self-referential. build_old_bin still uses BASE_REF for entrypoints;
-  # only the tmux kill adapter is pinned to the content-historical permissive ref.
+  # fixture self-referential. Keep the historical adapter, dispatcher, and
+  # entrypoints together so semantic renames cannot break their interface.
   saved_base_ref=$BASE_REF
-  BASE_REF=$(git -C "$ROOT" rev-parse HEAD)
   old_tmux_ref=$(resolve_permissive_tmux_kill_ref) \
     || { BASE_REF=$saved_base_ref; fail "unable to locate a historical bin/backends/tmux.sh with permissive kill-window selectors"; }
+  BASE_REF=$old_tmux_ref
   old_bin=$(build_old_bin teardown-old)
-  git -C "$ROOT" show "$old_tmux_ref:bin/backends/tmux.sh" > "$old_bin/bin/backends/tmux.sh" \
-    || { BASE_REF=$saved_base_ref; fail "could not materialize historical tmux adapter from $old_tmux_ref"; }
   BASE_REF=$saved_base_ref
   proj="$TMP_ROOT/teardown-project"; wt="$TMP_ROOT/teardown-wt"
   id="teardownconform1"
@@ -1272,13 +1270,8 @@ test_teardown_conformance_old_vs_new() {
   expect_code 0 "$rc_new" "new task-cleanup.sh (scout, report present) should succeed"$'\n'"$out_new"
   assert_contains "$(cat "$log_new")" "treehouse"$'\x1f''return'$'\x1f''--force'$'\x1f'"$wt" \
     "teardown did not call treehouse return --force <worktree>"
-  # The legacy fixture's adapter comes from BASE_REF, so its selector form is
-  # whatever the merge-base carried: permissive while the exact-selector change
-  # was still on a branch, exact for every branch cut after it landed on main.
-  # Pinning the old form here would make this case pass once and then fail
-  # forever, so the '=' exactness markers are normalized away and the legacy run
-  # is only required to have reached tmux window cleanup for this task. The
-  # exact-selector contract belongs to the current script, asserted below.
+  # The historical tree exercises permissive selectors; the current tree must
+  # use exact selectors. Both must reach window cleanup for this task.
   assert_contains "$(tr -d '=' < "$log_old")" "tmux"$'\x1f''kill-window'$'\x1f''-t'$'\x1f'"firstmate:fm-$id" \
     "legacy teardown fixture did not exercise tmux window cleanup for the task"
   assert_contains "$(cat "$log_new")" "tmux"$'\x1f''kill-window'$'\x1f''-t'$'\x1f'"=firstmate:=fm-$id" \
