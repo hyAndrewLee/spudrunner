@@ -12,8 +12,8 @@ set -u
 TMP_ROOT=$(mktemp -d "${TMPDIR:-/tmp}/fm-tmux-submit-busy.XXXXXX")
 trap 'rm -rf "$TMP_ROOT"' EXIT
 
-# Override pane_is_busy for testing: FM_FAKE_PANE_BUSY=1 means busy.
-pane_is_busy() {
+# Override tmux_pane_is_busy for testing: FM_FAKE_PANE_BUSY=1 means busy.
+tmux_pane_is_busy() {
   [ "${FM_FAKE_PANE_BUSY:-0}" = 1 ]
 }
 
@@ -251,7 +251,7 @@ test_unrecognized_state_skips_busy_conversion() {
     # shellcheck disable=SC2329
     tmux_composer_state() { printf 'future-state'; }
     # shellcheck disable=SC2329
-    pane_is_busy() { touch "$busy_called"; return 0; }
+    tmux_pane_is_busy() { touch "$busy_called"; return 0; }
     PATH="$fakebin:$PATH" FM_FAKE_COMPOSER="$composer" \
       tmux_submit_enter_core "win" 3 0.05 > "$vfile" 2>/dev/null
   ) || fail "unrecognized-state submit check failed"
@@ -269,7 +269,7 @@ test_claude_busy_signature_uses_real_capture_shapes() {
   composer="$dir/composer"
   pane_busy() {
     PATH="$fakebin:$PATH" FM_FAKE_COMPOSER="$composer" \
-      bash -c '. "$1/bin/tmux-lib.sh"; pane_is_busy "$2" "$3"' \
+      bash -c '. "$1/bin/tmux-lib.sh"; tmux_pane_is_busy "$2" "$3"' \
       _ "$ROOT" "$1" "${2:-}"
   }
 
@@ -346,7 +346,7 @@ test_claude_busy_signature_uses_real_capture_shapes() {
   pane_busy omp-cross omp && fail "omp must ignore OpenCode's interrupt footer"
   printf 'Ctrl+c:cancel\n' > "$composer"
   pane_busy grok grok || fail "Grok cancel footer should be busy"
-  pass "pane_is_busy: Claude spinner is scoped, multi-frame, and backward-compatible"
+  pass "tmux_pane_is_busy: Claude spinner is scoped, multi-frame, and backward-compatible"
 }
 
 test_busy_pane_pending_returns_empty

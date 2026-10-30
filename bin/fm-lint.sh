@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2329 # Source-only legacy API aliases are called externally.
 # Compatibility entrypoint for installed homes; use bin/lint.sh.
 if [ "${BASH_SOURCE[0]}" = "$0" ]; then
   exec bash "$(dirname "${BASH_SOURCE[0]}")/lint.sh" "$@"
 fi
-# shellcheck source=bin/lint.sh
-. "$(dirname "${BASH_SOURCE[0]}")/lint.sh" "$@"
 
 # shellcheck disable=SC2329 # Legacy source-library API aliases.
 fm_lint_worker_stop() { lint_worker_stop "$@"; }
@@ -29,3 +28,6 @@ fm_lint_aggregate_cpu() { lint_aggregate_cpu "$@"; }
 fm_lint_run_worker() { lint_run_worker "$@"; }
 fm_lint_start_worker() { lint_start_worker "$@"; }
 fm_lint_wait_workers() { lint_wait_workers "$@"; }
+
+# shellcheck source=bin/lint.sh
+. "$(dirname "${BASH_SOURCE[0]}")/lint.sh" "$@"

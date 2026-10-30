@@ -103,7 +103,7 @@ tmux_composer_caps() {
 #     process and gets NO identity, which is exactly what keeps the strict
 #     blank-row rule honest: a blank row between two stale rules stays
 #     unknown.
-#   - status: the shape owner's verified busy footer via pane_is_busy,
+#   - status: the shape owner's verified busy footer via tmux_pane_is_busy,
 #     mapped onto the idle/working vocabulary herdr's probe reports natively.
 # It answers Command Code the same way, from its anchored `command-code`
 # foreground process name and its own verified busy footer: its composer is a
@@ -253,7 +253,7 @@ pane_input_pending() {  # <target>
   [ "$(tmux_composer_state "$1")" != empty ]
 }
 
-# pane_is_busy: 0 if the pane's last few non-blank lines show a busy footer
+# tmux_pane_is_busy: 0 if the pane's last few non-blank lines show a busy footer
 # (an agent mid-turn). Scans a 40-line tail like supervision-watch.sh.
 pane_busy_state() {  # <target> [harness] -> busy|idle|unknown
   local win=$1 harness=${2:-} tail40 visible
@@ -268,7 +268,7 @@ pane_busy_state() {  # <target> [harness] -> busy|idle|unknown
   fi
 }
 
-pane_is_busy() {  # <target> [harness]
+tmux_pane_is_busy() {  # <target> [harness]
   [ "$(pane_busy_state "$1" "${2:-}")" = busy ]
 }
 
@@ -281,7 +281,7 @@ pane_is_busy() {  # <target> [harness]
 # and queues it for after the current turn, but keeps the typed text visible in
 # the composer. Once the Enter-retry budget is spent and a structurally proven
 # composer still reads "pending", the submit core falls back to
-# `pane_is_busy`: a busy pane means the Enter was accepted and queued (report
+# `tmux_pane_is_busy`: a busy pane means the Enter was accepted and queued (report
 # `empty` so the caller does not re-send), while an idle pane keeps `pending` as
 # a genuine swallow. Pending-unproven receives the same Enter retry budget but
 # never reaches this exception.
@@ -317,7 +317,7 @@ tmux_submit_enter_core() {  # <target> <retries> <enter-sleep> [baseline-idle] [
         if [ "$baseline_idle" = 1 ]; then
           j=0
           while [ "$j" -lt "$retries" ]; do
-            if pane_is_busy "$target" "$busy_harness"; then
+            if tmux_pane_is_busy "$target" "$busy_harness"; then
               printf 'empty'
               return 0
             fi
@@ -340,7 +340,7 @@ tmux_submit_enter_core() {  # <target> <retries> <enter-sleep> [baseline-idle] [
   # Retries exhausted, composer still shows proven pending.
   # Busy conversion is owned by agent_input_queued_enter_verdict.
   busy_state=idle
-  pane_is_busy "$target" "$busy_harness" && busy_state=busy
+  tmux_pane_is_busy "$target" "$busy_harness" && busy_state=busy
   agent_input_queued_enter_verdict "$state" "$busy_state"
 }
 

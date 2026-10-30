@@ -2279,7 +2279,7 @@ agent_input_submit_retry_core() {  # <send-key-fn> <state-fn> <target> <retries>
 #   pending + unknown -> pending (unreadable busy is not proof of a queue)
 # Every other composer verdict is returned unchanged, so pending-unproven,
 # empty, and unknown never receive this conversion.
-# Adapters supply their own busy primitive (tmux: pane_is_busy; herdr:
+# Adapters supply their own busy primitive (tmux: tmux_pane_is_busy; herdr:
 # native agent_status=working, or a rendered busy footer on an idle native
 # baseline). This function does not read a pane.
 agent_input_queued_enter_verdict() {  # <composer-state> <busy|idle|unknown>

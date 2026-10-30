@@ -61,9 +61,9 @@ if [ "$OS" = Linux ]; then
     SUDO=(sudo)
   fi
   run "${SUDO[@]}" apt-get update
-  run "${SUDO[@]}" apt-get install -y ca-certificates curl git jq python3 tmux gh build-essential
+  run "${SUDO[@]}" apt-get install -y ca-certificates curl git jq python3 ruby tmux gh build-essential
 else
-  run brew install git jq python tmux gh
+  run brew install git jq python ruby tmux gh
 fi
 
 TMP=

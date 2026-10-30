@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2329 # Source-only legacy API aliases are called externally.
 # Compatibility entrypoint for installed homes; use bin/installation-check.sh.
 if [ "${BASH_SOURCE[0]}" = "$0" ]; then
   exec bash "$(dirname "${BASH_SOURCE[0]}")/installation-check.sh" "$@"
 fi
-# shellcheck source=bin/installation-check.sh
-. "$(dirname "${BASH_SOURCE[0]}")/installation-check.sh" "$@"
 
 # shellcheck disable=SC2329 # Legacy source-library API aliases.
 secondmate_note_respawned() { project_coordinator_note_respawned "$@"; }
@@ -22,3 +21,6 @@ secondmate_liveness_one() { project_coordinator_liveness_one "$@"; }
 secondmate_handoff_resume() { project_coordinator_handoff_resume "$@"; }
 secondmate_handoff_detect() { project_coordinator_handoff_detect "$@"; }
 crew_dispatch_validate() { worker_dispatch_validate "$@"; }
+
+# shellcheck source=bin/installation-check.sh
+. "$(dirname "${BASH_SOURCE[0]}")/installation-check.sh" "$@"
