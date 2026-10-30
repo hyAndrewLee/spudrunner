@@ -1,6 +1,6 @@
 # Contributing
 
-Contributions target [hyAndrewLee/spudrunner-standalone](https://github.com/hyAndrewLee/spudrunner-standalone).
+Contributions target [hyAndrewLee/spudrunner](https://github.com/hyAndrewLee/spudrunner).
 The original [Spudrunner](https://github.com/kunchenguid/firstmate) repository is read-only consumption context unless the user separately approves an original-upstream contribution.
 See [fork maintenance](docs/fork-maintenance.md) before configuring remotes or publishing.
 
@@ -12,7 +12,7 @@ See [fork maintenance](docs/fork-maintenance.md) before configuring remotes or p
    The default for changes to shared tracked material remains no-mistakes.
 4. If no-mistakes selects the original upstream instead of the intended fork, stop rather than changing origin to the original upstream or bypassing its target checks.
    A concrete user-approved faster delivery path may publish directly to the fork; that exception does not waive CI, merge approval, or future tasks' delivery defaults.
-5. Open a reviewable PR against this fork's `main`, explicitly selecting `--repo hyAndrewLee/spudrunner-standalone` with `gh-axi`.
+5. Open a reviewable PR against this fork's `main`, explicitly selecting `--repo hyAndrewLee/spudrunner` with `gh-axi`.
    Never push directly to main or merge without the configured authority.
 
 The inherited compliance workflow still requires a structured no-mistakes attestation on non-exempt PRs.

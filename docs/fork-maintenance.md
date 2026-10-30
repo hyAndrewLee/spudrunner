@@ -2,7 +2,7 @@
 
 Spudrunner is a standalone GitHub repository derived from [Firstmate](https://github.com/kunchenguid/firstmate), originally Copyright 2026 Kun Chen under MIT.
 It retains the original history and attribution but is not attached to GitHub's fork network.
-Development and review target [hyAndrewLee/spudrunner-standalone](https://github.com/hyAndrewLee/spudrunner-standalone).
+Development and review target [hyAndrewLee/spudrunner](https://github.com/hyAndrewLee/spudrunner).
 Original-upstream publication is a separate action requiring explicit consent, never inferred from access or lineage.
 
 ## Remote roles and publication
@@ -12,7 +12,7 @@ Before publishing, verify `git remote -v`, the push URL, and `bin/publication-au
 Only `origin` should be marked `remote.origin.gh-resolved=base`; a competing base marker can select the wrong repository.
 Without a base marker the compatibility resolver may prefer `upstream`, so merely changing origin is insufficient.
 Configure this only in the intended repository, never in global configuration or an unrelated running home.
-Use explicit `--repo hyAndrewLee/spudrunner-standalone` on every fork GitHub PR operation.
+Use explicit `--repo hyAndrewLee/spudrunner` on every fork GitHub PR operation.
 Preserve the existing lineage and task-consent guards; a fork is not an authority bypass.
 Do not create standing maintainer authority on the user's behalf.
 Push feature branches, open reviewable fork-local PRs against `main`, and merge only with the configured explicit authority.

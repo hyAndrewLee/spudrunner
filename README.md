@@ -30,7 +30,7 @@ The coordinator asks before installing or upgrading missing tools; it does not t
 
 ```sh
 gh auth login
-git clone https://github.com/hyAndrewLee/spudrunner-standalone.git
+git clone https://github.com/hyAndrewLee/spudrunner.git
 cd spudrunner
 ```
 
@@ -89,7 +89,7 @@ Keep `.env`, `data/`, `state/`, `config/`, and `projects/` private.
 [Optional Relay](docs/configuration.md) and [voice relay](docs/voice-relay.md) retain their existing opt-in and external-action boundaries.
 
 [Fork maintenance](docs/fork-maintenance.md) explains publication selection, read-only original-upstream consumption, source upgrades, and reversible rollback.
-Contributions target [hyAndrewLee/spudrunner-standalone](https://github.com/hyAndrewLee/spudrunner-standalone), not the original upstream by default.
+Contributions target [hyAndrewLee/spudrunner](https://github.com/hyAndrewLee/spudrunner), not the original upstream by default.
 A fork is not permission to publish: existing lineage and scoped-consent checks remain in force.
 
 ## Reference

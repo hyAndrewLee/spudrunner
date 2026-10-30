@@ -3,7 +3,7 @@
 # Usage: spudrunner setup [--directory PATH] [--dry-run]
 #        [--harnesses pi,claude,codex] [--backend tmux|herdr]
 # Default directory: ~/spudrunner. Requires Bash and Git (no Node dependency).
-# Clones only https://github.com/hyAndrewLee/spudrunner-standalone.git; never creates a fork.
+# Clones only https://github.com/hyAndrewLee/spudrunner.git; never creates a fork.
 # Reuses only that repository's existing checkout, without pulling or resetting.
 # --dry-run prints the clone/setup commands without network access or writes.
 set -eu
@@ -33,12 +33,12 @@ while [ "$#" -gt 0 ]; do
 done
 case "$DIRECTORY" in /*) ;; *) DIRECTORY="$PWD/$DIRECTORY" ;; esac
 [ ! -L "$DIRECTORY" ] || die "refusing a symlink destination: $DIRECTORY"
-REPO=https://github.com/hyAndrewLee/spudrunner-standalone.git
+REPO=https://github.com/hyAndrewLee/spudrunner.git
 if [ -e "$DIRECTORY" ]; then
   [ -d "$DIRECTORY/.git" ] || [ -f "$DIRECTORY/.git" ] || die "destination is not a Git checkout: $DIRECTORY"
   origin=$(git -C "$DIRECTORY" remote get-url origin | tr '[:upper:]' '[:lower:]')
   case "$origin" in
-    https://github.com/hyandrewlee/spudrunner-standalone.git|https://github.com/hyandrewlee/spudrunner-standalone|git@github.com:hyandrewlee/spudrunner-standalone.git|ssh://git@github.com/hyandrewlee/spudrunner-standalone.git) ;;
+    https://github.com/hyandrewlee/spudrunner.git|https://github.com/hyandrewlee/spudrunner|git@github.com:hyandrewlee/spudrunner.git|ssh://git@github.com/hyandrewlee/spudrunner.git) ;;
     *) die 'existing destination does not have your Spudrunner repository as origin' ;;
   esac
 else
