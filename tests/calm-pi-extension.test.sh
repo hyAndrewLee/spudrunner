@@ -4642,7 +4642,7 @@ JS
   tmux -L "$TMUX_SOCKET" send-keys -t "$TMUX_SESSION" M-s
   active_screen_wait=0
   while [ "$active_screen_wait" -lt 200 ]; do
-    tmux -L "$TMUX_SOCKET" capture-pane -p -t "$TMUX_SESSION" >"$working_snapshot"
+    tmux -L "$TMUX_SOCKET" capture-pane -p -J -t "$TMUX_SESSION" >"$working_snapshot"
     if grep -Fq '[···]' "$working_snapshot"; then
       break
     fi
@@ -4665,9 +4665,9 @@ JS
     || fail "the working ship rendered no low waveform"
   # Standard ANSI colors: all water blue at every height, the whole hull and sail
   # yellow, no cyan crests or red sail half, and no RGB/256 escapes.
-  tmux -L "$TMUX_SOCKET" capture-pane -p -e -t "$TMUX_SESSION" >"$boat_color_snapshot"
-  boat_color_line=$(grep -F '╲' "$boat_color_snapshot" | head -1)
-  boat_sail_line=$(grep -F '◿' "$boat_color_snapshot" | head -1)
+  tmux -L "$TMUX_SOCKET" capture-pane -p -e -J -t "$TMUX_SESSION" >"$boat_color_snapshot"
+  boat_color_line=$(grep -F '[···]' "$boat_color_snapshot" | head -1)
+  boat_sail_line=$(grep -F ' · ' "$boat_color_snapshot" | head -1)
   [ -n "$boat_color_line" ] || fail "could not capture a colored working-ship row"
   [ -n "$boat_sail_line" ] || fail "could not capture a colored working-ship sail"
   case "$boat_color_line" in
@@ -4819,7 +4819,7 @@ JS
 
   # Capture the last on-screen column and sail before settling so the next working
   # period in this same Pi session can prove freeze/resume continuity.
-  tmux -L "$TMUX_SOCKET" capture-pane -p -t "$TMUX_SESSION" >"$boat_freeze_snapshot"
+  tmux -L "$TMUX_SOCKET" capture-pane -p -J -t "$TMUX_SESSION" >"$boat_freeze_snapshot"
   boat_freeze_column=$(awk 'index($0,"[···]"){print index($0,"[···]"); exit}' "$boat_freeze_snapshot")
   boat_freeze_sail=$(grep -F ' · ' "$boat_freeze_snapshot" | tail -1 || true)
   case "$boat_freeze_sail" in
@@ -4859,7 +4859,7 @@ JS
   boat_resume_sail=""
   active_screen_wait=0
   while [ "$active_screen_wait" -lt 200 ]; do
-    tmux -L "$TMUX_SOCKET" capture-pane -p -t "$TMUX_SESSION" >"$boat_resume_snapshot"
+    tmux -L "$TMUX_SOCKET" capture-pane -p -J -t "$TMUX_SESSION" >"$boat_resume_snapshot"
     if grep -Fq '[···]' "$boat_resume_snapshot"; then
       boat_resume_column=$(awk 'index($0,"[···]"){print index($0,"[···]"); exit}' "$boat_resume_snapshot")
       boat_resume_sail=$(grep -F ' · ' "$boat_resume_snapshot" | tail -1 || true)
