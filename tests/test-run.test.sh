@@ -148,11 +148,11 @@ init_changed_fixture_repo() {
   # script of the expensive real-Herdr family and consumed by one curated
   # watcher script. This is the shape that made a one-line helper change select
   # every real-Herdr E2E.
-  : >"$repo/bin/shared-probe-lib.sh"
-  printf '# shared-probe-lib.sh\n' >>"$repo/tests/runtime-backend-herdr-smoke.test.sh"
+  : >"$repo/bin/unmapped-probe-lib.sh"
+  printf '# unmapped-probe-lib.sh\n' >>"$repo/tests/runtime-backend-herdr-smoke.test.sh"
   # shellcheck disable=SC2016  # literal fixture text: the reference must reach
   # the file verbatim so the changed-file scan can find it, not expand here.
-  printf '. "$ROOT/bin/shared-probe-lib.sh"\n' >"$repo/bin/fm-watch-probe.sh"
+  printf '. "$ROOT/bin/unmapped-probe-lib.sh"\n' >"$repo/bin/fm-watch-probe.sh"
   printf '# .claude/settings.json\n# .pi/extensions/coordinator-turn-end-guard.ts\n' \
     >>"$repo/tests/working-directory-pretool-check.test.sh"
   printf '# .pi/extensions/coordinator-supervision-watch.ts\n' >>"$repo/tests/pi-watch-extension.test.sh"
@@ -439,7 +439,7 @@ test_changed_bin_reference_selects_per_script_not_per_family() {
   repo="$tmp/repo"
   init_changed_fixture_repo "$repo"
 
-  printf '\n' >>"$repo/bin/shared-probe-lib.sh"
+  printf '\n' >>"$repo/bin/unmapped-probe-lib.sh"
   listed=$(cd "$repo" && bin/test-run.sh --list --changed --base HEAD)
 
   assert_contains "$listed" "tests/runtime-backend-herdr-smoke.test.sh" \
@@ -477,7 +477,7 @@ SH
   done
   git -C "$repo" add .
   git -C "$repo" -c user.name=test -c user.email=test@example.invalid commit -qm fixtures
-  printf '\n' >>"$repo/bin/shared-probe-lib.sh"
+  printf '\n' >>"$repo/bin/unmapped-probe-lib.sh"
 
   (cd "$repo" && bin/test-run.sh --changed --base HEAD --json "$tmp/parallel.json") \
     >"$tmp/parallel.out" 2>"$tmp/parallel.err" \
@@ -1045,9 +1045,9 @@ test_list_scheduled_non_lane_selections_use_serial_weights() {
   printf '%s\n' \
     tests/kimi-harness.test.sh \
     tests/muse-harness.test.sh \
+    tests/lint.test.sh \
     tests/task-instructions.test.sh \
     tests/user-decision-lifecycle.test.sh \
-    tests/lint.test.sh \
     tests/operational-input.test.sh >"$tmp/expected"
   for selection in family all changed scripts; do
     case "$selection" in
