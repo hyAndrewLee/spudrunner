@@ -64,7 +64,7 @@ See the setup and limits for [tmux](docs/tmux-backend.md), [Herdr](docs/herdr-ba
 
 Start with a concrete request, for example: “Register my project and fix its flaky login test.”
 The coordinator returns the fix and a reviewable PR, not an unexplained progress stream.
-No command named `spudrunner` is invented: launch your existing coding harness inside the repository.
+The `spudrunner setup` package launcher provisions a persistent checkout; normal operation still uses your existing coding harness inside that directory.
 
 ## Conversation commands
 

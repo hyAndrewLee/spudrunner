@@ -4,7 +4,21 @@ The setup command provisions an Ubuntu/Debian machine (including WSL) or a macOS
 It installs Pi, Claude Code, Codex, tmux, Herdr, Treehouse, the coordinator's npm tools, no-mistakes, and development linters.
 Other supported harnesses and optional integrations remain opt-in; this is not an installer for every vendor listed in the adapter catalog.
 
-With Git installed, run:
+The package entrypoint is designed for Bun or npm, with Git and Bash installed:
+
+```sh
+bunx @hyandrewlee/spudrunner setup
+# or
+npx @hyandrewlee/spudrunner setup
+```
+
+This command becomes available after the package is published to npm; the local implementation alone does not make it a registry release.
+The launcher clones this repository into `~/spudrunner` and runs the installer there, never inside the package manager's temporary cache.
+Use `--directory PATH` to choose another home.
+An existing checkout is reused only when its origin is your Spudrunner repository; the launcher never pulls, resets, or overwrites local work.
+Use `bunx @hyandrewlee/spudrunner setup --dry-run` to print the launcher plan without network access or writes.
+
+Without a registry release, clone directly:
 
 ```sh
 git clone https://github.com/hyAndrewLee/spudrunner.git "$HOME/spudrunner" && bash "$HOME/spudrunner/bin/setup.sh"

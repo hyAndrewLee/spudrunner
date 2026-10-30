@@ -100,4 +100,54 @@ HOME="$TMP_ROOT/failed-home" SETUP_TEST_NPM_FAIL=1 PATH="$TMP_ROOT/fakebin:/usr/
 [ "$rc" -eq 17 ] || fail "npm failure was hidden (exit $rc)"
 assert_absent "$TMP_ROOT/failed-home/.config/spudrunner/env.sh" 'failed installation reported completed configuration'
 pass 'missing harnesses use a local npm prefix and installer failures propagate'
+
+CLI="$ROOT/bin/spudrunner.sh"
+TARGET="$TMP_ROOT/CLI home"
+out=$(bash "$CLI" setup --directory "$TARGET" --dry-run --harnesses pi --backend herdr)
+assert_contains "$out" 'https://github.com/hyAndrewLee/spudrunner.git' 'launcher selected the wrong repository'
+assert_contains "$out" '--harnesses pi --backend herdr' 'launcher lost setup options'
+assert_absent "$TARGET" 'launcher dry-run created a checkout'
+pass 'bunx launcher plans a persistent checkout without writes'
+
+REAL_GIT=$(command -v git)
+export REAL_GIT
+SPUDRUNNER_TEST_SOURCE="$TMP_ROOT/cli-source"
+export SPUDRUNNER_TEST_SOURCE
+git_identity fmtest fmtest@example.invalid
+"$REAL_GIT" init -q "$SPUDRUNNER_TEST_SOURCE"
+mkdir -p "$SPUDRUNNER_TEST_SOURCE/bin"
+cat > "$SPUDRUNNER_TEST_SOURCE/bin/setup.sh" <<'SH'
+#!/usr/bin/env bash
+printf '%s\n' "$@" > "$(dirname "$0")/../setup-args"
+SH
+"$REAL_GIT" -C "$SPUDRUNNER_TEST_SOURCE" add bin/setup.sh
+"$REAL_GIT" -C "$SPUDRUNNER_TEST_SOURCE" commit -qm fixture
+cat > "$TMP_ROOT/fakebin/git" <<'SH'
+#!/usr/bin/env bash
+set -eu
+if [ "$1" = clone ]; then
+  [ "$2" = https://github.com/hyAndrewLee/spudrunner.git ] || exit 33
+  printf 'clone\n' >> "$LOG"
+  "$REAL_GIT" clone -q "$SPUDRUNNER_TEST_SOURCE" "$3"
+  "$REAL_GIT" -C "$3" remote set-url origin "$2"
+else
+  exec "$REAL_GIT" "$@"
+fi
+SH
+chmod +x "$TMP_ROOT/fakebin/git"
+bash "$CLI" setup --directory "$TARGET" --backend herdr --harnesses pi,codex
+[ "$(cat "$TARGET/setup-args")" = $'--backend\nherdr\n--harnesses\npi,codex' ] || fail 'launcher did not forward exact setup arguments'
+printf 'keep\n' > "$TARGET/operator-file"
+bash "$CLI" setup --directory "$TARGET" --harnesses pi
+[ "$(grep -c '^clone$' "$LOG")" -eq 1 ] || fail 'repeat launcher cloned again'
+assert_grep keep "$TARGET/operator-file" 'launcher reset existing local work'
+"$REAL_GIT" -C "$TARGET" remote set-url origin https://github.com/someone/unrelated.git
+rc=0
+bash "$CLI" setup --directory "$TARGET" > "$TMP_ROOT/wrong-origin" 2>&1 || rc=$?
+[ "$rc" -ne 0 ] || fail 'launcher accepted an unrelated checkout'
+assert_contains "$(cat "$TMP_ROOT/wrong-origin")" 'does not have your Spudrunner repository as origin' 'launcher did not explain the origin refusal'
+rc=0
+bash "$CLI" setup --directory "$HOME" > "$TMP_ROOT/not-repo" 2>&1 || rc=$?
+[ "$rc" -ne 0 ] || fail 'launcher accepted a non-repository destination'
+pass 'launcher clones only your repository, forwards arguments, and preserves existing work'
 echo FM_TEST_COMPLETE
