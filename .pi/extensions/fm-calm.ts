@@ -492,7 +492,7 @@ export default function (pi: ExtensionAPI) {
   });
 
   pi.registerCommand("calm", {
-    description: "Toggle Firstmate's supported conversation-only transcript presentation.",
+    description: "Toggle Spudrunner's supported conversation-only transcript presentation.",
     handler: async (_args, ctx) => {
       const active = !calmPresentationIsActive();
       persistCalmPreference(active);

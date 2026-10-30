@@ -1123,7 +1123,7 @@ export default function (pi: ExtensionAPI) {
   });
 
   pi.registerCommand?.("fm-watch-arm-omp", {
-    description: "Arm firstmate watcher supervision through the omp extension instead of foreground bash.",
+    description: "Arm Spudrunner monitoring through the omp extension instead of foreground bash.",
     handler: async (_args, ctx) => {
       const result = activateOwnedWatch(generation);
       ctx?.ui?.notify?.(result.message, result.ok ? "info" : "warning");
@@ -1132,7 +1132,7 @@ export default function (pi: ExtensionAPI) {
 
   pi.registerTool?.({
     name: "fm_watch_arm_omp",
-    label: "Arm firstmate watcher",
+    label: "Arm Spudrunner monitoring",
     description: "Start the first required omp watcher cycle, or repair one only after a notification says the cycle is missing, failed, or unhealthy. Do not call after ordinary work or ordinary notifications; the omp extension re-arms automatically. Never run bin/fm-watch-arm.sh through bash.",
     promptSnippet: "Start the first required omp watcher cycle or repair a cycle reported missing, failed, or unhealthy; ordinary re-arming is automatic.",
     promptGuidelines: [

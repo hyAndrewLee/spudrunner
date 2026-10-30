@@ -376,7 +376,7 @@ export const register: Register = (on) => {
     await startNotes($).catch(() => undefined);
     await $.command.register({
       name: CALM_COMMAND,
-      description: "Toggle Firstmate's Calm transcript presentation and working ship.",
+      description: "Toggle Spudrunner's Calm transcript presentation and progress indicator.",
     });
     return next(e);
   });
