@@ -1478,7 +1478,7 @@ SH
     "$ROOT/bin/task-launch.sh" domain "$subhome" codex --secondmate >/dev/null 2>"$err"; then
     fail "secondmate spawn accepted an unseeded home"
   fi
-  grep -F 'not a seeded secondmate home' "$err" >/dev/null || fail "spawn did not explain missing seed marker"
+  grep -F 'not a seeded project coordinator home' "$err" >/dev/null || fail "spawn did not explain missing seed marker"
   # Canonical ordering proof: validation runs before any tmux side-effect. Every rejection
   # reason below shares this one linear pre-launch path, so they each assert only their own
   # refusal message rather than re-proving "no window created before validation" each time.
@@ -1489,7 +1489,7 @@ SH
     "$ROOT/bin/task-launch.sh" domain "$wronghome" codex --secondmate >/dev/null 2>"$err"; then
     fail "secondmate spawn accepted a home marked for another secondmate"
   fi
-  grep -F 'marked for secondmate other, expected domain' "$err" >/dev/null || fail "spawn did not explain marker mismatch"
+  grep -F 'marked for project coordinator other, expected domain' "$err" >/dev/null || fail "spawn did not explain marker mismatch"
 
   printf 'domain\n' > "$marker_only/.fm-secondmate-home"
   printf 'charter\n' > "$marker_only/data/charter.md"
@@ -1497,27 +1497,27 @@ SH
     "$ROOT/bin/task-launch.sh" domain "$marker_only" codex --secondmate >/dev/null 2>"$err"; then
     fail "secondmate spawn accepted a marked home missing AGENTS.md"
   fi
-  grep -F 'not a firstmate home (missing AGENTS.md)' "$err" >/dev/null || fail "spawn did not explain missing AGENTS.md"
+  grep -F 'not a Spudrunner home (missing AGENTS.md)' "$err" >/dev/null || fail "spawn did not explain missing AGENTS.md"
 
   printf '# Firstmate\n' > "$marker_only/AGENTS.md"
   if PATH="$fakebin:$PATH" FM_HOME="$home" FM_FAKE_TMUX_LOG="$log" FM_FAKE_TMUX_CAPTURE="$TMP_ROOT/spawn-validate-fake/pane.txt" \
     "$ROOT/bin/task-launch.sh" domain "$marker_only" codex --secondmate >/dev/null 2>"$err"; then
     fail "secondmate spawn accepted a marked home missing bin"
   fi
-  grep -F 'not a firstmate home (missing bin/)' "$err" >/dev/null || fail "spawn did not explain missing bin"
+  grep -F 'not a Spudrunner home (missing bin/)' "$err" >/dev/null || fail "spawn did not explain missing bin"
 
   printf 'domain\n' > "$home/.fm-secondmate-home"
   if PATH="$fakebin:$PATH" FM_HOME="$home" FM_FAKE_TMUX_LOG="$log" FM_FAKE_TMUX_CAPTURE="$TMP_ROOT/spawn-validate-fake/pane.txt" \
     "$ROOT/bin/task-launch.sh" domain "$home" codex --secondmate >/dev/null 2>"$err"; then
     fail "secondmate spawn accepted the active home"
   fi
-  grep -F 'secondmate home cannot be the active firstmate home' "$err" >/dev/null || fail "spawn did not reject active home"
+  grep -F 'project coordinator home cannot be the active Spudrunner home' "$err" >/dev/null || fail "spawn did not reject active home"
 
   if PATH="$fakebin:$PATH" FM_HOME="$home" FM_FAKE_TMUX_LOG="$log" FM_FAKE_TMUX_CAPTURE="$TMP_ROOT/spawn-validate-fake/pane.txt" \
     "$ROOT/bin/task-launch.sh" domain "$ROOT" codex --secondmate >/dev/null 2>"$err"; then
     fail "secondmate spawn accepted the firstmate repo root"
   fi
-  grep -F 'secondmate home cannot be the firstmate repo' "$err" >/dev/null || fail "spawn did not reject firstmate repo root"
+  grep -F 'project coordinator home cannot be the Spudrunner repo' "$err" >/dev/null || fail "spawn did not reject firstmate repo root"
 
   printf 'domain\n' > "$active_descendant/.fm-secondmate-home"
   printf 'charter\n' > "$active_descendant/data/charter.md"
@@ -1525,7 +1525,7 @@ SH
     "$ROOT/bin/task-launch.sh" domain "$active_descendant" codex --secondmate >/dev/null 2>"$err"; then
     fail "secondmate spawn accepted a home inside the active firstmate home"
   fi
-  grep -F 'secondmate home cannot be inside the active firstmate home' "$err" >/dev/null || fail "spawn did not reject active home descendant"
+  grep -F 'project coordinator home cannot be inside the active Spudrunner home' "$err" >/dev/null || fail "spawn did not reject active home descendant"
 
   printf 'domain\n' > "$active_ancestor/.fm-secondmate-home"
   printf 'charter\n' > "$active_ancestor/data/charter.md"
@@ -1533,7 +1533,7 @@ SH
     "$ROOT/bin/task-launch.sh" domain "$active_ancestor" codex --secondmate >/dev/null 2>"$err"; then
     fail "secondmate spawn accepted a home containing the active firstmate home"
   fi
-  grep -F 'secondmate home cannot be an ancestor of the active firstmate home' "$err" >/dev/null || fail "spawn did not reject active home ancestor"
+  grep -F 'project coordinator home cannot be an ancestor of the active Spudrunner home' "$err" >/dev/null || fail "spawn did not reject active home ancestor"
 
   printf 'domain\n' > "$root_descendant/.fm-secondmate-home"
   printf 'charter\n' > "$root_descendant/data/charter.md"
@@ -1541,7 +1541,7 @@ SH
     "$ROOT/bin/task-launch.sh" domain "$root_descendant" codex --secondmate >/dev/null 2>"$err"; then
     fail "secondmate spawn accepted a home inside the firstmate repo"
   fi
-  grep -F 'secondmate home cannot be inside the firstmate repo' "$err" >/dev/null || fail "spawn did not reject repo root descendant"
+  grep -F 'project coordinator home cannot be inside the Spudrunner repo' "$err" >/dev/null || fail "spawn did not reject repo root descendant"
 
   printf 'domain\n' > "$root_ancestor/.fm-secondmate-home"
   printf 'charter\n' > "$root_ancestor/data/charter.md"
@@ -1549,7 +1549,7 @@ SH
     "$ROOT/bin/task-launch.sh" domain "$root_ancestor" codex --secondmate >/dev/null 2>"$err"; then
     fail "secondmate spawn accepted a home containing the firstmate repo"
   fi
-  grep -F 'secondmate home cannot be an ancestor of the firstmate repo' "$err" >/dev/null || fail "spawn did not reject repo ancestor"
+  grep -F 'project coordinator home cannot be an ancestor of the Spudrunner repo' "$err" >/dev/null || fail "spawn did not reject repo ancestor"
 
   pass "secondmate spawn validates homes before launch"
 }
@@ -1579,7 +1579,7 @@ test_project_coordinator_spawn_refuses_operational_dirs_outside_subhome() {
       "$ROOT/bin/task-launch.sh" domain "$subhome" codex --secondmate >/dev/null 2>"$err"; then
       fail "secondmate spawn accepted a subhome with $opdir symlinked outside the subhome"
     fi
-    grep -F "secondmate $opdir directory must resolve inside the secondmate home" "$err" >/dev/null \
+    grep -F "project coordinator $opdir directory must resolve inside the project coordinator home" "$err" >/dev/null \
       || fail "spawn did not explain unsafe $opdir directory rejection"
     grep -F 'new-window' "$log" >/dev/null && fail "spawn created a window before unsafe $opdir directory validation"
   done
@@ -2977,14 +2977,14 @@ test_project_coordinator_charter_brief_is_idle_by_default() {
   brief="$home/data/idle-sm/brief.md"
   [ -f "$brief" ] || fail "secondmate charter brief was not scaffolded"
   # Idle contract: waits for routed work, never self-initiates.
-  grep -F 'go idle and wait silently for the main firstmate' "$brief" >/dev/null \
+  grep -F 'go idle and wait silently for the main coordinator' "$brief" >/dev/null \
     || fail "charter brief does not tell the secondmate to go idle and wait for routed work"
-  grep -F 'Act only on tasks the main firstmate routes to you' "$brief" >/dev/null \
+  grep -F 'Act only on tasks the main coordinator routes to you' "$brief" >/dev/null \
     || fail "charter brief does not restrict work to routed tasks"
   grep -F 'never spawn a survey, audit, or any self-directed' "$brief" >/dev/null \
     || fail "charter brief does not forbid self-initiated survey/audit work"
   # Reconcile-on-startup must remain: bootstrap and recovery still run, scoped to own work.
-  grep -F 'run normal firstmate bootstrap and recovery' "$brief" >/dev/null \
+  grep -F 'run normal Spudrunner bootstrap and recovery' "$brief" >/dev/null \
     || fail "charter brief dropped the bootstrap/recovery reconciliation step"
   grep -F 'only to RECONCILE work that is already yours' "$brief" >/dev/null \
     || fail "charter brief does not scope startup work to reconciling existing work"
