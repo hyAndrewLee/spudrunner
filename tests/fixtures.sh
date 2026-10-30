@@ -5,11 +5,11 @@
 #   # shellcheck source=tests/fixtures.sh
 #   . "$(dirname "${BASH_SOURCE[0]}")/fixtures.sh"
 #
-# Generic reporters, temp roots, git fixtures, and fail/pass/fm_test_cleanup
+# Generic reporters, temp roots, git fixtures, and fail/pass/test_cleanup
 # come from tests/lib.sh, pulled in below. This file owns the shared fake
 # no-mistakes, gh, gh-axi, tmux, ssh, and spawn-world helpers. Wake-queue mocks
 # stay in wake-helpers.sh; secondmate-lifecycle mocks stay in
-# secondmate-helpers.sh.
+# project-coordinator-helpers.sh.
 #
 # FM_TEST_NO_MISTAKES_VERSION is the single default version for the shared fake
 # no-mistakes banner. Override a single case with FM_FAKE_NO_MISTAKES_VERSION
@@ -23,7 +23,7 @@ if [ -n "${FM_TEST_FIXTURES_SOURCED:-}" ]; then
 fi
 FM_TEST_FIXTURES_SOURCED=1
 
-# Production floor lives in bin/fm-bootstrap.sh (NO_MISTAKES_MIN). Keep this
+# Production floor lives in bin/installation-check.sh (NO_MISTAKES_MIN). Keep this
 # equal to that floor so a bump is one constant here plus that production pin.
 export FM_TEST_NO_MISTAKES_VERSION=1.46.0
 export FM_TEST_NO_MISTAKES_FAKE_VERSION="no-mistakes version v${FM_TEST_NO_MISTAKES_VERSION} (fake)"
@@ -32,11 +32,11 @@ export FM_TEST_GH_AXI_VERSION=0.1.29
 
 # --- fake no-mistakes -------------------------------------------------------
 
-# fm_test_fake_no_mistakes <fakebin>
+# test_fake_no_mistakes <fakebin>
 # Drops a no-mistakes stub that answers --version with
 # FM_TEST_NO_MISTAKES_FAKE_VERSION (or FM_FAKE_NO_MISTAKES_VERSION when set)
 # and exits 0 for every other invocation.
-fm_test_fake_no_mistakes() {
+test_fake_no_mistakes() {
   local fakebin=$1
   cat > "$fakebin/no-mistakes" <<SH
 #!/usr/bin/env bash
@@ -49,10 +49,10 @@ SH
   chmod +x "$fakebin/no-mistakes"
 }
 
-# fm_test_fake_no_mistakes_init_doctor <fakebin>
+# test_fake_no_mistakes_init_doctor <fakebin>
 # Secondmate-lifecycle stub: init/doctor touch marker files; other verbs exit 2.
 # Does not answer --version (those suites never probe the floor).
-fm_test_fake_no_mistakes_init_doctor() {
+test_fake_no_mistakes_init_doctor() {
   local fakebin=$1
   cat > "$fakebin/no-mistakes" <<'SH'
 #!/usr/bin/env bash
@@ -68,9 +68,9 @@ SH
 
 # --- fake gh / gh-axi -------------------------------------------------------
 
-# fm_test_fake_gh <fakebin>
+# test_fake_gh <fakebin>
 # Authenticates (`gh auth status` exits 0) and otherwise exits 0.
-fm_test_fake_gh() {
+test_fake_gh() {
   local fakebin=$1
   cat > "$fakebin/gh" <<'SH'
 #!/usr/bin/env bash
@@ -82,16 +82,16 @@ SH
   chmod +x "$fakebin/gh"
 }
 
-# fm_test_fake_gh_axi <fakebin>
+# test_fake_gh_axi <fakebin>
 # Answers --version with FM_FAKE_GH_AXI_VERSION or FM_TEST_GH_AXI_VERSION.
-fm_test_fake_gh_axi() {
+test_fake_gh_axi() {
   local fakebin=$1
-  fm_fake_version_tool "$fakebin" gh-axi FM_FAKE_GH_AXI_VERSION "$FM_TEST_GH_AXI_VERSION"
+  fake_version_tool "$fakebin" gh-axi FM_FAKE_GH_AXI_VERSION "$FM_TEST_GH_AXI_VERSION"
 }
 
 # --- fake tmux / ssh / sleep ------------------------------------------------
 
-# fm_test_fake_tmux_spawn <fakebin>
+# test_fake_tmux_spawn <fakebin>
 # Spawn-world tmux: pane_current_path from FM_FAKE_PANE_PATH, session named
 # firstmate, window ops succeed, send-keys succeed. When FM_FAKE_LAUNCH_LOG is
 # set, each send-keys -l payload is appended one per line. When FM_FAKE_PANE_LOG
@@ -104,7 +104,7 @@ fm_test_fake_gh_axi() {
 # The pane path defaults to empty when FM_FAKE_PANE_PATH is unset. Window
 # cleanup and option operations are no-ops. Launch logging is env-gated, so
 # suites that do not set FM_FAKE_LAUNCH_LOG keep a silent send-keys.
-fm_test_fake_tmux_spawn() {
+test_fake_tmux_spawn() {
   local fakebin=$1
   cat > "$fakebin/tmux" <<'SH'
 #!/usr/bin/env bash
@@ -118,7 +118,7 @@ fake_opencode_turn_starts() {
   local plugin bin state id gen
   plugin=$(fake_opencode_plugin)
   [ -f "$plugin" ] || return 0
-  bin=$(sed -n 's/.*execFile("\([^"]*fm-busy-event\.sh\)".*/\1/p' "$plugin" | head -1)
+  bin=$(sed -n 's/.*execFile("\([^"]*agent-activity-event\.sh\)".*/\1/p' "$plugin" | head -1)
   state=$(sed -n 's/.*"apply", "\([^"]*\)", "\([^"]*\)", state,.*/\1/p' "$plugin" | head -1)
   id=$(sed -n 's/.*"apply", "\([^"]*\)", "\([^"]*\)", state,.*/\2/p' "$plugin" | head -1)
   gen=$(sed -n 's/.*"--gen", "\([^"]*\)".*/\1/p' "$plugin" | head -1)
@@ -281,13 +281,13 @@ SH
   chmod +x "$fakebin/tmux"
 }
 
-# fm_test_fake_tmux_send <fakebin>
+# test_fake_tmux_send <fakebin>
 # Send-world tmux: logs send-keys -l payloads to FM_SEND_LOG, reports a numeric
 # cursor_y, and renders an empty bordered composer so the submit path reads
 # empty. Env knobs:
 #   FM_FAKE_TMUX_SEND_FAIL=1  send-keys exits 1
 #   FM_FAKE_TMUX_COMPOSER=pending  capture-pane shows leftover composer text
-fm_test_fake_tmux_send() {
+test_fake_tmux_send() {
   local fakebin=$1
   cat > "$fakebin/tmux" <<'SH'
 #!/usr/bin/env bash
@@ -331,11 +331,11 @@ SH
   chmod +x "$fakebin/tmux"
 }
 
-# fm_test_fake_ssh <fakebin> [name]
+# test_fake_ssh <fakebin> [name]
 # Records argv to FM_SSH_LOG, consumes stdin, exits FM_FAKE_SSH_RC (default 0).
 # Default name is fake-ssh so tests can point FM_SSH_BIN at it without
 # shadowing a real ssh on PATH.
-fm_test_fake_ssh() {
+test_fake_ssh() {
   local fakebin=$1 name=${2:-fake-ssh}
   cat > "$fakebin/$name" <<'SH'
 #!/usr/bin/env bash
@@ -346,8 +346,8 @@ SH
   chmod +x "$fakebin/$name"
 }
 
-# fm_test_fake_sleep_noop <fakebin>
-fm_test_fake_sleep_noop() {
+# test_fake_sleep_noop <fakebin>
+test_fake_sleep_noop() {
   local fakebin=$1
   cat > "$fakebin/sleep" <<'SH'
 #!/usr/bin/env bash
@@ -356,9 +356,9 @@ SH
   chmod +x "$fakebin/sleep"
 }
 
-# fm_test_fake_sleep_log <fakebin>
+# test_fake_sleep_log <fakebin>
 # Records each requested duration to FM_SLEEP_LOG instead of sleeping.
-fm_test_fake_sleep_log() {
+test_fake_sleep_log() {
   local fakebin=$1
   cat > "$fakebin/sleep" <<'SH'
 #!/usr/bin/env bash
@@ -370,10 +370,10 @@ SH
 
 # --- spawn-world ------------------------------------------------------------
 
-# fm_test_spawn_home <home> [harness]
+# test_spawn_home <home> [harness]
 # Minimal firstmate home layout plus watcher-liveness beat. Optional harness
 # pin is written to config/crew-harness.
-fm_test_spawn_home() {
+test_spawn_home() {
   local home=$1 harness=${2-}
   mkdir -p "$home/data" "$home/projects" "$home/state" "$home/config"
   touch "$home/state/.last-watcher-beat"
@@ -382,8 +382,8 @@ fm_test_spawn_home() {
   fi
 }
 
-# fm_test_spawn_brief <home> <id> [captain-intent]
-fm_test_spawn_brief() {
+# test_spawn_brief <home> <id> [captain-intent]
+test_spawn_brief() {
   local home=$1 id=$2 intent=${3:-brief for $2}
   mkdir -p "$home/data/$id"
   cat > "$home/data/$id/brief.md" <<EOF
@@ -396,39 +396,39 @@ Exercise the spawn behavior under test.
 EOF
 }
 
-# fm_test_make_spawn_fakebin <dir> [extra-exit0-tool...]
+# test_make_spawn_fakebin <dir> [extra-exit0-tool...]
 # Creates <dir>/fakebin with the spawn tmux stub, a no-op treehouse, and any
 # extra exit-0 tools. Echoes the fakebin path.
-fm_test_make_spawn_fakebin() {
+test_make_spawn_fakebin() {
   local dir=$1 fakebin
   shift
-  fakebin=$(fm_fakebin "$dir")
-  fm_test_fake_tmux_spawn "$fakebin"
-  fm_fake_exit0 "$fakebin" treehouse "$@"
+  fakebin=$(fakebin "$dir")
+  test_fake_tmux_spawn "$fakebin"
+  fake_exit0 "$fakebin" treehouse "$@"
   printf '%s\n' "$fakebin"
 }
 
 # Drop-in name used by the spawn suites. Extra args are additional exit-0 tools
 # (gh, gh-axi, pi, ...).
 make_spawn_fakebin() {
-  fm_test_make_spawn_fakebin "$@"
+  test_make_spawn_fakebin "$@"
 }
 
-# fm_test_run_spawn <home> <pane-path> <fakebin> [fm-spawn args...]
+# test_run_spawn <home> <pane-path> <fakebin> [fm-spawn args...]
 # Common spawn env. Extra variables in the caller (GROK_HOME, FM_FAKE_LAUNCH_LOG,
 # CLAUDE_CONFIG_DIR, ...) are inherited. Does not add --mode/--yolo; ship tests
 # that need a delivery contract pass those flags themselves.
-fm_test_run_spawn() {
+test_run_spawn() {
   local home=$1 pane=$2 fakebin=$3
   shift 3
   # A claude spawn pre-registers workspace trust in the launching user's own
-  # store (bin/fm-claude-trust.sh), so every spawn here runs against a throwaway
+  # store (bin/claude-trust.sh), so every spawn here runs against a throwaway
   # HOME; without it the suite would write the developer's real ~/.claude.json.
   # CLAUDE_CONFIG_DIR must be pinned too, and pinned EMPTY: the script resolves
   # the store as ${CLAUDE_CONFIG_DIR:-${HOME:-}}, so a value inherited from the
   # developer's shell would beat the throwaway HOME and the sandbox would not
   # hold, while an empty value falls through to it. Empty rather than a path
-  # because bin/fm-spawn.sh prefixes the launch only when the value is non-empty,
+  # because bin/task-launch.sh prefixes the launch only when the value is non-empty,
   # so every launch-shape assertion in the suite keeps reading the same command.
   # A test that needs the set case opts in through FM_TEST_CLAUDE_CONFIG_DIR.
   local spawn_home=$home/user-home
@@ -439,7 +439,7 @@ fm_test_run_spawn() {
     FM_PROJECTS_OVERRIDE="$home/projects" FM_CONFIG_OVERRIDE="$home/config" \
     FM_SPAWN_NO_GUARD=1 FM_FAKE_PANE_PATH="$pane" TMUX="${TMUX:-fake,1,0}" \
     PATH="$fakebin:$PATH" \
-    "$ROOT/bin/fm-spawn.sh" "$@" 2>&1
+    "$ROOT/bin/task-launch.sh" "$@" 2>&1
 }
 
 # --- send-world stubs -------------------------------------------------------
@@ -447,11 +447,11 @@ fm_test_run_spawn() {
 # make_stubs <dir>
 # Send-world fakebin: send tmux + no-op sleep. Echoes the fakebin path.
 # Suites that need recording sleep, herdr, or ssh add those on top of this
-# fakebin (or replace sleep via fm_test_fake_sleep_log).
+# fakebin (or replace sleep via test_fake_sleep_log).
 make_stubs() {
   local dir=$1 fakebin
-  fakebin=$(fm_fakebin "$dir")
-  fm_test_fake_tmux_send "$fakebin"
-  fm_test_fake_sleep_noop "$fakebin"
+  fakebin=$(fakebin "$dir")
+  test_fake_tmux_send "$fakebin"
+  test_fake_sleep_noop "$fakebin"
   printf '%s\n' "$fakebin"
 }

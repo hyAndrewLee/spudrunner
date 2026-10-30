@@ -1,0 +1,21 @@
+{
+  "name": "@hyandrewlee/spudrunner",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Set up Spudrunner harnesses and coordinator tools on a fresh machine",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hyAndrewLee/spudrunner.git"
+  },
+  "bin": {
+    "spudrunner": "bin/spudrunner.sh"
+  },
+  "files": [
+    "bin/spudrunner.sh"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "os": ["linux", "darwin"]
+}

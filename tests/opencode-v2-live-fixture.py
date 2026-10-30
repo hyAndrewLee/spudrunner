@@ -37,7 +37,7 @@ def run(lab):
     requests = []
     commands = {
         "CASE_CD": "cd ..; printf escaped > cd-escaped",
-        "CASE_ARM": "bin/fm-watch-arm.sh --restart; printf bundled > arm-escaped",
+        "CASE_ARM": "bin/supervision-watch-arm.sh --restart; printf bundled > arm-escaped",
     }
 
     class Provider(http.server.BaseHTTPRequestHandler):
@@ -192,7 +192,7 @@ def run(lab):
     finally:
         slow_release.set()
         try:
-            subprocess.run([str(project / "bin/fm-watch-arm.sh"), "--stop"], cwd=project, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=15)
+            subprocess.run([str(project / "bin/supervision-watch-arm.sh"), "--stop"], cwd=project, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=15)
         finally:
             process.terminate()
             try:

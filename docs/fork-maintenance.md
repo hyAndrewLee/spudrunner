@@ -1,13 +1,14 @@
 # Fork maintenance
 
-Spudrunner is a public fork of [Firstmate](https://github.com/kunchenguid/firstmate), originally Copyright 2026 Kun Chen under MIT.
+Spudrunner is a standalone GitHub repository derived from [Firstmate](https://github.com/kunchenguid/firstmate), originally Copyright 2026 Kun Chen under MIT.
+It retains the original history and attribution but is not attached to GitHub's fork network.
 Development and review target [hyAndrewLee/spudrunner](https://github.com/hyAndrewLee/spudrunner).
 Original-upstream publication is a separate action requiring explicit consent, never inferred from access or lineage.
 
 ## Remote roles and publication
 
 Clone the fork as `origin`; an optional `upstream` remote is read-only consumption context.
-Before publishing, verify `git remote -v`, the push URL, and `bin/fm-role.sh`'s selected publication target.
+Before publishing, verify `git remote -v`, the push URL, and `bin/publication-authority.sh`'s selected publication target.
 Only `origin` should be marked `remote.origin.gh-resolved=base`; a competing base marker can select the wrong repository.
 Without a base marker the compatibility resolver may prefer `upstream`, so merely changing origin is insufficient.
 Configure this only in the intended repository, never in global configuration or an unrelated running home.

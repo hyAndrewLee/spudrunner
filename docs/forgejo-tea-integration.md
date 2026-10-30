@@ -3,7 +3,7 @@
 Empirical record for the merge watch and the merge path on Forgejo, alongside the existing GitHub and GitLab ones (`docs/gitlab-merge-watch.md`).
 Every finding here was verified against a real, disposable Forgejo instance rather than assumed from `tea --help`, because several of them contradict what the help text alone would suggest.
 All evidence below was collected on 2026-09-13.
-A project opts in with the `forge=forgejo` registry binding, which `bin/fm-project-mode.sh` owns; the watch and merge paths recorded here key off the pull request URL itself, and the binding decides only that a generated ship brief names `tea` rather than `gh-axi`.
+A project opts in with the `forge=forgejo` registry binding, which `bin/project-mode.sh` owns; the watch and merge paths recorded here key off the pull request URL itself, and the binding decides only that a generated ship brief names `tea` rather than `gh-axi`.
 
 ## Versions
 
@@ -56,7 +56,7 @@ index,state
 ```
 
 A list read is bounded by `--limit`, so a watched pull request older than that window would never be seen merged.
-The merge watch (`bin/fm-pr-poll.sh`), the terminal-run PR detail (`bin/fm-crew-state.sh`), and teardown's merged-PR proof (`bin/fm-teardown.sh`) therefore read the one pull request by number through `tea api ... /repos/{owner}/{repo}/pulls/{n}`, the same REST record the merge path below reads, and accept only a record whose `merged` field is a boolean (`fm_pr_forgejo_read_record` in `bin/fm-pr-lib.sh`).
+The merge watch (`bin/pr-poll.sh`), the terminal-run PR detail (`bin/task-state.sh`), and teardown's merged-PR proof (`bin/task-cleanup.sh`) therefore read the one pull request by number through `tea api ... /repos/{owner}/{repo}/pulls/{n}`, the same REST record the merge path below reads, and accept only a record whose `merged` field is a boolean (`pr_forgejo_read_record` in `bin/pr-lib.sh`).
 **Not verified here:** that by-number read was not re-run against the evidence instance; it relies on the same `tea api` pull request record whose `state`, `merged`, and `head.sha` fields the merge path's read-back below did verify.
 
 ## Why the login is resolved fresh, and how
@@ -100,7 +100,7 @@ $ tea login list --output json
 
 Every Forgejo read parses this list as JSON with `jq`, matches the validated PR host against each login's bare hostname (stripping scheme, userinfo, port, and path), and refuses when zero or more than one login matches, rather than guessing.
 It never splits the output line by line, because a login printed as one compact object would then read its name where the url belongs.
-`fm_pr_forgejo_login` in `bin/fm-pr-lib.sh` owns that match for every sourcing script; `bin/fm-pr-poll.sh` is a static, standalone watcher body with no sourced dependency, so it keeps its own copy and re-derives the match on every poll instead of trusting a name recorded anywhere durable.
+`pr_forgejo_login` in `bin/pr-lib.sh` owns that match for every sourcing script; `bin/pr-poll.sh` is a static, standalone watcher body with no sourced dependency, so it keeps its own copy and re-derives the match on every poll instead of trusting a name recorded anywhere durable.
 
 ## URL shape
 
@@ -117,7 +117,7 @@ This never collides with GitHub's `.../pull/<n>` (singular), GitLab's `.../-/mer
 ## End to end: arming and polling a real pull request
 
 ```
-$ fm-pr-check.sh task-f1 https://localhost/fixture/fixture-repo/pulls/4
+$ pr-check.sh task-f1 https://localhost/fixture/fixture-repo/pulls/4
 armed: state/task-f1.check.sh
 
 $ cat state/task-f1.pr-poll
@@ -143,17 +143,17 @@ The `localhost:3980` login's actual port never appears in the canonical PR URL o
 ## A missing tea produces no wake, never a false merge
 
 ```
-$ PATH="$notea" bin/fm-pr-poll.sh --validated forgejo https://localhost/fixture/fixture-repo/pulls/1 localhost fixture/fixture-repo 1
+$ PATH="$notea" bin/pr-poll.sh --validated forgejo https://localhost/fixture/fixture-repo/pulls/1 localhost fixture/fixture-repo 1
 (nothing)
 
-$ PATH="$notea" bin/fm-pr-check.sh task-x https://localhost/fixture/fixture-repo/pulls/1
+$ PATH="$notea" bin/pr-check.sh task-x https://localhost/fixture/fixture-repo/pulls/1
 error: watching a Forgejo pull request requires tea on PATH
 ```
 
 ## Merging: tea's merge subcommand cannot bind a head, but the API can
 
 `tea pulls merge --help` documents no `--sha`/head-commit flag, unlike `gh pr merge --match-head-commit` and `glab mr merge --sha`.
-Forgejo/Gitea's underlying REST API does support one, as an undocumented-by-tea `head_commit_id` field on the merge request body (confirmed against the instance's own served Swagger definition, `MergePullRequestOption`), so `bin/fm-pr-merge.sh` calls that API directly through `tea api` instead of `tea pulls merge`:
+Forgejo/Gitea's underlying REST API does support one, as an undocumented-by-tea `head_commit_id` field on the merge request body (confirmed against the instance's own served Swagger definition, `MergePullRequestOption`), so `bin/pr-merge.sh` calls that API directly through `tea api` instead of `tea pulls merge`:
 
 ```
 $ tea api --login fm-fixture --repo fixture/fixture-repo -X POST '/repos/{owner}/{repo}/pulls/2/merge' \
@@ -172,7 +172,7 @@ The `Do` field is the style the caller names (`--merge`, `--rebase`, `--squash`,
 
 **`tea api` reports an HTTP-level failure with exit status 0.** Both calls above exited 0; only the JSON body differed.
 This was the single most consequential finding of this verification pass: a naive implementation gating success on `tea api`'s exit status would treat every rejected merge as a success.
-`bin/fm-pr-merge.sh` therefore never trusts that exit status - it always re-reads the pull request afterward (`forgejo_confirm_merged`) and treats `merged == true` as the only evidence a merge landed.
+`bin/pr-merge.sh` therefore never trusts that exit status - it always re-reads the pull request afterward (`forgejo_confirm_merged`) and treats `merged == true` as the only evidence a merge landed.
 
 ## Pre-merge conditions
 
@@ -183,7 +183,7 @@ A positive `draft` reading refuses; an instance too old to report the field stil
 An already-merged pull request is correctly refused for a second merge attempt:
 
 ```
-$ fm-pr-merge.sh task-f1 https://localhost/fixture/fixture-repo/pulls/4
+$ pr-merge.sh task-f1 https://localhost/fixture/fixture-repo/pulls/4
 error: refusing to merge https://localhost/fixture/fixture-repo/pulls/4
   - state is "closed", not open
   - the combined commit status is "none", not success
@@ -199,7 +199,7 @@ $ curl .../repos/fixture/fixture-repo/commits/<sha>/status
 This is read as `none`, the same way GitLab's null `head_pipeline` is read as `none` in `docs/gitlab-merge-watch.md`, and refuses the merge rather than treating an absent check as nothing to verify:
 
 ```
-$ fm-pr-merge.sh task-f2 https://localhost/fixture/fixture-repo/pulls/<open-mergeable-pr>
+$ pr-merge.sh task-f2 https://localhost/fixture/fixture-repo/pulls/<open-mergeable-pr>
 error: refusing to merge ...
   - the combined commit status is "none", not success
 ```

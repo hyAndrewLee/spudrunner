@@ -2,7 +2,7 @@
 
 Audience: maintainer verification.
 
-This record supports the opt-in `bin/fm-dispatch-resolve.sh` contract owned by [`../configuration.md`](../configuration.md) ("Typed dispatch resolution") and the declared rule and profile fields owned there under "Crew dispatch profiles".
+This record supports the opt-in `bin/dispatch-resolve.sh` contract owned by [`../configuration.md`](../configuration.md) ("Typed dispatch resolution") and the declared rule and profile fields owned there under "Crew dispatch profiles".
 It records only facts that must be re-established when a decision provider, its API, or firstmate's dispatch rules change.
 Task chronology, the captain's rules, and the briefs themselves stay in the private scout report.
 
@@ -249,7 +249,7 @@ Two default-labeled briefs became ambiguous.
 ## Task sections and per-rule confidence floors
 
 Run 2026-09-23 against `jev-latest` (answering as `jev-1.13.0`), comparing the resolver before this change (whole brief as state) with the resolver after it (only `## Captain's intent` and `## Firstmate spec`).
-Each fixture brief was scaffolded with `bin/fm-brief.sh` (ship `--mode no-mistakes` or `--scout`), its two placeholders filled, and both resolvers run on the same file against the same rules.
+Each fixture brief was scaffolded with `bin/task-instructions.sh` (ship `--mode no-mistakes` or `--scout`), its two placeholders filled, and both resolvers run on the same file against the same rules.
 
 Generic rules: a hardest-tier rule that requires the brief itself to call the work unusually difficult or high-risk and excludes routine builds, ports, and installers; routine feature, port, or installer builds; bug fixes with a stated root cause; trivial mechanical edits; and read-only investigations or audits.
 Sixteen fixtures: ten clear-cut briefs (two per rule) and six borderline ones (a large port with signed installers, an installer after a broken upgrade, a large file split, a table migration, an unexplained slowdown, and a retry policy).
@@ -293,7 +293,7 @@ The remaining behavior is covered only by the offline tests below: a fenced head
 
 ## Offline behavior
 
-`tests/fm-dispatch-resolve.test.sh` drives the public interface with a fake `curl` that records argv, the request body, the header read from file descriptor 3, and whether the secret reached its environment, plus a fake `quota-axi` that performs the same environment check.
+`tests/dispatch-resolve.test.sh` drives the public interface with a fake `curl` that records argv, the request body, the header read from file descriptor 3, and whether the secret reached its environment, plus a fake `quota-axi` that performs the same environment check.
 It proves firstmate can invoke the resolve path without a preflight, rules are snapshotted once from the isolated home's canonical `config/crew-dispatch.json`, and dynamic output fields are flattened to one line.
 It proves the absent key (environment and `.env`) prints one stderr line, nothing on stdout, exits 0, and never invokes `curl` or `quota-axi`.
 It proves absent, default-only, and empty-rules files return `no rules to match` without a model or quota request, while a broken rules-file symlink exits 2 as unreadable.
@@ -314,10 +314,10 @@ It proves `systemone` posts the unchanged System One request to `<base>/v1/syste
 It proves `openai` is off with one line without its key, exits 2 without a model, sends the same state as JSON text `input` with one named choice question carrying every option, maps the probability array back, withholds a never-send match inside the serialized input or the model name, and rejects refusals, missing or duplicated answers and option values, missing options or confidence, and non-JSON bodies before quota is read.
 It proves a declared `min_confidence` is checked against the rule's own probability both as the pick and as a runner-up, a picked rule below it falls to the most probable runner-up that clears its floor, is `ambiguous` when none does or two tie, and that a file without declared floors keeps the global 0.6 floor on confidence unchanged.
 It proves the clear, fixed-floor ambiguous with candidate evidence, escalate (approval with candidate evidence, unverifiable rule floor, tie, nothing rankable), known rule-floor fall-through, known and unverifiable profile-floor evidence, explicit-provider and provider-ID enforcement, authoritative Agy and explicit-provider Gemini routing, partial providers, eligible unranked candidates and their clear-result note, concrete quota vetoes and profile-floor shortfalls taking precedence over uncertainty, account-wide quota veto, limiting-bound ranking, schema-6 account-row binding with schema-5 compatibility, `preferred_provider` family preference across accounts with fallback only on proven ineligibility and escalation on unknown preferred quota, the `shared_quota` opt-out (declared-order pick with no `quota-axi` call, unmet rule- and profile-floor bypass, `preferred_provider` narrowing, the quota-ranking-off candidate line, `false` keeping the quota-ranked path, and non-boolean rejection), missing-curl and quota-axi failures, HTTP 429 and 500, transport failure, malformed usage, zero-mass or malformed probabilities or confidence, malformed or duplicate profile, invalid selector, removed-option rejection, and out-of-range rule ID paths behave as the contract states, with configuration errors exiting 2 before any network call.
-`tests/fm-bootstrap.test.sh` covers bootstrap's typesafe-key and declared-typesafe-source validation gate, which never runs `security`, its key-independent `preferred_provider` and `shared_quota` checks, and child-environment protection; [configuration](../configuration.md#crew-dispatch-profiles-configcrew-dispatchjson) owns that gate's operator contract.
+`tests/installation-check.test.sh` covers bootstrap's typesafe-key and declared-typesafe-source validation gate, which never runs `security`, its key-independent `preferred_provider` and `shared_quota` checks, and child-environment protection; [configuration](../configuration.md#crew-dispatch-profiles-configcrew-dispatchjson) owns that gate's operator contract.
 
 ```console
-$ bash tests/fm-dispatch-resolve.test.sh | tail -1
+$ bash tests/dispatch-resolve.test.sh | tail -1
 # all fm-dispatch-resolve tests passed
 ```
 

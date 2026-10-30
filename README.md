@@ -34,6 +34,9 @@ git clone https://github.com/hyAndrewLee/spudrunner.git
 cd spudrunner
 ```
 
+For a fresh Ubuntu/Debian/WSL or macOS machine, run `bash bin/setup.sh` to install Pi, Claude Code, Codex, backends, and coordinator tools.
+See [fresh-machine setup](docs/setup.md) for preview, selection, login, and platform limits.
+
 Launch a supported primary harness in that directory:
 
 ```sh
@@ -57,22 +60,22 @@ Additional verified worker-only harnesses use the same generated engineering pol
 
 The default backend is tmux.
 See the setup and limits for [tmux](docs/tmux-backend.md), [Herdr](docs/herdr-backend.md), [Zellij](docs/zellij-backend.md), [Orca](docs/orca-backend.md), [cmux](docs/cmux-backend.md), [Paseo](docs/paseo-backend.md), [Rex](docs/rex-backend.md), [T3 Code](docs/t3code-backend.md), and [Tern](docs/tern-backend.md).
-[Remote project coordinators](docs/remote-secondmates.md) are optional.
+[Remote project coordinators](docs/remote-project-coordinators.md) are optional.
 
 Start with a concrete request, for example: “Register my project and fix its flaky login test.”
 The coordinator returns the fix and a reviewable PR, not an unexplained progress stream.
-No command named `spudrunner` is invented: launch your existing coding harness inside the repository.
+The `spudrunner setup` package launcher provisions a persistent checkout; normal operation still uses your existing coding harness inside that directory.
 
 ## Conversation commands
 
 | Command | Purpose | Compatible old name |
 | --- | --- | --- |
-| `/status-summary` | Current work, decisions, completed results, and what is next; supports `file` and `include PRs`. | `/bearings` |
-| `/session-recap` | Visible session outcomes and unanswered decisions. | `/ahoy` |
-| `/updatespudrunner` | Guardedly update from this fork's origin and restart supported sessions. | `/updatefirstmate` |
+| `/status-summary` | Current work, decisions, completed results, and what is next; supports `file` and `include PRs`. | `/work-summary` |
+| `/session-recap` | Visible session outcomes and unanswered decisions. | `/session-summary` |
+| `/update-spudrunner` | Guardedly update from this fork's origin and restart supported sessions. | `/self-update` |
 | `/afk` | Away supervision and a return summary. | Unchanged |
 | `/quiet` | Quiet supervision while you remain present; `/quiet off` exits. | Unchanged |
-| `/stow` | Curate durable knowledge and this session's open work before a reset. | Unchanged |
+| `/memory-curation` | Curate durable knowledge and this session's open work before a reset. | Unchanged |
 
 Use the harness's native skill syntax where it differs from slash commands.
 `/calm` changes supported transcript presentation only; see [current behavior and limits](docs/calm.md).
@@ -94,7 +97,7 @@ A fork is not permission to publish: existing lineage and scoped-consent checks 
 - [Architecture](docs/architecture.md) and [integration ownership](docs/workflow-integration.md).
 - [Supervisor contract](AGENTS.md), [script reference](docs/scripts.md), and [contributing](CONTRIBUTING.md).
 - [Documentation audiences](docs/documentation-audiences.md) and [runtime verification](docs/verification/runtime-backends.md).
-- [Monitoring continuity](docs/watcher-continuity.md), [turn-end protection](docs/turnend-guard.md), and [alert setup](docs/wedge-alarm.md).
+- [Monitoring continuity](docs/watcher-continuity.md), [turn-end protection](docs/turn-end-guard.md), and [alert setup](docs/wedge-alarm.md).
 - [Extension bindings](docs/extension-bindings.md) and the [Codex App boundary](docs/codex-app-backend.md).
 
 Agent-runtime skills live in `.agents/skills/`; standalone installer-facing skills live in `skills/`.

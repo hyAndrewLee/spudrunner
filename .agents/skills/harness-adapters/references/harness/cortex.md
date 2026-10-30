@@ -9,7 +9,7 @@ The router owns the crewmate/scout-only boundary; primary and project coordinato
 
 | Fact | Value |
 |---|---|
-| Busy state | Native `UserPromptSubmit` opens, `Stop` closes normal completion and an Escape interrupt alike, and `SessionEnd` closes shutdown, through the generation-bound writer; `../../../../../bin/fm-busy-lib.sh` owns trust. |
+| Busy state | Native `UserPromptSubmit` opens, `Stop` closes normal completion and an Escape interrupt alike, and `SessionEnd` closes shutdown, through the generation-bound writer; `../../../../../bin/agent-activity-lib.sh` owns trust. |
 | Hook channel | A per-task plugin directory passed with `--plugin-dir`; `--config <settings.json>` replaces the user settings file but never supplies hooks, and no flag switches the user or project hook files off. |
 | Exit command | `/quit`, with the shared slash-command settle before Enter; prints a summary carrying `cortex --resume <session-id>`. |
 | Interrupt | One Esc cancels a running turn and prints `Interrupted`; Esc, single or doubled, on an idle composer does nothing, and repeating it never exits. Ctrl+C also cancels a running turn and is not used. |
@@ -21,7 +21,7 @@ The router owns the crewmate/scout-only boundary; primary and project coordinato
 | Marker | None; anchored native `cortex` ancestry identifies the adapter and outranks foreign inherited markers. |
 | Trust dialogs | `--dangerously-allow-all-tool-calls` (alias `--bypass`) also skips the `Do you trust this project?` dialog and writes nothing to `~/.snowflake/cortex/cortex.json`; project hooks and settings still load. |
 | Imported config | Cortex loads Claude-compatible `~/.claude/settings.json` and project `.claude/settings.json` and `settings.local.json` hooks as well as its own `.cortex/` files, so a worker in a project with Claude hooks runs them; there is no switch to disable the import. |
-| Commit attribution | The model, not a client setting, writes a `Generated with Snowflake CoCo` line and a `Co-authored-by: Snowflake CoCo <noreply@snowflake.com>` trailer; the spawn-owned commit-msg strip (`../../../../../bin/fm-git-strip-ai-trailers.sh`) removes both unless the home sets `config/keep-ai-trailers`. |
+| Commit attribution | The model, not a client setting, writes a `Generated with Snowflake CoCo` line and a `Co-authored-by: Snowflake CoCo <noreply@snowflake.com>` trailer; the spawn-owned commit-msg strip (`../../../../../bin/git-strip-ai-trailers.sh`) removes both unless the home sets `config/keep-ai-trailers`. |
 
 ## Worker lifecycle limits
 
@@ -34,18 +34,18 @@ The per-task plugin's hooks therefore report the pane to Herdr as a `cortex` age
 Herdr's own claude integration hook claims a pane as a `claude` session whenever `CLAUDECODE=1` is set, because Cortex loads `~/.claude/settings.json`; that claim survives the Cortex exit and silently drops every later report on the pane, so the launch always clears `CLAUDECODE`.
 With the claim in place `agent get` still answers `agent_not_found` after exit and a relaunch cannot register, which leaves only the semantic busy record as state truth.
 
-`../../../../../bin/fm-spawn.sh` owns autonomy, trust, typed brief delivery, the environment clearing, and the omission of the Claude permission-mode mapping.
-`../../../../../bin/fm-cortex-plugin.sh` owns the private plugin directory and its lifecycle hooks; the user and project configs remain vendor-owned and untouched.
+`../../../../../bin/task-launch.sh` owns autonomy, trust, typed brief delivery, the environment clearing, and the omission of the Claude permission-mode mapping.
+`../../../../../bin/cortex-plugin.sh` owns the private plugin directory and its lifecycle hooks; the user and project configs remain vendor-owned and untouched.
 
 ## Composer and steering
 
-`../../../../../bin/fm-composer-lib.sh` owns the verified bordered `›` composer, whose rounded top rule carries the session title and whose idle placeholder is `Type your message...` (`Type to queue message...` while a turn runs), drawn as a reverse-video cursor cell then dim text. The classifier accepts that titled top rule only when the caller proves the pane's foreground process is Cortex (the `cortex=1` capability: tmux's exact process name, Herdr's native agent probe), so a titled box on any other pane stays ambiguous.
+`../../../../../bin/agent-input-lib.sh` owns the verified bordered `›` composer, whose rounded top rule carries the session title and whose idle placeholder is `Type your message...` (`Type to queue message...` while a turn runs), drawn as a reverse-video cursor cell then dim text. The classifier accepts that titled top rule only when the caller proves the pane's foreground process is Cortex (the `cortex=1` capability: tmux's exact process name, Herdr's native agent probe), so a titled box on any other pane stays ambiguous.
 The `>> bypass safeguards  |  teams: off  |  plan: off ...` mode line under the box is furniture, and its wording follows the terminal width.
-Cortex parks the terminal cursor in the first column of the blank row under its footer, so on tmux the cursor-anchored read cannot find the composer and `../../../../../bin/fm-tmux-lib.sh` reads the pane cursorlessly for a foreground process named exactly `cortex`; Herdr's read is cursorless already.
-`../../../../../bin/fm-spawn.sh` refuses a cortex launch on zellij, cmux, orca, paseo, rex, and t3code, which supply no Cortex pane identity to prove the titled composer empty.
+Cortex parks the terminal cursor in the first column of the blank row under its footer, so on tmux the cursor-anchored read cannot find the composer and `../../../../../bin/tmux-lib.sh` reads the pane cursorlessly for a foreground process named exactly `cortex`; Herdr's read is cursorless already.
+`../../../../../bin/task-launch.sh` refuses a cortex launch on zellij, cmux, orca, paseo, rex, and t3code, which supply no Cortex pane identity to prove the titled composer empty.
 Text typed while a turn runs is queued and listed under `Queued (↑ to edit, Enter to send next):`, and an Escape interrupt lets the queued message start as the next turn.
 A dim follow-up suggestion after a turn (`push it`) is ghost text, not a draft.
-The `../../../../../bin/fm-task-inbox-lib.sh` doorbell was read and acknowledged through real `fm-send` on tmux, and exit and relaunch were driven through real `fm-control` on a Herdr lab pane.
+The `../../../../../bin/task-inbox-lib.sh` doorbell was read and acknowledged through real `fm-send` on tmux, and exit and relaunch were driven through real `fm-control` on a Herdr lab pane.
 
 ## Primary integration
 

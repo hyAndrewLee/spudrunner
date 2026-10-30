@@ -2,7 +2,7 @@
 
 This document is the maintainer-architecture owner for the package manifest, enabled binding, handshake, invocation envelope, trust boundary, and `process-event-adapter/1` capability.
 [`configuration.md`](configuration.md#trusted-external-process-event-adapters-configextensionsd) owns operator setup and the home-local layout.
-`bin/fm-extension.sh --help` and `bin/fm-procevent.sh --help` own command mechanics.
+`bin/extension-host.sh --help` and `bin/process-events.sh --help` own command mechanics.
 
 ## Scope and design
 
@@ -101,7 +101,7 @@ Retirement disables discovery and invocation without deleting the content-addres
 
 The host invokes one exact package entrypoint directly with `shell=false`, the package root as its fixed working directory, a minimal environment, and one verb argument.
 It never uses `source`, `eval`, a shell command string, or package-supplied argv.
-The host's internal lifecycle calls to tracked `bin/fm-procevent.sh` are separate from package invocation: they resolve and probe an absolute Bash executable, then pass the script path as an argv argument with `shell=false`, preserving literal lifecycle arguments and the existing failure mapping.
+The host's internal lifecycle calls to tracked `bin/process-events.sh` are separate from package invocation: they resolve and probe an absolute Bash executable, then pass the script path as an argv argument with `shell=false`, preserving literal lifecycle arguments and the existing failure mapping.
 On POSIX hosts the candidate comes only from the sanitized `PATH`, as the script's `env bash` shebang resolved it before.
 On Windows, the host tries the exported `BASH` before `PATH`, and the probe accepts only Bash reporting an MSYS or Cygwin `OSTYPE`, so an unrelated `bash.exe` such as WSL Bash is refused.
 The entrypoint reads exactly one UTF-8 JSON document from stdin and writes exactly one UTF-8 JSON document to stdout.
@@ -245,4 +245,4 @@ Bindings and credentials are deliberately absent from the inherited project coor
 [`examples/process-event-extension`](examples/process-event-extension) is a complete external `file-signal` adapter package.
 It waits for one configured absolute file, returns that file's bounded UTF-8 contents as evidence, classifies the result as `file-signal`, and reports it terminal.
 The package is intentionally copied outside this Git project before binding, proving that project-local package discovery is not a registration path.
-The operator commands live in [`configuration.md`](configuration.md#trusted-external-process-event-adapters-configextensionsd), and `tests/fm-extension-binding.test.sh` runs the complete example path.
+The operator commands live in [`configuration.md`](configuration.md#trusted-external-process-event-adapters-configextensionsd), and `tests/extension-host-binding.test.sh` runs the complete example path.

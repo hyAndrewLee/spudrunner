@@ -1,6 +1,6 @@
 -- bin/backends/rex-eventwait.lua - the Rex adapter's bounded event reader.
 --
--- Run by fm_backend_rex_event_reader (bin/backends/rex.sh) as
+-- Run by runtime_backend_rex_event_reader (bin/backends/rex.sh) as
 --   rex --autostart=false do -s <session-id> --for <N>s rex-eventwait.lua \
 --     --args '{"blocks":["block:<uuid>", ...]}'
 -- It streams one TAB-separated line per event on a watched block and leaves

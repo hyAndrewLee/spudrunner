@@ -26,7 +26,7 @@ Select Paseo with local `config/backend` containing `paseo`, `FM_BACKEND=paseo` 
 It is never runtime auto-detected; see "Selection is explicit" below.
 A spawn stops with an actionable setup message when the CLI, minimum version, `jq`, or daemon reachability is unavailable.
 
-Routine supervision uses `bin/fm-peek.sh <id>` and `FM_HOME=<home> bin/fm-send.sh <id> '<text>'` without bringing the Paseo window forward.
+Routine supervision uses `bin/task-inspect.sh <id>` and `FM_HOME=<home> bin/task-steer.sh <id> '<text>'` without bringing the Paseo window forward.
 
 Verify setup by spawning a small task and confirming metadata contains `backend=paseo`, `paseo_terminal_id=`, and `paseo_workspace_id=`.
 
@@ -35,7 +35,7 @@ Verify setup by spawning a small task and confirming metadata contains `backend=
 Paseo is explicit-only, like zellij and orca: `config/backend`, `FM_BACKEND=paseo`, or `--backend paseo` select it, and nothing else does.
 Paseo stamps its markers into every descendant process: a Paseo agent exports `PASEO_AGENT_ID`, a terminal tab exports `PASEO_TERMINAL_ID` and `PASEO_WORKSPACE_ID`, and both carry `__CFBundleIdentifier=sh.paseo.desktop`.
 A tmux server started from a Paseo tab inherits all of them, so their presence proves only that some ancestor was Paseo, never that the user chose it.
-Reading them as a selection would make Paseo an ambient default, which "Authority is explicit and never inferred" rules out; `fm_backend_detect` therefore ignores them.
+Reading them as a selection would make Paseo an ambient default, which "Authority is explicit and never inferred" rules out; `runtime_backend_detect` therefore ignores them.
 
 The markers are still useful once Paseo has been selected explicitly.
 When Spudrunner itself runs inside Paseo, the adapter uses them to find Spudrunner's own workspace and puts task tabs there (see "Task shape and metadata").
@@ -76,7 +76,7 @@ Any other key name is typed as literal text, so the adapter sends Ctrl-U as the 
 `terminal capture <id> -S --json` returns plain-text lines with ANSI stripped.
 The adapter fetches the scrollback whole and trims the tail locally; Paseo caps scrollback at 1024 lines (verified on Paseo 0.9.2), so that read stays bounded however long a task runs.
 `--start -<n>` is not used because it counts the blank screen rows below the prompt as part of the tail.
-Because capture strips styling, the capability descriptor declares `styled=0`, and the shared classifier in `bin/fm-composer-lib.sh` degrades a glyph row carrying trailing text to `unknown` rather than misreading an idle suggestion as unsent input.
+Because capture strips styling, the capability descriptor declares `styled=0`, and the shared classifier in `bin/agent-input-lib.sh` degrades a glyph row carrying trailing text to `unknown` rather than misreading an idle suggestion as unsent input.
 
 A terminal's `cwd` field in `terminal ls` is creation-time-frozen and never follows the foreground subshell opened by `treehouse get`.
 Spawn-time worktree discovery therefore sends begin and end markers around `pwd`, captures the marked block, and joins wrapped path lines, exactly like cmux and zellij.
@@ -107,15 +107,15 @@ Durable history for a finished task therefore lives in the status log, the repor
 - Paseo is experimental, macOS-only, GUI-first, and requires the app running.
 - Project coordinator spawns are unsupported until a per-home lifecycle design is verified; select `tmux` for a home that needs them.
 - `paseo run --cwd` is ignored when `PASEO_AGENT_ID` is set (reported on the upstream issue thread); the adapter never uses `paseo run`, only `terminal create --cwd`, which honours the path.
-- There is no native busy or push-event signal, and `fm_backend_agent_state` reports `unverified` for Paseo.
+- There is no native busy or push-event signal, and `runtime_backend_agent_state` reports `unverified` for Paseo.
 - A target can disappear after structural readiness and before the operation.
 - Workspace and terminal ids are not assumed stable across daemon restarts; recovery re-resolves by terminal NAME.
 
 ## Regression entry points
 
 ```sh
-tests/fm-backend-paseo.test.sh
-tests/fm-backend-paseo-smoke.test.sh
+tests/runtime-backend-paseo.test.sh
+tests/runtime-backend-paseo-smoke.test.sh
 ```
 
 [`verification/runtime-backends.md`](verification/runtime-backends.md#paseo) records the active source and live evidence.

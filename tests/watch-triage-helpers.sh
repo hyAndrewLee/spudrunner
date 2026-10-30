@@ -19,10 +19,10 @@ FM_WATCH_TRIAGE_HELPERS_SOURCED=1
 # shellcheck source=tests/wake-helpers.sh
 . "$(dirname "${BASH_SOURCE[0]}")/wake-helpers.sh"
 # shellcheck source=/dev/null
-. "$ROOT/bin/fm-classify-lib.sh"
+. "$ROOT/bin/task-events-lib.sh"
 
-WATCH="$ROOT/bin/fm-watch.sh"
-DRAIN="$ROOT/bin/fm-wake-drain.sh"
+WATCH="$ROOT/bin/supervision-watch.sh"
+DRAIN="$ROOT/bin/supervision-events-drain.sh"
 
 ack_stopped_cycle() {  # <state>
   local state=$1 err sequence generation
@@ -38,19 +38,19 @@ ack_stopped_cycle() {  # <state>
 
 # Common watcher knobs: tight poll/grace, no check or heartbeat cadence unless a
 # test overrides them, so a test only exercises the path it targets. FM_CREW_STATE_BIN
-# points at the case's hermetic fake fm-crew-state.sh (installed by make_case) so the
+# points at the case's hermetic fake task-state.sh (installed by make_case) so the
 # absorb-only-when-provably-working triage reads a canned verdict; a test fixes that
 # verdict via FM_FAKE_CREW_STATE in its environment before calling watch_bg.
 watch_bg() {  # <state> <fakebin> <out> [extra env assignments...]
   local state=$1 fakebin=$2 out=$3
   shift 3
-  PATH="$fakebin:$PATH" FM_STATE_OVERRIDE="$state" FM_CREW_STATE_BIN="$fakebin/fm-crew-state.sh" \
+  PATH="$fakebin:$PATH" FM_STATE_OVERRIDE="$state" FM_CREW_STATE_BIN="$fakebin/task-state.sh" \
     FM_POLL=1 FM_SIGNAL_GRACE=1 FM_CHECK_INTERVAL=999999 FM_HEARTBEAT=999999 \
     FM_SECONDMATE_LIVENESS_SECS=99999999 "$@" "$WATCH" > "$out" &
 }
 
 # Wait until <pid>'s watcher has completed a whole poll cycle, or exited first.
-# A fixed wait_live budget only proves the process is still ALIVE: fm-watch.sh
+# A fixed wait_live budget only proves the process is still ALIVE: supervision-watch.sh
 # does bounded startup work (the recovery-marker snapshot, lock acquisition)
 # before its first stale scan, so on a loaded
 # machine a short fixed budget can reap a round before the cycle it asserts on
@@ -86,7 +86,7 @@ wait_poll_cycle() {  # <state> <pid> [limit-ticks]
 }
 
 # Every wait_for_exit budget in this file is 100 ticks (10s), not because any
-# watcher takes that long to decide, but because fm-watch.sh does bounded
+# watcher takes that long to decide, but because supervision-watch.sh does bounded
 # startup work before its first poll: a tighter budget reaps the process while
 # it is still starting and reports a spurious "did not surface" failure. A
 # generous budget can only remove that false negative - a watcher that never
@@ -106,7 +106,7 @@ wait_numeric_file() {
 }
 
 # Portable mtime in epoch seconds. Platform-detected, never the `stat -f || stat -c`
-# fallback (which writes a partial filesystem dump on Linux; see fm-watch.sh).
+# fallback (which writes a partial filesystem dump on Linux; see supervision-watch.sh).
 file_mtime() {
   if [ "$(uname)" = Darwin ]; then stat -f %m "$1" 2>/dev/null; else stat -c %Y "$1" 2>/dev/null; fi
 }
@@ -125,14 +125,14 @@ set_mtime() {  # <epoch> <file>
 }
 
 # Signature a primed .seen-* marker must hold so the per-poll signal scan does not
-# fire on a pre-existing status (mirrors fm-watch.sh's stat_sig exactly).
+# fire on a pre-existing status (mirrors supervision-watch.sh's stat_sig exactly).
 seen_sig() {
   local reported size ident
   case "$1" in
     *.status)
       reported=$(status_observed_signature "$1")
       size=$(size_of "$1")
-      ident=$(_fm_open_decisions_file_ident "$1")
+      ident=$(_open_decisions_file_ident "$1")
       printf 'v2\t%s\t%s@%s' "$reported" "$size" "$ident"
       ;;
     *)
@@ -153,7 +153,7 @@ reap() {
   [ "$rc" -ne 124 ] || fail "watcher pid $1 did not exit within 10s of TERM"
 }
 
-# --- pure classifier predicates (fm-classify-lib.sh) ------------------------
+# --- pure classifier predicates (task-events-lib.sh) ------------------------
 
 size_of() { LC_ALL=C wc -c < "$1" | tr -d '[:space:]'; }
 
@@ -189,7 +189,7 @@ wedge_threshold_round() {  # <state> <fakebin> <out> <capture> <window> <verdict
     FM_FAKE_TMUX_CURRENT_COMMAND="${FM_TEST_PANE_COMMAND-grok}" \
     FM_FAKE_TMUX_WINDOWS="${FM_TEST_TMUX_WINDOWS-}" FM_FAKE_CREW_STATE="$verdict" \
     FM_WATCH_HANDLING_SUCCESSOR=1 \
-    FM_STATE_OVERRIDE="$state" FM_CREW_STATE_BIN="$fakebin/fm-crew-state.sh" \
+    FM_STATE_OVERRIDE="$state" FM_CREW_STATE_BIN="$fakebin/task-state.sh" \
     FM_PAUSE_RESURFACE_SECS="${FM_TEST_PAUSE_RESURFACE:-999}" FM_STALE_ESCALATE_SECS="${FM_TEST_STALE_ESCALATE:-1}" \
     FM_POLL=1 FM_SIGNAL_GRACE=1 \
     FM_CHECK_INTERVAL=999999 FM_HEARTBEAT=999999 "$WATCH" >> "$out" &
@@ -248,16 +248,16 @@ wedge_stale_wakes() {  # <state> <window>
     "$1/.wake-queue" 2>/dev/null || echo 0
 }
 
-# bin/fm-captain-hold.sh against a hold fixture's own home.
+# bin/user-decision.sh against a hold fixture's own home.
 run_hold() {  # <dir> <args...>
   local dir=$1
   shift
   FM_HOME="$dir" FM_STATE_OVERRIDE="$dir/state" FM_DATA_OVERRIDE="$dir/data" \
-    FM_CONFIG_OVERRIDE="$dir/config" "$ROOT/bin/fm-captain-hold.sh" "$@" >/dev/null 2>&1
+    FM_CONFIG_OVERRIDE="$dir/config" "$ROOT/bin/user-decision.sh" "$@" >/dev/null 2>&1
 }
 
 # --- the away-posture record: captain-held items are never rechecked ----------
-# While state/.afk-contract exists (bin/fm-afk-contract.sh) nobody is there to
+# While state/.afk-contract exists (bin/away-mode-contract.sh) nobody is there to
 # answer a captain-held item and the return brief lists it, so every stale path
 # absorbs such a pane silently: the declared-wait cadence, the live-agent first
 # sight, the backlog-hold bound, and the daemon-owned one-shot handoff. Archiving
@@ -270,12 +270,12 @@ iso_utc_at() {  # <epoch>
 }
 
 write_away_record() {  # <state>
-  if ! FM_HOME="$(dirname "$1")" FM_STATE_OVERRIDE="$1" "$ROOT/bin/fm-afk-contract.sh" enter >/dev/null 2>&1; then
+  if ! FM_HOME="$(dirname "$1")" FM_STATE_OVERRIDE="$1" "$ROOT/bin/away-mode-contract.sh" enter >/dev/null 2>&1; then
     fail "could not write the away-posture record in $1"
   fi
 }
 
 archive_away_record() {  # <state>
-  FM_HOME="$(dirname "$1")" FM_STATE_OVERRIDE="$1" "$ROOT/bin/fm-afk-contract.sh" archive >/dev/null 2>&1 \
+  FM_HOME="$(dirname "$1")" FM_STATE_OVERRIDE="$1" "$ROOT/bin/away-mode-contract.sh" archive >/dev/null 2>&1 \
     || fail "could not archive the away-posture record in $1"
 }

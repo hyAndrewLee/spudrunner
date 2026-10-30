@@ -7,9 +7,9 @@ Load this with the selected tool reference for dispatch, start, or adapter verif
 Use the router's detection and safety sections for static crew and project coordinator harness resolution and all explicit overrides.
 `config/crew-dispatch.json` can override that static default for one implementation worker or investigation worker with concrete harness, model, and effort axes.
 For a profile array, load `quota-array-dispatch` after establishing harness and provider facts here.
-When the opt-in `bin/fm-dispatch-resolve.sh` is on, its `clear` answer already names the concrete axes; `docs/configuration.md` "Typed dispatch resolution" owns that contract.
+When the opt-in `bin/dispatch-resolve.sh` is on, its `clear` answer already names the concrete axes; `docs/configuration.md` "Typed dispatch resolution" owns that contract.
 
-`../secondmate-provisioning/SKILL.md` owns inherited local material.
+`../project-coordinator-provisioning/SKILL.md` owns inherited local material.
 Its harness consequence is that a project coordinator's workers receive literal `config/crew-harness` and `config/crew-dispatch.json`, while the primary-only `config/secondmate-harness` is never inherited because project coordinators do not spawn project coordinators.
 A concrete crew value such as `codex` carries that runtime into the project coordinator home.
 Unset or `default` carries no concrete value, so its workers use that home's own or detected harness rather than the primary's effective crew harness.
@@ -17,17 +17,17 @@ The inherited dispatch file applies the same best-fit profiles there.
 
 ## Owners
 
-`../../../bin/fm-spawn.sh` owns launch, autonomy, concrete flags, task-kind compatibility, and worker turn-end wiring.
+`../../../bin/task-launch.sh` owns launch, autonomy, concrete flags, task-kind compatibility, and worker turn-end wiring.
 Natural-language rules stay with Spudrunner, while scripts receive concrete axes.
 
-`../../../bin/fm-busy-lib.sh` owns semantic busy trust.
-Composer shapes, glyphs, placeholders, popups, rendered delivery signals, and the `empty` / `pending` / `pending-unproven` / `unknown` decision belong only to `../../../bin/fm-composer-lib.sh`.
+`../../../bin/agent-activity-lib.sh` owns semantic busy trust.
+Composer shapes, glyphs, placeholders, popups, rendered delivery signals, and the `empty` / `pending` / `pending-unproven` / `unknown` decision belong only to `../../../bin/agent-input-lib.sh`.
 Tool references record empirical knowledge for those executable owners.
 
 ## Adapter verification
 
 For an approved new adapter check, use the spawn owner's raw-launch escape hatch only for a trivial supervised task.
-Verify detection in `../../../bin/fm-harness.sh`, launch in `../../../bin/fm-spawn.sh`, busy state in `../../../bin/fm-busy-lib.sh`, shared composer behavior in `../../../bin/fm-composer-lib.sh`, lifecycle in `../../../bin/fm-control-lib.sh`, and tmux liveness in `../../../bin/backends/tmux.sh` when project coordinator use is supported.
+Verify detection in `../../../bin/agent-runtime.sh`, launch in `../../../bin/task-launch.sh`, busy state in `../../../bin/agent-activity-lib.sh`, shared composer behavior in `../../../bin/agent-input-lib.sh`, lifecycle in `../../../bin/agent-control-lib.sh`, and tmux liveness in `../../../bin/backends/tmux.sh` when project coordinator use is supported.
 Also verify primary integration through `references/common/primary-hooks.md`, model discovery through `references/common/model-and-effort.md`, and one tool record.
 A value remains unreachable until its executable owner, portable regression, applicable credentialed live guard, and verification record land together.
-`../firstmate-coding-guidelines/SKILL.md` owns harness-dependent proof.
+`../coding-guidelines/SKILL.md` owns harness-dependent proof.

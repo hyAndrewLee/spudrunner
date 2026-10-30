@@ -9,7 +9,7 @@ It provides task tabs and their terminal blocks while Treehouse continues to pro
 Pick Rex when you already run Spudrunner inside Rex and want each task as its own tab next to your session.
 The Rex server must run on the same machine as Spudrunner because spawn and liveness checks compare Rex-reported process and filesystem data with local machine state.
 For a new spawn, only a `unix://` endpoint reported by `rex whoami --json` is accepted as proof of locality; other transports, including local TCP endpoints, or an unreadable endpoint are refused before a tab is created or a worktree is leased.
-Use [remote project coordinators](remote-secondmates.md) to run workers on another host.
+Use [remote project coordinators](remote-project-coordinators.md) to run workers on another host.
 Rex is in beta, and its sessions live in a personal server that does not keep them across a server stop.
 
 Prerequisites:
@@ -24,7 +24,7 @@ The adapter therefore prefers `$REX_BIN_DIR/rex`, then `rex` on `PATH`, then the
 Select Rex by running Spudrunner directly inside a Rex block (see "Auto-detection"), with local `config/backend` containing `rex`, with `FM_BACKEND=rex` for one launch, or with an explicit request to Spudrunner.
 A spawn stops with an actionable setup message when the CLI, `jq`, the API revision, or the server is unavailable.
 
-Routine supervision uses `bin/fm-peek.sh <id>` and `FM_HOME=<home> bin/fm-send.sh <id> '<text>'` without bringing any tab forward.
+Routine supervision uses `bin/task-inspect.sh <id>` and `FM_HOME=<home> bin/task-steer.sh <id> '<text>'` without bringing any tab forward.
 
 Verify setup by spawning a small task and confirming its metadata contains `backend=rex`, `rex_server=`, `rex_session_id=`, `rex_window_id=`, and `rex_block_id=`.
 
@@ -94,7 +94,7 @@ While the watcher waits between polls, a Rex home runs one bounded `rex do` read
 The reader subscribes first and the current program status of each block is reconciled after, so a block that went `blocked` between waits is reported once and an edge during the reconcile is not lost.
 A trusted `blocked` program status takes the immediate escalation path instead of waiting for the stale-pane timer; [push verification](verification/runtime-backends.md#push-events) records measured latency.
 It counts only when the process that reported it passes the same foreground-chain rule as native busy state, and its wake reason carries Rex's blocked kind (`permission`, `question`, or `auth`) and the program's message, cut at 160 characters.
-[`bin/fm-transition-lib.sh`](../bin/fm-transition-lib.sh) owns the shared policy and per-block escalation dedupe contract.
+[`bin/agent-transition-lib.sh`](../bin/agent-transition-lib.sh) owns the shared policy and per-block escalation dedupe contract.
 The watcher skips project coordinator endpoints, declared waits, and user-held work exactly as it does for Herdr's push path.
 
 When a watched block's program exits or the block closes, the wait ends at once so the watcher's next poll reconciles that task immediately.
@@ -113,13 +113,13 @@ An omitted `windows` field is treated as an empty session for both retirement an
 When main retires a local project coordinator, it checks and retires that project coordinator's session using the project coordinator home's identity; sessions with tabs or renamed labels are preserved.
 Spawning, reclaiming, and that retirement share one home-wide lock (`state/.rex-session.lock`), so a new tab can never land in a session between its empty check and its kill.
 
-`bin/fm-control.sh` `exit` and `relaunch` work on Rex; [`agent-control.md`](agent-control.md#reclaiming-a-task-whose-endpoint-is-gone) owns the recorded-server absence proof, stopped-server recovery, reclaim placement, and reclaim-only shell-husk cleanup.
+`bin/agent-control.sh` `exit` and `relaunch` work on Rex; [`agent-control.md`](agent-control.md#reclaiming-a-task-whose-endpoint-is-gone) owns the recorded-server absence proof, stopped-server recovery, reclaim placement, and reclaim-only shell-husk cleanup.
 An ordinary spawn refuses any block carrying the task's scoped label.
 
 ## Attention marks
 
 Opt-in: with `config/rex-status-marks` set to `on`, the user sees which worker needs them from Rex itself.
-`bin/fm-rex-marks.sh` turns each Rex task's latest status into one program-status record (OSC 7501, `app=firstmate`, `id=fm`) on that worker's pane, so Rex badges its tab, session, and Activity entry while the worker's own agent keeps the pane's root status.
+`bin/rex-marks.sh` turns each Rex task's latest status into one program-status record (OSC 7501, `app=firstmate`, `id=fm`) on that worker's pane, so Rex badges its tab, session, and Activity entry while the worker's own agent keeps the pane's root status.
 
 | Worker status | Record | Message |
 | --- | --- | --- |
@@ -137,7 +137,7 @@ Spudrunner never writes the root record: the harness owns it, and a second root 
 Spudrunner's own records never count as the worker's state, for busy detection or for push escalation.
 The notification fires once per change, never on a repeated sync.
 Rex has no API to set a record, so the mark is one small write to the pane's terminal device; a `working` or `blocked` record is dropped when the agent's shell prints its next prompt or exits, and the next sync writes it again.
-The watcher runs `fm-rex-marks.sh sync` once per poll only while `config/rex-status-marks` or `config/rex-tint` exists or a cached record remains, and cleanup clears a cached mark before closing the pane.
+The watcher runs `rex-marks.sh sync` once per poll only while `config/rex-status-marks` or `config/rex-tint` exists or a cached record remains, and cleanup clears a cached mark before closing the pane.
 Every write addresses the task's recorded block id, so a mark never lands on another pane.
 
 `config/rex-status-marks` turns the marks `on` or `off` (the default when the file is absent, so a home that never creates it sees no change); turning them off clears every mark and progress record already shown.
@@ -188,10 +188,10 @@ These asks to Superlogical are deliberately unfiled, pending a later decision; e
 ## Regression entry points
 
 ```sh
-tests/fm-backend-rex.test.sh
-tests/fm-backend-rex-smoke.test.sh
-tests/fm-backend-rex-eventwait-smoke.test.sh
-FM_REX_COMPOSER_LIVE=1 tests/fm-backend-rex-composer-live-e2e.test.sh
+tests/runtime-backend-rex.test.sh
+tests/runtime-backend-rex-smoke.test.sh
+tests/runtime-backend-rex-eventwait-smoke.test.sh
+FM_REX_COMPOSER_LIVE=1 tests/runtime-backend-rex-composer-live-e2e.test.sh
 ```
 
 [`tests/rex-test-safety.sh`](../tests/rex-test-safety.sh) owns private-server isolation, cleanup, capability skips, and startup-failure handling for the real-Rex suites.

@@ -1,12 +1,12 @@
 ---
 name: updatespudrunner
-description: Guardedly update Spudrunner when the user requests /updatespudrunner; compatible alias of /updatefirstmate.
-user-invocable: true
+description: Compatibility command for update-spudrunner; use update-spudrunner for new work.
+disable-model-invocation: true
 metadata:
   internal: true
 ---
 
-# updatespudrunner
+# Compatibility command
 
-Read [the existing procedure](../updatefirstmate/SKILL.md) in full and follow it with the user's unchanged arguments.
-This is a naming alias only; it grants no additional authority and changes no lifecycle, state, update, or approval rules.
+Read and follow [the update-spudrunner instructions](../update-spudrunner/SKILL.md).
+This alias preserves existing explicit commands; the canonical implementation is `update-spudrunner`.

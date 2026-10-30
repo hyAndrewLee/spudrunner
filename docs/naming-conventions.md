@@ -30,7 +30,7 @@ Do not rename established interfaces merely to match the display vocabulary.
 ## Compatibility boundary
 
 Retain existing `fm-`, `fm_`, `FM_`, `FIRSTMATE_OP`, `FM_INJECT_MARK`, tool IDs, paths, config filenames, persisted keys, status verbs, kind tokens, and Git branch defaults.
-Existing skill names such as `firstmate-self-repo` and `captain-hold-lifecycle` remain real compatibility entrypoints.
+Existing skill names such as `self-repository-authority` and `user-decision-lifecycle` remain real compatibility entrypoints.
 The internal `ship`, `scout`, `secondmate`, and `captain` protocol values are not display-role names.
 Old command aliases continue to work; new user-facing skill entrypoints forward to the existing owners.
 No standalone `spudrunner` CLI is provided or implied.

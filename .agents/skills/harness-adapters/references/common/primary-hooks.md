@@ -5,10 +5,10 @@ The tool reference establishes either that identity's empirical path or its unsu
 
 ## Turn end
 
-`../../../docs/turnend-guard.md` owns the "no turn ends blind" contract, hook installation, per-surface blocking behavior, and tradeoffs when a hook cannot block.
-`../../../docs/supervision-protocols/` and `../../../bin/fm-supervision-instructions.sh` own harness-specific wake protocols.
+`../../../docs/turn-end-guard.md` owns the "no turn ends blind" contract, hook installation, per-surface blocking behavior, and tradeoffs when a hook cannot block.
+`../../../docs/supervision-protocols/` and `../../../bin/supervision-instructions.sh` own harness-specific wake protocols.
 Never substitute another harness's wait shape.
-`../../../bin/fm-busy-lib.sh` remains the semantic busy owner; a tool reference names only its source and evidence.
+`../../../bin/agent-activity-lib.sh` remains the semantic busy owner; a tool reference names only its source and evidence.
 
 Validate any turn-end change against the real harness in a scratch project or throwaway home.
 Update its executable or hook owner, concise tool fact, and `../../../docs/verification/supervision.md` under "Turn-end guard".
@@ -28,13 +28,13 @@ Never generalize Claude tool names or permissions without live evidence.
 ## Session start
 
 `../../../AGENTS.md` section 3 and the `session-start-recovery` skill remain the behavioral owners.
-`../../../docs/sessionstart-nudge.md` owns native tier assignment, transport, source routing, runtime bound, and fail-open behavior.
+`../../../docs/session-open-nudge.md` owns native tier assignment, transport, source routing, runtime bound, and fail-open behavior.
 Read it before changing session-open behavior.
 `../../../docs/verification/supervision.md` under "Native session-start delivery" owns active dated evidence.
 
 ## Watcher supervision
 
-`../../../bin/fm-session-start.sh` prints exactly one block for the detected primary.
+`../../../bin/session-start.sh` prints exactly one block for the detected primary.
 Follow only that rendered protocol.
-When changing a watcher adapter, update its file under `../../../docs/supervision-protocols/`, update `../../../docs/turnend-guard.md` if shared idle or turn-end behavior changed, and refresh the tool fact.
+When changing a watcher adapter, update its file under `../../../docs/supervision-protocols/`, update `../../../docs/turn-end-guard.md` if shared idle or turn-end behavior changed, and refresh the tool fact.
 An identity without a dedicated protocol uses its documented unsupported or unknown boundary; never invent one from a similar TUI.

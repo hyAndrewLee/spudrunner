@@ -38,7 +38,7 @@ tmux select-window -t <session-name>:fm-<id>
 ```
 
 Typing into an attached task window is authoritative direct intervention.
-Routine supervision does not require attachment: `bin/fm-peek.sh <id>` captures a bounded tail and `FM_HOME=<home> bin/fm-send.sh <id> '<text>'` steers the recorded endpoint.
+Routine supervision does not require attachment: `bin/task-inspect.sh <id>` captures a bounded tail and `FM_HOME=<home> bin/task-steer.sh <id> '<text>'` steers the recorded endpoint.
 
 Verify setup by spawning a small task and confirming its `fm-<id>` window appears in the selected session.
 
@@ -49,7 +49,7 @@ Verify setup by spawning a small task and confirming its `fm-<id>` window appear
 A target-existence check proves only that the pane exists.
 The deeper tmux agent-liveness probe first verifies exact window membership, then reads process names to distinguish a running harness from a bare idle shell.
 It classifies recognized Claude, Codex, OpenCode, Pi, pi-signed, Grok, Kimi, Cursor, Muse, Rovo, and AGY process identities as `alive`, common shells as `dead`, an authoritatively absent window as `missing`, unreadable state as `unreadable`, and every other process as `ambiguous`.
-The process-name vocabulary behind those verdicts is owned by `bin/fm-agent-process-lib.sh` and shared with the Herdr adapter, which proves a registered agent against the same names ([herdr-backend.md](herdr-backend.md) "Restart and liveness behavior").
+The process-name vocabulary behind those verdicts is owned by `bin/agent-process-lib.sh` and shared with the Herdr adapter, which proves a registered agent against the same names ([herdr-backend.md](herdr-backend.md) "Restart and liveness behavior").
 Only `dead` and `missing` authorize recovery because a false dead result could launch a duplicate agent.
 
 For positive attribution, the probe combines two independent name sources rather than making either one load-bearing.
@@ -68,13 +68,13 @@ Cortex is anchored to the exact `cortex` identity for the same reason.
 An unrelated tool that ships a binary named exactly `cortex` is still classified as an agent when it is a pane's foreground process, because the exact name is the only identity Cortex Code carries.
 Cursor is identified from its exact `cursor-agent` identity or versioned install tree in the foreground process path or structured argv[0]; a bare `node` or unrelated `agent` remains ambiguous.
 
-The CI-enforced portable regression and opt-in real-harness drift guard follow the split owned by `.agents/skills/firstmate-coding-guidelines/SKILL.md`.
+The CI-enforced portable regression and opt-in real-harness drift guard follow the split owned by `.agents/skills/coding-guidelines/SKILL.md`.
 Run the real-harness guard after any harness upgrade and before trusting refreshed evidence.
 
 ### Composer, busy state, and delivery
 
 Agent liveness and composer safety are separate checks.
-The tmux reader is a thin adapter over the fleet-wide classifier in `bin/fm-composer-lib.sh`: it contributes one styled full-pane capture, the `#{cursor_y}` cursor row, and foreground-process identity probes, and the shape containing the cursor - a complete bordered box (titled bottom borders tolerated, and rounded titled top rules only for a pane whose foreground process is exactly `cortex`), a bare agent-glyph row with its wrapped input, opencode's left bar, or Pi's identity-corroborated separator pair - normally decides the verdict.
+The tmux reader is a thin adapter over the fleet-wide classifier in `bin/agent-input-lib.sh`: it contributes one styled full-pane capture, the `#{cursor_y}` cursor row, and foreground-process identity probes, and the shape containing the cursor - a complete bordered box (titled bottom borders tolerated, and rounded titled top rules only for a pane whose foreground process is exactly `cortex`), a bare agent-glyph row with its wrapped input, opencode's left bar, or Pi's identity-corroborated separator pair - normally decides the verdict.
 Since OpenCode 1.18.0 its left bar also draws the working directory and branch right-aligned inside the rows above the Build footer, and the classifier recognises that cwd:branch furniture structurally so an idle pane keeps a proven `empty` verdict.
 OpenCode 1.19.0 draws its mode/model footer row de-emphasised, so the classifier proves that footer from both the ghost-stripped and the ANSI-stripped form of the row; the dated capture and the plain-form safety argument are in [runtime backend verification](verification/runtime-backends.md#2026-10-14-opencode-1190-de-emphasised-modefooter-row-in-the-left-bar-composer).
 Real text in an identified shape is pending, while only positively proven emptiness reads empty.
@@ -84,17 +84,17 @@ The shared classifier accepts a shell glyph as an empty agent composer only insi
 A bare shell prompt is `unknown`, so away-mode escalation is never injected into a dead shell.
 
 Busy state is not read from rendered text on this backend.
-A task's busy, idle, unknown, or dead verdict comes from the semantic busy-state contract owned by `bin/fm-busy-lib.sh`; [architecture](architecture.md#busy-state-is-semantic-per-adapter) owns its boundaries.
+A task's busy, idle, unknown, or dead verdict comes from the semantic busy-state contract owned by `bin/agent-activity-lib.sh`; [architecture](architecture.md#busy-state-is-semantic-per-adapter) owns its boundaries.
 The isolated rendered-tail busy fallbacks that remain are harness-scoped, so one adapter's output can never classify another's task.
 The submit acknowledgement and away-mode supervisor-pane busy guard below still consult rendered output, but only to decide whether input can be delivered, never to decide recorded task state.
 The supervisor guard selects only the detected primary harness's signature rather than a global union of vendor patterns.
 
-`bin/fm-tmux-lib.sh` owns exact type-and-submit mechanics.
+`bin/tmux-lib.sh` owns exact type-and-submit mechanics.
 It types a message once and retries Enter only until the composer clears.
 Only a proven empty composer is a positive delivery acknowledgement.
 Text left in established structure remains `pending`, text in ambiguous structure remains unproven, and unreadable or unsafe state remains unknown.
-An ordinary local `fm-send.sh` text steer and every remote text steer no longer ride this verified submit at all: they become durable steering-inbox records plus best-effort constant doorbell lines (`bin/fm-task-inbox-lib.sh`).
-The verdicts above are delivery-critical only for the local typed plane - harness-native invocations and explicit backend targets - where `fm-send.sh` still never retypes or assumes a confirmed submit for an unconfirmed verdict; its header owns the distinct delivered-unconfirmed exit status and operator response.
+An ordinary local `task-steer.sh` text steer and every remote text steer no longer ride this verified submit at all: they become durable steering-inbox records plus best-effort constant doorbell lines (`bin/task-inbox-lib.sh`).
+The verdicts above are delivery-critical only for the local typed plane - harness-native invocations and explicit backend targets - where `task-steer.sh` still never retypes or assumes a confirmed submit for an unconfirmed verdict; its header owns the distinct delivered-unconfirmed exit status and operator response.
 
 OpenCode has one busy-queue exception.
 While OpenCode is mid-turn, Enter queues the message but leaves its text visible until the turn completes.
@@ -102,24 +102,24 @@ After the normal retry budget, only structurally proven pending text in a provab
 Ambiguous pending text never receives the busy-queue conversion.
 A second, baseline-gated conversion covers harnesses whose mid-turn screen the classifier cannot identify (Pi replaces its separated composer while working): when and only when the pane was idle before the text was typed, an idle-to-busy transition across the submit's own Enter confirms delivery, the same turn-started signal Herdr reads natively.
 Without that baseline, an `unknown` verdict is preserved untouched, so a busy-looking pane can never convert an unread composer into a confirmation.
-`tests/fm-tmux-submit-busy.test.sh` covers busy and idle panes with proven, ambiguous, and cleared composers.
+`tests/tmux-submit-busy.test.sh` covers busy and idle panes with proven, ambiguous, and cleared composers.
 
 ## Limits and regression entry points
 
 - tmux is the reference path and supports project coordinator homes.
 
 ```sh
-tests/fm-backend-tmux-smoke.test.sh
-tests/fm-tmux-agent-liveness.test.sh
-tests/fm-harness-liveness-drift-live-e2e.test.sh
-tests/fm-composer-ghost.test.sh
-tests/fm-kimi-harness.test.sh
-tests/fm-kimi-trust-prompt-live-e2e.test.sh
-tests/fm-cursor-harness.test.sh
-tests/fm-muse-harness.test.sh
-tests/fm-omp-harness.test.sh
-tests/fm-tmux-submit-busy.test.sh
-tests/fm-bootstrap.test.sh
+tests/runtime-backend-tmux-smoke.test.sh
+tests/tmux-agent-liveness.test.sh
+tests/agent-runtime-liveness-drift-live-e2e.test.sh
+tests/agent-input-ghost.test.sh
+tests/kimi-harness.test.sh
+tests/kimi-trust-prompt-live-e2e.test.sh
+tests/cursor-harness.test.sh
+tests/muse-harness.test.sh
+tests/omp-harness.test.sh
+tests/tmux-submit-busy.test.sh
+tests/installation-check.test.sh
 ```
 
 [`verification/runtime-backends.md`](verification/runtime-backends.md#tmux) records the active foreground-process and submit evidence.

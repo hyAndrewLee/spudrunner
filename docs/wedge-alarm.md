@@ -1,6 +1,6 @@
 # Away-mode injection wedge alarm
 
-The away-mode sub-supervisor (`bin/fm-supervise-daemon.sh`) buffers escalations and injects them into Spudrunner's own supervisor endpoint.
+The away-mode sub-supervisor (`bin/away-supervision-daemon.sh`) buffers escalations and injects them into Spudrunner's own supervisor endpoint.
 When injection cannot confirm a submit past `FM_MAX_DEFER_SECS`, `inject_wedge_alarm` raises a loud, rate-limited alarm so the stall never stays invisible.
 The active alert is pane-independent because a tmux status-line flash has no cross-backend equivalent and cannot reach an unattended user reliably.
 The durable marker and tmux flash remain as additional signals.
@@ -36,5 +36,5 @@ When the daemon is sourced as a library, that seam defaults to `discard`, so a t
 `tests/wake-helpers.sh` replaces it with a recorder when a suite needs to assert channel selection and summary propagation.
 Production leaves the seam unset and uses the configured real channels.
 
-`tests/fm-daemon.test.sh` covers directive parsing, rate limiting, timeout and process-group cleanup, argv-safe dispatch, channel fallback, and safe `command:` summary delivery.
+`tests/daemon.test.sh` covers directive parsing, rate limiting, timeout and process-group cleanup, argv-safe dispatch, channel fallback, and safe `command:` summary delivery.
 [`verification/supervision.md`](verification/supervision.md#wedge-alarm-channels) records the bounded manual macOS and Herdr channel proof.

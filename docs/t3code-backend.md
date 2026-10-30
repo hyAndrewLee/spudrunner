@@ -2,7 +2,7 @@
 
 T3 Code is an experimental backend in which the T3 Code server owns the agent session while Treehouse keeps owning the task worktree.
 Spudrunner drives the server only through its Orchestrator V2 `/mcp` endpoint, signed in as an OAuth `mcp-client`, and nothing is typed into a terminal.
-[`bin/fm-t3-mcp.mjs`](../bin/fm-t3-mcp.mjs) owns that transport, the credential, and the capability gate; [`bin/backends/t3code.sh`](../bin/backends/t3code.sh) owns the backend primitives built on it.
+[`bin/t3code-mcp.mjs`](../bin/t3code-mcp.mjs) owns that transport, the credential, and the capability gate; [`bin/backends/t3code.sh`](../bin/backends/t3code.sh) owns the backend primitives built on it.
 [`configuration.md`](configuration.md#runtime-backend-configbackend--fm_backend) owns shared selection and metadata semantics.
 
 ## Setup
@@ -40,7 +40,7 @@ The [capability gate](#capability-gate) applies before spawn, control, or teardo
 Issuing a full-access agent credential is the user's decision, so the user runs the sign-in and Spudrunner never does:
 
 ```sh
-bin/fm-t3-mcp.mjs login --access full-access
+bin/t3code-mcp.mjs login --access full-access
 ```
 
 The server origin defaults to `FM_T3CODE_ORIGIN`, else the `origin` in `~/.t3/userdata/server-runtime.json`; `--url <origin>` names it explicitly.
@@ -78,7 +78,7 @@ Every selected option is checked against the model's catalog descriptors.
 
 ### Capability gate
 
-Every call first runs `tools/list` and refuses unless T3 offers every tool in `REQUIRED_TOOLS` in `bin/fm-t3-mcp.mjs` (the thread, project, configuration, pending-request, and catalog tools) and `t3_environment_read`.
+Every call first runs `tools/list` and refuses unless T3 offers every tool in `REQUIRED_TOOLS` in `bin/t3code-mcp.mjs` (the thread, project, configuration, pending-request, and catalog tools) and `t3_environment_read`.
 It then refuses unless `t3_environment_read` reports the environment id recorded at sign-in, so a different T3 server behind the same address is never driven with this credential.
 A refusal names the missing tool or both environment ids, and spawn, control, and teardown stop before their first mutation.
 This gate replaces the HTTP dispatch probe and version floor of the pre-V2 transport, which T3 0.0.46 removed.
@@ -106,7 +106,7 @@ Firstmate-created untracked environment files are git-excluded and removed at te
 An existing untracked `.codex/config.toml` without Spudrunner's marker is preserved and refused.
 A symlinked `.codex` directory, config file, or tracked-overlay journal is refused.
 For a tracked `.codex/config.toml`, Spudrunner preserves the project bytes and appends its policy only if the file does not already define `shell_environment_policy`, including through dotted or quoted keys.
-`bin/fm-t3code-codex-env.sh` owns the tracked overlay, its private worktree Git journal, and its `skip-worktree` protection against ordinary staging and commits.
+`bin/t3code-codex-env.sh` owns the tracked overlay, its private worktree Git journal, and its `skip-worktree` protection against ordinary staging and commits.
 Teardown restores the original bytes and prior Git flag before returning the slot; unexpected file or index edits refuse cleanup and retain the journal for recovery.
 The tracked path requires Python 3.11 or newer for TOML parsing; the script uses the first of `python3`, `python3.14`, `python3.13`, `python3.12`, or `python3.11` on `PATH` that imports `tomllib`, and refuses before any mutation when none does.
 Codex's [configuration layers](https://learn.chatgpt.com/docs/config-file/config-basic#configuration-precedence) provide no separate per-directory fragment for a thread launched at the repository root, and T3 cannot select a different CLI override or profile per thread.
@@ -123,17 +123,17 @@ A `claude` task checks the leased worktree and refuses a tracked, existing, or s
 Spawn matches the project (the home, for a project coordinator) by real path against T3's live projects, creating one titled `fm-<directory name>` with `t3_project_create` when absent, and leases the worktree for a worker.
 It then launches an idle thread with `t3_thread_launch` (the workspace strategy and branch, `full-access` runtime mode, the model selection) and reads the thread and its `t3_thread_configuration` back; a thread T3 bound to another workspace, runtime mode, instance, model, or option value is archived and the spawn refuses.
 It installs the harness hooks, records metadata, installs the [per-directory harness environment](#per-directory-harness-environment), and sends the encoded brief (the charter, for a project coordinator) as the thread's first message with `t3_thread_send`.
-Exact call payloads are owned by `bin/fm-t3-mcp.mjs` and `bin/backends/t3code.sh`.
+Exact call payloads are owned by `bin/t3code-mcp.mjs` and `bin/backends/t3code.sh`.
 
-`fm-peek.sh` renders the newest items of the thread's activity view as `[type/status] text` lines followed by a `t3code: status=<status> run=<active run>` line.
+`task-inspect.sh` renders the newest items of the thread's activity view as `[type/status] text` lines followed by a `t3code: status=<status> run=<active run>` line.
 T3 pages that view oldest first, so the helper starts from the thread's visible item count to read the tail.
-An ordinary metadata-routed `fm-send.sh` text steer becomes a durable steering-inbox record, and its doorbell is a `t3_thread_send` in `auto` mode, which starts an idle thread's next turn or steers the running one.
+An ordinary metadata-routed `task-steer.sh` text steer becomes a durable steering-inbox record, and its doorbell is a `t3_thread_send` in `auto` mode, which starts an idle thread's next turn or steers the running one.
 T3 derives the message id from the client request id within the auth session that sent it and commits a send before it replies, so retries must reuse that id, under the same sign-in, to reach the message T3 already committed.
 For ordinary sends and doorbells, the adapter reuses the id stored in a record keyed by thread and text for up to 60 minutes from creation, ending that delivery earlier on confirmation or a typed send refusal.
 After that window, identical text starts a new delivery, so verify an older unconfirmed send in T3 Code before resending it.
 An accepted delivery's outcome (its request id, `messageId`, `runId`, and `delivery`) is kept for a day as `state/t3code-sends/<request-id>.accepted`, so it can be reconciled against T3's own message and run.
 The submit primitive reports `empty` when T3 accepts the message, `unconfirmed` when its reply was lost or T3 answered with a JSON-RPC server error, its catch-all `orchestration_error`, or a tool error without a code, none of which proves the message was not taken, and `send-failed` only for proven non-delivery.
-The direct-submit plane of `fm-send.sh` reports `unconfirmed` as exit 3 with any reply expectation kept armed; an inbox steer's exit status still follows the [durable-record contract](../bin/fm-send.sh).
+The direct-submit plane of `task-steer.sh` reports `unconfirmed` as exit 3 with any reply expectation kept armed; an inbox steer's exit status still follows the [durable-record contract](../bin/task-steer.sh).
 After `unconfirmed`, an unmarked send can reuse its request id by resending identical text within that window; a marked project coordinator request is not resent, because a rerun mints a new reply correlation and so a new message.
 While the logical delivery still holds its id, a retry that fails for any reason other than T3 refusing the send, including an unreachable server, stays `unconfirmed` and keeps that id.
 The away daemon mints a request id for each T3 digest.
@@ -147,13 +147,13 @@ T3 stops its latest active run asynchronously and names it, so the `cancel=` ver
 `exit` is refused before anything is sent: the V2 `/mcp` tools have no session stop, and an interrupt leaves the thread idle and alive, so no stop could be proven.
 `relaunch` is refused before anything is stopped: a T3 thread keeps its conversation, so a new turn continues the same agent, and a provider or model change through `t3_thread_configure` is a context handoff on that same thread rather than the fresh agent a relaunch promises.
 
-The watcher and `fm-crew-state.sh` use the adapter's [thread status table](#restart-and-liveness-behavior) ahead of harness gates and hook records (source `t3code-native`), so a codex crew settles from T3's status even though codex has no verified hook writer.
+The watcher and `task-state.sh` use the adapter's [thread status table](#restart-and-liveness-behavior) ahead of harness gates and hook records (source `t3code-native`), so a codex crew settles from T3's status even though codex has no verified hook writer.
 Native uncertainty stays unknown instead of falling through to a hook record or rendered fallback.
-Watcher re-rings for ordinary records treat that uncertainty like busy, so a due doorbell waits and spends the same busy-deferral budget [`bin/fm-task-inbox-lib.sh`](../bin/fm-task-inbox-lib.sh) owns before a stuck-busy escalation.
-The initial `fm-send.sh` doorbell follows that library's best-effort ring contract instead.
+Watcher re-rings for ordinary records treat that uncertainty like busy, so a due doorbell waits and spends the same busy-deferral budget [`bin/task-inbox-lib.sh`](../bin/task-inbox-lib.sh) owns before a stuck-busy escalation.
+The initial `task-steer.sh` doorbell follows that library's best-effort ring contract instead.
 A thread's capture stays byte-identical through a long tool call, so before reporting a possible wedge the watcher rechecks the [thread status table](#restart-and-liveness-behavior) and resets its stale timer only for the `running` word.
 That deferral is itself bounded by `FM_BUSY_TURN_MAX_SECS`, measured from the latest run boundary T3 records (completion, or start while the run is still active), so a hung run still reaches the possible-wedge alert, and a missing run timestamp never defers.
-`wedge_defer_t3code_running` in `bin/fm-watch.sh` owns that consult; all other classified words keep the ordinary escalation ladder, including its declared-wait, worktree-write, and dead-record checks.
+`wedge_defer_t3code_running` in `bin/supervision-watch.sh` owns that consult; all other classified words keep the ordinary escalation ladder, including its declared-wait, worktree-write, and dead-record checks.
 T3 launches Claude with the `user,project,local` setting sources, so the worktree `.claude/settings.local.json` busy hooks fire as on every other backend.
 T3 starts every agent with the T3 server's own environment, not a login shell's.
 Codex runs each command through `/bin/zsh -lc` in that environment, so the Spudrunner toolchain must survive the login shell's startup files, and a startup file that rebuilds `PATH` when a marker variable is missing hides it from every Codex worker; Claude's shell tool restores its own login-shell snapshot and is unaffected.
@@ -194,16 +194,16 @@ Thread persistence alone does not prove a live agent.
 - An unreachable server, a refused gate, or a failed read reads `unknown unreadable`, which is never treated as proof that a replacement agent is safe.
 
 Inspect a failed worker's thread error before sending a new turn through its normal steer path.
-A new turn continues the same driver and transcript; `fm-control.sh relaunch` remains refused.
+A new turn continues the same driver and transcript; `agent-control.sh relaunch` remains refused.
 Automatic project coordinator recovery treats a failed run the same way: the thread is still readable, so recovery resumes it in place with one recovery turn instead of archiving it and launching a second thread, and the relaunch ledger bounds repeats.
 That turn tells the project coordinator to re-read its `AGENTS.md` and config first, and startup still delivers its queued config re-read retries, because a resumed conversation does not re-read on its own the way a fresh launch does.
-A project coordinator thread that reads missing is closed again through the idempotent archive before a replacement thread is launched, and when that close cannot be proven the thread and its record stay as recorded and nothing is spawned; other backends keep their existing best-effort close ([`bin/fm-secondmate-liveness-lib.sh`](../bin/fm-secondmate-liveness-lib.sh)).
+A project coordinator thread that reads missing is closed again through the idempotent archive before a replacement thread is launched, and when that close cannot be proven the thread and its record stay as recorded and nothing is spawned; other backends keep their existing best-effort close ([`bin/project-coordinator-liveness-lib.sh`](../bin/project-coordinator-liveness-lib.sh)).
 Teardown still requires a proven archive before returning the worktree.
 
 ## Push events and polling fallback
 
 T3 accepts an `mcp-client` session only on `/mcp`, so its WebSocket event stream is not available to this credential.
-`t3_thread_wait` is itself event-driven on T3's stored run updates, so the watcher's push splice uses it instead: each cycle makes one bounded `fm-t3-mcp.mjs watch` call across the recorded T3 workers.
+`t3_thread_wait` is itself event-driven on T3's stored run updates, so the watcher's push splice uses it instead: each cycle makes one bounded `t3code-mcp.mjs watch` call across the recorded T3 workers.
 A new or changed set of pending requests is escalated at once, once per set, as a `blocked` wake that names the question ids and any permission approvals.
 Each approval is identified by its `approval_request` activity item, which T3 holds at status `waiting` until it is answered, among the thread's last 100 items, so an approval answered and replaced by another before the next cycle is a new set ([source evidence](verification/runtime-backends.md#permission-approvals-in-the-activity-view)).
 Otherwise the call waits on each thread's exact active run and returns as soon as one turns terminal, so the poll loop reconciles that turn without waiting out its interval; with no active run it sleeps the interval instead of re-arming.
@@ -211,7 +211,7 @@ The poll loop, its wedge timer, and the `FM_BUSY_TURN_MAX_SECS` bound on a runni
 Project coordinator threads stay off the splice, as on Herdr.
 In a home that also records Herdr or Rex workers, that backend keeps the push wait and the T3 workers stay on the poll loop, so adding a T3 task never slows Herdr or Rex escalation.
 
-Read and answer a worker's pending questions with [`bin/fm-t3-answer.sh`](../bin/fm-t3-answer.sh), which uses T3's `t3_pending_request_*` tools.
+Read and answer a worker's pending questions with [`bin/t3code-answer.sh`](../bin/t3code-answer.sh), which uses T3's `t3_pending_request_*` tools.
 Those tools list and answer questions only; a permission approval is visible through `t3_thread_read`'s activity view as an `approval_request` item, which is how the wake identifies it, but no `/mcp` tool answers it, so it is surfaced as a count and answered only in T3 Code itself.
 
 <a id="away-mode"></a>
@@ -232,9 +232,9 @@ If a fresh daemon entry discards a queued, undelivered warning, it clears that w
 Refreshing a live daemon preserves the queue; a failed start restores the previous queue and reported markers.
 Confirmed busy activity, a missing thread, or an idle verdict after the unknown condition was reported clears the stale and reported markers without another report, so a later unknown condition can report again.
 Declared external-wait rechecks also survive native uncertainty; the worker's declaration still controls their cadence.
-`stale_window_is_busy` and `housekeeping` in `bin/fm-supervise-daemon.sh` own stale tracking; `fm_afk_clear_stale_artifacts` in `bin/fm-afk-start.sh` and the launcher in `bin/fm-afk-launch.sh` own queue discard and startup rollback.
-`tests/fm-backend-t3code.test.sh` covers retention, deduplication, and re-arming across native restart.
-Only `bin/fm-afk-launch.sh start-native` launches the daemon here, as the user's own tracked background job; `start` refuses because T3 hosts no terminal to create.
+`stale_window_is_busy` and `housekeeping` in `bin/away-supervision-daemon.sh` own stale tracking; `away_mode_clear_stale_artifacts` in `bin/away-mode-start.sh` and the launcher in `bin/away-mode-launch.sh` own queue discard and startup rollback.
+`tests/runtime-backend-t3code.test.sh` covers retention, deduplication, and re-arming across native restart.
+Only `bin/away-mode-launch.sh start-native` launches the daemon here, as the user's own tracked background job; `start` refuses because T3 hosts no terminal to create.
 A project coordinator spawned on this backend carries its supervisor identity in its environment, so its own daemon needs no discovery.
 
 ## Switching back to Herdr
@@ -249,9 +249,9 @@ Keep each task's recorded thread id and use normal steering and teardown after s
 If a task's thread no longer reads back, release the task by hand:
 
 1. Archive the task's thread in T3 Code and satisfy the [cleanup proof above](#current-lifecycle-and-safety) before releasing its worktree or home.
-2. For a worker, undo the per-worktree environment with `bin/fm-t3code-codex-env.sh cleanup <worktree>`, then remove `.claude/settings.local.json` and, unless the project tracks it, `CLAUDE.local.md` from the worktree.
+2. For a worker, undo the per-worktree environment with `bin/t3code-codex-env.sh cleanup <worktree>`, then remove `.claude/settings.local.json` and, unless the project tracks it, `CLAUDE.local.md` from the worktree.
    Skipping this hands the next holder of the slot a hidden `.codex/config.toml` overlay carrying the dead task's environment, and refuses the next T3 Codex spawn there.
-   For a project coordinator, release its own tasks in this same order, then run `bin/fm-t3code-codex-env.sh cleanup <home>`, remove the keys `FM_T3CODE_ENV_KEYS` lists, and `FM_T3CODE_ENV_KEYS` itself, from the home's `.claude/settings.local.json`, keeping the home's own entries, and remove the `config/t3code-token` symlink before releasing the home.
+   For a project coordinator, release its own tasks in this same order, then run `bin/t3code-codex-env.sh cleanup <home>`, remove the keys `FM_T3CODE_ENV_KEYS` lists, and `FM_T3CODE_ENV_KEYS` itself, from the home's `.claude/settings.local.json`, keeping the home's own entries, and remove the `config/t3code-token` symlink before releasing the home.
 3. For a worker, return its slot with `treehouse return --force <worktree>` from its project.
    A project coordinator has no separate task worktree, but its home may itself be leased: preserve its durable records and unlanded work, then return a pooled home with `treehouse return --force <home>` from the Spudrunner code root, or remove a standalone home by hand.
    Remove its line from the parent's `data/secondmates.md`.
@@ -265,7 +265,7 @@ If a task's thread no longer reads back, release the task by hand:
   Unless `config/keep-ai-trailers` is present, the per-worktree environment selects Spudrunner's Git commit hook to strip known AI trailers, including on T3 workers.
 - T3 also owns the Codex provider command, so Spudrunner cannot apply the pane-backed worker's hook-disable or turn-end notify options.
   Spudrunner's pane-backed hook-trust workaround therefore does not apply; supervision uses T3's [thread status table](#restart-and-liveness-behavior).
-- `fm-control.sh exit` is refused because the V2 `/mcp` tools have no session stop, and `relaunch` is refused because a thread keeps its conversation, so no fresh agent can replace it.
+- `agent-control.sh exit` is refused because the V2 `/mcp` tools have no session stop, and `relaunch` is refused because a thread keeps its conversation, so no fresh agent can replace it.
 - The WebSocket event stream is not available to an `mcp-client` credential; the [run wait](#push-events-and-polling-fallback) stands in for it.
 - A permission approval cannot be answered through `/mcp`; it waits for T3 Code itself.
 - Request-id deduplication holds within one T3 auth session only: every sign-in starts a new session, so resending an unconfirmed send, or retrying a frozen away-mode digest, after the user signs in again can deliver it twice; verify such a message in T3 Code first.
@@ -278,10 +278,10 @@ If a task's thread no longer reads back, release the task by hand:
 ## Regression entry points
 
 ```sh
-bin/fm-test-run.sh tests/fm-t3-mcp.test.sh tests/fm-backend-t3code.test.sh
-bin/fm-test-run.sh tests/fm-backend.test.sh tests/fm-daemon.test.sh tests/fm-control.test.sh
-FM_CONFIG_OVERRIDE=<home>/config bin/fm-test-run.sh tests/fm-backend-t3code-live-e2e.test.sh
-FM_T3CODE_PR_TOOLS_LIVE=1 FM_CONFIG_OVERRIDE=<home>/config bin/fm-test-run.sh tests/fm-backend-t3code-pr-tools-live-e2e.test.sh
+bin/test-run.sh tests/t3code-mcp.test.sh tests/runtime-backend-t3code.test.sh
+bin/test-run.sh tests/runtime-backend.test.sh tests/daemon.test.sh tests/agent-control.test.sh
+FM_CONFIG_OVERRIDE=<home>/config bin/test-run.sh tests/runtime-backend-t3code-live-e2e.test.sh
+FM_T3CODE_PR_TOOLS_LIVE=1 FM_CONFIG_OVERRIDE=<home>/config bin/test-run.sh tests/runtime-backend-t3code-pr-tools-live-e2e.test.sh
 ```
 
 The portable entry points cover the T3 adapter against a [fake `/mcp` server](../tests/t3-fake-server.mjs) and fake Treehouse, plus the shared backend, daemon, and control behavior.

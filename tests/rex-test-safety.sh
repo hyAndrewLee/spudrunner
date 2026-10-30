@@ -27,9 +27,9 @@ rex_test_prepare() {
   export TERM_PROGRAM=fm-test
   command -v jq >/dev/null 2>&1 || { echo "skip: jq not found (required by the rex adapter)"; return 1; }
   # shellcheck source=/dev/null
-  . "$REX_TEST_ROOT/bin/fm-backend.sh"
-  fm_backend_source rex || { echo "not ok - could not source the rex adapter" >&2; return 2; }
-  REX_TEST_REAL=$(fm_backend_rex_bin) || { echo "skip: rex CLI not found at \$REX_BIN_DIR, on PATH, or at the server bundle path"; return 1; }
+  . "$REX_TEST_ROOT/bin/runtime-backend.sh"
+  runtime_backend_source rex || { echo "not ok - could not source the rex adapter" >&2; return 2; }
+  REX_TEST_REAL=$(runtime_backend_rex_bin) || { echo "skip: rex CLI not found at \$REX_BIN_DIR, on PATH, or at the server bundle path"; return 1; }
   REX_TEST_WORK=$(cd "$(mktemp -d "${TMPDIR:-/tmp}/fm-rex-test.XXXXXX")" && pwd -P) || return 2
   mkdir -p "$REX_TEST_WORK/guard" "$REX_TEST_WORK/home/state" "$REX_TEST_WORK/server-state"
   : >"$REX_TEST_WORK/allowed"
@@ -55,7 +55,7 @@ rex_test_prepare() {
   export REX_BIN_DIR="$REX_TEST_WORK/guard" FM_REX_TEST_REAL="$REX_TEST_REAL" \
     FM_REX_TEST_ENDPOINT="$REX_TEST_ENDPOINT" FM_REX_TEST_ALLOWED="$REX_TEST_WORK/allowed" \
     FM_REX_TEST_TRIP="$REX_TEST_WORK/tripwire" FM_REX_TEST_CALLS="$REX_TEST_WORK/calls"
-  fm_backend_rex_version_check read >/dev/null 2>&1 || {
+  runtime_backend_rex_version_check read >/dev/null 2>&1 || {
     echo "not ok - private Rex server is below the verified API revision" >&2
     rex_test_cleanup
     return 2
@@ -166,10 +166,10 @@ rex_test_start_server() {
 # it, and print "<session-id> <first-block-id>".
 rex_test_new_session() {  # <label-suffix>
   local out sid bid
-  out=$(fm_backend_rex_cli new "fm-test-$1-$$" --window fm-test-main --cwd "$REX_TEST_WORK" --json) || return 1
+  out=$(runtime_backend_rex_cli new "fm-test-$1-$$" --window fm-test-main --cwd "$REX_TEST_WORK" --json) || return 1
   sid=$(printf '%s' "$out" | jq -r .session_id)
   bid=$(printf '%s' "$out" | jq -r '.initial_windows[0].block_ids[0]')
-  fm_backend_rex_id_valid session "$sid" && fm_backend_rex_id_valid block "$bid" || return 1
+  runtime_backend_rex_id_valid session "$sid" && runtime_backend_rex_id_valid block "$bid" || return 1
   printf '%s\n' "$sid" >>"$REX_TEST_WORK/allowed"
   printf '%s %s' "$sid" "$bid"
 }

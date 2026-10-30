@@ -52,7 +52,7 @@ Select Herdr in any of these ways:
 - `FM_BACKEND=herdr` for one launch.
 - An explicit request to Spudrunner.
 
-A remote second-mate agent is the one case with no choice: it always runs on Herdr, and [`remote-secondmates.md`](remote-secondmates.md) owns that requirement and the readiness its host must meet.
+A remote second-mate agent is the one case with no choice: it always runs on Herdr, and [`remote-project-coordinators.md`](remote-project-coordinators.md) owns that requirement and the readiness its host must meet.
 
 Herdr is also auto-detected when the primary runs natively under `HERDR_ENV=1` and is not inside tmux.
 A tmux pane nested inside Herdr resolves to tmux because the innermost multiplexer wins.
@@ -63,7 +63,7 @@ An auto-detected Herdr spawn stays silent, matching the verified tmux default pa
 Spawn stops before creating a Herdr container or acquiring a task worktree when `herdr`, `jq`, or the protocol floor is unavailable.
 No separate first-run provisioning is required.
 
-The required CI lane uses the pinned installers in `bin/fm-install-herdr.sh` and `bin/fm-install-treehouse.sh`.
+The required CI lane uses the pinned installers in `bin/install-herdr.sh` and `bin/install-treehouse.sh`.
 Those script headers own release assets, checksums, download bounds, and post-install gates.
 Real harness credential tests remain opt-in rather than part of default CI.
 
@@ -92,7 +92,7 @@ Selection also follows these rules:
 - Status that supplies neither `.server.compatible` nor both client and server protocols leaves compatibility unknown.
 - No other failure triggers a reselection.
 
-`fm-remote-doctor.sh` reports the client selected for the remote session.
+`remote-doctor.sh` reports the client selected for the remote session.
 Removing or upgrading the shadowing client is the durable fix.
 `bin/backends/herdr.sh` "client selection" owns the mechanics.
 
@@ -111,7 +111,7 @@ A project coordinator launched by the primary receives a narrowly scoped home ov
 ### Watching tasks
 
 Attach to the selected named Herdr session and switch to the relevant home workspace to watch its task tabs.
-Routine supervision uses `bin/fm-peek.sh <id>` and `FM_HOME=<home> bin/fm-send.sh <id> '<text>'` without attaching.
+Routine supervision uses `bin/task-inspect.sh <id>` and `FM_HOME=<home> bin/task-steer.sh <id> '<text>'` without attaching.
 
 ### Focus
 
@@ -464,10 +464,10 @@ Any of these preserves the candidate and lets session startup continue with at m
   So a Herdr create failure surfaces as a spawn failure in every Herdr home, rather than only in homes that opted in.
   Every earlier degradation on the fresh projected-create path (no session server, contended presentation lock, absent or ambiguous parent) still warns and continues flat.
 - Recovery of an existing presentation journal refuses by default when the shared presentation lock is contended, rather than falling back flat.
-  Pass `fm-spawn.sh --herdr-resume-lock-wait` to opt that recovery into waiting for the lock instead, so concurrent recoveries can serialize.
+  Pass `task-launch.sh --herdr-resume-lock-wait` to opt that recovery into waiting for the lock instead, so concurrent recoveries can serialize.
   The flag applies to a fresh ship or investigation worker spawn that recovers a journal.
   The multi-task path forwards the flag to each per-pair spawn.
-  `fm-spawn.sh --relaunch` and `--secondmate` take no exact-resume presentation-order lock, so the flag has no effect there.
+  `task-launch.sh --relaunch` and `--secondmate` take no exact-resume presentation-order lock, so the flag has no effect there.
   Dead-owner reclaim still stops the wait when a holder crashed.
   Unbounded blocking on the session lock is never the default.
 - Existing layouts are not force-renamed or rearranged.
@@ -483,12 +483,12 @@ Any of these preserves the candidate and lets session startup continue with at m
 
 | Test | What it covers |
 | --- | --- |
-| `tests/fm-backend-herdr-presentation-e2e.test.sh` | Multi-home ordering, concurrency, lock contention, legacy coexistence, focus preservation, exact same-identity restart replacement, ambiguous bindings and tokens, and exact-pane cleanup through the guarded lab path. |
-| `tests/fm-herdr-session-cleanup.test.sh` | Every discovery, ownership, topology, process, locking, revalidation, focus, retirement, and continue-on-error boundary. |
-| `tests/fm-herdr-session-cleanup-e2e.test.sh` | The restored-shell cleanup in a guarded non-default named lab. |
-| `tests/fm-backend-herdr-focus-flash-e2e.test.sh` | Reproduces the raw explicit-close focus steal on the installed release, and proves the focus-safe emptying-close plan removes a doomed workspace with no wrong-focus interval. |
-| `tests/fm-backend-herdr-stale-active-tab-e2e.test.sh` | Proves a persisted-focused tab still closes when no foreground client is attached. |
-| `tests/fm-herdr-attached-viewer-live-e2e.test.sh` | Proves the other half against a real attached viewer, which `bin/fm-herdr-lab.sh viewer start` supplies over a pty sized before the fork. |
+| `tests/runtime-backend-herdr-presentation-e2e.test.sh` | Multi-home ordering, concurrency, lock contention, legacy coexistence, focus preservation, exact same-identity restart replacement, ambiguous bindings and tokens, and exact-pane cleanup through the guarded lab path. |
+| `tests/herdr-session-cleanup.test.sh` | Every discovery, ownership, topology, process, locking, revalidation, focus, retirement, and continue-on-error boundary. |
+| `tests/herdr-session-cleanup-e2e.test.sh` | The restored-shell cleanup in a guarded non-default named lab. |
+| `tests/runtime-backend-herdr-focus-flash-e2e.test.sh` | Reproduces the raw explicit-close focus steal on the installed release, and proves the focus-safe emptying-close plan removes a doomed workspace with no wrong-focus interval. |
+| `tests/runtime-backend-herdr-stale-active-tab-e2e.test.sh` | Proves a persisted-focused tab still closes when no foreground client is attached. |
+| `tests/herdr-attached-viewer-live-e2e.test.sh` | Proves the other half against a real attached viewer, which `bin/herdr-lab.sh viewer start` supplies over a pty sized before the fork. |
 
 [`verification/runtime-backends.md`](verification/runtime-backends.md#workspace-removal-focus-safety) owns the active versioned evidence for the focus-flash test.
 [`verification/runtime-backends.md`](verification/runtime-backends.md#attached-foreground-viewer) owns the active versioned evidence and the re-run trigger for the attached-viewer test.
@@ -554,7 +554,7 @@ For each ship and investigation worker task recorded in the home with Herdr endp
 Workspace tokens go only to the task's own projected workspace: an exact version 2 [presentation journal](#presentation-journal) binding the task's recorded session, workspace, and pane, whose live workspace holds that single pane.
 A flat-layout task tab shares its workspace with other tasks, so it gets pane tokens only.
 
-The display status comes from the task's status log through the shared classifier that `bin/fm-classify-lib.sh` owns, in this rank order:
+The display status comes from the task's status log through the shared classifier that `bin/task-events-lib.sh` owns, in this rank order:
 
 | Rank | `fm_state` | Status log |
 | --- | --- | --- |
@@ -563,7 +563,7 @@ The display status comes from the task's status log through the shared classifie
 | 3 | `running` | Anything else, including `working`, `paused`, and no status yet. |
 | 4 | `done` | `done`. |
 
-It is the worker's latest declaration, not the reconciled current state that `bin/fm-crew-state.sh` owns, and it can lag one watcher poll behind the log.
+It is the worker's latest declaration, not the reconciled current state that `bin/task-state.sh` owns, and it can lag one watcher poll behind the log.
 Herdr's own agent status dot stays live beside it.
 
 The watcher reconciles every task once per poll cycle, and a spawn tags its new task at once.
@@ -576,13 +576,13 @@ Herdr exposes no CLI for the agents view, so `bin/backends/herdr-agent-view.py` 
 Tags and the agents view need Herdr protocol 22, verified with Herdr 0.9.5; the wire schema comes from Herdr 0.9.3, which speaks the same protocol.
 An older client warns once per protocol and the feature stays inactive.
 
-`bin/fm-herdr-groups.sh` owns the commands, including `plan` to preview groups and statuses without touching Herdr and `clear` to remove this home's tags and the agents view after turning the feature off.
+`bin/herdr-groups.sh` owns the commands, including `plan` to preview groups and statuses without touching Herdr and `clear` to remove this home's tags and the agents view after turning the feature off.
 
 ### Sidebar rows
 
 Herdr shows custom tokens only where its own configuration names them.
 Spudrunner never edits Herdr's configuration on its own.
-`bin/fm-herdr-groups.sh sidebar-config` prints these suggested rows, and `sidebar-config --apply <path>` appends them to that Herdr configuration file after copying it to `<path>.bak-<epoch>`, refusing when the file already defines sidebar rows:
+`bin/herdr-groups.sh sidebar-config` prints these suggested rows, and `sidebar-config --apply <path>` appends them to that Herdr configuration file after copying it to `<path>.bak-<epoch>`, refusing when the file already defines sidebar rows:
 
 ```toml
 [ui.sidebar.spaces]
@@ -609,8 +609,8 @@ A task whose group changes later keeps its position until it ends.
 
 ### Verification status
 
-The tags, the agents view, and the placement are covered by offline tests against a scripted Herdr CLI and socket helper (`tests/fm-herdr-groups.test.sh` and the ordering cases in `tests/fm-backend-herdr.test.sh`).
-They were also exercised against a real Herdr 0.9.5 server (protocol 22) in a guarded lab session: after one watcher poll `herdr pane list` showed the `fm_*` tokens on each task pane, the agents list header read `projects` with tasks ordered by group and then status, a newly spawned projected task landed after the other tasks of its group with only that workspace moving and no focus change, and `fm-herdr-groups.sh clear` removed the tokens and the view.
+The tags, the agents view, and the placement are covered by offline tests against a scripted Herdr CLI and socket helper (`tests/herdr-groups.test.sh` and the ordering cases in `tests/runtime-backend-herdr.test.sh`).
+They were also exercised against a real Herdr 0.9.5 server (protocol 22) in a guarded lab session: after one watcher poll `herdr pane list` showed the `fm_*` tokens on each task pane, the agents list header read `projects` with tasks ordered by group and then status, a newly spawned projected task landed after the other tasks of its group with only that workspace moving and no focus change, and `herdr-groups.sh clear` removed the tokens and the view.
 To repeat the check on a live session, turn the feature on, wait one watcher poll, and confirm the same four results.
 
 ## Default-tab prune safety
@@ -624,7 +624,7 @@ A working seed pane is never closed.
 This created-versus-adopted gate is a destructive safety boundary.
 A prior label heuristic could adopt a captain-owned workspace named `firstmate` and close its live seed-shaped tab.
 The current structural gate removes label inference from cleanup authority.
-`tests/fm-backend-herdr-prune-safety-e2e.test.sh` reproduces the collision in an isolated named session and proves the adopted pane remains untouched.
+`tests/runtime-backend-herdr-prune-safety-e2e.test.sh` reproduces the collision in an isolated named session and proves the adopted pane remains untouched.
 
 ## Endpoint metadata
 
@@ -646,7 +646,7 @@ Workspace and tab ids support verification and cleanup but are not inferred from
 ### Named server and session routing
 
 The adapter starts and polls a named server before workspace, tab, pane, or agent calls.
-Every Herdr invocation goes through `fm_backend_herdr_cli`, which sets the environment and passes an explicit trailing `--session <name>`.
+Every Herdr invocation goes through `runtime_backend_herdr_cli`, which sets the environment and passes an explicit trailing `--session <name>`.
 An environment variable alone is not reliable when another Herdr server is running.
 
 When the selected named server is not running, the adapter launches it without these inherited values:
@@ -661,7 +661,7 @@ Explicit named-session routing and unrelated launch environment remain intact.
 
 ### Sending text and keys
 
-Literal text and Enter are separate operations on `fm-send.sh`'s typed plane.
+Literal text and Enter are separate operations on `task-steer.sh`'s typed plane.
 Ordinary local text steers instead use the durable steering inbox and send only its best-effort constant doorbell through this adapter.
 Spawn-time fixed commands may use Herdr's atomic run primitive.
 Enter, Escape, and Ctrl-C are supported.
@@ -674,9 +674,9 @@ Typed-plane text is typed once; only Enter is retried.
 When native `agent get` identity is Claude, the adapter types only into an empty composer.
 A Claude composer that already holds text, or cannot be read, before the send is refused with nothing typed.
 Before that Enter, the adapter continues only when the selected composer shows the typed payload, or only Claude paste placeholders with no literal remainder.
-Every herdr adapter composer read (`fm_backend_herdr_composer_state`, `fm_backend_herdr_composer_content`) captures the full visible viewport, never a bounded tail.
+Every herdr adapter composer read (`runtime_backend_herdr_composer_state`, `runtime_backend_herdr_composer_content`) captures the full visible viewport, never a bounded tail.
 An overlay Claude renders between the composer and the pane bottom - the slash-command popup is the verified shape - pushes the composer outside a tail window, and the composer is by definition inside the viewport.
-[`bin/fm-task-inbox-lib.sh`](../bin/fm-task-inbox-lib.sh) owns the separate shared inbox pending-line confirmation read.
+[`bin/task-inbox-lib.sh`](../bin/task-inbox-lib.sh) owns the separate shared inbox pending-line confirmation read.
 Dated measurement: docs/verification/runtime-backends.md "Claude exit behind the slash-command popup".
 
 That comparison ignores whitespace and U+2063, the invisible mark that starts operational inputs and ends the from-firstmate label.
@@ -701,7 +701,7 @@ On an idle or done native baseline, submit confirmation proceeds in this order:
 1. Wait for `working` or `blocked` across a bounded polling window.
 2. If native status stays idle, use the shared composer verdict as the next positive signal.
    A cleared composer is delivery, and proven pending text retries Enter.
-3. After the retry budget, `fm_composer_queued_enter_verdict` treats proven pending text plus a generating busy signal as a queued delivered Enter.
+3. After the retry budget, `agent_input_queued_enter_verdict` treats proven pending text plus a generating busy signal as a queued delivered Enter.
    It keeps an idle pending composer as a genuine swallow.
 
 On an already active or unreadable baseline, the adapter falls back to conservative composer clearance.
@@ -745,14 +745,14 @@ The adapter's own composer reads are exempt because they read the visible viewpo
 
 Herdr's native agent state can read idle while a harness waits on its own long foreground tool.
 The shared crew-state path therefore accepts a native `busy` as evidence of activity.
-It never accepts a native `idle` as evidence that a worker has stopped; the task's own semantic busy state (`bin/fm-busy-lib.sh`) decides that.
+It never accepts a native `idle` as evidence that a worker has stopped; the task's own semantic busy state (`bin/agent-activity-lib.sh`) decides that.
 A human-blocked permission dialog has no busy banner and still surfaces.
 
 ## Composer and injection safety
 
 Herdr has no direct cursor-row primitive.
 The adapter is a thin capture.
-It hands the visible pane's ANSI viewport plus Herdr's capability facts to the fleet-wide classifier in `bin/fm-composer-lib.sh`, which owns every shape:
+It hands the visible pane's ANSI viewport plus Herdr's capability facts to the fleet-wide classifier in `bin/agent-input-lib.sh`, which owns every shape:
 
 - Bordered boxes.
 - Bare agent-glyph rows, including muse's `⟩`, which the adapter's retired local pattern silently omitted.
@@ -770,7 +770,7 @@ Identity stays a lazy second read, consulted only when a separator pair could ch
 ### Placeholder and ghost text
 
 ANSI capture preserves de-emphasized placeholder style.
-`bin/fm-composer-lib.sh` is the fleet-wide owner that strips dim or faint runs and dark truecolor placeholders while retaining bright typed input.
+`bin/agent-input-lib.sh` is the fleet-wide owner that strips dim or faint runs and dark truecolor placeholders while retaining bright typed input.
 
 If the ANSI capture ever fails, the plain fallback declares itself unstyled.
 The classifier then degrades a glyph row carrying trailing text to `unknown` instead of misreading ghost suggestions as typed input.
@@ -788,7 +788,7 @@ The current operational envelope starts with U+2063 and `FIRSTMATE_OP: `.
 The separate routed-request carrier uses `[fm-from-firstmate]` plus U+2063.
 U+2063 survives Herdr terminal input as text, unlike the legacy ASCII control separator that could erase the visible routing label.
 Claude Code itself then removes it from the submitted prompt, so a Claude Code primary receives away-mode escalations as the owner's record-backed doorbell instead.
-`bin/fm-operational-input.sh` owns current operational construction and parsing, and the AFK skill owns legacy away-input compatibility.
+`bin/operational-input.sh` owns current operational construction and parsing, and the AFK skill owns legacy away-input compatibility.
 No Herdr-specific copy of that protocol exists.
 
 ## Restart and liveness behavior
@@ -829,7 +829,7 @@ In that case `agent get` still reports `agent=pi` with its last status.
 That nested shell is the crew shape `treehouse get` leaves behind (measured on Herdr 0.9.0 - [verification](verification/runtime-backends.md) "Stale agent registration"; upstream issue #4115).
 
 So before a registered agent counts as live, the pane classifier reads `pane process-info` and the real process table.
-It uses the shared harness-process classifier in `bin/fm-agent-process-lib.sh`, the same rule the tmux adapter proves liveness with:
+It uses the shared harness-process classifier in `bin/agent-process-lib.sh`, the same rule the tmux adapter proves liveness with:
 
 | What the process view shows | Verdict |
 | --- | --- |
@@ -869,7 +869,7 @@ A `stale-agent` pane is reused by recovery, never closed as a husk, because the 
 
 Native registration still identifies Pi by name where tmux would see a generic interpreter.
 The process-level proof only decides whether that registration is backed by a running process.
-`tests/fm-backend-herdr-agent-exit-shell-e2e.test.sh` pins the live-Pi versus leftover-shell distinction.
+`tests/runtime-backend-herdr-agent-exit-shell-e2e.test.sh` pins the live-Pi versus leftover-shell distinction.
 [`verification/runtime-backends.md`](verification/runtime-backends.md#agent-lifecycle-control) owns the versioned evidence.
 
 The session-start sweep and the watcher's dedicated project coordinator liveness tick use this probe.
@@ -884,19 +884,19 @@ That authority is bound to a session identity, and in the crew shape the registr
 An agent started FRESH in such a pane reports a new session and Herdr ignores its reports, so the pane stays frozen at whatever the previous agent last reported - an implementation worker running its pipeline reads `idle` until its task ends, and nothing from outside repairs it (measured 2026-09-21 on Herdr 0.9.1 against a real Pi; `pane report-agent-session` and `pane report-agent` for `herdr:pi` are accepted without being applied unless the reporter is the registered pane agent, and `pane release-agent` on the stale record changes nothing).
 A fresh spawn never meets this: it gets a new pane with nothing bound.
 
-So a **relaunch** preserves the binding instead of fighting it: before the Pi-family launch line is composed, `bin/fm-spawn.sh` reads the pane's recorded session reference through `fm_backend_herdr_pane_agent_session_ref` and passes it back as Pi's own `--session <path-or-id>` (`relaunch_resume_args`; `bin/fm-control-lib.sh`'s `fm_control_relaunch_resume_flag` owns which adapters and which registration labels qualify).
+So a **relaunch** preserves the binding instead of fighting it: before the Pi-family launch line is composed, `bin/task-launch.sh` reads the pane's recorded session reference through `runtime_backend_herdr_pane_agent_session_ref` and passes it back as Pi's own `--session <path-or-id>` (`relaunch_resume_args`; `bin/agent-control-lib.sh`'s `agent_control_relaunch_resume_flag` owns which adapters and which registration labels qualify).
 The replacement therefore starts on the exact identity the authority is bound to, and its `working`/`idle`/`blocked` reports land again.
 The reference is the endpoint's own record, never a guess about which session is recent, and only a `pi` label may supply it: a registration belonging to another adapter is ignored, as is an unreadable, missing, or malformed one, in which case the relaunch is the ordinary fresh session it always was.
 A relaunch that changes harness AWAY from Pi is not repaired by this and keeps the pre-existing behavior; only the adapter the authority belongs to can resume its session.
 
 The session file may not exist any more: Pi creates it at exactly that path, so the identity survives either way.
 The read grants no send, close, or lifecycle authority of its own - it is a read of Herdr's record.
-The portable halves are pinned by `tests/fm-backend-herdr.test.sh` (the read, against a canned CLI) and `tests/fm-control.test.sh` (the per-adapter rule), and `tests/fm-control-herdr-smoke.test.sh` exercises the relaunch path against the real binary; the versioned live measurement, including the reproduction and the resume that lifts it, is [`verification/runtime-backends.md`](verification/runtime-backends.md) "Pane status authority across a relaunch".
+The portable halves are pinned by `tests/runtime-backend-herdr.test.sh` (the read, against a canned CLI) and `tests/agent-control.test.sh` (the per-adapter rule), and `tests/agent-control-herdr-smoke.test.sh` exercises the relaunch path against the real binary; the versioned live measurement, including the reproduction and the resume that lifts it, is [`verification/runtime-backends.md`](verification/runtime-backends.md) "Pane status authority across a relaunch".
 
 ## Push events and polling fallback
 
 Protocol 16 can subscribe to `pane.agent_status_changed` over one bounded Unix-socket reader.
-`bin/fm-transition-lib.sh` owns the backend-neutral transition vocabulary and policy.
+`bin/agent-transition-lib.sh` owns the backend-neutral transition vocabulary and policy.
 The Herdr adapter subscribes before reconciling current levels, buffers edges during reconciliation, and returns fresh blocked transitions for this home's panes.
 
 The watcher maps the pane back to the task and skips these:
@@ -921,7 +921,7 @@ Polling runs every cycle and remains the permanent fallback when any of these is
 
 There is still one watcher process; the event reader is a bounded child of that watcher.
 
-`tests/fm-backend-herdr-eventwait-smoke.test.sh`, `tests/fm-transition-lib.test.sh`, and `tests/fm-supervision-events.test.sh` cover capability, subscribe-then-reconcile ordering, dedupe, exemptions, and polling fallback.
+`tests/runtime-backend-herdr-eventwait-smoke.test.sh`, `tests/agent-transition-lib.test.sh`, and `tests/supervision-events.test.sh` cover capability, subscribe-then-reconcile ordering, dedupe, exemptions, and polling fallback.
 
 ## Away-mode supervisor support
 
@@ -934,9 +934,9 @@ The pane-independent max-defer alert is configured in [`wedge-alarm.md`](wedge-a
 - Harnesses with native tracked background execution can run the daemon in their terminal.
 - Pi and pi-signed no longer launch the away daemon; their ordinary supervision session continues under the posture record.
 - A non-Pi home that runs the supervision host also skips the daemon for `/afk`; see [supervision-host.md](supervision-host.md).
-- For another harness without native tracked background execution, `bin/fm-afk-launch.sh` runs the daemon in a Herdr workspace, as described next.
+- For another harness without native tracked background execution, `bin/away-mode-launch.sh` runs the daemon in a Herdr workspace, as described next.
 
-In that last case, `bin/fm-afk-launch.sh`:
+In that last case, `bin/away-mode-launch.sh`:
 
 1. Creates a dedicated unfocused Herdr workspace.
 2. Runs the daemon there with an explicit supervisor target and backend.
@@ -962,7 +962,7 @@ Never use ambient `herdr server stop` for Spudrunner verification.
 An environment-only session selection can silently reach a different running server.
 The ambient stop command has no explicit target.
 
-`bin/fm-herdr-lab.sh` is the sole supported lifecycle helper for isolated verification.
+`bin/herdr-lab.sh` is the sole supported lifecycle helper for isolated verification.
 The helper:
 
 - Provisions only non-default names beginning with `fm-lab-`.
@@ -988,25 +988,25 @@ Tests use thin compatibility wrappers in `tests/herdr-test-safety.sh` and never 
 ## Regression entry points
 
 ```sh
-tests/fm-backend-herdr.test.sh
-tests/fm-composer-lib.test.sh
-tests/fm-herdr-submit-confirm-live-e2e.test.sh
-tests/fm-backend-herdr-smoke.test.sh
-tests/fm-backend-herdr-prune-safety-e2e.test.sh
-tests/fm-backend-herdr-respawn-idem-e2e.test.sh
-tests/fm-backend-herdr-workspace-per-home-e2e.test.sh
-tests/fm-backend-herdr-launcher-workspace-e2e.test.sh
-tests/fm-backend-herdr-presentation-e2e.test.sh
-tests/fm-backend-herdr-agent-exit-shell-e2e.test.sh
-tests/fm-herdr-pi-stale-registration-live-e2e.test.sh
-tests/fm-backend-herdr-eventwait-smoke.test.sh
-tests/fm-control-herdr-smoke.test.sh
-tests/fm-herdr-session-cleanup.test.sh
-tests/fm-herdr-session-cleanup-e2e.test.sh
-tests/fm-herdr-groups.test.sh
-tests/fm-herdr-attached-viewer-live-e2e.test.sh
-tests/fm-afk-inject-herdr-e2e.test.sh
-tests/fm-afk-pi-herdr-return-e2e.test.sh
+tests/runtime-backend-herdr.test.sh
+tests/agent-input-lib.test.sh
+tests/herdr-submit-confirm-live-e2e.test.sh
+tests/runtime-backend-herdr-smoke.test.sh
+tests/runtime-backend-herdr-prune-safety-e2e.test.sh
+tests/runtime-backend-herdr-respawn-idem-e2e.test.sh
+tests/runtime-backend-herdr-workspace-per-home-e2e.test.sh
+tests/runtime-backend-herdr-launcher-workspace-e2e.test.sh
+tests/runtime-backend-herdr-presentation-e2e.test.sh
+tests/runtime-backend-herdr-agent-exit-shell-e2e.test.sh
+tests/herdr-pi-stale-registration-live-e2e.test.sh
+tests/runtime-backend-herdr-eventwait-smoke.test.sh
+tests/agent-control-herdr-smoke.test.sh
+tests/herdr-session-cleanup.test.sh
+tests/herdr-session-cleanup-e2e.test.sh
+tests/herdr-groups.test.sh
+tests/herdr-attached-viewer-live-e2e.test.sh
+tests/away-mode-inject-herdr-e2e.test.sh
+tests/away-mode-pi-herdr-return-e2e.test.sh
 ```
 
 Real Herdr tests use the named lab helper and default-session tripwire.

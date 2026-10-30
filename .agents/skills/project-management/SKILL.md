@@ -13,12 +13,12 @@ metadata:
 Use this procedure before adding, creating, removing, or initializing a project.
 Cloning or registering a project is add intake and uses the same trigger.
 This skill is the single owner of Spudrunner's project-management procedure.
-It does not replace `secondmate-provisioning`, which owns project clones inside persistent project coordinator homes.
+It does not replace `project-coordinator-provisioning`, which owns project clones inside persistent project coordinator homes.
 
 ## Preconditions and registry
 
 Projects live flat under `projects/`, and `data/projects.md` is the private active work registry.
-Use the registry format and parser contract owned by the header of `bin/fm-project-mode.sh`.
+Use the registry format and parser contract owned by the header of `bin/project-mode.sh`.
 Keep each registry description useful for identifying the project, but keep delivery posture, user-private state, and detailed project knowledge in their existing designated homes.
 Do not turn the registry into project documentation.
 
@@ -53,13 +53,13 @@ Default it off for every project and every posture, and enable it only on the us
 
 The optional `forge=` token records which forge the project's remote actually is; its values are `forge=gerrit`, `forge=forgejo`, and `forge=external`.
 It is orthogonal to the mode and to `+yolo`, so it is never derived from either, and it is never inferred at use time from a remote name, host, port, or push target.
-At add or create intake, run `bin/fm-forge-detect.sh projects/<name>` once the clone exists and propose its answer alongside the posture; the user's confirmation is what binds it, and the registry token is the durable record of that confirmation.
+At add or create intake, run `bin/forge-detect.sh projects/<name>` once the clone exists and propose its answer alongside the posture; the user's confirmation is what binds it, and the registry token is the durable record of that confirmation.
 Never register the binding from detection alone, and never re-derive it later from the clone.
-`bin/fm-forge-detect.sh` never proposes `forge=forgejo`, so for a remote that may be Forgejo or Gitea ask the user and register `forge=forgejo` only on that confirmation.
+`bin/forge-detect.sh` never proposes `forge=forgejo`, so for a remote that may be Forgejo or Gitea ask the user and register `forge=forgejo` only on that confirmation.
 A forge composes with `no-mistakes`, `direct-PR`, and `no-mistakes-prod-only` (`forge=external` with `direct-PR` only), and the registry refuses it on `local-only`, which publishes nothing; a Gerrit-hosted project kept local registers `local-only` with no forge token.
 `yolo` is inactive on a `forge=gerrit` project, so never propose `+yolo` alongside it.
 `forge=external` marks a project whose review tool uploads its own snapshot, so workers never push a task branch to its shared origin: it is never detected, so register it only on the user's confirmation, as `[direct-PR forge=external]` with no `+yolo`, and only once the home has `config/external-review.md` (`docs/configuration.md` "External review tool").
-`bin/fm-project-mode.sh`'s header owns the binding and `bin/fm-dod-lib.sh` owns what it changes for a worker.
+`bin/project-mode.sh`'s header owns the binding and `bin/task-completion-lib.sh` owns what it changes for a worker.
 The optional `pr=manual` token marks a `no-mistakes` project whose PR title and body a person writes, so the pipeline's `pr` step must not rewrite them; register it only on the user's confirmation, with no `forge=` token (`docs/configuration.md` "PR text selection").
 
 ## Add or clone an existing project

@@ -5,7 +5,7 @@ Read it when debugging a supervision gap or changing a harness's re-arm path.
 
 The watcher remains intentionally one-shot: one actionable reason closes one watcher cycle.
 Must-work continuity now lives above that process boundary instead of depending on the model remembering a re-arm step.
-In this document, an arm is one run of `bin/fm-watch-arm.sh`, which starts a watcher cycle or attaches to one and returns the cycle's reason.
+In this document, an arm is one run of `bin/supervision-watch-arm.sh`, which starts a watcher cycle or attaches to one and returns the cycle's reason.
 
 | Topic | Section |
 | --- | --- |
@@ -13,7 +13,7 @@ In this document, an arm is one run of `bin/fm-watch-arm.sh`, which starts a wat
 | What happens between an actionable close and the wake reaching the model | [Actionable wake ordering](#actionable-wake-ordering) |
 | How a watcher-downtime episode is announced and retired | [Recovery episode acknowledgement](#recovery-episode-acknowledgement) |
 | How each actor consumes the wake queue | [Per-actor acknowledgement](#per-actor-acknowledgement) |
-| What `bin/fm-watch-arm.sh` guarantees about each cycle | [Arm-layer cycle contract](#arm-layer-cycle-contract) |
+| What `bin/supervision-watch-arm.sh` guarantees about each cycle | [Arm-layer cycle contract](#arm-layer-cycle-contract) |
 | Which test suites pin these contracts | [Regression coverage](#regression-coverage) |
 | What is not guaranteed, and where live evidence lives | [Active limits and verification](#active-limits-and-verification) |
 
@@ -24,17 +24,17 @@ Codex and Grok keep their own protocols; see [Manual recovery and other harnesse
 
 | Harness | Re-arm owner |
 | --- | --- |
-| Pi | `.pi/extensions/fm-primary-pi-watch.ts` |
-| omp | `.omp/extensions/fm-primary-omp-watch.ts` |
-| OpenCode | `.opencode/plugins/fm-primary-watch-arm.js` |
-| Cursor | `.cursor/hooks.json` `stop` hook (`bin/fm-turnend-guard-cursor.sh`) |
-| Claude | `.claude/settings.json` Stop `asyncRewake` hook (`bin/fm-claude-stop-autoarm.sh`) |
+| Pi | `.pi/extensions/coordinator-supervision-watch.ts` |
+| omp | `.omp/extensions/coordinator-supervision-watch.ts` |
+| OpenCode | `.opencode/plugins/coordinator-watch-arm.js` |
+| Cursor | `.cursor/hooks.json` `stop` hook (`bin/turn-end-guard-cursor.sh`) |
+| Claude | `.claude/settings.json` Stop `asyncRewake` hook (`bin/claude-stop-autoarm.sh`) |
 
 On a non-Pi primary, a home that runs the supervision host also changes what the owner runs; see [Supervision host](#supervision-host).
 
 ### Pi, omp, and OpenCode adapters
 
-Pi's `.pi/extensions/fm-primary-pi-watch.ts`, omp's `.omp/extensions/fm-primary-omp-watch.ts`, and OpenCode's `.opencode/plugins/fm-primary-watch-arm.js` own continuous re-arm after an actionable child close.
+Pi's `.pi/extensions/coordinator-supervision-watch.ts`, omp's `.omp/extensions/coordinator-supervision-watch.ts`, and OpenCode's `.opencode/plugins/coordinator-watch-arm.js` own continuous re-arm after an actionable child close.
 Each adapter:
 
 - Starts the next arm before delivering the wake prompt.
@@ -47,7 +47,7 @@ A failed follow-up never cancels continuity restoration.
 
 ### Pi session replacement
 
-Pi same-process session replacement follows the generation-owner contract in `.pi/extensions/fm-primary-pi-watch.ts`:
+Pi same-process session replacement follows the generation-owner contract in `.pi/extensions/coordinator-supervision-watch.ts`:
 
 1. `session_shutdown` changes the current generation's durable extension marker from `active` to `handoff`, but keeps its established arm child alive.
 2. The owning `session_start` publishes a distinct active generation.
@@ -69,42 +69,42 @@ The extension header owns how consumption is observed and why it only decides wh
 
 ### omp session replacement
 
-omp's replacement follows its own generation-owner contract in `.omp/extensions/fm-primary-omp-watch.ts`, whose header owns its differences from Pi:
+omp's replacement follows its own generation-owner contract in `.omp/extensions/coordinator-supervision-watch.ts`, whose header owns its differences from Pi:
 
 - It retires the predecessor arm at replacement shutdown instead of retaining it across the handoff.
 - It reports no shutdown reason, so every shutdown with a pending actionable close persists the handoff for the next owning `session_start` to replay.
 
 ### Cursor stop hook
 
-Cursor's `.cursor/hooks.json` `stop` hook (`bin/fm-turnend-guard-cursor.sh`) owns routine tokenless re-arm for a Cursor primary.
-It re-arms by parking that awaited hook on `bin/fm-watch-arm.sh` and returning an actionable close as one follow-up.
-[`turnend-guard.md`](turnend-guard.md#harness-integrations) owns its Pi-host stand-down, loop bounds, and supersession baton.
+Cursor's `.cursor/hooks.json` `stop` hook (`bin/turn-end-guard-cursor.sh`) owns routine tokenless re-arm for a Cursor primary.
+It re-arms by parking that awaited hook on `bin/supervision-watch-arm.sh` and returning an actionable close as one follow-up.
+[`turn-end-guard.md`](turn-end-guard.md#harness-integrations) owns its Pi-host stand-down, loop bounds, and supersession baton.
 
 ### Claude Stop hook
 
-Claude's `.claude/settings.json` Stop `asyncRewake` hook (`bin/fm-claude-stop-autoarm.sh`) owns routine tokenless re-arm.
+Claude's `.claude/settings.json` Stop `asyncRewake` hook (`bin/claude-stop-autoarm.sh`) owns routine tokenless re-arm.
 Do not run the hook as a manual arm from a tool turn: a short-lived tool process cannot own its park; its header and help own the invocation contract.
 The hook fires on every Stop.
-On each Stop, an eligible primary with supervision need admits one home-scoped owner, which foregrounds `bin/fm-watch-arm.sh` inside the hook-owned process tree.
-If a session exits mid-cycle and leaves an orphaned Stop hook, the replacement session's first eligible Stop supersedes its claim, attaches to the running watcher through `bin/fm-watch-arm.sh`, and delivers the cycle's close.
-[`turnend-guard.md`](turnend-guard.md#auto-arm-generation-claim) owns the open-claim definition.
+On each Stop, an eligible primary with supervision need admits one home-scoped owner, which foregrounds `bin/supervision-watch-arm.sh` inside the hook-owned process tree.
+If a session exits mid-cycle and leaves an orphaned Stop hook, the replacement session's first eligible Stop supersedes its claim, attaches to the running watcher through `bin/supervision-watch-arm.sh`, and delivers the cycle's close.
+[`turn-end-guard.md`](turn-end-guard.md#auto-arm-generation-claim) owns the open-claim definition.
 While supervision is still needed and away mode remains inactive, an actionable close wakes the idle session through exit 2.
 
 ### Claude session-lock ownership
 
 The hook handles the session lock as follows:
 
-- A session-lock owner, including a tagged `win:<pid>` holder on Windows/Git Bash, that fails the shared `fm_harness_pid_alive` predicate is reclaimed through `bin/fm-lock.sh` before auto-arm state changes.
+- A session-lock owner, including a tagged `win:<pid>` holder on Windows/Git Bash, that fails the shared `harness_pid_alive` predicate is reclaimed through `bin/session-lock.sh` before auto-arm state changes.
 - A live owner the session does not own, an absent lock, or an unusable lock keeps the competing hook inert.
 
-Whether the session owns that lock is the shared `fm_session_lock_owned_by_self` verdict in `bin/fm-session-lock-lib.sh`.
+Whether the session owns that lock is the shared `session_lock_owned_by_self` verdict in `bin/session-lock-lib.sh`.
 That verdict accepts either of two cases:
 
 - A recorded pid inside the current harness ancestry.
 - A live lock recorded under this same trusted Claude session id.
 
 With that verdict, a background session keeps arming after its transient helper chain is recycled.
-[`turnend-guard.md`](turnend-guard.md#guard-predicates) owns the Claude guard's behavior when that live owner is genuinely another session.
+[`turn-end-guard.md`](turn-end-guard.md#guard-predicates) owns the Claude guard's behavior when that live owner is genuinely another session.
 The stale-owner claim occurs only after the existing AFK and supervision-need gates pass.
 
 ### Claude arm failures
@@ -118,11 +118,11 @@ The beacon is `state/.last-watcher-beat`, which only the watcher process touches
 - A refused notice commit stays silent for a later retry.
 - After a successful notice, later Stop cycles exit 2 without repeating it until the turn-end guard consumes the attended fail-open.
 
-The Claude turn-end guard owns that notice commit contract, the monotonic failure progression, one-time attended fail-open, post-alarm continuation suppression, and positive recovery reset described in [`turnend-guard.md`](turnend-guard.md#harness-integrations).
+The Claude turn-end guard owns that notice commit contract, the monotonic failure progression, one-time attended fail-open, post-alarm continuation suppression, and positive recovery reset described in [`turn-end-guard.md`](turn-end-guard.md#harness-integrations).
 
 ### Supervision host
 
-On a non-Pi primary, a home that runs the supervision host runs `bin/fm-supervision-host.sh` in place of the arm its re-arm owner would start.
+On a non-Pi primary, a home that runs the supervision host runs `bin/supervision-host.sh` in place of the arm its re-arm owner would start.
 The host owns successive watcher cycles through the same arm.
 [supervision-host.md](supervision-host.md#failure-direction) owns the default hand-back's downtime restoration, including when the successor already exited.
 Its [acknowledged hand-back](supervision-host.md#acknowledged-hand-back) section owns the opt-in Claude transfer that preserves supervision and retries delivery until main acknowledges the specific queued check.
@@ -171,7 +171,7 @@ When restoration does not succeed, the model is never left blind.
 Claude's Stop hook also starts one handling successor before notification.
 After an actionable foreground close, including an attached peer cycle that ended, the hook:
 
-1. Launches `bin/fm-watch-arm.sh` with the closed arm's pid as `FM_WATCH_PREDECESSOR_ARM_PID`.
+1. Launches `bin/supervision-watch-arm.sh` with the closed arm's pid as `FM_WATCH_PREDECESSOR_ARM_PID`.
 2. Waits for that arm's one status line.
 3. Only then exits 2 with the wake.
 
@@ -182,7 +182,7 @@ So that successor is the one deliberate detached launch in the continuity path:
 - Its stdio is away from the hook's pipes.
 - It has its own process group.
 
-This is the shape `bin/fm-startup-network.sh` uses, and [`verification/supervision.md`](verification/supervision.md#detached-session-open-workers-survive-the-hook) verified that it survives the hook.
+This is the shape `bin/startup-network.sh` uses, and [`verification/supervision.md`](verification/supervision.md#detached-session-open-workers-survive-the-hook) verified that it survives the hook.
 
 The next Stop's foreground arm attaches to that live cycle.
 A successor that confirms no live watcher adds one line to the rewake banner and never withholds the wake.
@@ -192,7 +192,7 @@ The next Stop then re-arms as before.
 
 The durable wake queue preserves actionable events between a watcher close and the next drain.
 The bounded turn-end guard enforces recovery at Stop when no watcher is live and no open generation claim is still deciding.
-So a finished, hung, or identity-mismatched claim cannot suppress that recovery ([`turnend-guard.md`](turnend-guard.md#harness-integrations) owns that boundary).
+So a finished, hung, or identity-mismatched claim cannot suppress that recovery ([`turn-end-guard.md`](turn-end-guard.md#harness-integrations) owns that boundary).
 
 The recovery-episode contract below owns once-per-generation announcement.
 A handling successor does not re-announce the predecessor-delivered wake while its handling handoff remains open.
@@ -246,7 +246,7 @@ A downtime republication of a pending episode reuses its generation.
 A watcher close leaves an announced downtime episode announced, while a successful durable append opens a fresh pending generation so a live watcher can recover the new work.
 An announced handling episode becomes pending downtime on the same generation because its handling turn may have been interrupted.
 That handling republication gives a successor exactly one recovery presentation without orphaning the acknowledgement already printed for that generation.
-A watcher stopped so an arm can take its cycle over (`bin/fm-watch-arm.sh --take-over`) publishes downtime like any close, but the taking arm restores an acknowledged episode that stop reopened only when the taken-over arm's cycle-ledger row for that exact arm and watcher records the watcher ending by the take-over's TERM and no wake was appended in between.
+A watcher stopped so an arm can take its cycle over (`bin/supervision-watch-arm.sh --take-over`) publishes downtime like any close, but the taking arm restores an acknowledged episode that stop reopened only when the taken-over arm's cycle-ledger row for that exact arm and watcher records the watcher ending by the take-over's TERM and no wake was appended in between.
 The taking arm waits within a short bound for that row; a missing row or any other signal leaves downtime for the fresh cycle's ordinary recovery wake, while take-over still proceeds.
 Any other episode is left for the next cycle's arm check.
 
@@ -267,8 +267,8 @@ An acknowledged episode does not freeze the generation, because the next downtim
 
 ## Per-actor acknowledgement
 
-`bin/fm-wake-drain.sh` consumes the queue per actor, not per whole-queue cutoff.
-It uses the `fm_lease_actor` identity owned by `bin/fm-lease-lib.sh`.
+`bin/supervision-events-drain.sh` consumes the queue per actor, not per whole-queue cutoff.
+It uses the `supervision_lease_actor` identity owned by `bin/supervision-lease-lib.sh`.
 The Pi branch extension injects its branch actor into its own bash tool calls.
 
 ### Claiming rows
@@ -276,7 +276,7 @@ The Pi branch extension injects its branch actor into its own bash tool calls.
 Every presented row is claimed to exactly one actor under the durable queue lock.
 
 - Main records its presented set in `state/.main-eligible-rows`.
-- A branch grant is published through `bin/fm-wake-grant.sh` under that same lock in `state/.branch-eligible-rows`.
+- A branch grant is published through `bin/supervision-events-grant.sh` under that same lock in `state/.branch-eligible-rows`.
   The grant is bound to the live branch process and extension generation recorded in `state/.branch-eligible-owner`.
   Publication is refused if main already claimed any requested row.
   Activation, publication, release, and deactivation exit nonzero if queue-lock acquisition fails, preserving both grant records and leaving another owner's lock intact.
@@ -296,9 +296,9 @@ Acknowledgement invocations and every other mutation-critical queue-lock acquire
 
 ### Guard counts for branch-held rows
 
-Because the main drain's exclusion makes branch-granted rows invisible to main, `bin/fm-guard.sh`'s queued-wake warning counts only the rows the calling actor can itself present or retire.
+Because the main drain's exclusion makes branch-granted rows invisible to main, `bin/supervision-health.sh`'s queued-wake warning counts only the rows the calling actor can itself present or retire.
 So an actor is never sent to a drain that provably has nothing for it.
-`bin/fm-wake-lib.sh` owns that per-actor count (`fm_wake_actor_pending_count`) alongside the grant row-list and owner-record reads that the drain and `bin/fm-wake-grant.sh` share.
+`bin/supervision-events-lib.sh` owns that per-actor count (`supervision_events_actor_pending_count`) alongside the grant row-list and owner-record reads that the drain and `bin/supervision-events-grant.sh` share.
 
 A row a live grant reserves is therefore never counted as drainable for main.
 Rather than going silent about a visibly non-empty queue, the guard prints a distinct advisory.
@@ -347,7 +347,7 @@ So it is never part of a branch claim and never defers one.
 Main is woken for it on that check's own triggering close.
 Under the away-posture record the exclusion lifts and a check row is offered to and claimed by the branch like every other actionable row.
 
-`fm-wake-drain.sh` never reclassifies a row itself.
+`supervision-events-drain.sh` never reclassifies a row itself.
 It filters the queue to the current actor's opaque claim before same-key deduplication, then presents and acknowledges only that actor-local view.
 A missing or empty branch snapshot is refused loudly rather than read as "nothing eligible".
 With a live branch owner, a missing snapshot means the branch's own acknowledgement already consumed the grant, and the refusal says so; otherwise reaching the drain without the non-empty handoff promised by the extension is a wiring bug.
@@ -356,7 +356,7 @@ Attended, a grant names no check row and each scan finds nothing.
 
 ### Per-actor regression tests
 
-`tests/fm-wake-queue.test.sh`'s mixed-queue actor, stale-acknowledgement remedy, and presentation-deadline tests drive the real scripts and check that:
+`tests/supervision-events-queue.test.sh`'s mixed-queue actor, stale-acknowledgement remedy, and presentation-deadline tests drive the real scripts and check that:
 
 - Branch acknowledgement cannot swallow a main row.
 - A concurrent main turn cannot present or acknowledge an active branch grant.
@@ -364,19 +364,19 @@ Attended, a grant names no check row and each scan finds nothing.
 - Live-holder presentation contention stays bounded and retriable.
 - Acknowledgement locking remains blocking.
 
-The same suite pins the counted-equals-presentable invariant against `bin/fm-guard.sh` and `bin/fm-wake-drain.sh` together:
+The same suite pins the counted-equals-presentable invariant against `bin/supervision-health.sh` and `bin/supervision-events-drain.sh` together:
 
 - A branch-held row raises the held advisory rather than the ordinary queued-wake warning for main.
 - That row is presented with its acknowledgement command - with the ordinary warning restored - as soon as the grant clears.
 - Structurally unusable rows are retired by main alone while every remaining row stays presentable and acknowledgeable.
 
-Branch acknowledgement retiring the check-row receipts of exactly its granted sequences is pinned by `tests/fm-wake-queue.test.sh` for the project coordinator stall receipt and by `tests/fm-inactive-reconcile.test.sh` for the inactive-outcome receipt.
+Branch acknowledgement retiring the check-row receipts of exactly its granted sequences is pinned by `tests/supervision-events-queue.test.sh` for the project coordinator stall receipt and by `tests/inactive-reconcile.test.sh` for the inactive-outcome receipt.
 
-`tests/fm-pi-branch-extension.test.sh` pins extension-side classification, claim publication and release, and the pre-drain recheck.
+`tests/pi-branch-extension.test.sh` pins extension-side classification, claim publication and release, and the pre-drain recheck.
 
 ## Arm-layer cycle contract
 
-`bin/fm-watch-arm.sh` never returns a clean empty success.
+`bin/supervision-watch-arm.sh` never returns a clean empty success.
 
 ### How an arm resolves a close
 
@@ -418,9 +418,9 @@ Only the watcher process touches `state/.last-watcher-beat`.
 No helper process can make a wedged watcher appear healthy.
 An arm whose own script path sits under a disposable no-mistakes validation checkout (`.no-mistakes/worktrees/`) refuses with the typed failure line before touching any state, because a watcher started there outlives the validation step and keeps writing the real home's state from a checkout about to be deleted.
 Once per poll the watcher checks that its home, its state directory, and its own code root still exist, and exits with a logged reason when one is gone, scoped to itself alone, so a torn-down temporary home or a discarded checkout never leaves an orphan watcher behind.
-The arm applies the same rule to its own ground: when its script, its state directory, or an `FM_HOME` that existed at start disappears, it fails with `watcher: FAILED - arm ground removed: <path> no longer exists` instead of polling on; the `bin/fm-watch-arm.sh` header owns the timing bound.
-The watcher uses bash's native fatal handling for HUP and TERM, including during a blocked check, a blocked `fm_backend_capture` pane read, or a backend event wait, so both run its EXIT cleanup and stop that read or wait.
-`watcher_stop_signals` in `bin/fm-watch.sh` owns the signal-handling rationale.
+The arm applies the same rule to its own ground: when its script, its state directory, or an `FM_HOME` that existed at start disappears, it fails with `watcher: FAILED - arm ground removed: <path> no longer exists` instead of polling on; the `bin/supervision-watch-arm.sh` header owns the timing bound.
+The watcher uses bash's native fatal handling for HUP and TERM, including during a blocked check, a blocked `runtime_backend_capture` pane read, or a backend event wait, so both run its EXIT cleanup and stop that read or wait.
+`watcher_stop_signals` in `bin/supervision-watch.sh` owns the signal-handling rationale.
 The EXIT cleanup bounds its wait for `state/.watcher-down.lock` while persisting recovery state with `FM_WATCHER_CLEANUP_LOCK_BOUND` (default 2 seconds).
 Only positive decimal integers are accepted, including leading-zero forms such as `08`; empty, non-numeric, and zero values (including `00`) fall back to 2 seconds.
 A live foreign holder therefore cannot strand a TERM'd watcher in this marker-lock wait: on timeout the recovery transition fails without releasing the singleton, leaving dead-pid stale evidence for the next arm to republish and clear.
@@ -429,7 +429,7 @@ A live foreign holder therefore cannot strand a TERM'd watcher in this marker-lo
 
 ### Pi and OpenCode watch extension
 
-`tests/fm-pi-watch-extension.test.sh` checks Pi's first-cycle-or-explicit-repair tool metadata and ownership-based redundant-call no-ops.
+`tests/pi-watch-extension.test.sh` checks Pi's first-cycle-or-explicit-repair tool metadata and ownership-based redundant-call no-ops.
 It then simulates actionable and empty child closes against the actual Pi and OpenCode close handlers, and:
 
 - Blocks prompt delivery to prove the successor launches first.
@@ -457,7 +457,7 @@ They also prove that a legacy or handoff-phase watcher marker from an absent rep
 
 ### Arm, recovery, triage, and lock suites
 
-`tests/fm-watch-arm.test.sh` covers:
+`tests/supervision-watch-arm.test.sh` covers:
 
 - Durable queue replay.
 - Real remote parent-replies ingestion into the authoritative status log.
@@ -478,18 +478,18 @@ They also prove that a legacy or handoff-phase watcher marker from an absent rep
 - The home-gone and state-gone watcher exits.
 - The test reaper that stops a watcher armed for a temporary home.
 
-`tests/fm-watch-recovery-loop.test.sh` covers:
+`tests/supervision-watch-recovery-loop.test.sh` covers:
 
 - The once-per-generation announcement bound with the real Pi extension against a refused handling handshake.
 - A handling successor that must surface a real crew event instead of going blind.
 - A handling successor that resurfaces a row appended between its predecessor's close and its own startup handoff.
 
-`tests/fm-watch-triage.test.sh` proves TERM stops a watcher blocked inside a poll's pane capture and still releases its lock and records an acknowledgeable stop.
+`tests/supervision-watch-triage.test.sh` proves TERM stops a watcher blocked inside a poll's pane capture and still releases its lock and records an acknowledgeable stop.
 It also exercises a single TERM with a live foreign downtime-marker lock holder, retained stale singleton and subsequent arm-style recovery, including decimal `08` and zero `00` cleanup bounds.
 It checks that a newly appended keyed decision is classified without rereading earlier status bytes, so signal handling can return to the watcher's beacon refresh even when the status history is long.
-`tests/fm-wake-queue.test.sh` proves TERM likewise stops a watcher blocked in the drain-ring idle check's pane capture.
+`tests/supervision-events-queue.test.sh` proves TERM likewise stops a watcher blocked in the drain-ring idle check's pane capture.
 
-`tests/fm-watcher-lock.test.sh` covers:
+`tests/watcher-lock.test.sh` covers:
 
 - Verified-successor attach.
 - Recovery publication before stale-lock removal.
@@ -499,9 +499,9 @@ It checks that a newly appended keyed decision is classified without rereading e
 
 ### Claude auto-arm and turn-end guard
 
-`tests/fm-subagent-pretool-check.test.sh` proves Claude retains only the non-status Bash seatbelts.
+`tests/subagent-pretool-check.test.sh` proves Claude retains only the non-status Bash seatbelts.
 
-`tests/fm-claude-stop-autoarm.test.sh` covers:
+`tests/claude-stop-autoarm.test.sh` covers:
 
 - The auto-arm's scope.
 - Stale and live session owners.
@@ -509,7 +509,7 @@ It checks that a newly appended keyed decision is classified without rereading e
 - Single-flight.
 - Supersession of a dead session's orphaned claim by the replacement session's first Stop, including a resumed session that carries the dead one's conversation id, and a claim with no readable session lock.
 - A recycled background bridge keeping its live claim on the trusted session id pinned to the lock holder's recorded session-lock identity.
-- The Windows/Git Bash session-lock readers for the supervision-host key, claim read-back, and mid-turn health, plus untagged-value parity with the numeric helpers, in `tests/fm-session-lock-windows-consumers.test.sh`.
+- The Windows/Git Bash session-lock readers for the supervision-host key, claim read-back, and mid-turn health, plus untagged-value parity with the numeric helpers, in `tests/session-lock-windows-consumers.test.sh`.
 - Bounded failure retries.
 - Benign live-watcher cycle ends.
 - One-notice failure episodes.
@@ -519,23 +519,23 @@ It checks that a newly appended keyed decision is classified without rereading e
 - Host-timeout HUP/TERM/INT translation into the same durable failure handoff.
 
 It also covers generation-claim single-flight, stuck-claim supersession, superseded-owner silence, notice-marker refusal and retry, ownership-atomic episode reset, and the legacy upgrade shim.
-[`turnend-guard.md`](turnend-guard.md) owns those behavior contracts.
+[`turn-end-guard.md`](turn-end-guard.md) owns those behavior contracts.
 
-`FM_CLAUDE_LIVE_E2E=1 tests/fm-claude-stop-autoarm-live-e2e.test.sh`:
+`FM_CLAUDE_LIVE_E2E=1 tests/claude-stop-autoarm-live-e2e.test.sh`:
 
 1. Starts with the reproduced stale-lock state.
 2. Receives session start through the tracked SessionStart hook.
 3. Completes two tokenless cycles.
 4. Checks the competing-live-owner negative control.
 
-`tests/fm-turnend-guard.test.sh` covers the cooperative `--claude` guard, including:
+`tests/turn-end-guard.test.sh` covers the cooperative `--claude` guard, including:
 
 - Monotonic failed-epoch progression.
 - The integrated bounded fail-open.
 - Post-alarm continuation suppression.
 - Positive recovery reset.
 
-[`turnend-guard.md`](turnend-guard.md#regression-coverage) lists that suite's full generation and legacy claim coverage.
+[`turn-end-guard.md`](turn-end-guard.md#regression-coverage) lists that suite's full generation and legacy claim coverage.
 
 ## Active limits and verification
 

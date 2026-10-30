@@ -87,4 +87,4 @@ These are possible follow-ups, deliberately left out of this version:
 - backfill or replay of events from before the ledger was turned on;
 - secret scrubbing beyond what status lines already contain, and privacy guarantees stronger than those of `state/`.
 
-`bin/fm-fleet-ledger.sh`'s header owns the writer mechanics and lists every producer.
+`bin/activity-ledger.sh`'s header owns the writer mechanics and lists every producer.

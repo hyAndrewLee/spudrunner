@@ -1,5 +1,5 @@
 # config/usage-warner - opt-in thresholds for the local Claude usage warner
-# (bin/fm-usage-warner.sh). Copy this into a local, gitignored
+# (bin/usage-warner.sh). Copy this into a local, gitignored
 # config/usage-warner and edit. One `<window-id>:<percent>` directive per
 # non-empty, non-comment line, split on the LAST colon so a per-model window
 # id such as `model:fable` still parses correctly.

@@ -7,9 +7,9 @@ These are defaults inside the existing lifecycle, not a new agent product or a r
 
 ## Effective instructions
 
-`bin/fm-dod-lib.sh` renders an absolute code-root skill path into ordinary task instructions.
-`bin/fm-brief.sh` includes it in new instructions; the common `bin/fm-spawn.sh` launch overlay reapplies it for fresh workers, older saved instructions, and relaunches.
-`bin/fm-promote.sh` includes the same policy in both live conversion instructions and the durable replacement used by future relaunches.
+`bin/task-completion-lib.sh` renders an absolute code-root skill path into ordinary task instructions.
+`bin/task-instructions.sh` includes it in new instructions; the common `bin/task-launch.sh` launch overlay reapplies it for fresh workers, older saved instructions, and relaunches.
+`bin/investigation-implement.sh` includes the same policy in both live conversion instructions and the durable replacement used by future relaunches.
 Project coordinators retain their existing charter contract.
 Workers in unrelated project repositories read the absolute path instead of relying on discovery of this repository's skills.
 Engineering defaults stay outside user intent and the final authorized `--intent` section.
@@ -39,6 +39,6 @@ No adapter gains authority to delegate, publish, merge, discard, or contact thir
 
 Extend the existing brief, intent, promotion, launch, role-target, and dispatch behavioral fixtures.
 Check source hashes against the manifest, absolute policy paths, separation of original intent, and old/new heading compatibility.
-Run `bin/fm-doc-audience-check.sh` and `bin/fm-lint.sh`; CI remains the owner of broad regression coverage.
+Run `bin/doc-audience-check.sh` and `bin/lint.sh`; CI remains the owner of broad regression coverage.
 Missing local tools are limitations, not passing checks.
-A future vendor-dependent change still requires the live proof described by [coding guidelines](../.agents/skills/firstmate-coding-guidelines/SKILL.md).
+A future vendor-dependent change still requires the live proof described by [coding guidelines](../.agents/skills/coding-guidelines/SKILL.md).
