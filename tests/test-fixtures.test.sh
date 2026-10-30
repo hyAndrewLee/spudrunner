@@ -108,7 +108,7 @@ SH
   # which layers that helper neutralizes is the helper's own property, settled
   # by the system-layer case below.
   arm_host_signing global
-  for helper in lib fixtures secondmate-helpers wake-helpers; do
+  for helper in lib fixtures project-coordinator-helpers wake-helpers; do
     assert_helper_isolates "$helper" global
   done
   bash -eus -- "$ROOT/tests/herdr-test-safety.sh" "$dir/global-herdr" <<'SH' || exit 1

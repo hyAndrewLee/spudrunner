@@ -1091,30 +1091,30 @@ test_kimi_busy_signature_is_scoped_to_spinner_lines() {
   local phase
   for phase in 🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘; do
     printf '  %s · Tip: Kimi is working\n│ > │\n' "$phase" > "$capture"
-    pane_is_busy fake kimi || fail "Kimi spinner phase $phase was not recognized as busy"
+    tmux_pane_is_busy fake kimi || fail "Kimi spinner phase $phase was not recognized as busy"
   done
   printf 'ordinary response ending with 🌕\n│ > │\n' > "$capture"
-  if pane_is_busy fake kimi; then
+  if tmux_pane_is_busy fake kimi; then
     fail "a moon outside Kimi's spinner-line shape was misread as busy"
   fi
   printf '🌕 Full moon details\n│ > │\n' > "$capture"
-  if pane_is_busy fake kimi; then
+  if tmux_pane_is_busy fake kimi; then
     fail "moon-led Kimi output without the middot separator was misread as busy"
   fi
   printf '  🌗 · Tip: /plugins: manage plugins ...\n│ > │\n' > "$capture"
-  if pane_is_busy fake codex; then
+  if tmux_pane_is_busy fake codex; then
     fail "Kimi's real spinner signature leaked into another harness"
   fi
   printf 'tip: ctrl+c: cancel\n│ > │\n' > "$capture"
-  if pane_is_busy fake kimi; then
+  if tmux_pane_is_busy fake kimi; then
     fail "kimi's independently rotating idle tip was misread as busy"
   fi
   printf 'Ctrl+c:cancel\n│ > │\n' > "$capture"
-  if pane_is_busy fake kimi; then
+  if tmux_pane_is_busy fake kimi; then
     fail "Grok's exact busy token leaked into Kimi's harness-scoped matcher"
   fi
   printf 'auto  K2.7 Coding thinking  /some/path\n│ > │\n' > "$capture"
-  if pane_is_busy fake kimi; then
+  if tmux_pane_is_busy fake kimi; then
     fail "Kimi's idle thinking-effort status label was misread as busy"
   fi
   pass "busy detection: real Kimi moon-plus-middot captures require its harness while idle labels stay idle"
