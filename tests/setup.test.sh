@@ -104,7 +104,7 @@ pass 'missing harnesses use a local npm prefix and installer failures propagate'
 CLI="$ROOT/bin/spudrunner.sh"
 TARGET="$TMP_ROOT/CLI home"
 out=$(bash "$CLI" setup --directory "$TARGET" --dry-run --harnesses pi --backend herdr)
-assert_contains "$out" 'https://github.com/hyAndrewLee/spudrunner.git' 'launcher selected the wrong repository'
+assert_contains "$out" 'https://github.com/hyAndrewLee/spudrunner-standalone.git' 'launcher selected the wrong repository'
 assert_contains "$out" '--harnesses pi --backend herdr' 'launcher lost setup options'
 assert_absent "$TARGET" 'launcher dry-run created a checkout'
 pass 'bunx launcher plans a persistent checkout without writes'
@@ -126,7 +126,7 @@ cat > "$TMP_ROOT/fakebin/git" <<'SH'
 #!/usr/bin/env bash
 set -eu
 if [ "$1" = clone ]; then
-  [ "$2" = https://github.com/hyAndrewLee/spudrunner.git ] || exit 33
+  [ "$2" = https://github.com/hyAndrewLee/spudrunner-standalone.git ] || exit 33
   printf 'clone\n' >> "$LOG"
   "$REAL_GIT" clone -q "$SPUDRUNNER_TEST_SOURCE" "$3"
   "$REAL_GIT" -C "$3" remote set-url origin "$2"

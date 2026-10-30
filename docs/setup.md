@@ -21,14 +21,14 @@ Use `bunx @hyandrewlee/spudrunner setup --dry-run` to print the launcher plan wi
 Without a registry release, clone directly:
 
 ```sh
-git clone https://github.com/hyAndrewLee/spudrunner.git "$HOME/spudrunner" && bash "$HOME/spudrunner/bin/setup.sh"
+git clone https://github.com/hyAndrewLee/spudrunner-standalone.git "$HOME/spudrunner" && bash "$HOME/spudrunner/bin/setup.sh"
 ```
 
 For an existing checkout, use `bash bin/setup.sh` from its root.
 Use `bash bin/setup.sh --dry-run` to preview without downloading, installing, or writing configuration.
 The script's `--help` is the owner of options, defaults, installation destinations, and side effects.
 For example, `bash bin/setup.sh --harnesses pi,codex --backend herdr` selects a smaller harness set and a Herdr home.
-The repository is cloned directly from your `hyAndrewLee/spudrunner` repository; setup does not create a fork or publish any changes.
+The repository is cloned directly from your `hyAndrewLee/spudrunner-standalone` repository; setup does not create a fork or publish any changes.
 
 ## Login and launch
 
