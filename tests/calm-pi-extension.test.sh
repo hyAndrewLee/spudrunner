@@ -2522,6 +2522,7 @@ test_queued_operational_escape_e2e() {
   cp "$WORKING_SHIP_SPRITE" "$project/.pi/extensions/lib/calm-progress-sprite.ts"
   cp "$PI_OPERATIONAL_INPUT" "$project/.pi/extensions/lib/operational-input.ts"
   printf '%s\n' '{"followUpMode":"all"}' >"$config/settings.json"
+  printf '%s\n' '{"app.message.followUp":"ctrl+q"}' >"$config/keybindings.json"
 
   cat >"$project/queued-escape-e2e.ts" <<'TS'
 import { appendFileSync, writeFileSync } from "node:fs";
@@ -2628,7 +2629,7 @@ TS
     [ -e "$held" ] || fail "Pi queued-row $label case never queued the monitoring notification"
     if [ "$captain_queued" = yes ]; then
       tmux -L "$TMUX_SOCKET" send-keys -t "$TMUX_SESSION" -l "CAPTAIN_QUEUED_$label"
-      tmux -L "$TMUX_SOCKET" send-keys -t "$TMUX_SESSION" M-Enter
+      tmux -L "$TMUX_SOCKET" send-keys -t "$TMUX_SESSION" C-q
       wait_for_text "$TMP_ROOT/queued-escape-pane" "Follow-up: CAPTAIN_QUEUED_$label" \
         || fail "Pi queued-row $label case did not list the captain's queued follow-up"
     elif [ "$calm_state" = on ]; then
