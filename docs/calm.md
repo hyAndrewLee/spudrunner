@@ -8,7 +8,7 @@ This page is for operators who turn Calm on and need to know what it hides and k
 | Harness | Support |
 | --- | --- |
 | Pi | Fully supported. |
-| Claude Code | Available behind that harness's default-off early-access function-hooks flag, as the [Claude Code](#claude-code) section below describes. |
+| Claude Code | Requires >=2.1.272 and that harness's default-off early-access function-hooks flag, as the [Claude Code](#claude-code) section below describes. |
 
 Calm is off by default.
 The last `/calm` choice persists for the effective Spudrunner home across session starts and resumes on either harness.

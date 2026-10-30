@@ -824,7 +824,7 @@ unit_daemon_terminal_receives_the_primary_harness() {
       tmux() { [ "$1" = new-session ] && bash -c "$5"; }
       away_mode_launch_record_write() { return 0; }
       away_mode_launch_commit_terminal() { return 0; }
-      fm_afk_launch_create_"$2" lab:captain "$2"
+      away_mode_launch_create_"$2" lab:captain "$2"
     ' _ "$LAUNCH" "$backend" >/dev/null 2>&1
     got=$(cat "$st/daemon-harness" 2>/dev/null || true)
     if [ "$got" = claude ]; then

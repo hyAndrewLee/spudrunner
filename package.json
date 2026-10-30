@@ -1,6 +1,7 @@
 {
   "name": "@hyandrewlee/spudrunner",
   "version": "0.1.0",
+  "type": "module",
   "description": "Set up Spudrunner harnesses and coordinator tools on a fresh machine",
   "license": "MIT",
   "repository": {

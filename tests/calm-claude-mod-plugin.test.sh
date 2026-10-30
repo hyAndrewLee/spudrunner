@@ -21,6 +21,22 @@ MOD="$ROOT/.claude/mods/calm-interface"
 AUTOLOAD_PATH="$ROOT/.claude/skills/calm-interface"
 CLAUDE_VERSION=$(claude --version 2>/dev/null || true)
 [ -n "$CLAUDE_VERSION" ] || fail "claude is installed but reports no version"
+# Function hooks and plugin test were introduced after the older installed CLI.
+# Capability-skip that known unsupported range, but fail forced live checks.
+version=${CLAUDE_VERSION%% *}
+if [[ "$version" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+  major=${BASH_REMATCH[1]} minor=${BASH_REMATCH[2]} patch=${BASH_REMATCH[3]}
+  if [ "$major" -lt 2 ] || { [ "$major" -eq 2 ] && [ "$minor" -lt 1 ]; } ||
+    { [ "$major" -eq 2 ] && [ "$minor" -eq 1 ] && [ "$patch" -lt 272 ]; }; then
+    if [ "${FM_CLAUDE_CALM_PLUGIN_TEST:-}" = 1 ] || [ "${FM_LIVE:-}" = 1 ]; then
+      fail "Claude Code $CLAUDE_VERSION requires an upgrade to >=2.1.272 for Calm function hooks"
+    fi
+    printf 'skip: Claude Code %s predates Calm function hooks (requires >=2.1.272)\n' "$CLAUDE_VERSION"
+    exit 0
+  fi
+else
+  fail "cannot determine Claude Code function-hooks compatibility: $CLAUDE_VERSION"
+fi
 TMP_ROOT=$(test_tmproot fm-calm-claude-mod-plugin)
 
 expect_in_report() {

@@ -1257,7 +1257,7 @@ if (handlers.has("input")) {
 }
 if (
   calmCommand.description !==
-  "Toggle Firstmate's supported conversation-only transcript presentation."
+  "Toggle Spudrunner's supported conversation-only transcript presentation."
 ) {
   throw new Error(`unexpected calm command description: ${calmCommand.description}`);
 }
