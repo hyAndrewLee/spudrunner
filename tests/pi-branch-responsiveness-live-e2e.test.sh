@@ -49,9 +49,11 @@ cleanup() {
 }
 trap cleanup EXIT
 
-cp "$ROOT/.pi/extensions/supervision-branch.ts" "$PROJECT/.pi/extensions/supervision-branch.ts"
-for lib in fm-async-exec fm-branch-dispatch fm-branch-model-picker fm-calm-visibility fm-native-contract fm-operational-input; do
-  cp "$ROOT/.pi/extensions/lib/$lib.ts" "$PROJECT/.pi/extensions/lib/$lib.ts"
+cp "$ROOT/.pi/extensions/supervision-branch.ts" "$PROJECT/.pi/extensions/supervision-branch.ts" \
+  || fail "could not copy supervision-branch.ts fixture"
+for lib in async-exec supervision-branch-dispatch supervision-branch-model-picker calm-visibility native-contract operational-input; do
+  cp "$ROOT/.pi/extensions/lib/$lib.ts" "$PROJECT/.pi/extensions/lib/$lib.ts" \
+    || fail "could not copy $lib.ts fixture"
 done
 
 EXT="$PROJECT/.pi/extensions/supervision-branch.ts"
