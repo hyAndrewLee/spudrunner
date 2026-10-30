@@ -12,9 +12,11 @@ SETUP="$TMP_ROOT/checkout/bin/setup.sh"
 LOG="$TMP_ROOT/commands"
 export LOG
 for tool in apt-get sudo brew; do
-  printf '#!/usr/bin/env bash\nprintf "%%s\\n" "%s $*" >> "$LOG"\n' "$tool" > "$TMP_ROOT/fakebin/$tool"
+  cat > "$TMP_ROOT/fakebin/$tool" <<'SH'
+#!/usr/bin/env bash
+printf '%s\n' "${0##*/} $*" >> "$LOG"
+SH
 done
-printf '#!/usr/bin/env bash\nprintf "%%s\\n" "${SETUP_TEST_OS:-Linux}"\n' > "$TMP_ROOT/fakebin/uname"
 # uname -m must still report a supported architecture.
 cat > "$TMP_ROOT/fakebin/uname" <<'SH'
 #!/usr/bin/env bash

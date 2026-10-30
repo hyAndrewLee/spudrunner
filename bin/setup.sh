@@ -135,6 +135,7 @@ fi
 if [ "$DRY_RUN" -eq 0 ]; then
   mkdir -p "$(dirname "$ENV_FILE")" "$ROOT/config" "$ROOT/data" "$ROOT/state" "$ROOT/projects"
   # Bash and Zsh can both source this file; do not edit the user's shell rc files.
+  # shellcheck disable=SC2016 # PATH expands when the generated file is sourced.
   printf 'export PATH=%q:%q:%q:"$PATH"\n' "$NODE_HOME/bin" "$BIN" "$PREFIX/bin" > "$ENV_FILE"
   if [ ! -e "$ROOT/config/backend" ]; then
     printf '%s\n' "$BACKEND" > "$ROOT/config/backend"
