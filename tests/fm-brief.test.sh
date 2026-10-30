@@ -679,7 +679,8 @@ test_herdr_lab_contract_quotes_foreign_firstmate_path() {
   local home id brief foreign_root helper
   home="$TMP_ROOT/herdr-lab-foreign-home"
   foreign_root="$TMP_ROOT/firstmate helper's root"
-  mkdir -p "$home/data"
+  mkdir -p "$home/data" "$foreign_root/.agents/skills/worker-engineering"
+  cp "$ROOT/.agents/skills/worker-engineering/SKILL.md" "$foreign_root/.agents/skills/worker-engineering/SKILL.md"
   id="brief-herdr-lab-foreign-d2"
   helper=$(printf '%s' "$foreign_root/bin/fm-herdr-lab.sh" | sed "s/'/'\\\\''/g")
   helper="'$helper'"
@@ -1324,6 +1325,8 @@ test_worker_role_scope() {
     fi
     brief="$home/data/$kind/brief.md"
     assert_no_grep '# Current worker role contract' "$brief" "$kind scaffolded a second owner of the role scope fm-spawn.sh delivers"
+    assert_grep "$ROOT/.agents/skills/worker-engineering/SKILL.md" "$brief" "$kind omitted the absolute engineering owner"
+    assert_grep 'These defaults never widen acceptance criteria' "$brief" "$kind omitted bounded engineering defaults"
   done
   FM_HOME="$home" FM_SECONDMATE_CHARTER='Supervise assigned work.' \
     "$ROOT/bin/fm-brief.sh" supervisor --secondmate --no-projects >/dev/null || fail "secondmate scaffold failed"

@@ -655,6 +655,66 @@
     {
       "path": ".agents/skills/validation-supervision/SKILL.md",
       "audience": "agent-runtime"
+    },
+    {
+      "path": "docs/workflow-sources.md",
+      "audience": "maintainer-architecture"
+    },
+    {
+      "path": "docs/workflow-integration.md",
+      "audience": "maintainer-architecture"
+    },
+    {
+      "path": "docs/fork-maintenance.md",
+      "audience": "operator-current"
+    },
+    {
+      "path": ".agents/skills/worker-engineering/SKILL.md",
+      "audience": "agent-runtime"
+    },
+    {
+      "path": ".agents/skills/concise-chat/SKILL.md",
+      "audience": "agent-runtime"
+    },
+    {
+      "path": "vendor/workflow/poteto/principles/foundational-thinking.md",
+      "audience": "maintainer-architecture"
+    },
+    {
+      "path": "vendor/workflow/poteto/principles/subtract-before-you-add.md",
+      "audience": "maintainer-architecture"
+    },
+    {
+      "path": "vendor/workflow/poteto/principles/fix-root-causes.md",
+      "audience": "maintainer-architecture"
+    },
+    {
+      "path": "vendor/workflow/poteto/principles/prove-it-works.md",
+      "audience": "maintainer-architecture"
+    },
+    {
+      "path": "vendor/workflow/poteto/principles/sequence-verifiable-units.md",
+      "audience": "maintainer-architecture"
+    },
+    {
+      "path": "vendor/workflow/poteto/playbooks/feature.md",
+      "audience": "maintainer-architecture"
+    },
+    {
+      "path": "vendor/workflow/poteto/playbooks/bug-fix.md",
+      "audience": "maintainer-architecture"
+    },
+    {
+      "path": "vendor/workflow/poteto/playbooks/investigation.md",
+      "audience": "maintainer-architecture"
+    },
+    {
+      "path": "vendor/workflow/caveman/LICENSING.md",
+      "audience": "maintainer-architecture"
+    },
+    {
+      "path": "vendor/workflow/caveman/SKILL.md",
+      "audience": "maintainer-architecture"
     }
   ]
 }

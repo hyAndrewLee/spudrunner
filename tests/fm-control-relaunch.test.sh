@@ -598,6 +598,8 @@ test_relaunch_appends_the_progress_note_to_the_instructions() {
   assert_grep "reproduced the crash in parser.go" "$dir/home/state/rl2.control-relaunch.note" \
     "the note should also be preserved beside the transaction record"
   launch_brief="$dir/home/data/rl2/launch-brief.md"
+  assert_grep "$ROOT/.agents/skills/worker-engineering/SKILL.md" "$launch_brief" "relaunch omitted the engineering policy"
+  assert_grep "These defaults never widen acceptance criteria" "$launch_brief" "relaunch omitted effective policy boundaries"
   first_line=$(sed -n '1p' "$launch_brief")
   [ "$first_line" = '# Current worker role contract' ] ||
     fail "a Firstmate-worktree relaunch did not establish the crewmate identity first"

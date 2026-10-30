@@ -145,6 +145,18 @@
 # shellcheck source=bin/fm-external-review-lib.sh
 . "$(d=${BASH_SOURCE[0]%/*}; [ "$d" != "${BASH_SOURCE[0]}" ] || d=.; cd "${d:-/}" && pwd)/fm-external-review-lib.sh"
 
+# The canonical skill owns defaults and their precedence; this renderer only
+# makes that owner reachable from a worker in any project repository.
+fm_brief_worker_policy() {  # <code-root>
+  local policy="$1/.agents/skills/worker-engineering/SKILL.md"
+  [ -r "$policy" ] || { printf 'error: missing engineering policy: %s\n' "$policy" >&2; return 1; }
+  printf '# Current engineering defaults\n'
+  printf 'Policy owner: `%s`; its effective instructions follow so discovery in the target project is unnecessary.\n' "$policy"
+  awk 'NR == 1 && $0 == "---" { front = 1; next }
+    front && $0 == "---" { front = 0; next }
+    !front { print }' "$policy"
+}
+
 fm_brief_worker_role() {  # <state-dir> <task-id> <code-root>
   local state=$1 task_id=$2 root=$3
   cat <<'EOF'
@@ -160,6 +172,8 @@ When this task works on Firstmate itself, the repository root `AGENTS.md` (also 
 Project instructions still govern the work wherever they do not conflict with this worker identity, including `CONTRIBUTING.md` and `firstmate-coding-guidelines` for Firstmate changes.
 EOF
   printf "If the \`firstmate-coding-guidelines\` skill name does not resolve in this session, read \`%s/.agents/skills/firstmate-coding-guidelines/SKILL.md\` instead.\n" "$root"
+  printf '\n'
+  fm_brief_worker_policy "$root"
 }
 
 # Return 0 when <mode> is one of the two publishing modes, whose Definition of

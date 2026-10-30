@@ -2385,6 +2385,8 @@ SH
     assert_grep "skill name does not resolve in this session, read \`$ROOT/.agents/skills/firstmate-coding-guidelines/SKILL.md\` instead." "$prompt" \
       "$kind command did not name the Firstmate skill file as the fallback"
     assert_grep 'brief for' "$prompt" "$kind command lost the task"
+    assert_grep "$ROOT/.agents/skills/worker-engineering/SKILL.md" "$prompt" "$kind launch omitted an absolute engineering policy path"
+    assert_grep 'These defaults never widen acceptance criteria' "$prompt" "$kind launch omitted effective policy boundaries"
     [ "$(grep -c '^# Current worker role contract$' "$prompt")" -eq 1 ] ||
       fail "$brief_kind $kind duplicated the delivered worker contract"
     if [ "$brief_kind" = heading ]; then

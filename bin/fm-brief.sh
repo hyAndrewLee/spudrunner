@@ -650,6 +650,8 @@ IFS= read -r -d '' TASK_SECTION <<'EOF' || true
 {FIRSTMATE_SPEC}
 EOF
 TASK_SECTION=${TASK_SECTION%$'\n'}
+ENGINEERING_DEFAULTS=$(fm_brief_worker_policy "$FM_ROOT") || exit 1
+TASK_SECTION="$ENGINEERING_DEFAULTS"$'\n\n'"$TASK_SECTION"
 
 # One shared string keeps the ship and scout infrastructure rule identical.
 # Rule 2 governs file edits, so it does not prohibit pool administration.

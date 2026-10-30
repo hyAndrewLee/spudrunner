@@ -326,6 +326,8 @@ If these promotion steps were already completed before a relaunch, preserve the 
 7. Everything else in your original instructions carries over unchanged: the status protocol; the instruction inbox and its acknowledgement; the escalation rules, including ask-user; and every safety rule, except where the current delivery contract below explicitly replaces scout-only delivery rules.
 EOF
 promote_delivery_contract() {
+  fm_brief_worker_policy "$FM_ROOT" || return 1
+  printf '\n'
   cat <<EOF
 # Current delivery mode contract
 This task is now kind=ship with mode=$MODE$PROMOTE_FORGE_WORDS$PROMOTE_PR_WORDS$PROMOTE_CONSENT_WORDS.

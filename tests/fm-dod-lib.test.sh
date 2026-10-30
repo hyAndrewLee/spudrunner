@@ -439,6 +439,9 @@ EOF
       assert_grep 'against the base branch `feature/hub`' "$home/data/$id/ship-instructions.md" \
         "promotion did not target the PR at the recorded base"
       assert_grep 'base_branch=feature/hub' "$meta" "promotion dropped the recorded base"
+      assert_grep "$ROOT/.agents/skills/worker-engineering/SKILL.md" "$home/data/$id/ship-instructions.md" "live promotion omitted the absolute policy owner"
+      assert_grep "$ROOT/.agents/skills/worker-engineering/SKILL.md" "$home/data/$id/brief.md" "durable promotion omitted engineering defaults"
+      assert_equals "Fix the hub bug." "$(fm_brief_task_heading_body "$home/data/$id/ship-instructions.md" "## Captain's intent")" "promotion changed original intent"
     else
       [ "$status" -ne 0 ] || fail "promoting a based scout to local-only should be refused"
       assert_contains "$out" "mode=local-only" "the local-only promotion refusal did not explain itself"
@@ -598,5 +601,40 @@ test_external_review_done_without_backup_is_accepted_on_the_url
 test_external_review_done_with_backup_needs_the_copy
 
 test_worker_role_names_skill_and_fallback_file
+
+test_effective_engineering_defaults() {
+  local policy
+  policy=$(fm_brief_worker_policy "$ROOT") || fail "engineering policy did not render"
+  assert_contains "$policy" "$ROOT/.agents/skills/worker-engineering/SKILL.md" "policy owner is not reachable outside the repository"
+  assert_contains "$policy" "take precedence over these defaults" "defaults lost their precedence"
+  assert_contains "$policy" "never widen acceptance criteria or authorize delegation" "defaults gained task authority"
+  assert_contains "$policy" "only review and delivery owner" "defaults added a review owner"
+  assert_contains "$policy" "normal prose in code, comments, commits, saved reports, PRs" "artifact prose was compressed"
+  if fm_brief_worker_policy "$TMP_ROOT/missing-root" >/dev/null 2>&1; then
+    fail "missing policy owner was silently ignored"
+  fi
+  pass "engineering defaults are effective, bounded, and independent of project skill discovery"
+}
+
+test_pinned_workflow_sources() {
+  python3 - "$ROOT" <<'PY'
+import hashlib, json, pathlib, sys
+root = pathlib.Path(sys.argv[1]) / 'vendor/workflow'
+manifest = json.loads((root / 'manifest.json').read_text())
+for source in manifest['files']:
+    data = (root / source['file']).read_bytes()
+    assert hashlib.sha256(data).hexdigest() == source['sha256'], source['file']
+    blob = b'blob ' + str(len(data)).encode() + bytes([0]) + data
+    assert hashlib.sha1(blob).hexdigest() == source['git_blob'], source['file']
+    assert len(source['revision']) == 40
+assert {s['repository'] for s in manifest['files']} == {'poteto/plugins', 'JuliusBrussee/caveman'}
+print('pinned workflow source hashes verified')
+PY
+  [ "$?" -eq 0 ] || fail "pinned source provenance no longer matches the selected bytes"
+  pass "pinned workflow source integrity"
+}
+
+test_effective_engineering_defaults
+test_pinned_workflow_sources
 
 echo "all fm-dod-lib tests passed"
