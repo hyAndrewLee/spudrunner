@@ -315,7 +315,7 @@
 #   (config-inherit-lib.sh). A successful launch clears pending inherited
 #   config reread generations because the new agent reads the converged files.
 #   --scout records kind=investigation worker in the task's meta (report deliverable, scratch worktree;
-#   see AGENTS.md task lifecycle); --secondmate records kind=project coordinator and launches in a
+#   see AGENTS.md task lifecycle); --secondmate records kind=secondmate and launches in a
 #   provisioned Spudrunner home; the default is kind=ship.
 #   Before a project coordinator launch, the home is fast-forwarded to the primary's
 #   default-branch commit when safe: directly for a local home, or through the
@@ -684,7 +684,7 @@
 # compatible tasks-axi refuses before creating lifecycle state.
 # On success prints: spawned <id> harness=<name> kind=<ship|investigation worker|project coordinator> [mode=<mode> yolo=<on|off>] window=<backend-target> worktree=<path>
 # An implementation task records the explicit mode/yolo it was passed; a project coordinator spawn records
-# mode=project coordinator, yolo=off, home=, and projects=; an investigation worker records neither, and both the
+# mode=secondmate, yolo=off, home=, and projects=; an investigation worker records neither, and both the
 # success line and state/<id>.meta omit them.
 # Every fresh spawn or relaunch records a new spawn_gen= incarnation token so durable
 # consumers can distinguish a replacement worker that reuses the same task id.
@@ -1501,8 +1501,8 @@ spawn_remote_project_coordinator() {
     echo "worktree=$home"
     echo "project=$root"
     echo "harness=$harness"
-    echo "kind=project coordinator"
-    echo "mode=project coordinator"
+    echo "kind=secondmate"
+    echo "mode=secondmate"
     echo "yolo=off"
     echo "tasktmp="
     echo "model=${model#-}"
