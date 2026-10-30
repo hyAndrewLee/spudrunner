@@ -225,6 +225,7 @@ Supervise all live work under section 8.
 
 ### Selected delivery path and merge authority
 
+Load `pr-delivery` when scoping an implementation PR, before opening it, and while supervising its CI checks; it owns atomic scope, relevant tests, and the delegated 10-second CI observer/original-worker fix loop.
 The selected delivery path owns its own rigor.
 When no-mistakes is selected, no-mistakes alone owns review, fixes, tests, documentation, push, PR, and CI; otherwise follow the faster path without adding an independent reviewer.
 Never hold work outside no-mistakes for a manual clean verdict, stack serial manual reviews, or infer authority for one from security, architecture, or risk alone.
