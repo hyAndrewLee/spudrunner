@@ -404,6 +404,10 @@ test_fake_codex_catalog() {
 #!/usr/bin/env node
 const readline = require('node:readline');
 const fs = require('node:fs');
+if (!process.argv.includes('app-server')) {
+  console.log(JSON.stringify({home:process.env.CODEX_HOME, userHome:process.env.HOME, args:process.argv.slice(2)}));
+  process.exit(0);
+}
 readline.createInterface({input: process.stdin}).on('line', line => {
   const q = JSON.parse(line);
   if (process.env.FM_FAKE_CODEX_RPC_LOG) fs.appendFileSync(process.env.FM_FAKE_CODEX_RPC_LOG, JSON.stringify({method:q.method, cwd:process.cwd(), home:process.env.CODEX_HOME})+'\n');

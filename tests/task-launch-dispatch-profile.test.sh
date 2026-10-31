@@ -2745,6 +2745,68 @@ JS
   pass "unpinned stale Codex default is replaced by catalog recommendation with provider and selected model recorded"
 }
 
+test_codex_configuration_root_binding() {
+  local setting rec id out status launch log root result pane_root
+  for setting in default explicit filtered allowed; do
+    id="catalog-root-$setting"
+    rec=$(make_spawn_case "$id" codex "$id")
+    read_case_record "$rec"
+    log="$CASE_DIR/rpc.jsonl"
+    root="$HOME_DIR/user-home/.codex"
+    pane_root=
+    case "$setting" in
+      explicit|allowed) root="$CASE_DIR/account"; pane_root=$root ;;
+    esac
+    case "$setting" in
+      filtered) : > "$HOME_DIR/config/launch-env-allowlist" ;;
+      allowed) printf 'CODEX_HOME\n' > "$HOME_DIR/config/launch-env-allowlist" ;;
+    esac
+    out=$(
+      export FM_FAKE_CODEX_RPC_LOG="$log"
+      case "$setting" in
+        default) unset CODEX_HOME ;;
+        filtered) export CODEX_HOME="$CASE_DIR/filtered-supervisor-account" ;;
+        *) export CODEX_HOME="$pane_root" ;;
+      esac
+      run_implementation_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" "$id" "$PROJ_DIR"
+    )
+    status=$?
+    expect_code 0 "$status" "root=$setting discovery failed: $out"
+    node - "$log" "$root" <<'JS'
+const [file, root] = process.argv.slice(2);
+const rows = require('fs').readFileSync(file,'utf8').trim().split('\n').map(JSON.parse);
+if (!rows.length || rows.some(row => row.home !== root)) process.exit(1);
+JS
+    expect_code 0 "$?" "root=$setting discovery used wrong config"
+    launch=$(cat "$LAUNCH_LOG")
+    result=$(env -i HOME="$HOME_DIR/user-home" CODEX_HOME="$pane_root" PATH="$PATH" /bin/sh -c "$launch")
+    expect_code 0 "$?" "root=$setting ordinary launch failed: $result"
+    node - "$result" "$root" <<'JS'
+const [output, root] = process.argv.slice(2);
+const worker = JSON.parse(output);
+if (worker.home !== root || !worker.args.includes('recommended-worker')) process.exit(1);
+JS
+    expect_code 0 "$?" "root=$setting worker did not use discovered root/model"
+    result=$(env -i HOME="$HOME_DIR/user-home" CODEX_HOME="$CASE_DIR/conflicting-provider" PATH="$PATH" /bin/sh -c "$launch" 2>&1)
+    status=$?
+    if [ "$setting" = filtered ]; then
+      expect_code 0 "$status" "filtered destination CODEX_HOME must not affect execution: $result"
+    else
+      [ "$status" -ne 0 ] || fail "root=$setting launched against conflicting destination account"
+      assert_contains "$result" 'explicit supported --model' "root mismatch must request a deliberate model"
+    fi
+    if [ -n "$pane_root" ]; then
+      result=$(env -i HOME="$CASE_DIR/other-user" CODEX_HOME="$pane_root" PATH="$PATH" /bin/sh -c "$launch" 2>&1)
+      expect_code 0 "$?" "explicit root should preserve its account despite a different destination HOME: $result"
+    fi
+    result=$(env -i HOME="$CASE_DIR/other-user" PATH="$PATH" /bin/sh -c "$launch" 2>&1)
+    status=$?
+    [ "$status" -ne 0 ] || fail "root=$setting launched against conflicting destination HOME"
+    assert_contains "$result" 'explicit supported --model' "HOME mismatch must request a deliberate model"
+    pass "root=$setting discovery and execution agree or refuse without changing accounts"
+  done
+}
+
 test_codex_explicit_choices_bypass_auto_selection() {
   local choice rec id out status launch
   for choice in deliberately-pinned default; do
@@ -2807,6 +2869,7 @@ test_codex_catalog_does_not_route_other_harnesses() {
 }
 
 test_codex_unpinned_uses_catalog_recommendation
+test_codex_configuration_root_binding
 test_codex_explicit_choices_bypass_auto_selection
 test_codex_discovery_refusals_do_not_launch
 test_codex_catalog_does_not_route_other_harnesses
