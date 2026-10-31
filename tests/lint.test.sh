@@ -1862,8 +1862,9 @@ test_pinned_shellcheck_memory_limit() {
   # limit - this is what proves the address-space cap leaves GHC enough head
   # room instead of discovering the conflict mid-partition in CI.
   rc=0
-  out=$(FM_LINT_REQUIRE_BOUNDS=1 "$LINT" \
-    --telemetry "$telemetry" "$fixture" 2>&1) || rc=$?
+  out=$(unset FM_LINT_ROOT_MEMORY_KIB
+    FM_LINT_REQUIRE_BOUNDS=1 "$LINT" \
+      --telemetry "$telemetry" "$fixture" 2>&1) || rc=$?
   [ "$rc" -eq 0 ] || fail "pinned ShellCheck did not lint under the default memory limit"$'\n'"$out"
   grep -q $'^meta\tbounds_enforced\t1$' "$roots_log" \
     || fail "the sidecar did not record enforced bounds"
