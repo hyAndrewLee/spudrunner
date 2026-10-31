@@ -803,6 +803,7 @@ test_changed_mode_hides_cross_file_codes_that_ci_still_sees() {
   mkdir -p "$test_root/bin/backends" "$test_root/tests" "$test_root/.github/workflows"
   lint="$test_root/bin/lint.sh"
   cp "$LINT" "$lint"
+  cp "$ROOT/bin/timeout-lib.sh" "$test_root/bin/"
   cp "$ROOT/bin/lint-workflows.sh" "$test_root/bin/"
   cp "$ROOT"/.github/workflows/* "$test_root/.github/workflows/"
   printf '#!/usr/bin/env bash\nexit 0\n' > "$test_root/bin/backends/noop.sh"
@@ -1159,6 +1160,7 @@ test_rejects_direct_beads_cli_invocations() {
   mkdir -p "$tmp/repo/bin/backends" "$tmp/repo/tests"
   lint_copy="$tmp/repo/bin/lint.sh"
   cp "$LINT" "$lint_copy"
+  cp "$ROOT/bin/timeout-lib.sh" "$tmp/repo/bin/"
   cat > "$tmp/repo/bin/lint-workflows.sh" <<'SH'
 #!/usr/bin/env bash
 exit 0
@@ -1211,6 +1213,7 @@ test_rejects_direct_beads_cli_in_explicit_core_path() {
   lint_copy="$tmp/repo/bin/lint.sh"
   target="$tmp/repo/bin/direct-beads.sh"
   cp "$LINT" "$lint_copy"
+  cp "$ROOT/bin/timeout-lib.sh" "$tmp/repo/bin/"
   printf '#!/usr/bin/env bash\nbd close fm-example\n' > "$target"
   chmod +x "$lint_copy"
   lint_stub_shellcheck "$fakebin" "$log"
