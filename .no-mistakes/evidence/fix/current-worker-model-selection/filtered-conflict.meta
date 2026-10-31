@@ -1,0 +1,16 @@
+window=primary:fm-filtered-conflict
+endpoint_task_id=filtered-conflict
+worktree=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/pool-filtered-conflict/.treehouse/project-filtered-conflict-9e96da/1/project-filtered-conflict
+project=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/project-filtered-conflict
+harness=codex
+approval_mode=bypass
+kind=ship
+mode=local-only
+yolo=off
+branch=fm/filtered-conflict
+tasktmp=/tmp/fm-filtered-conflict
+model=gpt-6.1-sol
+model_source=codex-model-list
+model_provider=openai
+effort=default
+spawn_gen=s1793470372.22192.26101

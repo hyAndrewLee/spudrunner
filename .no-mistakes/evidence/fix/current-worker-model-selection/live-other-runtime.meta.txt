@@ -1,0 +1,3 @@
+harness=pi
+model=xai/provider-pin
+effort=high

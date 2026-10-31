@@ -1,0 +1,3 @@
+harness=codex
+model=configured-test-pin
+effort=high

@@ -1,0 +1,5 @@
+fm-gate-refuse: gate agent lifecycle permitted only against lab home /tmp/fm-lab.8guyLb
+warning: /tmp/fm-lab.8guyLb/data/intentional-default/launch-brief.md records no ship branch; defaulting to legacy branch fm/intentional-default
+warning: /tmp/fm-lab.8guyLb/data/intentional-default/launch-brief.md records no delivery contract line (scaffolded before ship briefs recorded one); launching on the explicit --mode local-only - confirm its definition of done matches
+notice: intentional-default ships mode=local-only while the standing posture for project-intentional-default is no-mistakes - less rigor than the user's standing posture; proceed only on a current explicit user instruction or an intake judgment you can state
+spawned intentional-default harness=codex kind=ship mode=local-only yolo=off window=primary:fm-intentional-default worktree=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/pool-intentional-default/.treehouse/project-intentional-default-409fa9/1/project-intentional-default

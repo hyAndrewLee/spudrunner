@@ -1,0 +1,40 @@
+bash-5.0$ treehouse get
+A new version of treehouse is available: v0.0.0-20260812063318-d1e21468d1d8 → v3.1.8
+Run "treehouse update" to update
+
+🌳 Setting up worktree...
+🌳 Entered worktree at /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-filtered-conflict/.treehouse/project-filtered-conflict-9e96da/1/project-filtered-conflict. Type 'exit' to return.
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-filtered-conflict/.treehouse/project-filtered-conflict-9e96da/1/project-filtered-conflict$ cd -- '/home/andrew/.no-mistakes-spudrunne
+r-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/pool-filtered-conflict/.treehouse/project-filtered-confl
+ict-9e96da/1/project-filtered-conflict'
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-filtered-conflict/.treehouse/project-filtered-conflict-9e96da/1/project-filtered-conflict$ /bin/sh '/tmp/fm-lab.8guyLb/state/.codex-e
+nvironment.qUSYoq/check.sh'
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-filtered-conflict/.treehouse/project-filtered-conflict-9e96da/1/project-filtered-conflict$ export GOTMPDIR=/tmp/fm-filtered-conflict/
+gotmp
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-filtered-conflict/.treehouse/project-filtered-conflict-9e96da/1/project-filtered-conflict$ export COMPACT_ADVISER_DISABLE=1
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-filtered-conflict/.treehouse/project-filtered-conflict-9e96da/1/project-filtered-conflict$ export FM_TASK_ID=filtered-conflict
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-filtered-conflict/.treehouse/project-filtered-conflict-9e96da/1/project-filtered-conflict$ . '/tmp/fm-filtered-conflict+d8a538d6fd2cb
+bc2e8dd821340c2f188fe40c832ee4a618d25e22e8423982678/launch.s1793470372.22192.26101.sh'
+TOKEN-FREE LAUNCH BOUNDARY: argv recorded, no worker started
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-filtered-conflict/.treehouse/project-filtered-conflict-9e96da/1/project-filtered-conflict$
+
+
+
+
+
+
+
+
+
+

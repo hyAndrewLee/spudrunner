@@ -1,0 +1,40 @@
+bash-5.0$ treehouse get
+A new version of treehouse is available: v0.0.0-20260812063318-d1e21468d1d8 → v3.1.8
+Run "treehouse update" to update
+
+🌳 Setting up worktree...
+🌳 Entered worktree at /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-conflict-codex-home/.treehouse/project-conflict-codex-home-db052b/1/project-conflict-codex-home. Type 'exit' to return.
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-conflict-codex-home/.treehouse/project-conflict-codex-home-db052b/1/project-conflict-codex-home$ cd -- '/home/andrew/.no-mistakes-spu
+drunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/pool-conflict-codex-home/.treehouse/project-confli
+ct-codex-home-db052b/1/project-conflict-codex-home'
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-conflict-codex-home/.treehouse/project-conflict-codex-home-db052b/1/project-conflict-codex-home$ /bin/sh '/tmp/fm-lab.8guyLb/state/.c
+odex-environment.eMUZe5/check.sh'
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-conflict-codex-home/.treehouse/project-conflict-codex-home-db052b/1/project-conflict-codex-home$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

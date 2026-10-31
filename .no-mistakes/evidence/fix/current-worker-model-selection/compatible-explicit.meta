@@ -1,0 +1,16 @@
+window=primary:fm-compatible-explicit
+endpoint_task_id=compatible-explicit
+worktree=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/pool-compatible-explicit/.treehouse/project-compatible-explicit-d00690/1/project-compatible-explicit
+project=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/project-compatible-explicit
+harness=codex
+approval_mode=bypass
+kind=ship
+mode=local-only
+yolo=off
+branch=fm/compatible-explicit
+tasktmp=/tmp/fm-compatible-explicit
+model=gpt-6.1-sol
+model_source=codex-model-list
+model_provider=openai
+effort=default
+spawn_gen=s1793470375.23469.19385

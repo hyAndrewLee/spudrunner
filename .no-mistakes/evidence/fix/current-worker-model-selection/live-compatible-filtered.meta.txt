@@ -1,0 +1,5 @@
+harness=codex
+model=gpt-6.1-sol
+model_source=codex-model-list
+model_provider=openai
+effort=default

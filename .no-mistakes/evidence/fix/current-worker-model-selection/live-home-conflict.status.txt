@@ -1,0 +1,1 @@
+failed [at=1793468938]: automatic Codex model selection cannot establish the destination configuration root; pass an explicit supported --model

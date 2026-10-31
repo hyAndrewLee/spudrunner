@@ -1,0 +1,5 @@
+fm-gate-refuse: gate agent lifecycle permitted only against lab home /tmp/fm-lab.8guyLb
+warning: /tmp/fm-lab.8guyLb/data/refuse-effort/launch-brief.md records no ship branch; defaulting to legacy branch fm/refuse-effort
+warning: /tmp/fm-lab.8guyLb/data/refuse-effort/launch-brief.md records no delivery contract line (scaffolded before ship briefs recorded one); launching on the explicit --mode local-only - confirm its definition of done matches
+notice: refuse-effort ships mode=local-only while the standing posture for project-refuse-effort is no-mistakes - less rigor than the user's standing posture; proceed only on a current explicit user instruction or an intake judgment you can state
+error: Codex recommended model 'gpt-6.1-sol' does not advertise requested/inherited effort 'minimal'; pin a compatible model or effort; no worker launched. Resolve the selected runtime/provider catalog and pass --model explicitly; no inherited-model fallback was used.

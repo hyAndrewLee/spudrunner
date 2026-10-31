@@ -1,0 +1,15 @@
+SCENARIO stale inherited default with preserved low effort
+{"model":"gpt-6.1-sol","provider":"openai","inheritedModel":"spudrunner-stale-inherited-default","effort":"low"}
+exit=0
+SCENARIO explicit supported high effort
+{"model":"gpt-6.1-sol","provider":"openai","inheritedModel":"spudrunner-stale-inherited-default","effort":"high"}
+exit=0
+SCENARIO unsupported requested effort refuses instead of downgrade
+error: Codex recommended model 'gpt-6.1-sol' does not advertise requested/inherited effort 'not-a-supported-effort'; pin a compatible model or effort; no worker launched. Resolve the selected runtime/provider catalog and pass --model explicitly; no inherited-model fallback was used.
+exit=1
+SCENARIO custom provider refuses OpenAI recommendation
+error: Codex provider 'disposable-provider' has no verified recommendation discovery; pin its model with --model; no worker launched. Resolve the selected runtime/provider catalog and pass --model explicitly; no inherited-model fallback was used.
+exit=1
+SCENARIO unavailable configuration/catalog refuses inherited fallback
+error: Codex config/read failed: failed to read configuration layers: /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-model-live/codex/config.toml:1:12: unclosed array, expected `]`; no worker launched. Resolve the selected runtime/provider catalog and pass --model explicitly; no inherited-model fallback was used.
+exit=1

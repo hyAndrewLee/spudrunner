@@ -1,0 +1,67 @@
+/tmp/fm-lab.o6UXR7
+
+CASE live-root-conflict exit=1 expected=refuse
+warning: /tmp/fm-lab.o6UXR7/data/live-root-conflict/launch-brief.md records no ship branch; defaulting to legacy branch fm/live-root-conflict
+warning: /tmp/fm-lab.o6UXR7/data/live-root-conflict/launch-brief.md records no delivery contract line (scaffolded before ship briefs recorded one); launching on the explicit --mode no-mistakes - confirm its definition of done matches
+error: automatic Codex model selection cannot establish the destination configuration root; pass an explicit supported --model; inspect window primary:fm-live-root-conflict
+PASS live-root-conflict
+
+CASE live-home-conflict exit=1 expected=refuse
+warning: /tmp/fm-lab.o6UXR7/data/live-home-conflict/launch-brief.md records no ship branch; defaulting to legacy branch fm/live-home-conflict
+warning: /tmp/fm-lab.o6UXR7/data/live-home-conflict/launch-brief.md records no delivery contract line (scaffolded before ship briefs recorded one); launching on the explicit --mode no-mistakes - confirm its definition of done matches
+error: automatic Codex model selection cannot establish the destination configuration root; pass an explicit supported --model; inspect window primary:fm-live-home-conflict
+PASS live-home-conflict
+
+CASE live-compatible-filtered exit=0 expected=success
+warning: /tmp/fm-lab.o6UXR7/data/live-compatible-filtered/launch-brief.md records no ship branch; defaulting to legacy branch fm/live-compatible-filtered
+warning: /tmp/fm-lab.o6UXR7/data/live-compatible-filtered/launch-brief.md records no delivery contract line (scaffolded before ship briefs recorded one); launching on the explicit --mode no-mistakes - confirm its definition of done matches
+notice: unpinned Codex worker selected 'gpt-6.1-sol' from model/list's default recommendation (runtime catalog may be cached; no entitlement probe)
+spawned live-compatible-filtered harness=codex kind=ship mode=no-mistakes yolo=off window=primary:fm-live-compatible-filtered worktree=/tmp/fm-lab.o6UXR7/wt
+harness=codex
+model=gpt-6.1-sol
+model_source=codex-model-list
+model_provider=openai
+effort=default
+{"runtime":"codex","home":"/home/andrew/.codex","userHome":"/home/andrew","secret":null,"args":["--model","gpt-6.1-sol","--dangerously-bypass-approvals-and-sandbox","--disable","hooks","-c","notify=[\"bash\",\"-c\",\"touch '/tmp/fm-lab.o6UXR7/state/live-compatible-filtered.turn-ended'\"]"]}
+PASS live-compatible-filtered
+
+CASE live-explicit-pin exit=0 expected=success
+warning: /tmp/fm-lab.o6UXR7/data/live-explicit-pin/launch-brief.md records no ship branch; defaulting to legacy branch fm/live-explicit-pin
+warning: /tmp/fm-lab.o6UXR7/data/live-explicit-pin/launch-brief.md records no delivery contract line (scaffolded before ship briefs recorded one); launching on the explicit --mode no-mistakes - confirm its definition of done matches
+spawned live-explicit-pin harness=codex kind=ship mode=no-mistakes yolo=off window=primary:fm-live-explicit-pin worktree=/tmp/fm-lab.o6UXR7/wt
+harness=codex
+model=deliberate-test-pin
+effort=high
+{"runtime":"codex","home":"/tmp/fm-lab.o6UXR7/conflicting-account","userHome":"/home/andrew","secret":"must-be-filtered","args":["--model","deliberate-test-pin","-c","model_reasoning_effort=\"high\"","--dangerously-bypass-approvals-and-sandbox","--disable","hooks","-c","notify=[\"bash\",\"-c\",\"touch '/tmp/fm-lab.o6UXR7/state/live-explicit-pin.turn-ended'\"]"]}
+PASS live-explicit-pin
+
+CASE live-inherit-pin exit=0 expected=success
+warning: /tmp/fm-lab.o6UXR7/data/live-inherit-pin/launch-brief.md records no ship branch; defaulting to legacy branch fm/live-inherit-pin
+warning: /tmp/fm-lab.o6UXR7/data/live-inherit-pin/launch-brief.md records no delivery contract line (scaffolded before ship briefs recorded one); launching on the explicit --mode no-mistakes - confirm its definition of done matches
+spawned live-inherit-pin harness=codex kind=ship mode=no-mistakes yolo=off window=primary:fm-live-inherit-pin worktree=/tmp/fm-lab.o6UXR7/wt
+harness=codex
+model=default
+effort=default
+{"runtime":"codex","home":"/tmp/fm-lab.o6UXR7/conflicting-account","userHome":"/home/andrew","secret":"must-be-filtered","args":["--dangerously-bypass-approvals-and-sandbox","--disable","hooks","-c","notify=[\"bash\",\"-c\",\"touch '/tmp/fm-lab.o6UXR7/state/live-inherit-pin.turn-ended'\"]"]}
+PASS live-inherit-pin
+
+CASE live-configured-pin exit=0 expected=success
+warning: /tmp/fm-lab.o6UXR7/data/live-configured-pin/launch-brief.md records no ship branch; defaulting to legacy branch fm/live-configured-pin
+warning: /tmp/fm-lab.o6UXR7/data/live-configured-pin/launch-brief.md records no delivery contract line (scaffolded before ship briefs recorded one); launching on the explicit --mode no-mistakes - confirm its definition of done matches
+spawned live-configured-pin harness=codex kind=ship mode=no-mistakes yolo=off window=primary:fm-live-configured-pin worktree=/tmp/fm-lab.o6UXR7/wt
+harness=codex
+model=configured-test-pin
+effort=high
+{"runtime":"codex","home":"/tmp/fm-lab.o6UXR7/conflicting-account","userHome":"/home/andrew","secret":"must-be-filtered","args":["--model","configured-test-pin","-c","model_reasoning_effort=\"high\"","--dangerously-bypass-approvals-and-sandbox","--disable","hooks","-c","notify=[\"bash\",\"-c\",\"touch '/tmp/fm-lab.o6UXR7/state/live-configured-pin.turn-ended'\"]"]}
+PASS live-configured-pin
+
+CASE live-other-runtime exit=0 expected=success
+warning: /tmp/fm-lab.o6UXR7/data/live-other-runtime/launch-brief.md records no ship branch; defaulting to legacy branch fm/live-other-runtime
+warning: /tmp/fm-lab.o6UXR7/data/live-other-runtime/launch-brief.md records no delivery contract line (scaffolded before ship briefs recorded one); launching on the explicit --mode no-mistakes - confirm its definition of done matches
+spawned live-other-runtime harness=pi kind=ship mode=no-mistakes yolo=off window=primary:fm-live-other-runtime worktree=/tmp/fm-lab.o6UXR7/wt
+harness=pi
+model=xai/provider-pin
+effort=high
+{"runtime":"pi","args":["--tui-mode","regular","--model","xai/provider-pin","--thinking","high","-e","/tmp/fm-lab.o6UXR7/state/live-other-runtime.pi-ext.ts"]}
+PASS live-other-runtime
+ALL LIVE LAUNCH-BOUNDARY SCENARIOS PASSED; native catalog only; argv captures are not inference/entitlement proof.

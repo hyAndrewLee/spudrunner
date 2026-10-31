@@ -1,0 +1,3 @@
+warning: /tmp/fm-lab.o6UXR7/data/live-root-conflict/launch-brief.md records no ship branch; defaulting to legacy branch fm/live-root-conflict
+warning: /tmp/fm-lab.o6UXR7/data/live-root-conflict/launch-brief.md records no delivery contract line (scaffolded before ship briefs recorded one); launching on the explicit --mode no-mistakes - confirm its definition of done matches
+error: automatic Codex model selection cannot establish the destination configuration root; pass an explicit supported --model; inspect window primary:fm-live-root-conflict

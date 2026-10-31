@@ -1,0 +1,3 @@
+harness=codex
+model=default
+effort=default

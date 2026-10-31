@@ -1,0 +1,8 @@
+Attempt: workspace-local private tmux socket (120x40 grid), no operator session access
+error connecting to /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-model-live/tmux/tmux-1000/fm-lab (File name too long)
+new-session exit=1
+error connecting to /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-model-live/tmux/tmux-1000/fm-lab (File name too long)
+list-sessions exit=1
+Attempt: Herdr lab prepare with workspace-local HOME/config/state
+fm-herdr-lab: fleet-state tripwire requires exactly one running default session
+herdr prepare exit=1

@@ -1,0 +1,3 @@
+harness=codex
+model=deliberate-test-pin
+effort=high

@@ -1,0 +1,14 @@
+window=primary:fm-other-runtime
+endpoint_task_id=other-runtime
+worktree=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/pool-other-runtime/.treehouse/project-other-runtime-0dc08f/1/project-other-runtime
+project=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/project-other-runtime
+harness=pi
+kind=ship
+mode=local-only
+yolo=off
+branch=fm/other-runtime
+tasktmp=/tmp/fm-other-runtime
+model=xai/provider-pin
+effort=high
+busy_gen=g1793470390.30377.11712
+spawn_gen=s1793470390.29963.16779

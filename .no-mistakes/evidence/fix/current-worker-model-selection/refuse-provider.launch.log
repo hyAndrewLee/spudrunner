@@ -1,0 +1,5 @@
+fm-gate-refuse: gate agent lifecycle permitted only against lab home /tmp/fm-lab.8guyLb
+warning: /tmp/fm-lab.8guyLb/data/refuse-provider/launch-brief.md records no ship branch; defaulting to legacy branch fm/refuse-provider
+warning: /tmp/fm-lab.8guyLb/data/refuse-provider/launch-brief.md records no delivery contract line (scaffolded before ship briefs recorded one); launching on the explicit --mode local-only - confirm its definition of done matches
+notice: refuse-provider ships mode=local-only while the standing posture for project-refuse-provider is no-mistakes - less rigor than the user's standing posture; proceed only on a current explicit user instruction or an intake judgment you can state
+error: Codex provider 'private-provider' has no verified recommendation discovery; pin its model with --model; no worker launched. Resolve the selected runtime/provider catalog and pass --model explicitly; no inherited-model fallback was used.

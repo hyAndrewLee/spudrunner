@@ -1,0 +1,14 @@
+window=primary:fm-explicit-pin
+endpoint_task_id=explicit-pin
+worktree=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/pool-explicit-pin/.treehouse/project-explicit-pin-f0c81d/1/project-explicit-pin
+project=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/project-explicit-pin
+harness=codex
+approval_mode=bypass
+kind=ship
+mode=local-only
+yolo=off
+branch=fm/explicit-pin
+tasktmp=/tmp/fm-explicit-pin
+model=deliberately-pinned
+effort=high
+spawn_gen=s1793470379.24908.415

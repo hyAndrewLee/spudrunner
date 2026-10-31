@@ -1,0 +1,14 @@
+window=primary:fm-intentional-default
+endpoint_task_id=intentional-default
+worktree=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/pool-intentional-default/.treehouse/project-intentional-default-409fa9/1/project-intentional-default
+project=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/project-intentional-default
+harness=codex
+approval_mode=bypass
+kind=ship
+mode=local-only
+yolo=off
+branch=fm/intentional-default
+tasktmp=/tmp/fm-intentional-default
+model=default
+effort=default
+spawn_gen=s1793470382.26426.5021

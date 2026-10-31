@@ -1,0 +1,40 @@
+bash-5.0$ treehouse get
+A new version of treehouse is available: v0.0.0-20260812063318-d1e21468d1d8 → v3.1.8
+Run "treehouse update" to update
+
+🌳 Setting up worktree...
+🌳 Entered worktree at /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-compatible-explicit/.treehouse/project-compatible-explicit-d00690/1/project-compatible-explicit. Type 'exit' to return.
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-compatible-explicit/.treehouse/project-compatible-explicit-d00690/1/project-compatible-explicit$ cd -- '/home/andrew/.no-mistakes-spu
+drunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/pool-compatible-explicit/.treehouse/project-compat
+ible-explicit-d00690/1/project-compatible-explicit'
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-compatible-explicit/.treehouse/project-compatible-explicit-d00690/1/project-compatible-explicit$ /bin/sh '/tmp/fm-lab.8guyLb/state/.c
+odex-environment.OAmzrk/check.sh'
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-compatible-explicit/.treehouse/project-compatible-explicit-d00690/1/project-compatible-explicit$ export GOTMPDIR=/tmp/fm-compatible-e
+xplicit/gotmp
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-compatible-explicit/.treehouse/project-compatible-explicit-d00690/1/project-compatible-explicit$ export COMPACT_ADVISER_DISABLE=1
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-compatible-explicit/.treehouse/project-compatible-explicit-d00690/1/project-compatible-explicit$ export FM_TASK_ID=compatible-explici
+t
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-compatible-explicit/.treehouse/project-compatible-explicit-d00690/1/project-compatible-explicit$ . '/tmp/fm-compatible-explicit+d8a53
+8d6fd2cbbc2e8dd821340c2f188fe40c832ee4a618d25e22e8423982678/launch.s1793470375.23469.19385.sh'
+TOKEN-FREE LAUNCH BOUNDARY: argv recorded, no worker started
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-compatible-explicit/.treehouse/project-compatible-explicit-d00690/1/project-compatible-explicit$
+
+
+
+
+
+
+
+
+

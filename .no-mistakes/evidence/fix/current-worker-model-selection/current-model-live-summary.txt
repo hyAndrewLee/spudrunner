@@ -1,0 +1,17 @@
+compatible-default: discovery root = execution CODEX_HOME = /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/user/.codex; selected --model = gpt-6.1-sol
+filtered-conflict: discovery root = execution CODEX_HOME = /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/user/.codex; selected --model = gpt-6.1-sol
+compatible-explicit: discovery root = execution CODEX_HOME = /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/account; selected --model = gpt-6.1-sol
+explicit-pin: no native Codex discovery; intentional model/routing preserved in metadata and argv capture
+intentional-default: no native Codex discovery; intentional model/routing preserved in metadata and argv capture
+configured-pin: no native Codex discovery; intentional model/routing preserved in metadata and argv capture
+other-runtime: no native Codex discovery; intentional model/routing preserved in metadata and argv capture
+conflict-codex-home: error: automatic Codex model selection cannot establish the destination configuration root; pass an explicit supported --model; inspect window primary:fm-conflict-codex-home
+conflict-home: error: automatic Codex model selection cannot establish the destination configuration root; pass an explicit supported --model; inspect window primary:fm-conflict-home
+refuse-provider: error: Codex provider 'private-provider' has no verified recommendation discovery; pin its model with --model; no worker launched. Resolve the selected runtime/provider catalog and pass --model explicitly; no inherited-model fallback was used.
+refuse-effort: error: Codex recommended model 'gpt-6.1-sol' does not advertise requested/inherited effort 'minimal'; pin a compatible model or effort; no worker launched. Resolve the selected runtime/provider catalog and pass --model explicitly; no inherited-model fallback was used.
+refuse-unavailable: error: Codex config/read failed: failed to read configuration layers: /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/user/.codex/config.toml:1:12: unclosed array, expected `]`; no worker launched. Resolve the selected runtime/provider catalog and pass --model explicitly; no inherited-model fallback was used.
+Scope: real public launcher, real isolated tmux terminal (140x40), real Treehouse allocator, real Codex 0.159.3 app-server config/read and model/list.
+Safety capture replaces inference execution only. No task prompt reached an LLM; entitlement and inference execution remain unproven.
+No rendered UI was changed; CLI transcripts and persisted records are the reviewer-visible product evidence.
+Focused dispatch regression and token-free native discovery test passed. Initial 200-second regression attempt timed out; rerun completed with a 600-second limit. Initial manual fixture lost its capture-path environment under filtering; file-bound capture fixed the fixture, and all scenarios passed on re-drive.
+Disposable /tmp lab and private tmux server removed in the evidence command cleanup.

@@ -1,0 +1,14 @@
+window=primary:fm-configured-pin
+endpoint_task_id=configured-pin
+worktree=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/pool-configured-pin/.treehouse/project-configured-pin-c0bc8b/1/project-configured-pin
+project=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/project-configured-pin
+harness=codex
+approval_mode=bypass
+kind=ship
+mode=local-only
+yolo=off
+branch=fm/configured-pin
+tasktmp=/tmp/fm-configured-pin
+model=configured-pin
+effort=high
+spawn_gen=s1793470386.28106.32517

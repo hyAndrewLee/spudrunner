@@ -1,0 +1,5 @@
+fm-gate-refuse: gate agent lifecycle permitted only against lab home /tmp/fm-lab.8guyLb
+warning: /tmp/fm-lab.8guyLb/data/conflict-home/launch-brief.md records no ship branch; defaulting to legacy branch fm/conflict-home
+warning: /tmp/fm-lab.8guyLb/data/conflict-home/launch-brief.md records no delivery contract line (scaffolded before ship briefs recorded one); launching on the explicit --mode local-only - confirm its definition of done matches
+notice: conflict-home ships mode=local-only while the standing posture for project-conflict-home is no-mistakes - less rigor than the user's standing posture; proceed only on a current explicit user instruction or an intake judgment you can state
+error: automatic Codex model selection cannot establish the destination configuration root; pass an explicit supported --model; inspect window primary:fm-conflict-home

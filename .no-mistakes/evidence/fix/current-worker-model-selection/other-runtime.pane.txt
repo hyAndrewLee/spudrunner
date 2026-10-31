@@ -1,0 +1,40 @@
+bash-5.0$ treehouse get
+A new version of treehouse is available: v0.0.0-20260812063318-d1e21468d1d8 → v3.1.8
+Run "treehouse update" to update
+
+🌳 Setting up worktree...
+🌳 Entered worktree at /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-other-runtime/.treehouse/project-other-runtime-0dc08f/1/project-other-runtime. Type 'exit' to return.
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-other-runtime/.treehouse/project-other-runtime-0dc08f/1/project-other-runtime$ cd -- '/home/andrew/.no-mistakes-spudrunner-validation
+/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/pool-other-runtime/.treehouse/project-other-runtime-0dc08f/1/project
+-other-runtime'
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-other-runtime/.treehouse/project-other-runtime-0dc08f/1/project-other-runtime$ export GOTMPDIR=/tmp/fm-other-runtime/gotmp
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-other-runtime/.treehouse/project-other-runtime-0dc08f/1/project-other-runtime$ export COMPACT_ADVISER_DISABLE=1
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-other-runtime/.treehouse/project-other-runtime-0dc08f/1/project-other-runtime$ export FM_TASK_ID=other-runtime
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-other-runtime/.treehouse/project-other-runtime-0dc08f/1/project-other-runtime$ . '/tmp/fm-other-runtime+d8a538d6fd2cbbc2e8dd821340c2f
+188fe40c832ee4a618d25e22e8423982678/launch.s1793470390.29963.16779.sh'
+TOKEN-FREE LAUNCH BOUNDARY: argv recorded, no worker started
+andrew@DESKTOP-03CQEMB:/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-model
+s/pool-other-runtime/.treehouse/project-other-runtime-0dc08f/1/project-other-runtime$
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,22 @@
+{
+  "tested_head_sha": "9a4874f53539af609392b8f9a8a55e48454b5268",
+  "result": "Selected test-2 validation gap resolved; no product changes required",
+  "root_cause": "Previous inconclusive evidence came from a Unix socket path limit and an unavailable Herdr lab tripwire, not a reproduced product failure. The expressly authorized short disposable /tmp lab allowed the missing real-terminal checks.",
+  "tests": [
+    {"command": "bash .live-boundary.sh", "result": "pass: seven public launcher scenarios through private real tmux; replay script retained as live-launch-boundary.sh"},
+    {"command": "bash bin/test-run.sh tests/task-launch-dispatch-profile.test.sh", "result": "pass: 120 ok assertions, exit 0, 477427ms; includes unavailable catalog, provider/effort refusals, environment filtering and source-file semantics"},
+    {"command": "bash bin/test-run.sh tests/codex-model-discovery-live-e2e.test.sh", "result": "pass: native codex-cli 0.159.3 selected gpt-6.1-sol over process-only stale inherited default, provider=openai, effort=low"}
+  ],
+  "live_terminal_scenarios": [
+    {"name": "Unset supervisor CODEX_HOME versus conflicting destination CODEX_HOME", "result": "exit 1; actionable explicit-model refusal; failed status; no spawned success, metadata, busy generation/state, backlog write, catalog call or runtime invocation"},
+    {"name": "Unset supervisor CODEX_HOME versus conflicting destination HOME", "result": "exit 1; same no-publication assertions as CODEX_HOME conflict"},
+    {"name": "Compatible default roots with empty environment allowlist", "result": "exit 0; real native catalog selected gpt-6.1-sol; metadata model_source=codex-model-list and model_provider=openai; capture root=/home/andrew/.codex and model agreed; unrelated destination environment variable absent"},
+    {"name": "Explicit task model and effort", "result": "preserved deliberate-test-pin and high in metadata and captured argv despite destination account conflict; no catalog invocation"},
+    {"name": "Explicit model=default", "result": "metadata=default, no --model argument, no catalog invocation"},
+    {"name": "Configured profile model handoff", "result": "profile read from disposable crew-dispatch.json and conveyed via documented concrete --harness/--model/--effort flags; configured-test-pin/high preserved in metadata and argv; no catalog invocation"},
+    {"name": "Pi runtime/provider separation", "result": "xai/provider-pin/high preserved in Pi argv and metadata; no Codex catalog invocation"}
+  ],
+  "limitations": "Successful terminal launches terminate at labeled argv-capture wrappers. Codex app-server discovery delegates to the actual installed native binary and normal local configuration. No worker inference, entitlement, provider acceptance of deliberately synthetic pins, actual Pi inference, or paid dispatch routing is claimed. Configured-profile selection is a concrete-flag handoff, not a paid dispatch-resolve call. No thread/turn request or inference prompt was submitted; model-token cost $0. No lint, formatter, static analysis, broad suite, publication or pipeline control ran.",
+  "cleanup": "All disposable tmux servers and lab directories created in this turn removed, including the read-only hooks left by the second setup attempt. Temporary workspace driver copied to this evidence directory then removed. Final git status --short empty; HEAD unchanged.",
+  "artifacts": ["live-launch-boundary.log", "live-launch-boundary.sh", "live-*.log", "live-*.argv.jsonl", "live-*.meta.txt", "live-*.status.txt", "dispatch-regression-followup.log", "native-discovery-followup.log"]
+}

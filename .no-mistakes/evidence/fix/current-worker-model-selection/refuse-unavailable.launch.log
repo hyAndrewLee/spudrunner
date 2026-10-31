@@ -1,0 +1,5 @@
+fm-gate-refuse: gate agent lifecycle permitted only against lab home /tmp/fm-lab.8guyLb
+warning: /tmp/fm-lab.8guyLb/data/refuse-unavailable/launch-brief.md records no ship branch; defaulting to legacy branch fm/refuse-unavailable
+warning: /tmp/fm-lab.8guyLb/data/refuse-unavailable/launch-brief.md records no delivery contract line (scaffolded before ship briefs recorded one); launching on the explicit --mode local-only - confirm its definition of done matches
+notice: refuse-unavailable ships mode=local-only while the standing posture for project-refuse-unavailable is no-mistakes - less rigor than the user's standing posture; proceed only on a current explicit user instruction or an intake judgment you can state
+error: Codex config/read failed: failed to read configuration layers: /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M69EX8VRHH9KGGPKA552E2B1/.test-current-models/user/.codex/config.toml:1:12: unclosed array, expected `]`; no worker launched. Resolve the selected runtime/provider catalog and pass --model explicitly; no inherited-model fallback was used.
