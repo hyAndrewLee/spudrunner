@@ -1,0 +1,7 @@
+not-autohandled: flow-source (left for the handler; still unacknowledged)
+ok - one external adapter registers, invokes, captures unhandled evidence, classifies, and terminally retires end to end
+ok - inner result.silent host crash releases the parent lifecycle lock before terminal retry
+ok - local binding retirement requires its exact identity and disables invocation
+not ok - failure did not report the expected diagnostic (missing: 'process-cleanup-failed')
+--- output ---
+error[schema-invalid]: extension invocation ready group_pid must be an integer from 2 to 2147483647

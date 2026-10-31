@@ -1,0 +1,10 @@
+ok - default delta reader waits 0.5 seconds then delivers a non-destructive complete-line delta
+ok - override delta reader waits 0.07 seconds then delivers a non-destructive complete-line delta
+ok - transport failures and non-schema diagnostics stay out of captured results
+runner output:
+no-result: remote-reply-ios (exit 64)
+not ok - the remote reply delta was not durably captured
+Traceback (most recent call last):
+  File ".validation/pid1.py", line 10, in <module>
+    sys.exit(os.waitstatus_to_exitcode(status))
+AttributeError: module 'os' has no attribute 'waitstatus_to_exitcode'

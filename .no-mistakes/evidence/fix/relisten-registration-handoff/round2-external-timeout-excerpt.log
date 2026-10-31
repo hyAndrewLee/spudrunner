@@ -1,0 +1,30 @@
+=== target: timeout exit 124 at 35 seconds ===
++ expect_failure 'prior runner remains active' env FM_HOME=/tmp/fm-extension-binding.hWz9Mm/homes/active-runner /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-flow active-source --config-ref replacement
++ lock_acquire_wait /tmp/fm-extension-binding.hWz9Mm/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock
++ local lockdir=/tmp/fm-extension-binding.hWz9Mm/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock
++ lock_try_acquire /tmp/fm-extension-binding.hWz9Mm/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock
++ local lockdir=/tmp/fm-extension-binding.hWz9Mm/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock pid steal cur rc steal_owner primary_owner current
++ FM_LOCK_HELD_PID=
+++ cat /tmp/fm-extension-binding.hWz9Mm/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock/pid
++ pid=772
++ '[' -n 772 ']'
++ '[' 772 = 879 ']'
++ lock_holder_alive /tmp/fm-extension-binding.hWz9Mm/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock 772
++ local lockdir=/tmp/fm-extension-binding.hWz9Mm/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock pid=772
+Register command never returned before the external timeout; no refusal assertion completed.
+
+=== baseline: timeout exit 124 at 35 seconds ===
++ expect_failure 'prior runner remains active' env FM_HOME=/tmp/fm-extension-binding.ZOz5Yf/homes/active-runner /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation/baseline/bin/process-events.sh register-extension ext-flow active-source --config-ref replacement
++ lock_acquire_wait /tmp/fm-extension-binding.ZOz5Yf/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock
++ local lockdir=/tmp/fm-extension-binding.ZOz5Yf/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock
++ lock_try_acquire /tmp/fm-extension-binding.ZOz5Yf/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock
++ local lockdir=/tmp/fm-extension-binding.ZOz5Yf/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock pid steal cur rc steal_owner primary_owner current
++ FM_LOCK_HELD_PID=
+++ cat /tmp/fm-extension-binding.ZOz5Yf/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock/pid
++ pid=772
++ '[' -n 772 ']'
++ '[' 772 = 879 ']'
++ lock_holder_alive /tmp/fm-extension-binding.ZOz5Yf/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock 772
++ local lockdir=/tmp/fm-extension-binding.ZOz5Yf/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock pid=772
+Register command never returned before the external timeout; no refusal assertion completed.
+

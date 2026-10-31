@@ -1,0 +1,10 @@
+Validation remains blocked; no fix or green approval.
+Final HEAD: 6c05bca9362dc80e1ead7461d4eb348935e95c80.
+Reproduction: FM_EXTENSION_BINDING_SEGMENT=lifecycle-runner timeout -k 5 35 bash .validation-tmp/run-isolated.sh -x tests/extension-host-binding.test.sh
+Target exit: 124. Unchanged baseline e1846c7ba5c06a894673f7c7f85f9cc925b7f86b exit: 124 using its archived tests and production under .validation-tmp/baseline.
+Both executions entered the external active-block poll, observed its readiness marker, and then blocked in register-extension --config-ref replacement before the expected ownership-refusal assertion returned.
+Executed serially under read-open exclusive /home/andrew/spudrunner-green/serial-tests.lock, 35-second wall bounds, 600-second CPU and 1024-descriptor limits, prior pinned PATH, and disposable user/PID/mount namespaces with dropped capabilities and namespace-local account mapping.
+Evidence: round4-active-target.log and round4-active-baseline.log in this directory. Prior round3 evidence was preserved unchanged.
+Root cause evidence: prior round3-active-target-lock-trace.log and round3-active-baseline-lock-trace.log show replacement waiting on the live poll's extension lifecycle lock. Current production acquires that lock before testing extension_registration_replacement_safe_locked. The branch production diff changes only the superseded launch-floor path; baseline reproduces this separate failure.
+The recorded human decision explicitly forbids unrelated locking fixes, new guarantees, timeout increases, assertion weakening, configuration changes, and tracked-file edits. Therefore this auto-fix cannot resolve the existing active-poll locking issue within current authority. Separate explicit authority for that lifecycle-lock repair is required; do not approve this failing Test command or retry indefinitely expecting a green result.
+No linters, formatters, static analysis, full repository suite, pipeline control, publication, or tracked edits performed. No claims of fresh handoff/refusal verification beyond this focused reproduction; previous round3 results remain evidence, not a new pass.

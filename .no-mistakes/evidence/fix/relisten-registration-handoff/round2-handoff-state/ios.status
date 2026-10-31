@@ -1,0 +1,11 @@
+done [corr=0123456789abcdef] [at=1700000000]: build verified report=data/remote-secondmates/ios/data/reply/report.md
+working [corr=1111111111111111]: second generation
+done [corr=2222222222222222]: third generation
+working [key=version-audit]: family --version audit complete (data/reply/prose-only.md)
+needs-decision [key=rough-cut-version]: implement --version or retire the tool
+needs-decision [at=1700000000]: which base branch?
+needs-decision [at=1700086400]: which base branch?
+done [corr=8184dfb52ba1eb71]: release chain audited
+blocked [key=ctl]: escape ?[31mhere?[0m bell ? café end
+status=delta
+working [key=nul-byte]: before?after

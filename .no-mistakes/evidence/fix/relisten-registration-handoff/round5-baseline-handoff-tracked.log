@@ -1,0 +1,49 @@
+ok - default delta reader waits 0.5 seconds then delivers a non-destructive complete-line delta
+ok - override delta reader waits 0.07 seconds then delivers a non-destructive complete-line delta
+ok - transport failures and non-schema diagnostics stay out of captured results
+ok - a blocking non-destructive remote delta reaches durable process-event capture
+ok - a captured delta is applied, acknowledged, and re-armed without a handler
+ok - ingest appends one validated line, fetches its document, and advances the cursor
+ok - replayed capture has one deduplicated append and one durable handling identity
+ok - later generations cannot invalidate an unacknowledged ingested result
+ok - the remote status and decision model mirrors and the cursor advances
+ok - a remote mate's new decision folds open exactly as a local mate's does
+ok - a replayed mirrored delta is idempotent in both the stream and the cursor
+ok - transported control bytes are normalized in place and never stop the stream
+remote reply timeout diagnostics:
+
+/tmp/fm-remote-reply.ktAzO6/claims/remote-reply-ios.claim:
+
+/tmp/fm-remote-reply.ktAzO6/parent/state/procevent/remote-reply-ios.source:
+adapter=remote-reply
+argc=3
+argv:
+/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation-tmp/baseline/bin/process-events-remote-reply.sh
+source
+ios
+
+/tmp/fm-remote-reply.ktAzO6/parent/state/remote-replies/ios.cursor:
+schema=fm-remote-reply-cursor.v1
+offset=565
+prefix_sha256=9af4b476d2bf5a09812d9ed4fb74cbf355849180ee90235d4a2507eea40c36b5
+
+/tmp/fm-remote-reply.ktAzO6/start-one.out:
+autohandled: remote-reply-ios
+cannot retire terminal source; it remains registered: remote-reply-ios
+captured: /tmp/fm-remote-reply.ktAzO6/parent/state/procevent-inbox/remote-reply-ios.1.result
+/tmp/fm-remote-reply.ktAzO6/parent/state/procevent-inbox/remote-reply-ios.1.result
+/tmp/fm-remote-reply.ktAzO6/parent/state/procevent-inbox/remote-reply-ios.4.result
+/tmp/fm-remote-reply.ktAzO6/parent/state/procevent-inbox/remote-reply-ios.3.result
+/tmp/fm-remote-reply.ktAzO6/parent/state/procevent-inbox/remote-reply-ios.2.adapter
+/tmp/fm-remote-reply.ktAzO6/parent/state/procevent-inbox/remote-reply-ios.5.result
+/tmp/fm-remote-reply.ktAzO6/parent/state/procevent-inbox/remote-reply-ios.1.adapter
+/tmp/fm-remote-reply.ktAzO6/parent/state/procevent-inbox/remote-reply-ios.3.handled
+/tmp/fm-remote-reply.ktAzO6/parent/state/procevent-inbox/remote-reply-ios.5.adapter
+/tmp/fm-remote-reply.ktAzO6/parent/state/procevent-inbox/remote-reply-ios.1.handled
+/tmp/fm-remote-reply.ktAzO6/parent/state/procevent-inbox/remote-reply-ios.3.adapter
+/tmp/fm-remote-reply.ktAzO6/parent/state/procevent-inbox/remote-reply-ios.2.result
+/tmp/fm-remote-reply.ktAzO6/parent/state/procevent-inbox/remote-reply-ios.4.handled
+/tmp/fm-remote-reply.ktAzO6/parent/state/procevent-inbox/remote-reply-ios.2.handled
+/tmp/fm-remote-reply.ktAzO6/parent/state/procevent-inbox/remote-reply-ios.4.adapter
+/tmp/fm-remote-reply.ktAzO6/parent/state/procevent-inbox/remote-reply-ios.5.handled
+not ok - the header-collision line was not captured

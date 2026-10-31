@@ -1,0 +1,37 @@
+Target HEAD: 6c05bca9362dc80e1ead7461d4eb348935e95c80
+
+Target production SHA256:
+ff2e4052493a7e1e2d715776e5eb492d0e6f11de30e993dac3d703ff33b9cbce  bin/process-events.sh
+
+Baseline production SHA256 (archive fixture, unchanged):
+d55de904bc537def904a2dccf7316443ada0cabaa748850540a09aa6ec5e3095  .validation-tmp/baseline/bin/process-events.sh
+
+Original baseline production SHA256:
+d55de904bc537def904a2dccf7316443ada0cabaa748850540a09aa6ec5e3095  -
+
+Tools:
+/usr/bin/bash
+/home/andrew/.nvm/versions/node/v22.23.3/bin/node
+/home/linuxbrew/.linuxbrew/bin/unshare
+/home/linuxbrew/.linuxbrew/sbin/capsh
+/home/linuxbrew/.linuxbrew/bin/flock
+/usr/bin/timeout
+GNU bash, version 5.0.17(1)-release (x86_64-pc-linux-gnu)
+v22.23.3
+
+Orphan proof:
+ok - an attached-start keeper stops refreshing after its parent exits
+ok - a detected ambiguous reused-PID group is not signalled
+ok - a detached listener starts reparented, with a live descendant tree under it
+ok - a listener whose owning session is gone stops itself and its whole process group
+ok - reaping the listener stops the process churn under it
+ok - an identical listener in a home whose session is still there is untouched
+ok - retiring a source reaps its reparented listener and every descendant under it
+ok - a stop the guard cannot prove is retried until the expired runner is reaped
+ok - retirement escalates after TERM leaves a surviving child (absent leader)
+--
+guard phase: fresh read 6.061-6.068s, expiry 8s, two full intervals could not finish before 18.061s (deadline 17s)
+guard bound: lease=7s check=6s reaped 12.3s after the last owner activity, documented bound 15s
+ok - an orphaned runner is reaped within the lease plus ONE check interval
+decimal interval: 08 halves to 4s and its listener started
+decimal interval: 010 halves to 5s and its listener started

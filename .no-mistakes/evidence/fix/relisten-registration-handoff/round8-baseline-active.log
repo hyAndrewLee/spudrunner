@@ -1,0 +1,483 @@
++ set -u
++ '[' 0 = 1 ']'
+++ dirname tests/active-baseline-driver.sh
++ . tests/lib.sh
+++ '[' -n '' ']'
+++ FM_TEST_LIB_SOURCED=1
+++ umask 022
++++ dirname tests/lib.sh
+++ . tests/git-config-helpers.sh
++++ export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
++++ GIT_CONFIG_GLOBAL=/dev/null
++++ GIT_CONFIG_NOSYSTEM=1
++++ unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_COMMON_DIR
+++ export FM_GATE_REFUSE_BYPASS=1
+++ FM_GATE_REFUSE_BYPASS=1
+++ export FM_TEST_SEAM=1
+++ FM_TEST_SEAM=1
+++ unset FM_TASK_ID
+++ unset TASKS_AXI_FILE TASKS_AXI_BACKEND
+++ unset REX_SESSION REX_BLOCK
+++++ dirname tests/lib.sh
++++ cd tests/..
++++ pwd
+++ ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ FM_TEST_TMPDIR=/tmp
+++ FM_TEST_CLEANUP_DIRS=()
++++ mktemp /tmp/.fm-test-cleanup.1.XXXXXX
+++ FM_TEST_CLEANUP_REGISTRY=/tmp/.fm-test-cleanup.1.hcKKiS
++++ test_pid_identity 1
++++ local pid=1
++++ FM_STATE_OVERRIDE=/tmp
++++ bash -c '. "$1"; pid_identity "$2"' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/supervision-events-lib.sh 1
+++ FM_TEST_OWNER_IDENTITY='linux-starttime=11299929 cmdline-hex=62617368002d780074657374732f6163746976652d626173656c696e652d6472697665722e736800'
++++ mktemp /tmp/.fm-test-procevent.1.XXXXXX
+++ FM_TEST_PROCEVENT_REGISTRY=/tmp/.fm-test-procevent.1.H1czF2
++++ mktemp /tmp/.fm-test-watcher.1.XXXXXX
+++ FM_TEST_WATCHER_REGISTRY=/tmp/.fm-test-watcher.1.UI12q3
+++ FM_TEST_STUB_MAX_BLOCK_SECONDS=120
+++ export FM_TEST_STUB_MAX_BLOCK_SECONDS
+++ FM_TEST_SUITE_PID=1
+++ export FM_TEST_SUITE_PID
+++ trap test_cleanup EXIT
+++ trap 'test_cleanup; exit 130' INT
+++ trap 'test_cleanup; exit 143' TERM
+++ trap 'test_cleanup; exit 129' HUP
+++ trap 'test_cleanup; exit 131' QUIT
+++ FM_TEST_ORPHAN_MAX_AGE_SECONDS=3600
+++ '[' 0 '!=' 1 ']'
+++ test_reap_orphans
+++ local marker dir mtime now owner_pid owner_identity current_identity
++++ date +%s
+++ now=1793431396
+++ for marker in "$FM_TEST_TMPDIR"/fm-*/.fm-test-fixture
+++ '[' -e '/tmp/fm-*/.fm-test-fixture' ']'
+++ continue
++ extension_segment=lifecycle-runner
++ case "$extension_segment" in
++ HOST=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs
++ PROCEVENT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation-tmp/base/bin/process-events.sh
+++ test_tmproot fm-extension-binding
+++ local prefix=fm-extension-binding root tmp_base
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ tmp_base=/tmp
+++ tmp_base=/tmp
++++ mktemp -d /tmp/fm-extension-binding.XXXXXX
+++ root=/tmp/fm-extension-binding.XdS074
++++ cd -P -- /tmp/fm-extension-binding.XdS074
++++ pwd -P
+++ root=/tmp/fm-extension-binding.XdS074
+++ printf '%s\n%s\n' 1 'linux-starttime=11299929 cmdline-hex=62617368002d780074657374732f6163746976652d626173656c696e652d6472697665722e736800'
+++ printf '%s\n' /tmp/fm-extension-binding.XdS074
+++ printf '%s\n' /tmp/fm-extension-binding.XdS074
++ TMP_ROOT_RAW=/tmp/fm-extension-binding.XdS074
+++ cd /tmp/fm-extension-binding.XdS074
+++ pwd -P
++ TMP_ROOT=/tmp/fm-extension-binding.XdS074
++ first_bind_pid=
++ second_bind_pid=
++ handshake_orphan_pid=
++ concurrent_release=
++ race_register_pid=
++ race_retire_pid=
++ race_release=
++ process_race_start_pid=
++ process_race_retire_pid=
++ process_race_release=
++ registry_race_pid=
++ registry_race_release=
++ leaf_race_pid=
++ leaf_race_release=
++ owner_retire_pid=
++ owner_worker_pid=
++ owner_register_pid=
++ signal_retire_pid=
++ signal_worker_pid=
++ active_runner_pid=
++ active_runner_release=
++ remote_active_release=
++ unrelated_daemon_pid=
++ unrelated_launcher_pid=
++ signal_cleanup_host_pid=
++ signal_cleanup_group_pid=
++ crash_cleanup_host_pid=
++ crash_cleanup_group_pid=
++ crash_cleanup_release=
++ crash_silent_start_pid=
++ crash_silent_runner_pid=
++ override_crash_start_pid=
++ override_crash_runner_pid=
++ order_register_pid=
++ order_reconcile_pid=
++ order_release=
++ section_coordinator_pid=
++ trap extension_test_cleanup EXIT
++ trap 'extension_test_cleanup; exit 130' INT
++ trap 'extension_test_cleanup; exit 143' TERM
++ export FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.XdS074/claims
++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.XdS074/claims
++ PACKAGES=/tmp/fm-extension-binding.XdS074/packages
++ HOMES=/tmp/fm-extension-binding.XdS074/homes
++ mkdir -p /tmp/fm-extension-binding.XdS074/packages /tmp/fm-extension-binding.XdS074/homes
++ '[' 0 = 1 ']'
++ section_enabled coordinator-fail
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = coordinator-fail ']'
++ return 1
++ section_enabled coordinator-wait
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = coordinator-wait ']'
++ return 1
++ section_enabled coordinator-stubborn
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = coordinator-stubborn ']'
++ return 1
++ section_enabled coordinator-pass
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = coordinator-pass ']'
++ return 1
++ section_enabled coordinator-late-pass
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = coordinator-late-pass ']'
++ return 1
++ section_enabled coordinator-scheduler-block
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = coordinator-scheduler-block ']'
++ return 1
++ section_enabled coordinator-scheduler-late
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = coordinator-scheduler-late ']'
++ return 1
++ '[' lifecycle-runner = all ']'
++ '[' lifecycle-runner = coordinator ']'
++ section_enabled early-bind
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = early-bind ']'
++ return 1
++ section_enabled early-validation
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = early-validation ']'
++ return 1
++ section_enabled early-handshake
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = early-handshake ']'
++ return 1
++ section_enabled early-integrity
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = early-integrity ']'
++ return 1
++ section_enabled matrix matrix-runtime
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = matrix ']'
++ for section in "$@"
++ '[' lifecycle-runner = matrix-runtime ']'
++ return 1
++ section_enabled lifecycle-host-errors
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = lifecycle-host-errors ']'
++ return 1
++ section_enabled lifecycle-flow
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = lifecycle-flow ']'
++ return 1
++ section_enabled lifecycle-order
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = lifecycle-order ']'
++ return 1
++ section_enabled lifecycle-lock
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = lifecycle-lock ']'
++ return 1
++ section_enabled lifecycle-runner
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = lifecycle-runner ']'
++ return 0
++ P_FLOW=/tmp/fm-extension-binding.XdS074/packages/flow
++ make_package /tmp/fm-extension-binding.XdS074/packages/flow org.example.flow ext-flow
++ local dir=/tmp/fm-extension-binding.XdS074/packages/flow id=org.example.flow adapter=ext-flow fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.XdS074/packages/flow
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.XdS074/packages/flow/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.XdS074/packages/flow/firstmate-extension.json /tmp/fm-extension-binding.XdS074/packages/flow/scenario /tmp/fm-extension-binding.XdS074/packages/flow/helper.txt
++ H_ACTIVE_RUNNER=/tmp/fm-extension-binding.XdS074/homes/active-runner
++ new_home /tmp/fm-extension-binding.XdS074/homes/active-runner
++ mkdir -p /tmp/fm-extension-binding.XdS074/homes/active-runner
++ bind_package /tmp/fm-extension-binding.XdS074/homes/active-runner /tmp/fm-extension-binding.XdS074/packages/flow ext-flow
++ local home=/tmp/fm-extension-binding.XdS074/homes/active-runner package=/tmp/fm-extension-binding.XdS074/packages/flow adapter=ext-flow
++ shift 3
++ FM_HOME=/tmp/fm-extension-binding.XdS074/homes/active-runner
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.XdS074/packages/flow --adapter ext-flow --trust-same-user-code
++ active_runner_marker=/tmp/fm-extension-binding.XdS074/active-runner.marker
++ active_runner_release=/tmp/fm-extension-binding.XdS074/active-runner.release
++ active_config='active-block|/tmp/fm-extension-binding.XdS074/active-runner.marker|/tmp/fm-extension-binding.XdS074/active-runner.release'
++ FM_HOME=/tmp/fm-extension-binding.XdS074/homes/active-runner
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation-tmp/base/bin/process-events.sh register-extension ext-flow active-source --config-ref 'active-block|/tmp/fm-extension-binding.XdS074/active-runner.marker|/tmp/fm-extension-binding.XdS074/active-runner.release'
++ active_runner_pid=328
++ wait_for_file /tmp/fm-extension-binding.XdS074/active-runner.marker
++ FM_HOME=/tmp/fm-extension-binding.XdS074/homes/active-runner
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation-tmp/base/bin/process-events.sh start active-source
++ local file=/tmp/fm-extension-binding.XdS074/active-runner.marker
+++ seq 1 100
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.XdS074/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.XdS074/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.XdS074/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.XdS074/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.XdS074/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.XdS074/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.XdS074/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.XdS074/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.XdS074/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.XdS074/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.XdS074/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.XdS074/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.XdS074/active-runner.marker ']'
++ return 0
++ expect_failure 'prior runner remains active' env FM_HOME=/tmp/fm-extension-binding.XdS074/homes/active-runner /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation-tmp/base/bin/process-events.sh register-extension ext-flow active-source --config-ref replacement
++ local 'needle=prior runner remains active' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.XdS074/homes/active-runner /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation-tmp/base/bin/process-events.sh register-extension ext-flow active-source --config-ref replacement
++ out=
+++ extension_test_cleanup
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z /tmp/fm-extension-binding.XdS074/active-runner.release ']'
+++ touch /tmp/fm-extension-binding.XdS074/active-runner.release
+++ '[' -z 328 ']'
+++ kill -TERM 328
+++ true
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ '[' -n '' ']'
+++ '[' -f /tmp/fm-extension-binding.XdS074/remote-jobs/worker.pid ']'
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ chmod -R u+w /tmp/fm-extension-binding.XdS074
+++ test_cleanup
+++ local d
+++ test_reap_watchers
+++ local state lock_home 'seen=
+'
+++ '[' -f /tmp/.fm-test-watcher.1.UI12q3 ']'
+++ IFS=
+++ read -r state
+++ rm -f /tmp/.fm-test-watcher.1.UI12q3
+++ test_reap_procevent_homes
+++ local home claim_root 'seen=
+'
+++ '[' -f /tmp/.fm-test-procevent.1.H1czF2 ']'
+++ IFS='	'
+++ read -r home claim_root
+++ rm -f /tmp/.fm-test-procevent.1.H1czF2
+++ for d in "${FM_TEST_CLEANUP_DIRS[@]:-}"
+++ '[' -n '' ']'
+++ '[' -f /tmp/.fm-test-cleanup.1.hcKKiS ']'
+++ IFS=
+++ read -r d
+++ '[' -n /tmp/fm-extension-binding.XdS074 ']'
+++ test_reap_root_processes /tmp/fm-extension-binding.XdS074
+++ local root=/tmp/fm-extension-binding.XdS074 chain pid pids signal i
+++ '[' -n /tmp/fm-extension-binding.XdS074 ']'
+++ '[' /tmp/fm-extension-binding.XdS074 '!=' / ']'
+++ chain=' '
+++ pid=1
+++ '[' -n 1 ']'
+++ '[' 1 -gt 1 ']'
+++ for signal in TERM KILL
+++ i=0
+++ '[' 0 -lt 20 ']'
++++ ps -ww -eo pid=,args=
++++ FM_TEST_REAP_ROOT=/tmp/fm-extension-binding.XdS074/
++++ awk -v 'chain= ' 'index($0, ENVIRON["FM_TEST_REAP_ROOT"]) && index(chain, " " $1 " ") == 0 { print $1 }'
+++ pids='545
+736
+746
+863
+875'
+++ '[' -n '545
+736
+746
+863
+875' ']'
+++ '[' 0 -gt 0 ']'
+++ kill -s TERM 545 736 746 863 875
+++ sleep 0.1
+++ i=1
+++ '[' 1 -lt 20 ']'
++++ ps -ww -eo pid=,args=
++++ FM_TEST_REAP_ROOT=/tmp/fm-extension-binding.XdS074/
++++ awk -v 'chain= ' 'index($0, ENVIRON["FM_TEST_REAP_ROOT"]) && index(chain, " " $1 " ") == 0 { print $1 }'
+++ pids=
+++ '[' -n '' ']'
+++ return 0
+++ test_remove_tree /tmp/fm-extension-binding.XdS074
+++ local dir=/tmp/fm-extension-binding.XdS074
+++ '[' -d /tmp/fm-extension-binding.XdS074 ']'
+++ '[' '!' -L /tmp/fm-extension-binding.XdS074 ']'
+++ find /tmp/fm-extension-binding.XdS074 -type d -exec chmod u+rwx '{}' +
+++ rm -rf /tmp/fm-extension-binding.XdS074
+++ IFS=
+++ read -r d
+++ rm -f /tmp/.fm-test-cleanup.1.hcKKiS
+++ exit 143
++ extension_test_cleanup
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z /tmp/fm-extension-binding.XdS074/active-runner.release ']'
++ touch /tmp/fm-extension-binding.XdS074/active-runner.release
++ true
++ '[' -z 328 ']'
++ kill -TERM 328
++ true
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -n '' ']'
++ '[' -f /tmp/fm-extension-binding.XdS074/remote-jobs/worker.pid ']'
++ '[' -n '' ']'
++ '[' -n '' ']'
++ chmod -R u+w /tmp/fm-extension-binding.XdS074
++ true
++ test_cleanup
++ local d
++ test_reap_watchers
++ local state lock_home 'seen=
+'
++ '[' -f /tmp/.fm-test-watcher.1.UI12q3 ']'
++ return 0
++ test_reap_procevent_homes
++ local home claim_root 'seen=
+'
++ '[' -f /tmp/.fm-test-procevent.1.H1czF2 ']'
++ return 0
++ for d in "${FM_TEST_CLEANUP_DIRS[@]:-}"
++ '[' -n '' ']'
++ '[' -f /tmp/.fm-test-cleanup.1.hcKKiS ']'

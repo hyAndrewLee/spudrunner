@@ -1,0 +1,713 @@
++ set -u
++ '[' 0 = 1 ']'
+++ dirname tests/extension-host-binding.test.sh
++ . tests/lib.sh
+++ '[' -n '' ']'
+++ FM_TEST_LIB_SOURCED=1
+++ umask 022
++++ dirname tests/lib.sh
+++ . tests/git-config-helpers.sh
++++ export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
++++ GIT_CONFIG_GLOBAL=/dev/null
++++ GIT_CONFIG_NOSYSTEM=1
++++ unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_COMMON_DIR
+++ export FM_GATE_REFUSE_BYPASS=1
+++ FM_GATE_REFUSE_BYPASS=1
+++ export FM_TEST_SEAM=1
+++ FM_TEST_SEAM=1
+++ unset FM_TASK_ID
+++ unset TASKS_AXI_FILE TASKS_AXI_BACKEND
+++ unset REX_SESSION REX_BLOCK
+++++ dirname tests/lib.sh
++++ cd tests/..
++++ pwd
+++ ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++++ test_tmpdir
++++ local base=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp physical
++++ base=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp
++++ '[' -n /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp
+++++ pwd -P
++++ physical=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp
++++ base=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp
++++ '[' -e /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/.git ']'
++++ printf '%s\n' /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp
+++ FM_TEST_TMPDIR=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp
+++ FM_TEST_CLEANUP_DIRS=()
++++ mktemp /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/.fm-test-cleanup.11899.XXXXXX
+++ FM_TEST_CLEANUP_REGISTRY=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/.fm-test-cleanup.11899.53UMWg
++++ test_pid_identity 11899
++++ local pid=11899
++++ FM_STATE_OVERRIDE=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp
++++ bash -c '. "$1"; pid_identity "$2"' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/supervision-events-lib.sh 11899
+++ FM_TEST_OWNER_IDENTITY='linux-starttime=10912434 cmdline-hex=2f7573722f62696e2f62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
++++ mktemp /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/.fm-test-procevent.11899.XXXXXX
+++ FM_TEST_PROCEVENT_REGISTRY=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/.fm-test-procevent.11899.Y7jtLv
++++ mktemp /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/.fm-test-watcher.11899.XXXXXX
+++ FM_TEST_WATCHER_REGISTRY=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/.fm-test-watcher.11899.wRWT2w
+++ FM_TEST_STUB_MAX_BLOCK_SECONDS=120
+++ export FM_TEST_STUB_MAX_BLOCK_SECONDS
+++ FM_TEST_SUITE_PID=11899
+++ export FM_TEST_SUITE_PID
+++ trap test_cleanup EXIT
+++ trap 'test_cleanup; exit 130' INT
+++ trap 'test_cleanup; exit 143' TERM
+++ trap 'test_cleanup; exit 129' HUP
+++ trap 'test_cleanup; exit 131' QUIT
+++ FM_TEST_ORPHAN_MAX_AGE_SECONDS=3600
+++ '[' 1 '!=' 1 ']'
++ extension_segment=lifecycle-runner
++ case "$extension_segment" in
++ HOST=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs
++ PROCEVENT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh
+++ test_tmproot fm-extension-binding
+++ local prefix=fm-extension-binding root tmp_base
++++ test_tmpdir
++++ local base=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp physical
++++ base=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp
++++ '[' -n /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp
+++++ pwd -P
++++ physical=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp
++++ base=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp
++++ '[' -e /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/.git ']'
++++ printf '%s\n' /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp
+++ tmp_base=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp
+++ tmp_base=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp
++++ mktemp -d /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.XXXXXX
+++ root=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4
++++ cd -P -- /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4
++++ pwd -P
+++ root=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4
+++ printf '%s\n%s\n' 11899 'linux-starttime=10912434 cmdline-hex=2f7573722f62696e2f62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
+++ printf '%s\n' /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4
+++ printf '%s\n' /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4
++ TMP_ROOT_RAW=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4
+++ cd /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4
+++ pwd -P
++ TMP_ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4
++ first_bind_pid=
++ second_bind_pid=
++ handshake_orphan_pid=
++ concurrent_release=
++ race_register_pid=
++ race_retire_pid=
++ race_release=
++ process_race_start_pid=
++ process_race_retire_pid=
++ process_race_release=
++ registry_race_pid=
++ registry_race_release=
++ leaf_race_pid=
++ leaf_race_release=
++ owner_retire_pid=
++ owner_worker_pid=
++ owner_register_pid=
++ signal_retire_pid=
++ signal_worker_pid=
++ active_runner_pid=
++ active_runner_release=
++ remote_active_release=
++ unrelated_daemon_pid=
++ unrelated_launcher_pid=
++ signal_cleanup_host_pid=
++ signal_cleanup_group_pid=
++ crash_cleanup_host_pid=
++ crash_cleanup_group_pid=
++ crash_cleanup_release=
++ crash_silent_start_pid=
++ crash_silent_runner_pid=
++ override_crash_start_pid=
++ override_crash_runner_pid=
++ order_register_pid=
++ order_reconcile_pid=
++ order_release=
++ section_coordinator_pid=
++ trap extension_test_cleanup EXIT
++ trap 'extension_test_cleanup; exit 130' INT
++ trap 'extension_test_cleanup; exit 143' TERM
++ export FM_PROCEVENT_CLAIM_ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/claims
++ FM_PROCEVENT_CLAIM_ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/claims
++ PACKAGES=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/packages
++ HOMES=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/homes
++ mkdir -p /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/packages /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/homes
++ '[' 0 = 1 ']'
++ section_enabled coordinator-fail
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = coordinator-fail ']'
++ return 1
++ section_enabled coordinator-wait
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = coordinator-wait ']'
++ return 1
++ section_enabled coordinator-stubborn
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = coordinator-stubborn ']'
++ return 1
++ section_enabled coordinator-pass
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = coordinator-pass ']'
++ return 1
++ section_enabled coordinator-late-pass
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = coordinator-late-pass ']'
++ return 1
++ section_enabled coordinator-scheduler-block
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = coordinator-scheduler-block ']'
++ return 1
++ section_enabled coordinator-scheduler-late
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = coordinator-scheduler-late ']'
++ return 1
++ '[' lifecycle-runner = all ']'
++ '[' lifecycle-runner = coordinator ']'
++ section_enabled early-bind
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = early-bind ']'
++ return 1
++ section_enabled early-validation
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = early-validation ']'
++ return 1
++ section_enabled early-handshake
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = early-handshake ']'
++ return 1
++ section_enabled early-integrity
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = early-integrity ']'
++ return 1
++ section_enabled matrix matrix-runtime
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = matrix ']'
++ for section in "$@"
++ '[' lifecycle-runner = matrix-runtime ']'
++ return 1
++ section_enabled lifecycle-host-errors
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = lifecycle-host-errors ']'
++ return 1
++ section_enabled lifecycle-flow
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = lifecycle-flow ']'
++ return 1
++ section_enabled lifecycle-order
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = lifecycle-order ']'
++ return 1
++ section_enabled lifecycle-lock
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = lifecycle-lock ']'
++ return 1
++ section_enabled lifecycle-runner
++ local section
++ for section in "$@"
++ '[' lifecycle-runner = lifecycle-runner ']'
++ return 0
++ P_FLOW=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/packages/flow
++ make_package /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/packages/flow org.example.flow ext-flow
++ local dir=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/packages/flow id=org.example.flow adapter=ext-flow fixed=good consent= required
++ mkdir -p /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/packages/flow
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/packages/flow/entrypoint.py
++ chmod 0644 /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/packages/flow/firstmate-extension.json /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/packages/flow/scenario /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/packages/flow/helper.txt
++ H_ACTIVE_RUNNER=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/homes/active-runner
++ new_home /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/homes/active-runner
++ mkdir -p /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/homes/active-runner
++ bind_package /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/homes/active-runner /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/packages/flow ext-flow
++ local home=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/homes/active-runner package=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/packages/flow adapter=ext-flow
++ shift 3
++ FM_HOME=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/homes/active-runner
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/packages/flow --adapter ext-flow --trust-same-user-code
+error[binding-failed]: error[path-unsafe]: package source must not be inside a Git project or task copy
++ active_runner_marker=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker
++ active_runner_release=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.release
++ active_config='active-block|/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker|/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.release'
++ FM_HOME=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/homes/active-runner
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-flow active-source --config-ref 'active-block|/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker|/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.release'
+error[adapter-unbound]: no home-local extension binding enables adapter: ext-flow
+error: extension adapter verification failed: ext-flow
++ active_runner_pid=12153
++ wait_for_file /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker
++ local file=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker
++ FM_HOME=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/homes/active-runner
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start active-source
+++ seq 1 100
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.marker ']'
++ sleep 0.05
++ return 1
++ fail 'active extension runner never entered its poll'
++ printf 'not ok - %s\n' 'active extension runner never entered its poll'
+not ok - active extension runner never entered its poll
++ exit 1
++ extension_test_cleanup
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.release ']'
++ touch /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/active-runner.release
++ '[' -z 12153 ']'
++ kill -TERM 12153
++ true
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -n '' ']'
++ '[' -f /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/remote-jobs/worker.pid ']'
++ '[' -n '' ']'
++ '[' -n '' ']'
++ chmod -R u+w /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4
++ test_cleanup
++ local d
++ test_reap_watchers
++ local state lock_home 'seen=
+'
++ '[' -f /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/.fm-test-watcher.11899.wRWT2w ']'
++ IFS=
++ read -r state
++ rm -f /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/.fm-test-watcher.11899.wRWT2w
++ test_reap_procevent_homes
++ local home claim_root 'seen=
+'
++ '[' -f /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/.fm-test-procevent.11899.Y7jtLv ']'
++ IFS='	'
++ read -r home claim_root
++ rm -f /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/.fm-test-procevent.11899.Y7jtLv
++ for d in "${FM_TEST_CLEANUP_DIRS[@]:-}"
++ '[' -n '' ']'
++ '[' -f /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/.fm-test-cleanup.11899.53UMWg ']'
++ IFS=
++ read -r d
++ '[' -n /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4 ']'
++ test_reap_root_processes /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4
++ local root=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4 chain pid pids signal i
++ '[' -n /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4 ']'
++ '[' /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4 '!=' / ']'
++ chain=' '
++ pid=11899
++ '[' -n 11899 ']'
++ '[' 11899 -gt 1 ']'
++ chain=' 11899 '
+++ ps -o ppid= -p 11899
+++ tr -d '[:space:]'
++ pid=11898
++ '[' -n 11898 ']'
++ '[' 11898 -gt 1 ']'
++ chain=' 11899 11898 '
+++ ps -o ppid= -p 11898
+++ tr -d '[:space:]'
++ pid=11896
++ '[' -n 11896 ']'
++ '[' 11896 -gt 1 ']'
++ chain=' 11899 11898 11896 '
+++ ps -o ppid= -p 11896
+++ tr -d '[:space:]'
++ pid=11895
++ '[' -n 11895 ']'
++ '[' 11895 -gt 1 ']'
++ chain=' 11899 11898 11896 11895 '
+++ ps -o ppid= -p 11895
+++ tr -d '[:space:]'
++ pid=11893
++ '[' -n 11893 ']'
++ '[' 11893 -gt 1 ']'
++ chain=' 11899 11898 11896 11895 11893 '
+++ ps -o ppid= -p 11893
+++ tr -d '[:space:]'
++ pid=11686
++ '[' -n 11686 ']'
++ '[' 11686 -gt 1 ']'
++ chain=' 11899 11898 11896 11895 11893 11686 '
+++ ps -o ppid= -p 11686
+++ tr -d '[:space:]'
++ pid=22284
++ '[' -n 22284 ']'
++ '[' 22284 -gt 1 ']'
++ chain=' 11899 11898 11896 11895 11893 11686 22284 '
+++ ps -o ppid= -p 22284
+++ tr -d '[:space:]'
++ pid=7707
++ '[' -n 7707 ']'
++ '[' 7707 -gt 1 ']'
++ chain=' 11899 11898 11896 11895 11893 11686 22284 7707 '
+++ ps -o ppid= -p 7707
+++ tr -d '[:space:]'
++ pid=7706
++ '[' -n 7706 ']'
++ '[' 7706 -gt 1 ']'
++ chain=' 11899 11898 11896 11895 11893 11686 22284 7707 7706 '
+++ ps -o ppid= -p 7706
+++ tr -d '[:space:]'
++ pid=1
++ '[' -n 1 ']'
++ '[' 1 -gt 1 ']'
++ for signal in TERM KILL
++ i=0
++ '[' 0 -lt 20 ']'
+++ ps -ww -eo pid=,args=
+++ FM_TEST_REAP_ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4/
+++ awk -v 'chain= 11899 11898 11896 11895 11893 11686 22284 7707 7706 ' 'index($0, ENVIRON["FM_TEST_REAP_ROOT"]) && index(chain, " " $1 " ") == 0 { print $1 }'
++ pids=
++ '[' -n '' ']'
++ return 0
++ test_remove_tree /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4
++ local dir=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4
++ '[' -d /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4 ']'
++ '[' '!' -L /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4 ']'
++ find /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4 -type d -exec chmod u+rwx '{}' +
++ rm -rf /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/fm-extension-binding.zfJxC4
++ IFS=
++ read -r d
++ rm -f /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.test-round3/tmp/.fm-test-cleanup.11899.53UMWg

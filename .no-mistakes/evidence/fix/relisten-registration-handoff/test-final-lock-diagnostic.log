@@ -1,0 +1,8 @@
+ok - registration publication and binding retirement share one lifecycle boundary
+ok - process-event resolution reserves the lifecycle before invocation
+Operation output:
+external-ready
+Retirement output:
+error[retirement-failed]: error[binding-in-use]: error: binding still owns process-event registration: process-race-classify
+Live operation process:
+not ok - binding retirement bypassed result.classify lifecycle reservation

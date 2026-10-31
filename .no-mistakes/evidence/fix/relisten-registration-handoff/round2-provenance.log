@@ -1,0 +1,23 @@
+Final SHA: 6c05bca9362dc80e1ead7461d4eb348935e95c80
+
+Baseline production script digest:
+d55de904bc537def904a2dccf7316443ada0cabaa748850540a09aa6ec5e3095  -
+d55de904bc537def904a2dccf7316443ada0cabaa748850540a09aa6ec5e3095  .validation/baseline/bin/process-events.sh
+
+Unchanged process-event test digest:
+f5717dff17991df785bf4cd7b3079c66890ce59dd8faf6463460ec367d2b56d7  -
+f5717dff17991df785bf4cd7b3079c66890ce59dd8faf6463460ec367d2b56d7  tests/process-events.test.sh
+
+Tools used:
+GNU bash, version 5.0.17(1)-release (x86_64-pc-linux-gnu)
+Python 3.8.10
+unshare from util-linux 2.41.3
+flock from util-linux 2.41.3
+timeout (GNU coreutils) 8.30
+v22.23.3
+
+Orphan proof in passing isolated process-event run:
+ok - a detached listener starts reparented, with a live descendant tree under it
+ok - a listener whose owning session is gone stops itself and its whole process group
+ok - retiring a source reaps its reparented listener and every descendant under it
+all procevent tests passed

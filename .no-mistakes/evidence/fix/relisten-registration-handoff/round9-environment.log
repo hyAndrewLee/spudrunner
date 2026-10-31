@@ -1,0 +1,20 @@
+uid=1000
+pid=1
+PATH=/home/andrew/spudrunner-green/tools:/home/andrew/.nvm/versions/node/v22.23.3/bin:/home/andrew/.local/bin:/home/andrew/.bun/bin:/usr/local/bin:/home/andrew/.nvm/versions/node/v22.23.3/bin:/home/andrew/.nvm/versions/node/v22.23.3/bin:/home/andrew/go/bin:/usr/local/go/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/andrew/spudrunner-green/tools:/home/andrew/.pi/agent/bin:/home/andrew/.local/bin:/home/andrew/.bun/bin:/usr/local/bin:/home/andrew/.local/share/pnpm:/home/andrew/.nvm/versions/node/v22.23.3/bin:/home/andrew/go/bin:/usr/local/go/bin:/home/andrew/.local/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/andrew/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/PlasticSCM5/server:/mnt/c/Program Files/PlasticSCM5/client:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Program Files/Microsoft/jdk-17.0.13.11-hotspot/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/GitHub CLI/:/mnt/c/Users/andre/AppData/Roaming/nvm:/mnt/c/Program Files/nodejs:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Amazon/AWSCLIV2/:/mnt/c/Program Files/Microsoft SQL Server/150/Tools/Binn/:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files/Go/bin:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/:/mnt/c/Users/andre/AppData/Local/Programs/cursor/resources/app/bin:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/Users/andre/AppData/Local/pi-node/current:/mnt/c/Users/andre/AppData/Local/Programs/Herdr/bin:/mnt/c/Users/andre/AppData/Local/Programs/Python/Launcher/:/mnt/c/Users/andre/AppData/Local/pnpm:/mnt/c/Users/andre/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/andre/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/andre/AppData/Roaming/nvm:/mnt/c/Program Files/nodejs:/mnt/c/Users/andre/.dotnet/tools:/mnt/c/Users/andre/AppData/Roaming/npm:/mnt/c/Users/andre/go/bin:/mnt/c/Users/andre/AppData/Local/Android/Sdk/platform-tools:/mnt/c/Users/andre/AppData/Local/Programs/cursor/resources/app/bin:/mnt/c/Users/andre/AppData/Local/Programs/Warp/bin:/mnt/c/Users/andre/.local/bin:/mnt/c/Users/andre/AppData/Local/Microsoft/WinGet/Packages/GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe:/mnt/c/Users/andre/AppData/Local/Programs/Ollama:/home/andrew/Android/Sdk/emulator:/home/andrew/Android/Sdk/platform-tools:/home/andrew/Android/Sdk/emulator:/home/andrew/Android/Sdk/platform-tools:/home/andrew/bin:/opt/homebrew/bin:/opt/homebrew/sbin
+TMPDIR=/tmp
+4194304
+480
+/usr/bin/bash
+GNU bash, version 5.0.17(1)-release (x86_64-pc-linux-gnu)
+Copyright (C) 2019 Free Software Foundation, Inc.
+/home/andrew/.nvm/versions/node/v22.23.3/bin/node
+v22.23.3
+/home/andrew/spudrunner-green/tools/ruby
+ruby 2.7.0p0 (2019-12-25 revision 647ee6f091) [x86_64-linux-gnu]
+/home/linuxbrew/.linuxbrew/bin/unshare
+unshare from util-linux 2.41.3
+/home/linuxbrew/.linuxbrew/bin/flock
+flock from util-linux 2.41.3
+/usr/bin/timeout
+timeout (GNU coreutils) 8.30
+Copyright (C) 2018 Free Software Foundation, Inc.

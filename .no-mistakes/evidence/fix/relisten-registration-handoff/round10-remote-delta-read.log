@@ -1,0 +1,803 @@
++ set -u
+++ dirname tests/remote-delta-read.test.sh
++ . tests/lib.sh
+++ '[' -n '' ']'
+++ FM_TEST_LIB_SOURCED=1
+++ umask 022
++++ dirname tests/lib.sh
+++ . tests/git-config-helpers.sh
++++ export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
++++ GIT_CONFIG_GLOBAL=/dev/null
++++ GIT_CONFIG_NOSYSTEM=1
++++ unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_COMMON_DIR
+++ export FM_GATE_REFUSE_BYPASS=1
+++ FM_GATE_REFUSE_BYPASS=1
+++ export FM_TEST_SEAM=1
+++ FM_TEST_SEAM=1
+++ unset FM_TASK_ID
+++ unset TASKS_AXI_FILE TASKS_AXI_BACKEND
+++ unset REX_SESSION REX_BLOCK
+++++ dirname tests/lib.sh
++++ cd tests/..
++++ pwd
+++ ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ FM_TEST_TMPDIR=/tmp
+++ FM_TEST_CLEANUP_DIRS=()
++++ mktemp /tmp/.fm-test-cleanup.1.XXXXXX
+++ FM_TEST_CLEANUP_REGISTRY=/tmp/.fm-test-cleanup.1.1KFo4W
++++ test_pid_identity 1
++++ local pid=1
++++ FM_STATE_OVERRIDE=/tmp
++++ bash -c '. "$1"; pid_identity "$2"' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/supervision-events-lib.sh 1
+++ FM_TEST_OWNER_IDENTITY='linux-starttime=11604776 cmdline-hex=62617368002d780074657374732f72656d6f74652d64656c74612d726561642e746573742e736800'
++++ mktemp /tmp/.fm-test-procevent.1.XXXXXX
+++ FM_TEST_PROCEVENT_REGISTRY=/tmp/.fm-test-procevent.1.VUyKxh
++++ mktemp /tmp/.fm-test-watcher.1.XXXXXX
+++ FM_TEST_WATCHER_REGISTRY=/tmp/.fm-test-watcher.1.4yHcwM
+++ FM_TEST_STUB_MAX_BLOCK_SECONDS=120
+++ export FM_TEST_STUB_MAX_BLOCK_SECONDS
+++ FM_TEST_SUITE_PID=1
+++ export FM_TEST_SUITE_PID
+++ trap test_cleanup EXIT
+++ trap 'test_cleanup; exit 130' INT
+++ trap 'test_cleanup; exit 143' TERM
+++ trap 'test_cleanup; exit 129' HUP
+++ trap 'test_cleanup; exit 131' QUIT
+++ FM_TEST_ORPHAN_MAX_AGE_SECONDS=3600
+++ '[' 0 '!=' 1 ']'
+++ test_reap_orphans
+++ local marker dir mtime now owner_pid owner_identity current_identity
++++ date +%s
+++ now=1793434445
+++ for marker in "$FM_TEST_TMPDIR"/fm-*/.fm-test-fixture
+++ '[' -e '/tmp/fm-*/.fm-test-fixture' ']'
+++ continue
++++ dirname tests/remote-delta-read.test.sh
+++ cd tests/..
+++ pwd -P
++ ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
+++ test_tmproot fm-remote-delta-read
+++ local prefix=fm-remote-delta-read root tmp_base
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ tmp_base=/tmp
+++ tmp_base=/tmp
++++ mktemp -d /tmp/fm-remote-delta-read.XXXXXX
+++ root=/tmp/fm-remote-delta-read.J5OXcb
++++ cd -P -- /tmp/fm-remote-delta-read.J5OXcb
++++ pwd -P
+++ root=/tmp/fm-remote-delta-read.J5OXcb
+++ printf '%s\n%s\n' 1 'linux-starttime=11604776 cmdline-hex=62617368002d780074657374732f72656d6f74652d64656c74612d726561642e746573742e736800'
+++ printf '%s\n' /tmp/fm-remote-delta-read.J5OXcb
+++ printf '%s\n' /tmp/fm-remote-delta-read.J5OXcb
++ TMP_ROOT=/tmp/fm-remote-delta-read.J5OXcb
++ mkdir -p /tmp/fm-remote-delta-read.J5OXcb
+++ cd /tmp/fm-remote-delta-read.J5OXcb
+++ pwd -P
++ TMP_ROOT=/tmp/fm-remote-delta-read.J5OXcb
++ DELTA_HOME=/tmp/fm-remote-delta-read.J5OXcb/home
++ DELTA_LOG_REL=state/replies.status
++ mkdir -p /tmp/fm-remote-delta-read.J5OXcb/home/state
++ READER=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-delta-read.sh
+++ :
+++ shasum -a 256
+++ awk '{print $1}'
++ EMPTY_SHA=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
++ :
++ READER_PID=38
++ sleep 0.3
++ run_reader 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 4
++ FM_HOME=/tmp/fm-remote-delta-read.J5OXcb/home
++ FM_REMOTE_DELTA_POLL_SECONDS=0.05
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-delta-read.sh state/replies.status 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 4
++ printf 'first line\n'
++ wait 38
++ OUT='schema=fm-remote-delta.v1
+status=delta
+path=state/replies.status
+from_offset=0
+to_offset=11
+from_prefix_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+to_prefix_sha256=812702a1550d251abb2b813409daf5960269f1b9d62fa1c027c319e7baca3ae8
+payload_sha256=812702a1550d251abb2b813409daf5960269f1b9d62fa1c027c319e7baca3ae8
+payload_bytes=11
+reason=
+
+first line'
++ assert_contains 'schema=fm-remote-delta.v1
+status=delta
+path=state/replies.status
+from_offset=0
+to_offset=11
+from_prefix_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+to_prefix_sha256=812702a1550d251abb2b813409daf5960269f1b9d62fa1c027c319e7baca3ae8
+payload_sha256=812702a1550d251abb2b813409daf5960269f1b9d62fa1c027c319e7baca3ae8
+payload_bytes=11
+reason=
+
+first line' status=delta 'the grown log did not produce a delta'
++ case "$1" in
++ :
++ assert_contains 'schema=fm-remote-delta.v1
+status=delta
+path=state/replies.status
+from_offset=0
+to_offset=11
+from_prefix_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+to_prefix_sha256=812702a1550d251abb2b813409daf5960269f1b9d62fa1c027c319e7baca3ae8
+payload_sha256=812702a1550d251abb2b813409daf5960269f1b9d62fa1c027c319e7baca3ae8
+payload_bytes=11
+reason=
+
+first line' from_offset=0 'the delta did not start at the caller cursor'
++ case "$1" in
++ :
++ assert_contains 'schema=fm-remote-delta.v1
+status=delta
+path=state/replies.status
+from_offset=0
+to_offset=11
+from_prefix_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+to_prefix_sha256=812702a1550d251abb2b813409daf5960269f1b9d62fa1c027c319e7baca3ae8
+payload_sha256=812702a1550d251abb2b813409daf5960269f1b9d62fa1c027c319e7baca3ae8
+payload_bytes=11
+reason=
+
+first line' to_offset=11 'the delta did not stop at the complete line'
++ case "$1" in
++ :
++ assert_contains 'schema=fm-remote-delta.v1
+status=delta
+path=state/replies.status
+from_offset=0
+to_offset=11
+from_prefix_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+to_prefix_sha256=812702a1550d251abb2b813409daf5960269f1b9d62fa1c027c319e7baca3ae8
+payload_sha256=812702a1550d251abb2b813409daf5960269f1b9d62fa1c027c319e7baca3ae8
+payload_bytes=11
+reason=
+
+first line' from_prefix_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 'the delta did not echo the caller prefix hash'
++ case "$1" in
++ :
+++ sha 'first line\n'
+++ printf %b 'first line\n'
+++ shasum -a 256
+++ awk '{print $1}'
++ assert_contains 'schema=fm-remote-delta.v1
+status=delta
+path=state/replies.status
+from_offset=0
+to_offset=11
+from_prefix_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+to_prefix_sha256=812702a1550d251abb2b813409daf5960269f1b9d62fa1c027c319e7baca3ae8
+payload_sha256=812702a1550d251abb2b813409daf5960269f1b9d62fa1c027c319e7baca3ae8
+payload_bytes=11
+reason=
+
+first line' payload_sha256=812702a1550d251abb2b813409daf5960269f1b9d62fa1c027c319e7baca3ae8 'the payload hash is not the appended bytes'
++ case "$1" in
++ :
++ assert_contains 'schema=fm-remote-delta.v1
+status=delta
+path=state/replies.status
+from_offset=0
+to_offset=11
+from_prefix_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+to_prefix_sha256=812702a1550d251abb2b813409daf5960269f1b9d62fa1c027c319e7baca3ae8
+payload_sha256=812702a1550d251abb2b813409daf5960269f1b9d62fa1c027c319e7baca3ae8
+payload_bytes=11
+reason=
+
+first line' payload_bytes=11 'the payload byte count is wrong'
++ case "$1" in
++ :
+++ tail -n 1 /tmp/fm-remote-delta-read.J5OXcb/growth.out
++ '[' 'first line' = 'first line' ']'
++ pass 'an appended line produces a delta with exact offsets, hashes, and payload'
++ printf 'ok - %s\n' 'an appended line produces a delta with exact offsets, hashes, and payload'
+ok - an appended line produces a delta with exact offsets, hashes, and payload
++ DELTA_SHIM=/tmp/fm-remote-delta-read.J5OXcb/delta-shim
++ EXEC_LOG=/tmp/fm-remote-delta-read.J5OXcb/delta-execs
++ mkdir -p /tmp/fm-remote-delta-read.J5OXcb/delta-shim
++ for TOOL in perl shasum sha256sum od tail head wc tr date stat dirname basename
+++ PATH=/usr/bin:/bin
+++ command -v perl
++ REAL=/usr/bin/perl
++ '[' -n /usr/bin/perl ']'
++ cat
++ chmod +x /tmp/fm-remote-delta-read.J5OXcb/delta-shim/perl
++ for TOOL in perl shasum sha256sum od tail head wc tr date stat dirname basename
+++ PATH=/usr/bin:/bin
+++ command -v shasum
++ REAL=/usr/bin/shasum
++ '[' -n /usr/bin/shasum ']'
++ cat
++ chmod +x /tmp/fm-remote-delta-read.J5OXcb/delta-shim/shasum
++ for TOOL in perl shasum sha256sum od tail head wc tr date stat dirname basename
+++ PATH=/usr/bin:/bin
+++ command -v sha256sum
++ REAL=/usr/bin/sha256sum
++ '[' -n /usr/bin/sha256sum ']'
++ cat
++ chmod +x /tmp/fm-remote-delta-read.J5OXcb/delta-shim/sha256sum
++ for TOOL in perl shasum sha256sum od tail head wc tr date stat dirname basename
+++ PATH=/usr/bin:/bin
+++ command -v od
++ REAL=/usr/bin/od
++ '[' -n /usr/bin/od ']'
++ cat
++ chmod +x /tmp/fm-remote-delta-read.J5OXcb/delta-shim/od
++ for TOOL in perl shasum sha256sum od tail head wc tr date stat dirname basename
+++ PATH=/usr/bin:/bin
+++ command -v tail
++ REAL=/usr/bin/tail
++ '[' -n /usr/bin/tail ']'
++ cat
++ chmod +x /tmp/fm-remote-delta-read.J5OXcb/delta-shim/tail
++ for TOOL in perl shasum sha256sum od tail head wc tr date stat dirname basename
+++ PATH=/usr/bin:/bin
+++ command -v head
++ REAL=/usr/bin/head
++ '[' -n /usr/bin/head ']'
++ cat
++ chmod +x /tmp/fm-remote-delta-read.J5OXcb/delta-shim/head
++ for TOOL in perl shasum sha256sum od tail head wc tr date stat dirname basename
+++ PATH=/usr/bin:/bin
+++ command -v wc
++ REAL=/usr/bin/wc
++ '[' -n /usr/bin/wc ']'
++ cat
++ chmod +x /tmp/fm-remote-delta-read.J5OXcb/delta-shim/wc
++ for TOOL in perl shasum sha256sum od tail head wc tr date stat dirname basename
+++ PATH=/usr/bin:/bin
+++ command -v tr
++ REAL=/usr/bin/tr
++ '[' -n /usr/bin/tr ']'
++ cat
++ chmod +x /tmp/fm-remote-delta-read.J5OXcb/delta-shim/tr
++ for TOOL in perl shasum sha256sum od tail head wc tr date stat dirname basename
+++ PATH=/usr/bin:/bin
+++ command -v date
++ REAL=/usr/bin/date
++ '[' -n /usr/bin/date ']'
++ cat
++ chmod +x /tmp/fm-remote-delta-read.J5OXcb/delta-shim/date
++ for TOOL in perl shasum sha256sum od tail head wc tr date stat dirname basename
+++ PATH=/usr/bin:/bin
+++ command -v stat
++ REAL=/usr/bin/stat
++ '[' -n /usr/bin/stat ']'
++ cat
++ chmod +x /tmp/fm-remote-delta-read.J5OXcb/delta-shim/stat
++ for TOOL in perl shasum sha256sum od tail head wc tr date stat dirname basename
+++ PATH=/usr/bin:/bin
+++ command -v dirname
++ REAL=/usr/bin/dirname
++ '[' -n /usr/bin/dirname ']'
++ cat
++ chmod +x /tmp/fm-remote-delta-read.J5OXcb/delta-shim/dirname
++ for TOOL in perl shasum sha256sum od tail head wc tr date stat dirname basename
+++ PATH=/usr/bin:/bin
+++ command -v basename
++ REAL=/usr/bin/basename
++ '[' -n /usr/bin/basename ']'
++ cat
++ chmod +x /tmp/fm-remote-delta-read.J5OXcb/delta-shim/basename
++ :
++ :
++ FM_TEST_EXEC_LOG=/tmp/fm-remote-delta-read.J5OXcb/delta-execs
++ PATH=/tmp/fm-remote-delta-read.J5OXcb/delta-shim:/usr/bin:/bin
++ run_reader 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 2
++ FM_HOME=/tmp/fm-remote-delta-read.J5OXcb/home
++ FM_REMOTE_DELTA_POLL_SECONDS=0.05
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-delta-read.sh state/replies.status 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 2
++ RC=75
++ '[' 75 -eq 75 ']'
+++ grep -cx perl /tmp/fm-remote-delta-read.J5OXcb/delta-execs
++ perl_execs=1
+++ grep -cx stat /tmp/fm-remote-delta-read.J5OXcb/delta-execs
++ stat_execs=29
++ '[' 1 -eq 1 ']'
++ for TOOL in od tail head wc date
+++ grep -cx od /tmp/fm-remote-delta-read.J5OXcb/delta-execs
+++ true
++ hits=0
++ '[' 0 -eq 0 ']'
++ for TOOL in od tail head wc date
+++ grep -cx tail /tmp/fm-remote-delta-read.J5OXcb/delta-execs
+++ true
++ hits=0
++ '[' 0 -eq 0 ']'
++ for TOOL in od tail head wc date
+++ grep -cx head /tmp/fm-remote-delta-read.J5OXcb/delta-execs
+++ true
++ hits=0
++ '[' 0 -eq 0 ']'
++ for TOOL in od tail head wc date
+++ grep -cx wc /tmp/fm-remote-delta-read.J5OXcb/delta-execs
+++ true
++ hits=0
++ '[' 0 -eq 0 ']'
++ for TOOL in od tail head wc date
+++ grep -cx date /tmp/fm-remote-delta-read.J5OXcb/delta-execs
+++ true
++ hits=0
++ '[' 0 -eq 0 ']'
++ '[' 29 -ge 5 ']'
++ pass 'an unchanged log costs one stat per poll and exits 75 at the window'
++ printf 'ok - %s\n' 'an unchanged log costs one stat per poll and exits 75 at the window'
+ok - an unchanged log costs one stat per poll and exits 75 at the window
++ :
++ READER_PID=268
++ sleep 0.3
++ FM_TEST_EXEC_LOG=/tmp/fm-remote-delta-read.J5OXcb/delta-execs
++ PATH=/tmp/fm-remote-delta-read.J5OXcb/delta-shim:/usr/bin:/bin
++ run_reader 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 4
++ FM_HOME=/tmp/fm-remote-delta-read.J5OXcb/home
++ FM_REMOTE_DELTA_POLL_SECONDS=0.05
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-delta-read.sh state/replies.status 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 4
++ printf 'counted change\n'
++ wait 268
++ assert_contains 'schema=fm-remote-delta.v1
+status=delta
+path=state/replies.status
+from_offset=0
+to_offset=15
+from_prefix_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+to_prefix_sha256=bcf04bf90b8da6a2502c17f3f44e4636dffd7201b31420d7c2592b5e87a1f2b1
+payload_sha256=bcf04bf90b8da6a2502c17f3f44e4636dffd7201b31420d7c2592b5e87a1f2b1
+payload_bytes=15
+reason=
+
+counted change' status=delta 'the shimmed run lost the delta'
++ case "$1" in
++ :
+++ grep -cx perl /tmp/fm-remote-delta-read.J5OXcb/delta-execs
++ '[' 2 -ge 1 ']'
+++ grep -cx shasum /tmp/fm-remote-delta-read.J5OXcb/delta-execs
++ '[' 5 -ge 2 ']'
++ pass 'the capture and hashing path runs exactly once a real change lands'
++ printf 'ok - %s\n' 'the capture and hashing path runs exactly once a real change lands'
+ok - the capture and hashing path runs exactly once a real change lands
++ printf 'alpha\nbeta\n'
+++ sha 'alpha\nbeta\n'
+++ printf %b 'alpha\nbeta\n'
+++ shasum -a 256
+++ awk '{print $1}'
++ PREFIX_SHA=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
++ READER_PID=344
++ sleep 0.3
++ run_reader 11 e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee 4
++ FM_HOME=/tmp/fm-remote-delta-read.J5OXcb/home
++ FM_REMOTE_DELTA_POLL_SECONDS=0.05
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-delta-read.sh state/replies.status 11 e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee 4
++ printf 'a\n'
++ wait 344
++ OUT='schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=11
+to_offset=2
+from_prefix_sha256=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
+to_prefix_sha256=87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=truncated'
++ assert_contains 'schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=11
+to_offset=2
+from_prefix_sha256=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
+to_prefix_sha256=87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=truncated' status=continuity-broken 'truncation did not produce a break'
++ case "$1" in
++ :
++ assert_contains 'schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=11
+to_offset=2
+from_prefix_sha256=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
+to_prefix_sha256=87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=truncated' reason=truncated 'truncation was not named'
++ case "$1" in
++ :
++ assert_contains 'schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=11
+to_offset=2
+from_prefix_sha256=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
+to_prefix_sha256=87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=truncated' to_offset=2 'the break did not report the shrunk size'
++ case "$1" in
++ :
+++ sha 'a\n'
+++ printf %b 'a\n'
+++ shasum -a 256
+++ awk '{print $1}'
++ assert_contains 'schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=11
+to_offset=2
+from_prefix_sha256=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
+to_prefix_sha256=87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=truncated' to_prefix_sha256=87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7 'the break did not hash the remaining prefix'
++ case "$1" in
++ :
++ pass 'a shrunk log breaks continuity as truncated with the remaining hash'
++ printf 'ok - %s\n' 'a shrunk log breaks continuity as truncated with the remaining hash'
+ok - a shrunk log breaks continuity as truncated with the remaining hash
++ SUBSECOND_SHIM=/tmp/fm-remote-delta-read.J5OXcb/subsecond-shim
++ mkdir -p /tmp/fm-remote-delta-read.J5OXcb/subsecond-shim
++ cat
+++ PATH=/usr/bin:/bin
+++ command -v shasum
++ REAL_SHASUM=/usr/bin/shasum
++ cat
++ chmod +x /tmp/fm-remote-delta-read.J5OXcb/subsecond-shim/stat /tmp/fm-remote-delta-read.J5OXcb/subsecond-shim/shasum
++ printf 'alpha\nbeta\n'
+++ perl -e '@s = stat $ARGV[0]; print "$s[0]:$s[1]:$s[7]\n"' /tmp/fm-remote-delta-read.J5OXcb/home/state/replies.status
++ REWRITE_ID=2096:1335007:11
++ FM_TEST_REWRITE_LOG=/tmp/fm-remote-delta-read.J5OXcb/home/state/replies.status
++ FM_TEST_REWRITE_DONE=/tmp/fm-remote-delta-read.J5OXcb/later-epoch-done
++ FM_TEST_LATER_EPOCH=1
++ PATH=/tmp/fm-remote-delta-read.J5OXcb/subsecond-shim:/usr/bin:/bin
++ run_reader 11 e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee 10
++ FM_HOME=/tmp/fm-remote-delta-read.J5OXcb/home
++ FM_REMOTE_DELTA_POLL_SECONDS=0.05
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-delta-read.sh state/replies.status 11 e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee 10
++ '[' -e /tmp/fm-remote-delta-read.J5OXcb/later-epoch-done ']'
+++ perl -e '@s = stat $ARGV[0]; print "$s[0]:$s[1]:$s[7]\n"' /tmp/fm-remote-delta-read.J5OXcb/home/state/replies.status
++ '[' 2096:1335007:11 = 2096:1335007:11 ']'
++ OUT='schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=11
+to_offset=11
+from_prefix_sha256=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
+to_prefix_sha256=105574d777006ec9bddf92f16dae3a0b7aaec1a3161e63033aa041014ec15223
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=prefix-changed'
++ assert_contains 'schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=11
+to_offset=11
+from_prefix_sha256=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
+to_prefix_sha256=105574d777006ec9bddf92f16dae3a0b7aaec1a3161e63033aa041014ec15223
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=prefix-changed' status=continuity-broken 'a same-size rewrite did not produce a break'
++ case "$1" in
++ :
++ assert_contains 'schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=11
+to_offset=11
+from_prefix_sha256=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
+to_prefix_sha256=105574d777006ec9bddf92f16dae3a0b7aaec1a3161e63033aa041014ec15223
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=prefix-changed' reason=prefix-changed 'the same-size rewrite was not named prefix-changed'
++ case "$1" in
++ :
++ assert_contains 'schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=11
+to_offset=11
+from_prefix_sha256=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
+to_prefix_sha256=105574d777006ec9bddf92f16dae3a0b7aaec1a3161e63033aa041014ec15223
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=prefix-changed' to_offset=11 'the break did not report the current size'
++ case "$1" in
++ :
+++ sha 'OMEGA\nbeta\n'
+++ printf %b 'OMEGA\nbeta\n'
+++ shasum -a 256
+++ awk '{print $1}'
++ assert_contains 'schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=11
+to_offset=11
+from_prefix_sha256=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
+to_prefix_sha256=105574d777006ec9bddf92f16dae3a0b7aaec1a3161e63033aa041014ec15223
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=prefix-changed' to_prefix_sha256=105574d777006ec9bddf92f16dae3a0b7aaec1a3161e63033aa041014ec15223 'the break did not hash the rewritten prefix'
++ case "$1" in
++ :
++ pass 'a later-epoch same-size in-place rewrite breaks continuity as prefix-changed'
++ printf 'ok - %s\n' 'a later-epoch same-size in-place rewrite breaks continuity as prefix-changed'
+ok - a later-epoch same-size in-place rewrite breaks continuity as prefix-changed
++ printf 'alpha\nbeta\n'
++ FM_TEST_REWRITE_LOG=/tmp/fm-remote-delta-read.J5OXcb/home/state/replies.status
++ FM_TEST_REWRITE_DONE=/tmp/fm-remote-delta-read.J5OXcb/rewrite-done
++ PATH=/tmp/fm-remote-delta-read.J5OXcb/subsecond-shim:/usr/bin:/bin
++ run_reader 11 e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee 10
++ FM_HOME=/tmp/fm-remote-delta-read.J5OXcb/home
++ FM_REMOTE_DELTA_POLL_SECONDS=0.05
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-delta-read.sh state/replies.status 11 e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee 10
++ '[' -e /tmp/fm-remote-delta-read.J5OXcb/rewrite-done ']'
++ OUT='schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=11
+to_offset=11
+from_prefix_sha256=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
+to_prefix_sha256=105574d777006ec9bddf92f16dae3a0b7aaec1a3161e63033aa041014ec15223
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=prefix-changed'
++ assert_contains 'schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=11
+to_offset=11
+from_prefix_sha256=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
+to_prefix_sha256=105574d777006ec9bddf92f16dae3a0b7aaec1a3161e63033aa041014ec15223
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=prefix-changed' status=continuity-broken 'the subsecond change did not break continuity'
++ case "$1" in
++ :
++ assert_contains 'schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=11
+to_offset=11
+from_prefix_sha256=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
+to_prefix_sha256=105574d777006ec9bddf92f16dae3a0b7aaec1a3161e63033aa041014ec15223
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=prefix-changed' reason=prefix-changed 'a same-second same-size rewrite was not detected'
++ case "$1" in
++ :
++ pass 'a same-second same-size rewrite of the same inode breaks continuity'
++ printf 'ok - %s\n' 'a same-second same-size rewrite of the same inode breaks continuity'
+ok - a same-second same-size rewrite of the same inode breaks continuity
++ printf 'alpha\nbeta\n'
++ FM_TEST_REWRITE_LOG=/tmp/fm-remote-delta-read.J5OXcb/home/state/replies.status
++ FM_TEST_REWRITE_DONE=/tmp/fm-remote-delta-read.J5OXcb/remove-done
++ FM_TEST_REMOVE_LOG=1
++ PATH=/tmp/fm-remote-delta-read.J5OXcb/subsecond-shim:/usr/bin:/bin
++ run_reader 11 e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee 10
++ FM_HOME=/tmp/fm-remote-delta-read.J5OXcb/home
++ FM_REMOTE_DELTA_POLL_SECONDS=0.05
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-delta-read.sh state/replies.status 11 e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee 10
++ OUT='schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=11
+to_offset=0
+from_prefix_sha256=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
+to_prefix_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=missing'
++ assert_contains 'schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=11
+to_offset=0
+from_prefix_sha256=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
+to_prefix_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=missing' status=continuity-broken 'a removed log did not produce a break'
++ case "$1" in
++ :
++ assert_contains 'schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=11
+to_offset=0
+from_prefix_sha256=e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee
+to_prefix_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=missing' reason=missing 'the removed log was not named missing'
++ case "$1" in
++ :
++ pass 'a removed log breaks continuity as missing'
++ printf 'ok - %s\n' 'a removed log breaks continuity as missing'
+ok - a removed log breaks continuity as missing
++ run_reader 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 1
++ FM_HOME=/tmp/fm-remote-delta-read.J5OXcb/home
++ FM_REMOTE_DELTA_POLL_SECONDS=0.05
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-delta-read.sh state/replies.status 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 1
++ RC=75
++ '[' 75 -eq 75 ']'
++ pass 'a missing log at the origin cursor keeps waiting until the window closes'
++ printf 'ok - %s\n' 'a missing log at the origin cursor keeps waiting until the window closes'
+ok - a missing log at the origin cursor keeps waiting until the window closes
++ printf 'whole\n'
++ READER_PID=560
++ sleep 0.3
+++ sha 'whole\n'
+++ printf %b 'whole\n'
+++ shasum -a 256
+++ awk '{print $1}'
++ run_reader 6 3661291e28107bb940142d346bdb3a86da68415ae7fe451374d403c6037b9fa5 4
++ FM_HOME=/tmp/fm-remote-delta-read.J5OXcb/home
++ FM_REMOTE_DELTA_POLL_SECONDS=0.05
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-delta-read.sh state/replies.status 6 3661291e28107bb940142d346bdb3a86da68415ae7fe451374d403c6037b9fa5 4
++ printf frag
++ sleep 0.4
++ printf -- '-ment\n'
++ wait 560
++ OUT='schema=fm-remote-delta.v1
+status=delta
+path=state/replies.status
+from_offset=6
+to_offset=16
+from_prefix_sha256=3661291e28107bb940142d346bdb3a86da68415ae7fe451374d403c6037b9fa5
+to_prefix_sha256=2e2306f774102a38403191e203b0ec0bd5973118caf55dd23e6eea8f74453fa1
+payload_sha256=3af0a7f3262dc58233a4b8618c1600fb8ebf4f8da9912502814bff6a77b99644
+payload_bytes=10
+reason=
+
+frag-ment'
++ assert_contains 'schema=fm-remote-delta.v1
+status=delta
+path=state/replies.status
+from_offset=6
+to_offset=16
+from_prefix_sha256=3661291e28107bb940142d346bdb3a86da68415ae7fe451374d403c6037b9fa5
+to_prefix_sha256=2e2306f774102a38403191e203b0ec0bd5973118caf55dd23e6eea8f74453fa1
+payload_sha256=3af0a7f3262dc58233a4b8618c1600fb8ebf4f8da9912502814bff6a77b99644
+payload_bytes=10
+reason=
+
+frag-ment' status=delta 'the completed line did not produce a delta'
++ case "$1" in
++ :
++ assert_contains 'schema=fm-remote-delta.v1
+status=delta
+path=state/replies.status
+from_offset=6
+to_offset=16
+from_prefix_sha256=3661291e28107bb940142d346bdb3a86da68415ae7fe451374d403c6037b9fa5
+to_prefix_sha256=2e2306f774102a38403191e203b0ec0bd5973118caf55dd23e6eea8f74453fa1
+payload_sha256=3af0a7f3262dc58233a4b8618c1600fb8ebf4f8da9912502814bff6a77b99644
+payload_bytes=10
+reason=
+
+frag-ment' to_offset=16 'the delta did not stop at the completed line'
++ case "$1" in
++ :
++ assert_contains 'schema=fm-remote-delta.v1
+status=delta
+path=state/replies.status
+from_offset=6
+to_offset=16
+from_prefix_sha256=3661291e28107bb940142d346bdb3a86da68415ae7fe451374d403c6037b9fa5
+to_prefix_sha256=2e2306f774102a38403191e203b0ec0bd5973118caf55dd23e6eea8f74453fa1
+payload_sha256=3af0a7f3262dc58233a4b8618c1600fb8ebf4f8da9912502814bff6a77b99644
+payload_bytes=10
+reason=
+
+frag-ment' payload_bytes=10 'the payload did not carry the whole line'
++ case "$1" in
++ :
+++ tail -n 1 /tmp/fm-remote-delta-read.J5OXcb/partial.out
++ '[' frag-ment = frag-ment ']'
++ pass 'an unterminated tail is withheld until the newline completes it'
++ printf 'ok - %s\n' 'an unterminated tail is withheld until the newline completes it'
+ok - an unterminated tail is withheld until the newline completes it
++ printf 'past-bound tail'
++ FM_HOME=/tmp/fm-remote-delta-read.J5OXcb/home
++ FM_REMOTE_DELTA_MAX_BYTES=8
++ run_reader 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 1
++ FM_HOME=/tmp/fm-remote-delta-read.J5OXcb/home
++ FM_REMOTE_DELTA_POLL_SECONDS=0.05
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-delta-read.sh state/replies.status 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 1
++ assert_contains 'schema=fm-remote-delta.v1
+status=continuity-broken
+path=state/replies.status
+from_offset=0
+to_offset=15
+from_prefix_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+to_prefix_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+payload_bytes=0
+reason=line-exceeds-bound' reason=line-exceeds-bound 'a tail line longer than the payload bound did not break'
++ case "$1" in
++ :
++ run_reader 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 1 ../outside
++ true
++ printf 'real\n'
++ ln -sfn real.status /tmp/fm-remote-delta-read.J5OXcb/home/state/link.status
++ run_reader 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 1 state/link.status
++ true
++ pass 'the reader refuses traversal, symlinks, and oversized tail lines'
++ printf 'ok - %s\n' 'the reader refuses traversal, symlinks, and oversized tail lines'
+ok - the reader refuses traversal, symlinks, and oversized tail lines
++ printf 'delta-read contract tests complete\n'
+delta-read contract tests complete
++ test_cleanup
++ local d
++ test_reap_watchers
++ local state lock_home 'seen=
+'
++ '[' -f /tmp/.fm-test-watcher.1.4yHcwM ']'
++ IFS=
++ read -r state
++ rm -f /tmp/.fm-test-watcher.1.4yHcwM
++ test_reap_procevent_homes
++ local home claim_root 'seen=
+'
++ '[' -f /tmp/.fm-test-procevent.1.VUyKxh ']'
++ IFS='	'
++ read -r home claim_root
++ rm -f /tmp/.fm-test-procevent.1.VUyKxh
++ for d in "${FM_TEST_CLEANUP_DIRS[@]:-}"
++ '[' -n '' ']'
++ '[' -f /tmp/.fm-test-cleanup.1.1KFo4W ']'
++ IFS=
++ read -r d
++ '[' -n /tmp/fm-remote-delta-read.J5OXcb ']'
++ test_reap_root_processes /tmp/fm-remote-delta-read.J5OXcb
++ local root=/tmp/fm-remote-delta-read.J5OXcb chain pid pids signal i
++ '[' -n /tmp/fm-remote-delta-read.J5OXcb ']'
++ '[' /tmp/fm-remote-delta-read.J5OXcb '!=' / ']'
++ chain=' '
++ pid=1
++ '[' -n 1 ']'
++ '[' 1 -gt 1 ']'
++ for signal in TERM KILL
++ i=0
++ '[' 0 -lt 20 ']'
+++ ps -ww -eo pid=,args=
+++ FM_TEST_REAP_ROOT=/tmp/fm-remote-delta-read.J5OXcb/
+++ awk -v 'chain= ' 'index($0, ENVIRON["FM_TEST_REAP_ROOT"]) && index(chain, " " $1 " ") == 0 { print $1 }'
++ pids=
++ '[' -n '' ']'
++ return 0
++ test_remove_tree /tmp/fm-remote-delta-read.J5OXcb
++ local dir=/tmp/fm-remote-delta-read.J5OXcb
++ '[' -d /tmp/fm-remote-delta-read.J5OXcb ']'
++ '[' '!' -L /tmp/fm-remote-delta-read.J5OXcb ']'
++ find /tmp/fm-remote-delta-read.J5OXcb -type d -exec chmod u+rwx '{}' +
++ rm -rf /tmp/fm-remote-delta-read.J5OXcb
++ IFS=
++ read -r d
++ rm -f /tmp/.fm-test-cleanup.1.1KFo4W

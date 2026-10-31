@@ -1,0 +1,4 @@
+error[binding-failed]: error[path-unsafe]: package source must not be inside a Git project or task copy
+error[adapter-unbound]: no home-local extension binding enables adapter: ext-flow
+error: extension adapter verification failed: ext-flow
+not ok - active extension runner never entered its poll

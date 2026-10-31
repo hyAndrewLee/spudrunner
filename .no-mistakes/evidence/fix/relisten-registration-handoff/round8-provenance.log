@@ -1,0 +1,21 @@
+Before: 6c05bca9362dc80e1ead7461d4eb348935e95c80
+After: 7c55cdb47a4716a04f04b7e4b829178d2b52176c
+
+Tools on configured PATH:
+/usr/bin/bash
+/usr/bin/timeout
+/home/linuxbrew/.linuxbrew/bin/unshare
+/home/linuxbrew/.linuxbrew/bin/flock
+/home/andrew/.nvm/versions/node/v22.23.3/bin/node
+/home/linuxbrew/.linuxbrew/bin/jq
+/home/linuxbrew/.linuxbrew/bin/python3
+GNU bash, version 5.0.17(1)-release (x86_64-pc-linux-gnu)
+timeout (GNU coreutils) 8.30
+unshare from util-linux 2.41.3
+flock from util-linux 2.41.3
+v22.23.3
+jq-1.8.2
+Python 3.14.3
+
+Patch digest:
+6d5a64209a496266c8013d5a242c44b41cd0a950664bb332a3d2773545607c2f  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-fix.patch

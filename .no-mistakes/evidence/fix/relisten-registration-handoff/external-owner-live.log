@@ -1,0 +1,8 @@
+External owner paused at launch boundary:
+26330
+.claim.mTCnke-26330
+2096:1336369
+Both extension and built-in re-registration refused while prior owner remains active.
+ok - all registration owner transitions wait for the prior extension runner
+
+all extension-binding tests passed

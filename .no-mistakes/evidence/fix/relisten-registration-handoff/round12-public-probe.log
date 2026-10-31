@@ -1,0 +1,9 @@
+uid=1000 gid=1000 pid=1
+tab register rc=0 output=registered:\ control-tab-state-source\ \(lavish\)
+tab start rc=1 output=error:\ cannot\ claim\ source:\ control-tab-state-source
+source byte hash: 7637fa468821f86708df4f0e3fa6461c7b272f19321ef638afa594dbf63daa74  /tmp/control-path-probe.e2ebU3/state	tab/procevent/control-tab-state-source.source
+decoy byte hash: af474f3a513dd6f7efba743079489289edf6358e4327faa0d29d240194821736  /tmp/control-path-probe.e2ebU3/state	tab/decoy; directory: 2096:1339944:700:1000; no claim/reservation/capture/poll
+canonical=$'/tmp/control-path-probe.e2ebU3/state\ttab' normalized=$'/tmp/control-path-probe.e2ebU3/state\ttab'
+newline register rc=1 output=error:\ process-event\ state\ root\ is\ not\ a\ private\ directory
+decoy byte hash: \af474f3a513dd6f7efba743079489289edf6358e4327faa0d29d240194821736  /tmp/control-path-probe.e2ebU3/state\nnewline/decoy; directory: 2096:1339941:700:1000; no claim/reservation/capture/poll
+canonical=$'/tmp/control-path-probe.e2ebU3/state\nnewline' normalized=/tmp/control-path-probe.e2ebU3/state

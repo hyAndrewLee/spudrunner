@@ -1,0 +1,17 @@
+HEAD=6c05bca9362dc80e1ead7461d4eb348935e95c80
+Baseline expected tree=cfcc2da62f9f451fe740330a349c965cc9888c2c
+Baseline materialized tree=cfcc2da62f9f451fe740330a349c965cc9888c2c
+
+Orphan assertions in passing targeted suite:
+ok - a detached listener starts reparented, with a live descendant tree under it
+ok - a listener whose owning session is gone stops itself and its whole process group
+ok - reaping the listener stops the process churn under it
+ok - retiring a source reaps its reparented listener and every descendant under it
+
+Active-poll target (exit 124 at 45s)
++ expect_failure 'prior runner remains active' env FM_HOME=/tmp/fm-extension-binding.zydVOE/homes/active-runner bash -x /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-flow active-source --config-ref replacement
++ lock_acquire_wait /tmp/fm-extension-binding.zydVOE/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock
+
+Active-poll baseline (exit 124 at 45s)
++ expect_failure 'prior runner remains active' env FM_HOME=/tmp/fm-extension-binding.w8R3MH/homes/active-runner bash -x /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation-tmp/baseline/bin/process-events.sh register-extension ext-flow active-source --config-ref replacement
++ lock_acquire_wait /tmp/fm-extension-binding.w8R3MH/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock

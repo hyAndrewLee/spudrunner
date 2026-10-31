@@ -1,0 +1,1821 @@
++ set -u
++ '[' 0 = 1 ']'
+++ dirname tests/extension-host-binding.test.sh
++ . tests/lib.sh
+++ '[' -n '' ']'
+++ FM_TEST_LIB_SOURCED=1
+++ umask 022
++++ dirname tests/lib.sh
+++ . tests/git-config-helpers.sh
++++ export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
++++ GIT_CONFIG_GLOBAL=/dev/null
++++ GIT_CONFIG_NOSYSTEM=1
++++ unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_COMMON_DIR
+++ export FM_GATE_REFUSE_BYPASS=1
+++ FM_GATE_REFUSE_BYPASS=1
+++ export FM_TEST_SEAM=1
+++ FM_TEST_SEAM=1
+++ unset FM_TASK_ID
+++ unset TASKS_AXI_FILE TASKS_AXI_BACKEND
+++ unset REX_SESSION REX_BLOCK
+++++ dirname tests/lib.sh
++++ cd tests/..
++++ pwd
+++ ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ FM_TEST_TMPDIR=/tmp
+++ FM_TEST_CLEANUP_DIRS=()
++++ mktemp /tmp/.fm-test-cleanup.22633.XXXXXX
+++ FM_TEST_CLEANUP_REGISTRY=/tmp/.fm-test-cleanup.22633.j2jxQt
++++ test_pid_identity 22633
++++ local pid=22633
++++ FM_STATE_OVERRIDE=/tmp
++++ bash -c '. "$1"; pid_identity "$2"' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/supervision-events-lib.sh 22633
+++ FM_TEST_OWNER_IDENTITY='linux-starttime=11409780 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
++++ mktemp /tmp/.fm-test-procevent.22633.XXXXXX
+++ FM_TEST_PROCEVENT_REGISTRY=/tmp/.fm-test-procevent.22633.x4vHDW
++++ mktemp /tmp/.fm-test-watcher.22633.XXXXXX
+++ FM_TEST_WATCHER_REGISTRY=/tmp/.fm-test-watcher.22633.eIOmZL
+++ FM_TEST_STUB_MAX_BLOCK_SECONDS=120
+++ export FM_TEST_STUB_MAX_BLOCK_SECONDS
+++ FM_TEST_SUITE_PID=22633
+++ export FM_TEST_SUITE_PID
+++ trap test_cleanup EXIT
+++ trap 'test_cleanup; exit 130' INT
+++ trap 'test_cleanup; exit 143' TERM
+++ trap 'test_cleanup; exit 129' HUP
+++ trap 'test_cleanup; exit 131' QUIT
+++ FM_TEST_ORPHAN_MAX_AGE_SECONDS=3600
+++ '[' 1 '!=' 1 ']'
++ extension_segment=lifecycle-flow
++ case "$extension_segment" in
++ HOST=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs
++ PROCEVENT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh
+++ test_tmproot fm-extension-binding
+++ local prefix=fm-extension-binding root tmp_base
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ tmp_base=/tmp
+++ tmp_base=/tmp
++++ mktemp -d /tmp/fm-extension-binding.XXXXXX
+++ root=/tmp/fm-extension-binding.qTymCM
++++ cd -P -- /tmp/fm-extension-binding.qTymCM
++++ pwd -P
+++ root=/tmp/fm-extension-binding.qTymCM
+++ printf '%s\n%s\n' 22633 'linux-starttime=11409780 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
+++ printf '%s\n' /tmp/fm-extension-binding.qTymCM
+++ printf '%s\n' /tmp/fm-extension-binding.qTymCM
++ TMP_ROOT_RAW=/tmp/fm-extension-binding.qTymCM
+++ cd /tmp/fm-extension-binding.qTymCM
+++ pwd -P
++ TMP_ROOT=/tmp/fm-extension-binding.qTymCM
++ first_bind_pid=
++ second_bind_pid=
++ handshake_orphan_pid=
++ concurrent_release=
++ race_register_pid=
++ race_retire_pid=
++ race_release=
++ process_race_start_pid=
++ process_race_retire_pid=
++ process_race_release=
++ registry_race_pid=
++ registry_race_release=
++ leaf_race_pid=
++ leaf_race_release=
++ owner_retire_pid=
++ owner_worker_pid=
++ owner_register_pid=
++ signal_retire_pid=
++ signal_worker_pid=
++ active_runner_pid=
++ active_runner_release=
++ remote_active_release=
++ unrelated_daemon_pid=
++ unrelated_launcher_pid=
++ signal_cleanup_host_pid=
++ signal_cleanup_group_pid=
++ crash_cleanup_host_pid=
++ crash_cleanup_group_pid=
++ crash_cleanup_release=
++ crash_silent_start_pid=
++ crash_silent_runner_pid=
++ override_crash_start_pid=
++ override_crash_runner_pid=
++ order_register_pid=
++ order_reconcile_pid=
++ order_release=
++ section_coordinator_pid=
++ trap extension_test_cleanup EXIT
++ trap 'extension_test_cleanup; exit 130' INT
++ trap 'extension_test_cleanup; exit 143' TERM
++ export FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.qTymCM/claims
++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.qTymCM/claims
++ PACKAGES=/tmp/fm-extension-binding.qTymCM/packages
++ HOMES=/tmp/fm-extension-binding.qTymCM/homes
++ mkdir -p /tmp/fm-extension-binding.qTymCM/packages /tmp/fm-extension-binding.qTymCM/homes
++ '[' 0 = 1 ']'
++ section_enabled coordinator-fail
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = coordinator-fail ']'
++ return 1
++ section_enabled coordinator-wait
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = coordinator-wait ']'
++ return 1
++ section_enabled coordinator-stubborn
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = coordinator-stubborn ']'
++ return 1
++ section_enabled coordinator-pass
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = coordinator-pass ']'
++ return 1
++ section_enabled coordinator-late-pass
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = coordinator-late-pass ']'
++ return 1
++ section_enabled coordinator-scheduler-block
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = coordinator-scheduler-block ']'
++ return 1
++ section_enabled coordinator-scheduler-late
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = coordinator-scheduler-late ']'
++ return 1
++ '[' lifecycle-flow = all ']'
++ '[' lifecycle-flow = coordinator ']'
++ section_enabled early-bind
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = early-bind ']'
++ return 1
++ section_enabled early-validation
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = early-validation ']'
++ return 1
++ section_enabled early-handshake
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = early-handshake ']'
++ return 1
++ section_enabled early-integrity
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = early-integrity ']'
++ return 1
++ section_enabled matrix matrix-runtime
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = matrix ']'
++ for section in "$@"
++ '[' lifecycle-flow = matrix-runtime ']'
++ return 1
++ section_enabled lifecycle-host-errors
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = lifecycle-host-errors ']'
++ return 1
++ section_enabled lifecycle-flow
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = lifecycle-flow ']'
++ return 0
++ P_FLOW=/tmp/fm-extension-binding.qTymCM/packages/flow
++ make_package /tmp/fm-extension-binding.qTymCM/packages/flow org.example.flow ext-flow
++ local dir=/tmp/fm-extension-binding.qTymCM/packages/flow id=org.example.flow adapter=ext-flow fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.qTymCM/packages/flow
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.qTymCM/packages/flow/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.qTymCM/packages/flow/firstmate-extension.json /tmp/fm-extension-binding.qTymCM/packages/flow/scenario /tmp/fm-extension-binding.qTymCM/packages/flow/helper.txt
++ H_FLOW=/tmp/fm-extension-binding.qTymCM/homes/flow
++ new_home /tmp/fm-extension-binding.qTymCM/homes/flow
++ mkdir -p /tmp/fm-extension-binding.qTymCM/homes/flow
+++ bind_package /tmp/fm-extension-binding.qTymCM/homes/flow /tmp/fm-extension-binding.qTymCM/packages/flow ext-flow
+++ local home=/tmp/fm-extension-binding.qTymCM/homes/flow package=/tmp/fm-extension-binding.qTymCM/packages/flow adapter=ext-flow
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.qTymCM/packages/flow --adapter ext-flow --trust-same-user-code
++ flow_bind='bound: org.example.flow@1.2.3
+binding: /tmp/fm-extension-binding.qTymCM/homes/flow/config/extensions.d/org.example.flow.json
+binding-digest: sha256:c5d7eae89ea3d97c911e47d66dff6c7a5a681830af43af008e3af275b48eae47
+package: /tmp/fm-extension-binding.qTymCM/homes/flow/data/extensions/packages/org.example.flow/1.2.3/f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13
+package-digest: sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13
+verified: process-event-adapter/1 (ext-flow)'
+++ sed -n 's/^binding-digest: //p'
+++ printf '%s\n' 'bound: org.example.flow@1.2.3
+binding: /tmp/fm-extension-binding.qTymCM/homes/flow/config/extensions.d/org.example.flow.json
+binding-digest: sha256:c5d7eae89ea3d97c911e47d66dff6c7a5a681830af43af008e3af275b48eae47
+package: /tmp/fm-extension-binding.qTymCM/homes/flow/data/extensions/packages/org.example.flow/1.2.3/f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13
+package-digest: sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13
+verified: process-event-adapter/1 (ext-flow)'
++ flow_binding_digest=sha256:c5d7eae89ea3d97c911e47d66dff6c7a5a681830af43af008e3af275b48eae47
++ case "$flow_binding_digest" in
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-flow flow-source --config-ref good
++ registration='registered: flow-source (ext-flow from org.example.flow@1.2.3)
+owner-token: sha256:2ee4fbb7a1742c993eaac5cd5c4e9adfc6c77c0e89828ca492e68bd50939700f
+retire: bin/process-events.sh retire flow-source --if-owner sha256:2ee4fbb7a1742c993eaac5cd5c4e9adfc6c77c0e89828ca492e68bd50939700f'
++ assert_contains 'registered: flow-source (ext-flow from org.example.flow@1.2.3)
+owner-token: sha256:2ee4fbb7a1742c993eaac5cd5c4e9adfc6c77c0e89828ca492e68bd50939700f
+retire: bin/process-events.sh retire flow-source --if-owner sha256:2ee4fbb7a1742c993eaac5cd5c4e9adfc6c77c0e89828ca492e68bd50939700f' org.example.flow@1.2.3 'extension registration omits its exact owner identity'
++ case "$1" in
++ :
+++ printf '%s\n' 'registered: flow-source (ext-flow from org.example.flow@1.2.3)
+owner-token: sha256:2ee4fbb7a1742c993eaac5cd5c4e9adfc6c77c0e89828ca492e68bd50939700f
+retire: bin/process-events.sh retire flow-source --if-owner sha256:2ee4fbb7a1742c993eaac5cd5c4e9adfc6c77c0e89828ca492e68bd50939700f'
+++ sed -n 's/^owner-token: //p'
++ owner_one=sha256:2ee4fbb7a1742c993eaac5cd5c4e9adfc6c77c0e89828ca492e68bd50939700f
++ case "$owner_one" in
++ '[' 71 -eq 71 ']'
++ expect_failure 'still owns process-event registration' env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.flow --if-binding-digest sha256:c5d7eae89ea3d97c911e47d66dff6c7a5a681830af43af008e3af275b48eae47
++ local 'needle=still owns process-event registration' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.flow --if-binding-digest sha256:c5d7eae89ea3d97c911e47d66dff6c7a5a681830af43af008e3af275b48eae47
++ out='error[retirement-failed]: error[binding-in-use]: error: binding still owns process-event registration: flow-source'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[retirement-failed]: error[binding-in-use]: error: binding still owns process-event registration: flow-source' 'still owns process-event registration' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ assert_grep extension_id=org.example.flow /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent/flow-source.source 'registration did not retain extension identity'
++ grep -F -- extension_id=org.example.flow /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent/flow-source.source
++ assert_grep capability_version=1 /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent/flow-source.source 'registration did not retain capability version'
++ grep -F -- capability_version=1 /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent/flow-source.source
++ assert_grep package_digest=sha256: /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent/flow-source.source 'registration did not retain package digest'
++ grep -F -- package_digest=sha256: /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent/flow-source.source
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start flow-source
+not-autohandled: flow-source (left for the handler; still unacknowledged)
+++ first_result /tmp/fm-extension-binding.qTymCM/homes/flow flow-source
+++ local candidate
+++ for candidate in "$1/state/procevent-inbox/$2".*.result
+++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent-inbox/flow-source.1.result ']'
+++ printf '%s\n' /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent-inbox/flow-source.1.result
+++ return 0
++ result=/tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent-inbox/flow-source.1.result
+++ wake_payloads /tmp/fm-extension-binding.qTymCM/homes/flow
+++ awk -F '\t' '{print $5}' /tmp/fm-extension-binding.qTymCM/homes/flow/state/.wake-queue
++ assert_contains 'check: procevent ext-flow flow-source 1
+check: procevent ext-flow flow-source 1' 'procevent ext-flow flow-source 1' 'external source did not publish the existing bounded event'
++ case "$1" in
++ :
++ assert_absent /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent-inbox/flow-source.1.handled 'external evidence was silently treated as handled'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent-inbox/flow-source.1.handled ']'
++ COLLISION_ROOT=/tmp/fm-extension-binding.qTymCM/collision-root
++ mkdir -p /tmp/fm-extension-binding.qTymCM/collision-root/bin
++ cat
++ chmod +x /tmp/fm-extension-binding.qTymCM/collision-root/bin/fm-procevent-ext-flow.sh
+++ FM_ROOT_OVERRIDE=/tmp/fm-extension-binding.qTymCM/collision-root
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh classify /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent-inbox/flow-source.1.result
++ classification=external-ready
++ assert_contains external-ready external-ready 'captured evidence could not be classified through its immutable owner'
++ case "$1" in
++ :
++ assert_not_contains external-ready wrong-built-in-owner 'a later same-name built-in reinterpreted extension evidence'
++ case "$1" in
++ :
++ assert_absent /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent/flow-source.source 'terminal external source stayed registered'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent/flow-source.source ']'
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire flow-source --if-owner sha256:2ee4fbb7a1742c993eaac5cd5c4e9adfc6c77c0e89828ca492e68bd50939700f
++ pass 'one external adapter registers, invokes, captures unhandled evidence, classifies, and terminally retires end to end'
++ printf 'ok - %s\n' 'one external adapter registers, invokes, captures unhandled evidence, classifies, and terminally retires end to end'
+ok - one external adapter registers, invokes, captures unhandled evidence, classifies, and terminally retires end to end
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-flow crash-silent-source --config-ref crash-silent
++ crash_silent_start_pid=30663
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start crash-silent-source
+++ seq 1 400
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim
++ crash_silent_runner_pid=30895
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ sleep 0.01
++ for _ in $(seq 1 400)
++ '[' -f /tmp/fm-extension-binding.qTymCM/claims/crash-silent-source.claim ']'
++ kill -0 30663
++ break
++ kill -0 30663
++ wait 30663
++ crash_silent_start_pid=
++ crash_silent_runner_pid=
++ assert_present /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent-inbox/crash-silent-source.1.result 'crashed silent invocation discarded captured evidence'
++ '[' -e /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent-inbox/crash-silent-source.1.result ']'
++ assert_absent /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent/crash-silent-source.source 'terminal retry did not retire the crashed silent source'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent/crash-silent-source.source ']'
++ assert_absent /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent/.extension-binding-lifecycle.lock 'inner host crash left a lifecycle lock behind'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/flow/state/procevent/.extension-binding-lifecycle.lock ']'
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh handled crash-silent-source 1
++ pass 'inner result.silent host crash releases the parent lifecycle lock before terminal retry'
++ printf 'ok - %s\n' 'inner result.silent host crash releases the parent lifecycle lock before terminal retry'
+ok - inner result.silent host crash releases the parent lifecycle lock before terminal retry
+++ printf 0%.0s 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
++ wrong_binding_digest=sha256:0000000000000000000000000000000000000000000000000000000000000000
++ expect_failure 'expected binding identity' env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.flow --if-binding-digest sha256:0000000000000000000000000000000000000000000000000000000000000000
++ local 'needle=expected binding identity' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.flow --if-binding-digest sha256:0000000000000000000000000000000000000000000000000000000000000000
++ out='error[retirement-failed]: error[owner-mismatch]: current extension binding does not match the expected binding identity'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[retirement-failed]: error[owner-mismatch]: current extension binding does not match the expected binding identity' 'expected binding identity' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ assert_present /tmp/fm-extension-binding.qTymCM/homes/flow/config/extensions.d/org.example.flow.json 'stale identity retired the local binding'
++ '[' -e /tmp/fm-extension-binding.qTymCM/homes/flow/config/extensions.d/org.example.flow.json ']'
++ expect_failure 'unhandled process-event result' env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.flow --if-binding-digest sha256:c5d7eae89ea3d97c911e47d66dff6c7a5a681830af43af008e3af275b48eae47
++ local 'needle=unhandled process-event result' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.flow --if-binding-digest sha256:c5d7eae89ea3d97c911e47d66dff6c7a5a681830af43af008e3af275b48eae47
++ out='error[retirement-failed]: error[binding-in-use]: error: binding still owns unhandled process-event result: flow-source.1.result'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[retirement-failed]: error[binding-in-use]: error: binding still owns unhandled process-event result: flow-source.1.result' 'unhandled process-event result' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh handled flow-source 1
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.flow --if-binding-digest sha256:c5d7eae89ea3d97c911e47d66dff6c7a5a681830af43af008e3af275b48eae47
++ assert_absent /tmp/fm-extension-binding.qTymCM/homes/flow/config/extensions.d/org.example.flow.json 'exact local binding retirement left discovery enabled'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/flow/config/extensions.d/org.example.flow.json ']'
++ assert_present /tmp/fm-extension-binding.qTymCM/homes/flow/data/extensions/retired-bindings/org.example.flow/c5d7eae89ea3d97c911e47d66dff6c7a5a681830af43af008e3af275b48eae47.json 'local binding retirement was not reversible'
++ '[' -e /tmp/fm-extension-binding.qTymCM/homes/flow/data/extensions/retired-bindings/org.example.flow/c5d7eae89ea3d97c911e47d66dff6c7a5a681830af43af008e3af275b48eae47.json ']'
++ expect_failure 'no home-local extension binding' env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs resolve-process-event ext-flow
++ local 'needle=no home-local extension binding' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/flow /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs resolve-process-event ext-flow
++ out='error[adapter-unbound]: no home-local extension binding enables adapter: ext-flow'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[adapter-unbound]: no home-local extension binding enables adapter: ext-flow' 'no home-local extension binding' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ pass 'local binding retirement requires its exact identity and disables invocation'
++ printf 'ok - %s\n' 'local binding retirement requires its exact identity and disables invocation'
+ok - local binding retirement requires its exact identity and disables invocation
++ section_enabled lifecycle-order
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = lifecycle-order ']'
++ return 1
++ section_enabled lifecycle-lock
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = lifecycle-lock ']'
++ return 1
++ section_enabled lifecycle-runner
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = lifecycle-runner ']'
++ return 1
++ section_enabled lifecycle-state
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = lifecycle-state ']'
++ return 1
++ section_enabled lifecycle-invocation-cleanup
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = lifecycle-invocation-cleanup ']'
++ return 1
++ section_enabled lifecycle-flow lifecycle-orphan-readiness
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = lifecycle-flow ']'
++ return 0
++ P_INVOCATION_CLEANUP=/tmp/fm-extension-binding.qTymCM/packages/orphan-cleanup
++ make_package /tmp/fm-extension-binding.qTymCM/packages/orphan-cleanup org.example.invocation-cleanup ext-invocation-cleanup
++ local dir=/tmp/fm-extension-binding.qTymCM/packages/orphan-cleanup id=org.example.invocation-cleanup adapter=ext-invocation-cleanup fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.qTymCM/packages/orphan-cleanup
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.qTymCM/packages/orphan-cleanup/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.qTymCM/packages/orphan-cleanup/firstmate-extension.json /tmp/fm-extension-binding.qTymCM/packages/orphan-cleanup/scenario /tmp/fm-extension-binding.qTymCM/packages/orphan-cleanup/helper.txt
++ H_ORPHAN_READY=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
++ new_home /tmp/fm-extension-binding.qTymCM/homes/orphan-ready
++ mkdir -p /tmp/fm-extension-binding.qTymCM/homes/orphan-ready
++ bind_package /tmp/fm-extension-binding.qTymCM/homes/orphan-ready /tmp/fm-extension-binding.qTymCM/packages/orphan-cleanup ext-invocation-cleanup
++ local home=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready package=/tmp/fm-extension-binding.qTymCM/packages/orphan-cleanup adapter=ext-invocation-cleanup
++ shift 3
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.qTymCM/packages/orphan-cleanup --adapter ext-invocation-cleanup --trust-same-user-code
++ for orphan_source in orphan-first orphan-second
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-invocation-cleanup orphan-first --config-ref silent-result
++ for orphan_source in orphan-first orphan-second
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-invocation-cleanup orphan-second --config-ref silent-result
++ orphan_root=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations
++ mkdir -p /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations
++ chmod 0700 /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations
+++ printf a%.0s 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
++ orphan_token=sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ orphan_ready=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json
+++ node - /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host-launch-barrier.mjs sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ crash_cleanup_group_pid=4236
++ write_orphan_ready sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ node - /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ expect_failure process-cleanup-failed env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations
++ local needle=process-cleanup-failed out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations
++ out='error[process-cleanup-failed]: ownerless extension readiness process group cannot be proved gone'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[process-cleanup-failed]: ownerless extension readiness process group cannot be proved gone' process-cleanup-failed 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ kill -0 -4236
++ assert_present /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json 'ownerless cleanup discarded a live group'\''s readiness'
++ '[' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json ']'
++ write_orphan_ready sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 22633 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ node - /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 22633 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ expect_failure process-cleanup-failed env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations
++ local needle=process-cleanup-failed out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations
++ out='error[process-cleanup-failed]: ownerless extension readiness process group cannot be proved gone'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[process-cleanup-failed]: ownerless extension readiness process group cannot be proved gone' process-cleanup-failed 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ kill -0 22633
++ kill -0 -4236
++ orphan_dead_pid=4236
++ kill -TERM -4236
+++ seq 1 200
++ for _ in $(seq 1 200)
++ kill -0 -4236
++ break
++ kill -0 -4236
++ crash_cleanup_group_pid=
+++ printf b%.0s 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
++ write_orphan_ready sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb 4236 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ node - /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb 4236 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ expect_failure process-cleanup-failed env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations
++ local needle=process-cleanup-failed out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations
++ out='error[process-cleanup-failed]: extension invocation readiness identity is invalid'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[process-cleanup-failed]: extension invocation readiness identity is invalid' process-cleanup-failed 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ write_orphan_ready sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 unprovable-identity
++ node - /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 unprovable-identity
++ expect_failure process-cleanup-failed env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations
++ local needle=process-cleanup-failed out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations
++ out='error[process-cleanup-failed]: ownerless extension readiness process group cannot be proved gone'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[process-cleanup-failed]: ownerless extension readiness process group cannot be proved gone' process-cleanup-failed 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ write_orphan_ready sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ node - /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ chmod 0644 /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json
++ expect_failure 'private host-owned file' env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations
++ local 'needle=private host-owned file' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations
++ out='error[process-cleanup-failed]: extension invocation readiness is not one private host-owned file'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[process-cleanup-failed]: extension invocation readiness is not one private host-owned file' 'private host-owned file' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ chmod 0600 /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json
++ mv /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json /tmp/fm-extension-binding.qTymCM/orphan-outside.json
++ ln -s /tmp/fm-extension-binding.qTymCM/orphan-outside.json /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json
++ expect_failure 'private host-owned file' env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations
++ local 'needle=private host-owned file' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations
++ out='error[process-cleanup-failed]: extension invocation readiness is not one private host-owned file'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[process-cleanup-failed]: extension invocation readiness is not one private host-owned file' 'private host-owned file' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ assert_present /tmp/fm-extension-binding.qTymCM/orphan-outside.json 'cleanup followed an unsafe readiness symlink'
++ '[' -e /tmp/fm-extension-binding.qTymCM/orphan-outside.json ']'
++ mv /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json /tmp/fm-extension-binding.qTymCM/orphan-symlink
++ mv /tmp/fm-extension-binding.qTymCM/orphan-outside.json /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations --source-id orphan-first
++ orphan_cleaned='cleaned-invocations: 1'
++ assert_contains 'cleaned-invocations: 1' 'cleaned-invocations: 1' 'dead exact-token orphan readiness was not reclaimed'
++ case "$1" in
++ :
++ assert_absent /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json 'dead orphan readiness survived successful cleanup'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json ']'
++ pass 'ownerless readiness recovers only dead exact-token groups and refuses unsafe or unproved ownership'
++ printf 'ok - %s\n' 'ownerless readiness recovers only dead exact-token groups and refuses unsafe or unproved ownership'
+ok - ownerless readiness recovers only dead exact-token groups and refuses unsafe or unproved ownership
++ write_orphan_ready sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 unprovable-identity
++ node - /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 unprovable-identity
++ for _ in 1 2
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
++ orphan_reconcile='reconciled: published=0 started=0 stopped=0 uncertain=2 failed=0'
++ assert_contains 'reconciled: published=0 started=0 stopped=0 uncertain=2 failed=0' uncertain=2 'unsafe residue did not preserve both sources'
++ case "$1" in
++ :
++ for _ in 1 2
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
++ orphan_reconcile='reconciled: published=0 started=0 stopped=0 uncertain=2 failed=0'
++ assert_contains 'reconciled: published=0 started=0 stopped=0 uncertain=2 failed=0' uncertain=2 'unsafe residue did not preserve both sources'
++ case "$1" in
++ :
++ for orphan_source in orphan-first orphan-second
+++ wake_payloads /tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ awk -F '\t' '{print $5}' /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/.wake-queue
+++ grep -c 'source orphan-first .*cleanup'
++ orphan_wakes=1
++ '[' 1 -eq 1 ']'
++ for orphan_source in orphan-first orphan-second
+++ wake_payloads /tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ awk -F '\t' '{print $5}' /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/.wake-queue
+++ grep -c 'source orphan-second .*cleanup'
++ orphan_wakes=1
++ '[' 1 -eq 1 ']'
++ write_orphan_ready sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ node - /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
++ orphan_reconcile='reconciled: published=0 started=2 stopped=0 uncertain=0 failed=0'
++ assert_contains 'reconciled: published=0 started=2 stopped=0 uncertain=0 failed=0' started=2 'dead orphan readiness blocked recovery of two extension sources'
++ case "$1" in
++ :
++ assert_contains 'reconciled: published=0 started=2 stopped=0 uncertain=0 failed=0' uncertain=0 'recovered extension sources remained uncertain'
++ case "$1" in
++ :
++ for orphan_source in orphan-first orphan-second
+++ seq 1 200
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
++ break
++ assert_present /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled 'recovered source orphan-first never handled its private result'
++ '[' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-first.1.handled ']'
+++ seq 1 200
++ for _ in $(seq 1 200)
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-first.source ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-first.source ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-first.source ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-first.source ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-first.source ']'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/claims/orphan-first.claim ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-first.source ']'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/claims/orphan-first.claim ']'
++ break
++ assert_absent /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-first.source 'recovered terminal source did not retire'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-first.source ']'
++ assert_absent /tmp/fm-extension-binding.qTymCM/claims/orphan-first.claim 'recovered terminal source retained its claim'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/claims/orphan-first.claim ']'
++ for orphan_source in orphan-first orphan-second
+++ seq 1 200
++ for _ in $(seq 1 200)
++ '[' -f /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-second.1.handled ']'
++ break
++ assert_present /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-second.1.handled 'recovered source orphan-second never handled its private result'
++ '[' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent-inbox/orphan-second.1.handled ']'
+++ seq 1 200
++ for _ in $(seq 1 200)
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-second.source ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-second.source ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-second.source ']'
++ sleep 0.05
++ for _ in $(seq 1 200)
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-second.source ']'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/claims/orphan-second.claim ']'
++ break
++ assert_absent /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-second.source 'recovered terminal source did not retire'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-second.source ']'
++ assert_absent /tmp/fm-extension-binding.qTymCM/claims/orphan-second.claim 'recovered terminal source retained its claim'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/claims/orphan-second.claim ']'
++ assert_absent /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json 'reconcile did not reclaim dead orphan readiness'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json ']'
++ pass 'reconcile durably announces cleanup uncertainty once and recovers both extension sources'
++ printf 'ok - %s\n' 'reconcile durably announces cleanup uncertainty once and recovers both extension sources'
+ok - reconcile durably announces cleanup uncertainty once and recovers both extension sources
++ for orphan_recovery in attached live
++ orphan_source=orphan-attached
++ orphan_config=no-result
++ '[' attached = live ']'
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-invocation-cleanup orphan-attached --config-ref no-result
++ orphan_registration='registered: orphan-attached (ext-invocation-cleanup from org.example.invocation-cleanup@1.2.3)
+owner-token: sha256:4cde374aba930c736996b50e8f113bb71e11eed5caf689e7a95b2f1eeb702b2e
+retire: bin/process-events.sh retire orphan-attached --if-owner sha256:4cde374aba930c736996b50e8f113bb71e11eed5caf689e7a95b2f1eeb702b2e'
+++ printf '%s\n' 'registered: orphan-attached (ext-invocation-cleanup from org.example.invocation-cleanup@1.2.3)
+owner-token: sha256:4cde374aba930c736996b50e8f113bb71e11eed5caf689e7a95b2f1eeb702b2e
+retire: bin/process-events.sh retire orphan-attached --if-owner sha256:4cde374aba930c736996b50e8f113bb71e11eed5caf689e7a95b2f1eeb702b2e'
+++ sed -n 's/^owner-token: //p'
++ orphan_owner=sha256:4cde374aba930c736996b50e8f113bb71e11eed5caf689e7a95b2f1eeb702b2e
++ '[' -n sha256:4cde374aba930c736996b50e8f113bb71e11eed5caf689e7a95b2f1eeb702b2e ']'
++ write_orphan_ready sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 unprovable-identity
++ node - /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 unprovable-identity
++ for _ in 1 2
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
++ orphan_reconcile='reconciled: published=0 started=0 stopped=0 uncertain=1 failed=0'
++ assert_contains 'reconciled: published=0 started=0 stopped=0 uncertain=1 failed=0' uncertain=1 'cleanup episode did not preserve orphan-attached'
++ case "$1" in
++ :
++ for _ in 1 2
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
++ orphan_reconcile='reconciled: published=0 started=0 stopped=0 uncertain=1 failed=0'
++ assert_contains 'reconciled: published=0 started=0 stopped=0 uncertain=1 failed=0' uncertain=1 'cleanup episode did not preserve orphan-attached'
++ case "$1" in
++ :
+++ wake_payloads /tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ awk -F '\t' '{print $5}' /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/.wake-queue
+++ grep -c 'source orphan-attached .*cleanup'
++ orphan_wakes=1
++ '[' 1 -eq 1 ']'
+++ surface_orphan_wakes
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ bash -c '
+    . "$1/bin/supervision-watch.sh"
+    procevent_surface_queued
+  ' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++ orphan_headline='check: process-event source failed to start: procevent:orphan-first:launch-failed:2096-1335159-316914608 procevent:orphan-second:launch-failed:2096-1335163-2061130459 procevent:orphan-attached:launch-failed:2096-1335009-280342143'
++ assert_contains 'check: process-event source failed to start: procevent:orphan-first:launch-failed:2096-1335159-316914608 procevent:orphan-second:launch-failed:2096-1335163-2061130459 procevent:orphan-attached:launch-failed:2096-1335009-280342143' 'process-event source failed to start:' 'cleanup failure delivered the wrong headline'
++ case "$1" in
++ :
++ assert_not_contains 'check: process-event source failed to start: procevent:orphan-first:launch-failed:2096-1335159-316914608 procevent:orphan-second:launch-failed:2096-1335163-2061130459 procevent:orphan-attached:launch-failed:2096-1335009-280342143' 'process-event result captured:' 'cleanup uncertainty was presented as captured evidence'
++ case "$1" in
++ :
++ assert_contains 'check: process-event source failed to start: procevent:orphan-first:launch-failed:2096-1335159-316914608 procevent:orphan-second:launch-failed:2096-1335163-2061130459 procevent:orphan-attached:launch-failed:2096-1335009-280342143' procevent:orphan-attached:launch-failed: 'watcher omitted orphan-attached cleanup failure'
++ case "$1" in
++ :
++ cp /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/.orphan-attached.cleanup-failed /tmp/fm-extension-binding.qTymCM/orphan.previous-episode
++ write_orphan_ready sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ node - /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations
++ '[' attached = attached ']'
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start orphan-attached
++ assert_present /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-attached.source 'no-result recovery replaced its registration'
++ '[' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-attached.source ']'
++ assert_absent /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/.orphan-attached.cleanup-failed 'attached recovery retained its prior cleanup episode'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/.orphan-attached.cleanup-failed ']'
++ write_orphan_ready sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 unprovable-identity
++ node - /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 unprovable-identity
++ for _ in 1 2
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
++ orphan_reconcile='reconciled: published=0 started=0 stopped=0 uncertain=1 failed=0'
++ assert_contains 'reconciled: published=0 started=0 stopped=0 uncertain=1 failed=0' uncertain=1 'second cleanup episode did not preserve orphan-attached'
++ case "$1" in
++ :
++ for _ in 1 2
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
++ orphan_reconcile='reconciled: published=0 started=0 stopped=0 uncertain=1 failed=0'
++ assert_contains 'reconciled: published=0 started=0 stopped=0 uncertain=1 failed=0' uncertain=1 'second cleanup episode did not preserve orphan-attached'
++ case "$1" in
++ :
+++ wake_payloads /tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ awk -F '\t' '{print $5}' /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/.wake-queue
+++ grep -c 'source orphan-attached .*cleanup'
++ orphan_wakes=2
++ '[' 2 -eq 2 ']'
+++ surface_orphan_wakes
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ bash -c '
+    . "$1/bin/supervision-watch.sh"
+    procevent_surface_queued
+  ' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++ orphan_headline='check: process-event source failed to start: procevent:orphan-attached:launch-failed:2096-1335009-2010917087'
++ assert_contains 'check: process-event source failed to start: procevent:orphan-attached:launch-failed:2096-1335009-2010917087' 'process-event source failed to start:' 'second cleanup episode delivered the wrong headline'
++ case "$1" in
++ :
++ assert_not_contains 'check: process-event source failed to start: procevent:orphan-attached:launch-failed:2096-1335009-2010917087' 'process-event result captured:' 'second cleanup episode was presented as captured evidence'
++ case "$1" in
++ :
++ assert_contains 'check: process-event source failed to start: procevent:orphan-attached:launch-failed:2096-1335009-2010917087' procevent:orphan-attached:launch-failed: 'watcher suppressed orphan-attached second cleanup episode'
++ case "$1" in
++ :
+++ surface_orphan_wakes
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ bash -c '
+    . "$1/bin/supervision-watch.sh"
+    procevent_surface_queued
+  ' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++ assert_equals '' '' 'watcher delivered a cleanup failure more than once'
++ '[' '' = '' ']'
++ write_orphan_ready sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ node - /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire orphan-attached --if-owner sha256:4cde374aba930c736996b50e8f113bb71e11eed5caf689e7a95b2f1eeb702b2e
++ for orphan_recovery in attached live
++ orphan_source=orphan-live
++ orphan_config=no-result
++ '[' live = live ']'
++ active_runner_marker=/tmp/fm-extension-binding.qTymCM/orphan-live.marker
++ active_runner_release=/tmp/fm-extension-binding.qTymCM/orphan-live.release
++ orphan_config='no-result-block|/tmp/fm-extension-binding.qTymCM/orphan-live.marker|/tmp/fm-extension-binding.qTymCM/orphan-live.release'
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-invocation-cleanup orphan-live --config-ref 'no-result-block|/tmp/fm-extension-binding.qTymCM/orphan-live.marker|/tmp/fm-extension-binding.qTymCM/orphan-live.release'
++ orphan_registration='registered: orphan-live (ext-invocation-cleanup from org.example.invocation-cleanup@1.2.3)
+owner-token: sha256:e2d9ea94325e4fbfe6343343ed18dcedc51fd42b5d41d39272db9900eb4d5ae9
+retire: bin/process-events.sh retire orphan-live --if-owner sha256:e2d9ea94325e4fbfe6343343ed18dcedc51fd42b5d41d39272db9900eb4d5ae9'
+++ printf '%s\n' 'registered: orphan-live (ext-invocation-cleanup from org.example.invocation-cleanup@1.2.3)
+owner-token: sha256:e2d9ea94325e4fbfe6343343ed18dcedc51fd42b5d41d39272db9900eb4d5ae9
+retire: bin/process-events.sh retire orphan-live --if-owner sha256:e2d9ea94325e4fbfe6343343ed18dcedc51fd42b5d41d39272db9900eb4d5ae9'
+++ sed -n 's/^owner-token: //p'
++ orphan_owner=sha256:e2d9ea94325e4fbfe6343343ed18dcedc51fd42b5d41d39272db9900eb4d5ae9
++ '[' -n sha256:e2d9ea94325e4fbfe6343343ed18dcedc51fd42b5d41d39272db9900eb4d5ae9 ']'
++ write_orphan_ready sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 unprovable-identity
++ node - /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 unprovable-identity
++ for _ in 1 2
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
++ orphan_reconcile='reconciled: published=0 started=0 stopped=0 uncertain=1 failed=0'
++ assert_contains 'reconciled: published=0 started=0 stopped=0 uncertain=1 failed=0' uncertain=1 'cleanup episode did not preserve orphan-live'
++ case "$1" in
++ :
++ for _ in 1 2
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
++ orphan_reconcile='reconciled: published=0 started=0 stopped=0 uncertain=1 failed=0'
++ assert_contains 'reconciled: published=0 started=0 stopped=0 uncertain=1 failed=0' uncertain=1 'cleanup episode did not preserve orphan-live'
++ case "$1" in
++ :
+++ wake_payloads /tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ awk -F '\t' '{print $5}' /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/.wake-queue
+++ grep -c 'source orphan-live .*cleanup'
++ orphan_wakes=1
++ '[' 1 -eq 1 ']'
+++ surface_orphan_wakes
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ bash -c '
+    . "$1/bin/supervision-watch.sh"
+    procevent_surface_queued
+  ' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++ orphan_headline='check: process-event source failed to start: procevent:orphan-live:launch-failed:2096-1335046-2703117679'
++ assert_contains 'check: process-event source failed to start: procevent:orphan-live:launch-failed:2096-1335046-2703117679' 'process-event source failed to start:' 'cleanup failure delivered the wrong headline'
++ case "$1" in
++ :
++ assert_not_contains 'check: process-event source failed to start: procevent:orphan-live:launch-failed:2096-1335046-2703117679' 'process-event result captured:' 'cleanup uncertainty was presented as captured evidence'
++ case "$1" in
++ :
++ assert_contains 'check: process-event source failed to start: procevent:orphan-live:launch-failed:2096-1335046-2703117679' procevent:orphan-live:launch-failed: 'watcher omitted orphan-live cleanup failure'
++ case "$1" in
++ :
++ cp /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/.orphan-live.cleanup-failed /tmp/fm-extension-binding.qTymCM/orphan.previous-episode
++ write_orphan_ready sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ node - /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations
++ '[' live = attached ']'
++ active_runner_pid=10050
++ wait_for_file /tmp/fm-extension-binding.qTymCM/orphan-live.marker
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start orphan-live
++ local file=/tmp/fm-extension-binding.qTymCM/orphan-live.marker
+++ seq 1 100
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.qTymCM/orphan-live.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.qTymCM/orphan-live.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.qTymCM/orphan-live.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.qTymCM/orphan-live.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.qTymCM/orphan-live.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.qTymCM/orphan-live.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.qTymCM/orphan-live.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.qTymCM/orphan-live.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.qTymCM/orphan-live.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.qTymCM/orphan-live.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.qTymCM/orphan-live.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.qTymCM/orphan-live.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.qTymCM/orphan-live.marker ']'
++ return 0
++ cp /tmp/fm-extension-binding.qTymCM/orphan.previous-episode /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/.orphan-live.cleanup-failed
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
++ orphan_reconcile='reconciled: published=0 started=0 stopped=0 uncertain=0 failed=0'
++ assert_contains 'reconciled: published=0 started=0 stopped=0 uncertain=0 failed=0' uncertain=0 'live-owner recovery remained uncertain'
++ case "$1" in
++ :
++ assert_absent /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/.orphan-live.cleanup-failed 'live-owner recovery retained a prior cleanup episode'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/.orphan-live.cleanup-failed ']'
++ touch /tmp/fm-extension-binding.qTymCM/orphan-live.release
++ wait 10050
++ active_runner_pid=
++ active_runner_release=
++ assert_present /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-live.source 'no-result recovery replaced its registration'
++ '[' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/orphan-live.source ']'
++ assert_absent /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/.orphan-live.cleanup-failed 'live recovery retained its prior cleanup episode'
++ '[' '!' -e /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/procevent/.orphan-live.cleanup-failed ']'
++ write_orphan_ready sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 unprovable-identity
++ node - /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 unprovable-identity
++ for _ in 1 2
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
++ orphan_reconcile='reconciled: published=0 started=0 stopped=0 uncertain=1 failed=0'
++ assert_contains 'reconciled: published=0 started=0 stopped=0 uncertain=1 failed=0' uncertain=1 'second cleanup episode did not preserve orphan-live'
++ case "$1" in
++ :
++ for _ in 1 2
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
++ orphan_reconcile='reconciled: published=0 started=0 stopped=0 uncertain=1 failed=0'
++ assert_contains 'reconciled: published=0 started=0 stopped=0 uncertain=1 failed=0' uncertain=1 'second cleanup episode did not preserve orphan-live'
++ case "$1" in
++ :
+++ wake_payloads /tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ awk -F '\t' '{print $5}' /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/.wake-queue
+++ grep -c 'source orphan-live .*cleanup'
++ orphan_wakes=2
++ '[' 2 -eq 2 ']'
+++ surface_orphan_wakes
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ bash -c '
+    . "$1/bin/supervision-watch.sh"
+    procevent_surface_queued
+  ' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++ orphan_headline='check: process-event source failed to start: procevent:orphan-live:launch-failed:2096-1335046-3179615445'
++ assert_contains 'check: process-event source failed to start: procevent:orphan-live:launch-failed:2096-1335046-3179615445' 'process-event source failed to start:' 'second cleanup episode delivered the wrong headline'
++ case "$1" in
++ :
++ assert_not_contains 'check: process-event source failed to start: procevent:orphan-live:launch-failed:2096-1335046-3179615445' 'process-event result captured:' 'second cleanup episode was presented as captured evidence'
++ case "$1" in
++ :
++ assert_contains 'check: process-event source failed to start: procevent:orphan-live:launch-failed:2096-1335046-3179615445' procevent:orphan-live:launch-failed: 'watcher suppressed orphan-live second cleanup episode'
++ case "$1" in
++ :
+++ surface_orphan_wakes
+++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
+++ bash -c '
+    . "$1/bin/supervision-watch.sh"
+    procevent_surface_queued
+  ' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++ assert_equals '' '' 'watcher delivered a cleanup failure more than once'
++ '[' '' = '' ']'
++ write_orphan_ready sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ node - /tmp/fm-extension-binding.qTymCM/homes/orphan-ready/state/extension-invocations/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.ready.json sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 4236 barrier-token:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs cleanup-invocations
++ FM_HOME=/tmp/fm-extension-binding.qTymCM/homes/orphan-ready
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire orphan-live --if-owner sha256:e2d9ea94325e4fbfe6343343ed18dcedc51fd42b5d41d39272db9900eb4d5ae9
++ pass 'attached start and live-owner recovery renew cleanup failure wakes with delivered failure headlines'
++ printf 'ok - %s\n' 'attached start and live-owner recovery renew cleanup failure wakes with delivered failure headlines'
+ok - attached start and live-owner recovery renew cleanup failure wakes with delivered failure headlines
++ section_enabled remote-envelope remote-activation remote-lifecycle remote-retirement
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = remote-envelope ']'
++ for section in "$@"
++ '[' lifecycle-flow = remote-activation ']'
++ for section in "$@"
++ '[' lifecycle-flow = remote-lifecycle ']'
++ for section in "$@"
++ '[' lifecycle-flow = remote-retirement ']'
++ return 1
++ section_enabled example
++ local section
++ for section in "$@"
++ '[' lifecycle-flow = example ']'
++ return 1
++ printf '\nall extension-binding tests passed\n'
+
+all extension-binding tests passed
++ extension_test_cleanup
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -n '' ']'
++ '[' -f /tmp/fm-extension-binding.qTymCM/remote-jobs/worker.pid ']'
++ '[' -n '' ']'
++ '[' -n '' ']'
++ chmod -R u+w /tmp/fm-extension-binding.qTymCM
++ test_cleanup
++ local d
++ test_reap_watchers
++ local state lock_home 'seen=
+'
++ '[' -f /tmp/.fm-test-watcher.22633.eIOmZL ']'
++ IFS=
++ read -r state
++ rm -f /tmp/.fm-test-watcher.22633.eIOmZL
++ test_reap_procevent_homes
++ local home claim_root 'seen=
+'
++ '[' -f /tmp/.fm-test-procevent.22633.x4vHDW ']'
++ IFS='	'
++ read -r home claim_root
++ rm -f /tmp/.fm-test-procevent.22633.x4vHDW
++ for d in "${FM_TEST_CLEANUP_DIRS[@]:-}"
++ '[' -n '' ']'
++ '[' -f /tmp/.fm-test-cleanup.22633.j2jxQt ']'
++ IFS=
++ read -r d
++ '[' -n /tmp/fm-extension-binding.qTymCM ']'
++ test_reap_root_processes /tmp/fm-extension-binding.qTymCM
++ local root=/tmp/fm-extension-binding.qTymCM chain pid pids signal i
++ '[' -n /tmp/fm-extension-binding.qTymCM ']'
++ '[' /tmp/fm-extension-binding.qTymCM '!=' / ']'
++ chain=' '
++ pid=22633
++ '[' -n 22633 ']'
++ '[' 22633 -gt 1 ']'
++ chain=' 22633 '
+++ ps -o ppid= -p 22633
+++ tr -d '[:space:]'
++ pid=22625
++ '[' -n 22625 ']'
++ '[' 22625 -gt 1 ']'
++ chain=' 22633 22625 '
+++ ps -o ppid= -p 22625
+++ tr -d '[:space:]'
++ pid=22619
++ '[' -n 22619 ']'
++ '[' 22619 -gt 1 ']'
++ chain=' 22633 22625 22619 '
+++ ps -o ppid= -p 22619
+++ tr -d '[:space:]'
++ pid=26588
++ '[' -n 26588 ']'
++ '[' 26588 -gt 1 ']'
++ chain=' 22633 22625 22619 26588 '
+++ ps -o ppid= -p 26588
+++ tr -d '[:space:]'
++ pid=22284
++ '[' -n 22284 ']'
++ '[' 22284 -gt 1 ']'
++ chain=' 22633 22625 22619 26588 22284 '
+++ ps -o ppid= -p 22284
+++ tr -d '[:space:]'
++ pid=7707
++ '[' -n 7707 ']'
++ '[' 7707 -gt 1 ']'
++ chain=' 22633 22625 22619 26588 22284 7707 '
+++ ps -o ppid= -p 7707
+++ tr -d '[:space:]'
++ pid=7706
++ '[' -n 7706 ']'
++ '[' 7706 -gt 1 ']'
++ chain=' 22633 22625 22619 26588 22284 7707 7706 '
+++ ps -o ppid= -p 7706
+++ tr -d '[:space:]'
++ pid=1
++ '[' -n 1 ']'
++ '[' 1 -gt 1 ']'
++ for signal in TERM KILL
++ i=0
++ '[' 0 -lt 20 ']'
+++ ps -ww -eo pid=,args=
+++ FM_TEST_REAP_ROOT=/tmp/fm-extension-binding.qTymCM/
+++ awk -v 'chain= 22633 22625 22619 26588 22284 7707 7706 ' 'index($0, ENVIRON["FM_TEST_REAP_ROOT"]) && index(chain, " " $1 " ") == 0 { print $1 }'
++ pids='5470
+5684
+8214
+10276'
++ '[' -n '5470
+5684
+8214
+10276' ']'
++ '[' 0 -gt 0 ']'
++ kill -s TERM 5470 5684 8214 10276
++ sleep 0.1
++ i=1
++ '[' 1 -lt 20 ']'
+++ ps -ww -eo pid=,args=
+++ FM_TEST_REAP_ROOT=/tmp/fm-extension-binding.qTymCM/
+++ awk -v 'chain= 22633 22625 22619 26588 22284 7707 7706 ' 'index($0, ENVIRON["FM_TEST_REAP_ROOT"]) && index(chain, " " $1 " ") == 0 { print $1 }'
++ pids=
++ '[' -n '' ']'
++ return 0
++ test_remove_tree /tmp/fm-extension-binding.qTymCM
++ local dir=/tmp/fm-extension-binding.qTymCM
++ '[' -d /tmp/fm-extension-binding.qTymCM ']'
++ '[' '!' -L /tmp/fm-extension-binding.qTymCM ']'
++ find /tmp/fm-extension-binding.qTymCM -type d -exec chmod u+rwx '{}' +
++ rm -rf /tmp/fm-extension-binding.qTymCM
++ IFS=
++ read -r d
++ rm -f /tmp/.fm-test-cleanup.22633.j2jxQt

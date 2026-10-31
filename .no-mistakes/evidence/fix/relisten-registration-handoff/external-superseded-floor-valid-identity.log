@@ -1,0 +1,9 @@
+External owner paused at launch boundary:
+387
+.claim.MzM7RZ-387
+2096:1335554
+Both extension and built-in re-registration refused while prior owner remains active.
+Injected superseded floor: external owner exited without polling or adopting; registration preserved.
+ok - all registration owner transitions wait for the prior extension runner
+
+all extension-binding tests passed

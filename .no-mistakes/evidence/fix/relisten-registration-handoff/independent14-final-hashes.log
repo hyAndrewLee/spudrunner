@@ -1,0 +1,4 @@
+259be27014ff285404d0dde9299232b182734a7c0b9acc8220e2874263c39fe9  bin/process-events.sh
+d06cbf0f31cbfdbfe6f21d5eea3ed9c59e58726b86402c49ee94678fbaf9f251  tests/extension-host-binding.test.sh
+3b028f6f279132eb486f8b0545d258dac07a1a369c72bceb1ca61eeb966e3f39  tests/remote-reply.test.sh
+500d6509689614813c899a3bcb696113142d41a8a5d306a085ad2ab43d9a82f9  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh

@@ -1,0 +1,550 @@
++ set -u
++ '[' 0 = 1 ']'
+++ dirname tests/extension-host-binding.test.sh
++ . tests/lib.sh
+++ '[' -n '' ']'
+++ FM_TEST_LIB_SOURCED=1
+++ umask 022
++++ dirname tests/lib.sh
+++ . tests/git-config-helpers.sh
++++ export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
++++ GIT_CONFIG_GLOBAL=/dev/null
++++ GIT_CONFIG_NOSYSTEM=1
++++ unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_COMMON_DIR
+++ export FM_GATE_REFUSE_BYPASS=1
+++ FM_GATE_REFUSE_BYPASS=1
+++ export FM_TEST_SEAM=1
+++ FM_TEST_SEAM=1
+++ unset FM_TASK_ID
+++ unset TASKS_AXI_FILE TASKS_AXI_BACKEND
+++ unset REX_SESSION REX_BLOCK
+++++ dirname tests/lib.sh
++++ cd tests/..
++++ pwd
+++ ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ FM_TEST_TMPDIR=/tmp
+++ FM_TEST_CLEANUP_DIRS=()
++++ mktemp /tmp/.fm-test-cleanup.22616.XXXXXX
+++ FM_TEST_CLEANUP_REGISTRY=/tmp/.fm-test-cleanup.22616.xYisdO
++++ test_pid_identity 22616
++++ local pid=22616
++++ FM_STATE_OVERRIDE=/tmp
++++ bash -c '. "$1"; pid_identity "$2"' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/supervision-events-lib.sh 22616
+++ FM_TEST_OWNER_IDENTITY='linux-starttime=11409780 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
++++ mktemp /tmp/.fm-test-procevent.22616.XXXXXX
+++ FM_TEST_PROCEVENT_REGISTRY=/tmp/.fm-test-procevent.22616.5Q6fIC
++++ mktemp /tmp/.fm-test-watcher.22616.XXXXXX
+++ FM_TEST_WATCHER_REGISTRY=/tmp/.fm-test-watcher.22616.dTEgJH
+++ FM_TEST_STUB_MAX_BLOCK_SECONDS=120
+++ export FM_TEST_STUB_MAX_BLOCK_SECONDS
+++ FM_TEST_SUITE_PID=22616
+++ export FM_TEST_SUITE_PID
+++ trap test_cleanup EXIT
+++ trap 'test_cleanup; exit 130' INT
+++ trap 'test_cleanup; exit 143' TERM
+++ trap 'test_cleanup; exit 129' HUP
+++ trap 'test_cleanup; exit 131' QUIT
+++ FM_TEST_ORPHAN_MAX_AGE_SECONDS=3600
+++ '[' 1 '!=' 1 ']'
++ extension_segment=lifecycle-order
++ case "$extension_segment" in
++ HOST=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs
++ PROCEVENT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh
+++ test_tmproot fm-extension-binding
+++ local prefix=fm-extension-binding root tmp_base
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ tmp_base=/tmp
+++ tmp_base=/tmp
++++ mktemp -d /tmp/fm-extension-binding.XXXXXX
+++ root=/tmp/fm-extension-binding.hK2NtW
++++ cd -P -- /tmp/fm-extension-binding.hK2NtW
++++ pwd -P
+++ root=/tmp/fm-extension-binding.hK2NtW
+++ printf '%s\n%s\n' 22616 'linux-starttime=11409780 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
+++ printf '%s\n' /tmp/fm-extension-binding.hK2NtW
+++ printf '%s\n' /tmp/fm-extension-binding.hK2NtW
++ TMP_ROOT_RAW=/tmp/fm-extension-binding.hK2NtW
+++ cd /tmp/fm-extension-binding.hK2NtW
+++ pwd -P
++ TMP_ROOT=/tmp/fm-extension-binding.hK2NtW
++ first_bind_pid=
++ second_bind_pid=
++ handshake_orphan_pid=
++ concurrent_release=
++ race_register_pid=
++ race_retire_pid=
++ race_release=
++ process_race_start_pid=
++ process_race_retire_pid=
++ process_race_release=
++ registry_race_pid=
++ registry_race_release=
++ leaf_race_pid=
++ leaf_race_release=
++ owner_retire_pid=
++ owner_worker_pid=
++ owner_register_pid=
++ signal_retire_pid=
++ signal_worker_pid=
++ active_runner_pid=
++ active_runner_release=
++ remote_active_release=
++ unrelated_daemon_pid=
++ unrelated_launcher_pid=
++ signal_cleanup_host_pid=
++ signal_cleanup_group_pid=
++ crash_cleanup_host_pid=
++ crash_cleanup_group_pid=
++ crash_cleanup_release=
++ crash_silent_start_pid=
++ crash_silent_runner_pid=
++ override_crash_start_pid=
++ override_crash_runner_pid=
++ order_register_pid=
++ order_reconcile_pid=
++ order_release=
++ section_coordinator_pid=
++ trap extension_test_cleanup EXIT
++ trap 'extension_test_cleanup; exit 130' INT
++ trap 'extension_test_cleanup; exit 143' TERM
++ export FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.hK2NtW/claims
++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.hK2NtW/claims
++ PACKAGES=/tmp/fm-extension-binding.hK2NtW/packages
++ HOMES=/tmp/fm-extension-binding.hK2NtW/homes
++ mkdir -p /tmp/fm-extension-binding.hK2NtW/packages /tmp/fm-extension-binding.hK2NtW/homes
++ '[' 0 = 1 ']'
++ section_enabled coordinator-fail
++ local section
++ for section in "$@"
++ '[' lifecycle-order = coordinator-fail ']'
++ return 1
++ section_enabled coordinator-wait
++ local section
++ for section in "$@"
++ '[' lifecycle-order = coordinator-wait ']'
++ return 1
++ section_enabled coordinator-stubborn
++ local section
++ for section in "$@"
++ '[' lifecycle-order = coordinator-stubborn ']'
++ return 1
++ section_enabled coordinator-pass
++ local section
++ for section in "$@"
++ '[' lifecycle-order = coordinator-pass ']'
++ return 1
++ section_enabled coordinator-late-pass
++ local section
++ for section in "$@"
++ '[' lifecycle-order = coordinator-late-pass ']'
++ return 1
++ section_enabled coordinator-scheduler-block
++ local section
++ for section in "$@"
++ '[' lifecycle-order = coordinator-scheduler-block ']'
++ return 1
++ section_enabled coordinator-scheduler-late
++ local section
++ for section in "$@"
++ '[' lifecycle-order = coordinator-scheduler-late ']'
++ return 1
++ '[' lifecycle-order = all ']'
++ '[' lifecycle-order = coordinator ']'
++ section_enabled early-bind
++ local section
++ for section in "$@"
++ '[' lifecycle-order = early-bind ']'
++ return 1
++ section_enabled early-validation
++ local section
++ for section in "$@"
++ '[' lifecycle-order = early-validation ']'
++ return 1
++ section_enabled early-handshake
++ local section
++ for section in "$@"
++ '[' lifecycle-order = early-handshake ']'
++ return 1
++ section_enabled early-integrity
++ local section
++ for section in "$@"
++ '[' lifecycle-order = early-integrity ']'
++ return 1
++ section_enabled matrix matrix-runtime
++ local section
++ for section in "$@"
++ '[' lifecycle-order = matrix ']'
++ for section in "$@"
++ '[' lifecycle-order = matrix-runtime ']'
++ return 1
++ section_enabled lifecycle-host-errors
++ local section
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-host-errors ']'
++ return 1
++ section_enabled lifecycle-flow
++ local section
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-flow ']'
++ return 1
++ section_enabled lifecycle-order
++ local section
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-order ']'
++ return 0
++ P_ORDER=/tmp/fm-extension-binding.hK2NtW/packages/lock-order
++ order_marker=/tmp/fm-extension-binding.hK2NtW/lock-order.marker
++ order_release=/tmp/fm-extension-binding.hK2NtW/lock-order.release
+++ printf 'handshake-block\n%s\n%s' /tmp/fm-extension-binding.hK2NtW/lock-order.marker /tmp/fm-extension-binding.hK2NtW/lock-order.release
++ make_package /tmp/fm-extension-binding.hK2NtW/packages/lock-order org.example.lock-order ext-lock-order 'handshake-block
+/tmp/fm-extension-binding.hK2NtW/lock-order.marker
+/tmp/fm-extension-binding.hK2NtW/lock-order.release'
++ local dir=/tmp/fm-extension-binding.hK2NtW/packages/lock-order id=org.example.lock-order adapter=ext-lock-order 'fixed=handshake-block
+/tmp/fm-extension-binding.hK2NtW/lock-order.marker
+/tmp/fm-extension-binding.hK2NtW/lock-order.release' consent= required
++ mkdir -p /tmp/fm-extension-binding.hK2NtW/packages/lock-order
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' 'handshake-block
+/tmp/fm-extension-binding.hK2NtW/lock-order.marker
+/tmp/fm-extension-binding.hK2NtW/lock-order.release'
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.hK2NtW/packages/lock-order/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.hK2NtW/packages/lock-order/firstmate-extension.json /tmp/fm-extension-binding.hK2NtW/packages/lock-order/scenario /tmp/fm-extension-binding.hK2NtW/packages/lock-order/helper.txt
++ H_ORDER=/tmp/fm-extension-binding.hK2NtW/homes/lock-order
++ new_home /tmp/fm-extension-binding.hK2NtW/homes/lock-order
++ mkdir -p /tmp/fm-extension-binding.hK2NtW/homes/lock-order
++ touch /tmp/fm-extension-binding.hK2NtW/lock-order.release
++ bind_package /tmp/fm-extension-binding.hK2NtW/homes/lock-order /tmp/fm-extension-binding.hK2NtW/packages/lock-order ext-lock-order
++ local home=/tmp/fm-extension-binding.hK2NtW/homes/lock-order package=/tmp/fm-extension-binding.hK2NtW/packages/lock-order adapter=ext-lock-order
++ shift 3
++ FM_HOME=/tmp/fm-extension-binding.hK2NtW/homes/lock-order
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.hK2NtW/packages/lock-order --adapter ext-lock-order --trust-same-user-code
++ FM_HOME=/tmp/fm-extension-binding.hK2NtW/homes/lock-order
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-lock-order order-source --config-ref good
++ FM_HOME=/tmp/fm-extension-binding.hK2NtW/homes/lock-order
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start order-source
++ assert_absent /tmp/fm-extension-binding.hK2NtW/homes/lock-order/state/procevent/order-source.source 'lock-order terminal source stayed registered'
++ '[' '!' -e /tmp/fm-extension-binding.hK2NtW/homes/lock-order/state/procevent/order-source.source ']'
++ assert_absent /tmp/fm-extension-binding.hK2NtW/homes/lock-order/state/procevent-inbox/order-source.1.handled 'lock-order result was not left unhandled'
++ '[' '!' -e /tmp/fm-extension-binding.hK2NtW/homes/lock-order/state/procevent-inbox/order-source.1.handled ']'
++ rm -f /tmp/fm-extension-binding.hK2NtW/lock-order.marker /tmp/fm-extension-binding.hK2NtW/lock-order.release
++ order_register_pid=28332
++ wait_for_file /tmp/fm-extension-binding.hK2NtW/lock-order.marker
++ FM_HOME=/tmp/fm-extension-binding.hK2NtW/homes/lock-order
++ local file=/tmp/fm-extension-binding.hK2NtW/lock-order.marker
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-lock-order order-source --config-ref no-result
+++ seq 1 100
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.hK2NtW/lock-order.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.hK2NtW/lock-order.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.hK2NtW/lock-order.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.hK2NtW/lock-order.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.hK2NtW/lock-order.marker ']'
++ return 0
++ order_reconcile_pid=29125
++ FM_HOME=/tmp/fm-extension-binding.hK2NtW/homes/lock-order
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
+++ seq 1 200
++ for _ in $(seq 1 200)
++ '[' -L /tmp/fm-extension-binding.hK2NtW/claims/order-source.lock ']'
++ break
++ '[' -L /tmp/fm-extension-binding.hK2NtW/claims/order-source.lock ']'
++ sleep 0.2
++ touch /tmp/fm-extension-binding.hK2NtW/lock-order.release
++ order_deadline=14
++ kill -0 28332
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 28332
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 28332
++ kill -0 29125
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 28332
++ kill -0 29125
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 28332
++ kill -0 29125
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 28332
++ kill -0 29125
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 28332
++ kill -0 29125
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 28332
++ kill -0 29125
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 28332
++ kill -0 29125
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 28332
++ kill -0 29125
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 28332
++ kill -0 29125
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 28332
++ kill -0 29125
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 28332
++ kill -0 29125
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 28332
++ kill -0 29125
++ order_register_rc=0
++ wait 28332
++ order_register_pid=
++ wait 29125
++ order_reconcile_pid=
++ order_release=
++ '[' 0 -eq 0 ']'
+++ cat /tmp/fm-extension-binding.hK2NtW/lock-order-reconcile.out
++ assert_contains 'reconciled: published=1 started=1 stopped=0 uncertain=0 failed=0' reconciled: 'lock-order reconcile did not complete its cycle'
++ case "$1" in
++ :
+++ sed -n 's/^owner-token: //p' /tmp/fm-extension-binding.hK2NtW/lock-order-register.out
++ order_owner=sha256:54f6a938be8cc91e11c8a186e0c053d032c4bef6ba0f482fb32363c438948de2
++ FM_HOME=/tmp/fm-extension-binding.hK2NtW/homes/lock-order
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire order-source --if-owner sha256:54f6a938be8cc91e11c8a186e0c053d032c4bef6ba0f482fb32363c438948de2
++ FM_HOME=/tmp/fm-extension-binding.hK2NtW/homes/lock-order
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh handled order-source 1
++ pass 'register-extension and reconcile of an unhandled extension result take their locks in one order'
++ printf 'ok - %s\n' 'register-extension and reconcile of an unhandled extension result take their locks in one order'
+ok - register-extension and reconcile of an unhandled extension result take their locks in one order
++ section_enabled lifecycle-lock
++ local section
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-lock ']'
++ return 1
++ section_enabled lifecycle-runner
++ local section
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-runner ']'
++ return 1
++ section_enabled lifecycle-state
++ local section
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-state ']'
++ return 1
++ section_enabled lifecycle-invocation-cleanup
++ local section
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-invocation-cleanup ']'
++ return 1
++ section_enabled lifecycle-flow lifecycle-orphan-readiness
++ local section
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-flow ']'
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-orphan-readiness ']'
++ return 1
++ section_enabled remote-envelope remote-activation remote-lifecycle remote-retirement
++ local section
++ for section in "$@"
++ '[' lifecycle-order = remote-envelope ']'
++ for section in "$@"
++ '[' lifecycle-order = remote-activation ']'
++ for section in "$@"
++ '[' lifecycle-order = remote-lifecycle ']'
++ for section in "$@"
++ '[' lifecycle-order = remote-retirement ']'
++ return 1
++ section_enabled example
++ local section
++ for section in "$@"
++ '[' lifecycle-order = example ']'
++ return 1
++ printf '\nall extension-binding tests passed\n'
+
+all extension-binding tests passed
++ extension_test_cleanup
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -n '' ']'
++ '[' -f /tmp/fm-extension-binding.hK2NtW/remote-jobs/worker.pid ']'
++ '[' -n '' ']'
++ '[' -n '' ']'
++ chmod -R u+w /tmp/fm-extension-binding.hK2NtW
++ test_cleanup
++ local d
++ test_reap_watchers
++ local state lock_home 'seen=
+'
++ '[' -f /tmp/.fm-test-watcher.22616.dTEgJH ']'
++ IFS=
++ read -r state
++ rm -f /tmp/.fm-test-watcher.22616.dTEgJH
++ test_reap_procevent_homes
++ local home claim_root 'seen=
+'
++ '[' -f /tmp/.fm-test-procevent.22616.5Q6fIC ']'
++ IFS='	'
++ read -r home claim_root
++ rm -f /tmp/.fm-test-procevent.22616.5Q6fIC
++ for d in "${FM_TEST_CLEANUP_DIRS[@]:-}"
++ '[' -n '' ']'
++ '[' -f /tmp/.fm-test-cleanup.22616.xYisdO ']'
++ IFS=
++ read -r d
++ '[' -n /tmp/fm-extension-binding.hK2NtW ']'
++ test_reap_root_processes /tmp/fm-extension-binding.hK2NtW
++ local root=/tmp/fm-extension-binding.hK2NtW chain pid pids signal i
++ '[' -n /tmp/fm-extension-binding.hK2NtW ']'
++ '[' /tmp/fm-extension-binding.hK2NtW '!=' / ']'
++ chain=' '
++ pid=22616
++ '[' -n 22616 ']'
++ '[' 22616 -gt 1 ']'
++ chain=' 22616 '
+++ ps -o ppid= -p 22616
+++ tr -d '[:space:]'
++ pid=22613
++ '[' -n 22613 ']'
++ '[' 22613 -gt 1 ']'
++ chain=' 22616 22613 '
+++ ps -o ppid= -p 22613
+++ tr -d '[:space:]'
++ pid=22611
++ '[' -n 22611 ']'
++ '[' 22611 -gt 1 ']'
++ chain=' 22616 22613 22611 '
+++ ps -o ppid= -p 22611
+++ tr -d '[:space:]'
++ pid=26588
++ '[' -n 26588 ']'
++ '[' 26588 -gt 1 ']'
++ chain=' 22616 22613 22611 26588 '
+++ ps -o ppid= -p 26588
+++ tr -d '[:space:]'
++ pid=22284
++ '[' -n 22284 ']'
++ '[' 22284 -gt 1 ']'
++ chain=' 22616 22613 22611 26588 22284 '
+++ ps -o ppid= -p 22284
+++ tr -d '[:space:]'
++ pid=7707
++ '[' -n 7707 ']'
++ '[' 7707 -gt 1 ']'
++ chain=' 22616 22613 22611 26588 22284 7707 '
+++ ps -o ppid= -p 7707
+++ tr -d '[:space:]'
++ pid=7706
++ '[' -n 7706 ']'
++ '[' 7706 -gt 1 ']'
++ chain=' 22616 22613 22611 26588 22284 7707 7706 '
+++ ps -o ppid= -p 7706
+++ tr -d '[:space:]'
++ pid=1
++ '[' -n 1 ']'
++ '[' 1 -gt 1 ']'
++ for signal in TERM KILL
++ i=0
++ '[' 0 -lt 20 ']'
+++ ps -ww -eo pid=,args=
+++ FM_TEST_REAP_ROOT=/tmp/fm-extension-binding.hK2NtW/
+++ awk -v 'chain= 22616 22613 22611 26588 22284 7707 7706 ' 'index($0, ENVIRON["FM_TEST_REAP_ROOT"]) && index(chain, " " $1 " ") == 0 { print $1 }'
++ pids='24583
+31454'
++ '[' -n '24583
+31454' ']'
++ '[' 0 -gt 0 ']'
++ kill -s TERM 24583 31454
++ sleep 0.1
++ i=1
++ '[' 1 -lt 20 ']'
+++ ps -ww -eo pid=,args=
+++ FM_TEST_REAP_ROOT=/tmp/fm-extension-binding.hK2NtW/
+++ awk -v 'chain= 22616 22613 22611 26588 22284 7707 7706 ' 'index($0, ENVIRON["FM_TEST_REAP_ROOT"]) && index(chain, " " $1 " ") == 0 { print $1 }'
++ pids=
++ '[' -n '' ']'
++ return 0
++ test_remove_tree /tmp/fm-extension-binding.hK2NtW
++ local dir=/tmp/fm-extension-binding.hK2NtW
++ '[' -d /tmp/fm-extension-binding.hK2NtW ']'
++ '[' '!' -L /tmp/fm-extension-binding.hK2NtW ']'
++ find /tmp/fm-extension-binding.hK2NtW -type d -exec chmod u+rwx '{}' +
++ rm -rf /tmp/fm-extension-binding.hK2NtW
++ IFS=
++ read -r d
++ rm -f /tmp/.fm-test-cleanup.22616.xYisdO

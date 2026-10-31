@@ -1,0 +1,736 @@
++ set -u
++ '[' 0 = 1 ']'
+++ dirname tests/extension-host-binding.test.sh
++ . tests/lib.sh
+++ '[' -n '' ']'
+++ FM_TEST_LIB_SOURCED=1
+++ umask 022
++++ dirname tests/lib.sh
+++ . tests/git-config-helpers.sh
++++ export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
++++ GIT_CONFIG_GLOBAL=/dev/null
++++ GIT_CONFIG_NOSYSTEM=1
++++ unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_COMMON_DIR
+++ export FM_GATE_REFUSE_BYPASS=1
+++ FM_GATE_REFUSE_BYPASS=1
+++ export FM_TEST_SEAM=1
+++ FM_TEST_SEAM=1
+++ unset FM_TASK_ID
+++ unset TASKS_AXI_FILE TASKS_AXI_BACKEND
+++ unset REX_SESSION REX_BLOCK
+++++ dirname tests/lib.sh
++++ cd tests/..
++++ pwd
+++ ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ FM_TEST_TMPDIR=/tmp
+++ FM_TEST_CLEANUP_DIRS=()
++++ mktemp /tmp/.fm-test-cleanup.1.XXXXXX
+++ FM_TEST_CLEANUP_REGISTRY=/tmp/.fm-test-cleanup.1.Ai6Px5
++++ test_pid_identity 1
++++ local pid=1
++++ FM_STATE_OVERRIDE=/tmp
++++ bash -c '. "$1"; pid_identity "$2"' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/supervision-events-lib.sh 1
+++ FM_TEST_OWNER_IDENTITY='linux-starttime=11528903 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
++++ mktemp /tmp/.fm-test-procevent.1.XXXXXX
+++ FM_TEST_PROCEVENT_REGISTRY=/tmp/.fm-test-procevent.1.Y6W44J
++++ mktemp /tmp/.fm-test-watcher.1.XXXXXX
+++ FM_TEST_WATCHER_REGISTRY=/tmp/.fm-test-watcher.1.u3T6vP
+++ FM_TEST_STUB_MAX_BLOCK_SECONDS=120
+++ export FM_TEST_STUB_MAX_BLOCK_SECONDS
+++ FM_TEST_SUITE_PID=1
+++ export FM_TEST_SUITE_PID
+++ trap test_cleanup EXIT
+++ trap 'test_cleanup; exit 130' INT
+++ trap 'test_cleanup; exit 143' TERM
+++ trap 'test_cleanup; exit 129' HUP
+++ trap 'test_cleanup; exit 131' QUIT
+++ FM_TEST_ORPHAN_MAX_AGE_SECONDS=3600
+++ '[' 0 '!=' 1 ']'
+++ test_reap_orphans
+++ local marker dir mtime now owner_pid owner_identity current_identity
++++ date +%s
+++ now=1793433686
+++ for marker in "$FM_TEST_TMPDIR"/fm-*/.fm-test-fixture
+++ '[' -e '/tmp/fm-*/.fm-test-fixture' ']'
+++ continue
++ extension_segment=early-validation
++ case "$extension_segment" in
++ HOST=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs
++ PROCEVENT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh
+++ test_tmproot fm-extension-binding
+++ local prefix=fm-extension-binding root tmp_base
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ tmp_base=/tmp
+++ tmp_base=/tmp
++++ mktemp -d /tmp/fm-extension-binding.XXXXXX
+++ root=/tmp/fm-extension-binding.4ThGdy
++++ cd -P -- /tmp/fm-extension-binding.4ThGdy
++++ pwd -P
+++ root=/tmp/fm-extension-binding.4ThGdy
+++ printf '%s\n%s\n' 1 'linux-starttime=11528903 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
+++ printf '%s\n' /tmp/fm-extension-binding.4ThGdy
+++ printf '%s\n' /tmp/fm-extension-binding.4ThGdy
++ TMP_ROOT_RAW=/tmp/fm-extension-binding.4ThGdy
+++ cd /tmp/fm-extension-binding.4ThGdy
+++ pwd -P
++ TMP_ROOT=/tmp/fm-extension-binding.4ThGdy
++ first_bind_pid=
++ second_bind_pid=
++ handshake_orphan_pid=
++ concurrent_release=
++ race_register_pid=
++ race_retire_pid=
++ race_release=
++ process_race_start_pid=
++ process_race_retire_pid=
++ process_race_release=
++ registry_race_pid=
++ registry_race_release=
++ leaf_race_pid=
++ leaf_race_release=
++ owner_retire_pid=
++ owner_worker_pid=
++ owner_register_pid=
++ signal_retire_pid=
++ signal_worker_pid=
++ active_runner_pid=
++ active_runner_release=
++ remote_active_release=
++ unrelated_daemon_pid=
++ unrelated_launcher_pid=
++ signal_cleanup_host_pid=
++ signal_cleanup_group_pid=
++ crash_cleanup_host_pid=
++ crash_cleanup_group_pid=
++ crash_cleanup_release=
++ crash_silent_start_pid=
++ crash_silent_runner_pid=
++ override_crash_start_pid=
++ override_crash_runner_pid=
++ order_register_pid=
++ order_reconcile_pid=
++ order_release=
++ section_coordinator_pid=
++ trap extension_test_cleanup EXIT
++ trap 'extension_test_cleanup; exit 130' INT
++ trap 'extension_test_cleanup; exit 143' TERM
++ export FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.4ThGdy/claims
++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.4ThGdy/claims
++ PACKAGES=/tmp/fm-extension-binding.4ThGdy/packages
++ HOMES=/tmp/fm-extension-binding.4ThGdy/homes
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/packages /tmp/fm-extension-binding.4ThGdy/homes
++ '[' 0 = 1 ']'
++ section_enabled coordinator-fail
++ local section
++ for section in "$@"
++ '[' early-validation = coordinator-fail ']'
++ return 1
++ section_enabled coordinator-wait
++ local section
++ for section in "$@"
++ '[' early-validation = coordinator-wait ']'
++ return 1
++ section_enabled coordinator-stubborn
++ local section
++ for section in "$@"
++ '[' early-validation = coordinator-stubborn ']'
++ return 1
++ section_enabled coordinator-pass
++ local section
++ for section in "$@"
++ '[' early-validation = coordinator-pass ']'
++ return 1
++ section_enabled coordinator-late-pass
++ local section
++ for section in "$@"
++ '[' early-validation = coordinator-late-pass ']'
++ return 1
++ section_enabled coordinator-scheduler-block
++ local section
++ for section in "$@"
++ '[' early-validation = coordinator-scheduler-block ']'
++ return 1
++ section_enabled coordinator-scheduler-late
++ local section
++ for section in "$@"
++ '[' early-validation = coordinator-scheduler-late ']'
++ return 1
++ '[' early-validation = all ']'
++ '[' early-validation = coordinator ']'
++ section_enabled early-bind
++ local section
++ for section in "$@"
++ '[' early-validation = early-bind ']'
++ return 1
++ section_enabled early-validation
++ local section
++ for section in "$@"
++ '[' early-validation = early-validation ']'
++ return 0
++ P_GOOD=/tmp/fm-extension-binding.4ThGdy/packages/good
++ make_package /tmp/fm-extension-binding.4ThGdy/packages/good org.example.good ext-good
++ local dir=/tmp/fm-extension-binding.4ThGdy/packages/good id=org.example.good adapter=ext-good fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/packages/good
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.4ThGdy/packages/good/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.4ThGdy/packages/good/firstmate-extension.json /tmp/fm-extension-binding.4ThGdy/packages/good/scenario /tmp/fm-extension-binding.4ThGdy/packages/good/helper.txt
++ P_MODE=/tmp/fm-extension-binding.4ThGdy/packages/mode
++ make_package /tmp/fm-extension-binding.4ThGdy/packages/mode org.example.mode ext-mode
++ local dir=/tmp/fm-extension-binding.4ThGdy/packages/mode id=org.example.mode adapter=ext-mode fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/packages/mode
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.4ThGdy/packages/mode/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.4ThGdy/packages/mode/firstmate-extension.json /tmp/fm-extension-binding.4ThGdy/packages/mode/scenario /tmp/fm-extension-binding.4ThGdy/packages/mode/helper.txt
++ chmod 0664 /tmp/fm-extension-binding.4ThGdy/packages/mode/helper.txt
++ H_MODE=/tmp/fm-extension-binding.4ThGdy/homes/mode
++ new_home /tmp/fm-extension-binding.4ThGdy/homes/mode
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/homes/mode
++ expect_failure 'group/world writable' bind_package /tmp/fm-extension-binding.4ThGdy/homes/mode /tmp/fm-extension-binding.4ThGdy/packages/mode ext-mode
++ local 'needle=group/world writable' out rc=0
++ shift
+++ bind_package /tmp/fm-extension-binding.4ThGdy/homes/mode /tmp/fm-extension-binding.4ThGdy/packages/mode ext-mode
++ out='++ local home=/tmp/fm-extension-binding.4ThGdy/homes/mode package=/tmp/fm-extension-binding.4ThGdy/packages/mode adapter=ext-mode
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/mode
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/mode --adapter ext-mode --trust-same-user-code
+error[binding-failed]: error[mode-unsafe]: package file is group/world writable: helper.txt'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains '++ local home=/tmp/fm-extension-binding.4ThGdy/homes/mode package=/tmp/fm-extension-binding.4ThGdy/packages/mode adapter=ext-mode
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/mode
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/mode --adapter ext-mode --trust-same-user-code
+error[binding-failed]: error[mode-unsafe]: package file is group/world writable: helper.txt' 'group/world writable' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ pass 'group/world-writable package code is rejected'
++ printf 'ok - %s\n' 'group/world-writable package code is rejected'
+ok - group/world-writable package code is rejected
++ P_EXEC=/tmp/fm-extension-binding.4ThGdy/packages/nonexec
++ make_package /tmp/fm-extension-binding.4ThGdy/packages/nonexec org.example.nonexec ext-nonexec
++ local dir=/tmp/fm-extension-binding.4ThGdy/packages/nonexec id=org.example.nonexec adapter=ext-nonexec fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/packages/nonexec
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.4ThGdy/packages/nonexec/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.4ThGdy/packages/nonexec/firstmate-extension.json /tmp/fm-extension-binding.4ThGdy/packages/nonexec/scenario /tmp/fm-extension-binding.4ThGdy/packages/nonexec/helper.txt
++ chmod 0644 /tmp/fm-extension-binding.4ThGdy/packages/nonexec/entrypoint.py
++ H_EXEC=/tmp/fm-extension-binding.4ThGdy/homes/nonexec
++ new_home /tmp/fm-extension-binding.4ThGdy/homes/nonexec
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/homes/nonexec
++ expect_failure 'not executable' bind_package /tmp/fm-extension-binding.4ThGdy/homes/nonexec /tmp/fm-extension-binding.4ThGdy/packages/nonexec ext-nonexec
++ local 'needle=not executable' out rc=0
++ shift
+++ bind_package /tmp/fm-extension-binding.4ThGdy/homes/nonexec /tmp/fm-extension-binding.4ThGdy/packages/nonexec ext-nonexec
++ out='++ local home=/tmp/fm-extension-binding.4ThGdy/homes/nonexec package=/tmp/fm-extension-binding.4ThGdy/packages/nonexec adapter=ext-nonexec
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/nonexec
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/nonexec --adapter ext-nonexec --trust-same-user-code
+error[binding-failed]: error[entrypoint-invalid]: manifest entrypoint is not executable: entrypoint.py'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains '++ local home=/tmp/fm-extension-binding.4ThGdy/homes/nonexec package=/tmp/fm-extension-binding.4ThGdy/packages/nonexec adapter=ext-nonexec
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/nonexec
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/nonexec --adapter ext-nonexec --trust-same-user-code
+error[binding-failed]: error[entrypoint-invalid]: manifest entrypoint is not executable: entrypoint.py' 'not executable' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ pass 'a non-executable manifest entrypoint is rejected'
++ printf 'ok - %s\n' 'a non-executable manifest entrypoint is rejected'
+ok - a non-executable manifest entrypoint is rejected
++ P_LINK=/tmp/fm-extension-binding.4ThGdy/packages/symlink-tree
++ make_package /tmp/fm-extension-binding.4ThGdy/packages/symlink-tree org.example.symlink ext-symlink
++ local dir=/tmp/fm-extension-binding.4ThGdy/packages/symlink-tree id=org.example.symlink adapter=ext-symlink fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/packages/symlink-tree
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.4ThGdy/packages/symlink-tree/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.4ThGdy/packages/symlink-tree/firstmate-extension.json /tmp/fm-extension-binding.4ThGdy/packages/symlink-tree/scenario /tmp/fm-extension-binding.4ThGdy/packages/symlink-tree/helper.txt
++ ln -s helper.txt /tmp/fm-extension-binding.4ThGdy/packages/symlink-tree/linked-helper
++ H_LINK=/tmp/fm-extension-binding.4ThGdy/homes/symlink-tree
++ new_home /tmp/fm-extension-binding.4ThGdy/homes/symlink-tree
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/homes/symlink-tree
++ expect_failure 'symbolic link' bind_package /tmp/fm-extension-binding.4ThGdy/homes/symlink-tree /tmp/fm-extension-binding.4ThGdy/packages/symlink-tree ext-symlink
++ local 'needle=symbolic link' out rc=0
++ shift
+++ bind_package /tmp/fm-extension-binding.4ThGdy/homes/symlink-tree /tmp/fm-extension-binding.4ThGdy/packages/symlink-tree ext-symlink
++ out='++ local home=/tmp/fm-extension-binding.4ThGdy/homes/symlink-tree package=/tmp/fm-extension-binding.4ThGdy/packages/symlink-tree adapter=ext-symlink
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/symlink-tree
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/symlink-tree --adapter ext-symlink --trust-same-user-code
+error[binding-failed]: error[link-unsafe]: package tree contains a symbolic link: linked-helper'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains '++ local home=/tmp/fm-extension-binding.4ThGdy/homes/symlink-tree package=/tmp/fm-extension-binding.4ThGdy/packages/symlink-tree adapter=ext-symlink
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/symlink-tree
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/symlink-tree --adapter ext-symlink --trust-same-user-code
+error[binding-failed]: error[link-unsafe]: package tree contains a symbolic link: linked-helper' 'symbolic link' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ P_ALIAS=/tmp/fm-extension-binding.4ThGdy/packages/source-alias
++ ln -s /tmp/fm-extension-binding.4ThGdy/packages/good /tmp/fm-extension-binding.4ThGdy/packages/source-alias
++ expect_failure 'real directory' bind_package /tmp/fm-extension-binding.4ThGdy/homes/symlink-tree /tmp/fm-extension-binding.4ThGdy/packages/source-alias ext-good
++ local 'needle=real directory' out rc=0
++ shift
+++ bind_package /tmp/fm-extension-binding.4ThGdy/homes/symlink-tree /tmp/fm-extension-binding.4ThGdy/packages/source-alias ext-good
++ out='++ local home=/tmp/fm-extension-binding.4ThGdy/homes/symlink-tree package=/tmp/fm-extension-binding.4ThGdy/packages/source-alias adapter=ext-good
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/symlink-tree
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/source-alias --adapter ext-good --trust-same-user-code
+error[binding-failed]: error[package-missing]: package root is not a real directory: /tmp/fm-extension-binding.4ThGdy/packages/source-alias'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains '++ local home=/tmp/fm-extension-binding.4ThGdy/homes/symlink-tree package=/tmp/fm-extension-binding.4ThGdy/packages/source-alias adapter=ext-good
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/symlink-tree
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/source-alias --adapter ext-good --trust-same-user-code
+error[binding-failed]: error[package-missing]: package root is not a real directory: /tmp/fm-extension-binding.4ThGdy/packages/source-alias' 'real directory' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ pass 'source-root traversal and package-tree symlinks are rejected'
++ printf 'ok - %s\n' 'source-root traversal and package-tree symlinks are rejected'
+ok - source-root traversal and package-tree symlinks are rejected
++ P_HARD=/tmp/fm-extension-binding.4ThGdy/packages/hardlink
++ make_package /tmp/fm-extension-binding.4ThGdy/packages/hardlink org.example.hardlink ext-hardlink
++ local dir=/tmp/fm-extension-binding.4ThGdy/packages/hardlink id=org.example.hardlink adapter=ext-hardlink fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/packages/hardlink
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.4ThGdy/packages/hardlink/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.4ThGdy/packages/hardlink/firstmate-extension.json /tmp/fm-extension-binding.4ThGdy/packages/hardlink/scenario /tmp/fm-extension-binding.4ThGdy/packages/hardlink/helper.txt
++ ln /tmp/fm-extension-binding.4ThGdy/packages/hardlink/helper.txt /tmp/fm-extension-binding.4ThGdy/packages/hardlink/helper-alias.txt
++ H_HARD=/tmp/fm-extension-binding.4ThGdy/homes/hardlink
++ new_home /tmp/fm-extension-binding.4ThGdy/homes/hardlink
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/homes/hardlink
++ expect_failure 'hard links' bind_package /tmp/fm-extension-binding.4ThGdy/homes/hardlink /tmp/fm-extension-binding.4ThGdy/packages/hardlink ext-hardlink
++ local 'needle=hard links' out rc=0
++ shift
+++ bind_package /tmp/fm-extension-binding.4ThGdy/homes/hardlink /tmp/fm-extension-binding.4ThGdy/packages/hardlink ext-hardlink
++ out='++ local home=/tmp/fm-extension-binding.4ThGdy/homes/hardlink package=/tmp/fm-extension-binding.4ThGdy/packages/hardlink adapter=ext-hardlink
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/hardlink
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/hardlink --adapter ext-hardlink --trust-same-user-code
+error[binding-failed]: error[link-unsafe]: package file has 2 hard links: helper-alias.txt'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains '++ local home=/tmp/fm-extension-binding.4ThGdy/homes/hardlink package=/tmp/fm-extension-binding.4ThGdy/packages/hardlink adapter=ext-hardlink
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/hardlink
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/hardlink --adapter ext-hardlink --trust-same-user-code
+error[binding-failed]: error[link-unsafe]: package file has 2 hard links: helper-alias.txt' 'hard links' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ pass 'hard-linked package code is rejected'
++ printf 'ok - %s\n' 'hard-linked package code is rejected'
+ok - hard-linked package code is rejected
++ P_GIT=/tmp/fm-extension-binding.4ThGdy/packages/git-package
++ make_package /tmp/fm-extension-binding.4ThGdy/packages/git-package org.example.git ext-git
++ local dir=/tmp/fm-extension-binding.4ThGdy/packages/git-package id=org.example.git adapter=ext-git fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/packages/git-package
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.4ThGdy/packages/git-package/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.4ThGdy/packages/git-package/firstmate-extension.json /tmp/fm-extension-binding.4ThGdy/packages/git-package/scenario /tmp/fm-extension-binding.4ThGdy/packages/git-package/helper.txt
++ git -C /tmp/fm-extension-binding.4ThGdy/packages/git-package init -q
++ H_GIT=/tmp/fm-extension-binding.4ThGdy/homes/git
++ new_home /tmp/fm-extension-binding.4ThGdy/homes/git
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/homes/git
++ expect_failure 'Git project or task copy' bind_package /tmp/fm-extension-binding.4ThGdy/homes/git /tmp/fm-extension-binding.4ThGdy/packages/git-package ext-git
++ local 'needle=Git project or task copy' out rc=0
++ shift
+++ bind_package /tmp/fm-extension-binding.4ThGdy/homes/git /tmp/fm-extension-binding.4ThGdy/packages/git-package ext-git
++ out='++ local home=/tmp/fm-extension-binding.4ThGdy/homes/git package=/tmp/fm-extension-binding.4ThGdy/packages/git-package adapter=ext-git
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/git
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/git-package --adapter ext-git --trust-same-user-code
+error[binding-failed]: error[path-unsafe]: package source must not be inside a Git project or task copy'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains '++ local home=/tmp/fm-extension-binding.4ThGdy/homes/git package=/tmp/fm-extension-binding.4ThGdy/packages/git-package adapter=ext-git
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/git
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/git-package --adapter ext-git --trust-same-user-code
+error[binding-failed]: error[path-unsafe]: package source must not be inside a Git project or task copy' 'Git project or task copy' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
+++ cd /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/docs/examples/process-event-extension
+++ pwd -P
++ example_package=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/docs/examples/process-event-extension
++ expect_failure 'Git project or task copy' bind_package /tmp/fm-extension-binding.4ThGdy/homes/git /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/docs/examples/process-event-extension file-signal --consent artifact-references
++ local 'needle=Git project or task copy' out rc=0
++ shift
+++ bind_package /tmp/fm-extension-binding.4ThGdy/homes/git /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/docs/examples/process-event-extension file-signal --consent artifact-references
++ out='++ local home=/tmp/fm-extension-binding.4ThGdy/homes/git package=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/docs/examples/process-event-extension adapter=file-signal
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/git
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/docs/examples/process-event-extension --adapter file-signal --trust-same-user-code --consent artifact-references
+error[binding-failed]: error[path-unsafe]: package source must not be inside a Git project or task copy'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains '++ local home=/tmp/fm-extension-binding.4ThGdy/homes/git package=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/docs/examples/process-event-extension adapter=file-signal
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/git
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/docs/examples/process-event-extension --adapter file-signal --trust-same-user-code --consent artifact-references
+error[binding-failed]: error[path-unsafe]: package source must not be inside a Git project or task copy' 'Git project or task copy' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ P_HOME_LOCAL=/tmp/fm-extension-binding.4ThGdy/homes/git/projects/home-package
++ make_package /tmp/fm-extension-binding.4ThGdy/homes/git/projects/home-package org.example.home-local ext-home-local
++ local dir=/tmp/fm-extension-binding.4ThGdy/homes/git/projects/home-package id=org.example.home-local adapter=ext-home-local fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/homes/git/projects/home-package
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.4ThGdy/homes/git/projects/home-package/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.4ThGdy/homes/git/projects/home-package/firstmate-extension.json /tmp/fm-extension-binding.4ThGdy/homes/git/projects/home-package/scenario /tmp/fm-extension-binding.4ThGdy/homes/git/projects/home-package/helper.txt
++ expect_failure 'outside the active Firstmate home' bind_package /tmp/fm-extension-binding.4ThGdy/homes/git /tmp/fm-extension-binding.4ThGdy/homes/git/projects/home-package ext-home-local
++ local 'needle=outside the active Firstmate home' out rc=0
++ shift
+++ bind_package /tmp/fm-extension-binding.4ThGdy/homes/git /tmp/fm-extension-binding.4ThGdy/homes/git/projects/home-package ext-home-local
++ out='++ local home=/tmp/fm-extension-binding.4ThGdy/homes/git package=/tmp/fm-extension-binding.4ThGdy/homes/git/projects/home-package adapter=ext-home-local
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/git
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/homes/git/projects/home-package --adapter ext-home-local --trust-same-user-code
+error[binding-failed]: error[path-unsafe]: package source must be outside the active Firstmate home'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains '++ local home=/tmp/fm-extension-binding.4ThGdy/homes/git package=/tmp/fm-extension-binding.4ThGdy/homes/git/projects/home-package adapter=ext-home-local
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/git
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/homes/git/projects/home-package --adapter ext-home-local --trust-same-user-code
+error[binding-failed]: error[path-unsafe]: package source must be outside the active Firstmate home' 'outside the active Firstmate home' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ pass 'a project, task-copy, or operational-home package cannot register even when named explicitly'
++ printf 'ok - %s\n' 'a project, task-copy, or operational-home package cannot register even when named explicitly'
+ok - a project, task-copy, or operational-home package cannot register even when named explicitly
++ P_TRAVERSAL=/tmp/fm-extension-binding.4ThGdy/packages/entrypoint-traversal
++ make_package /tmp/fm-extension-binding.4ThGdy/packages/entrypoint-traversal org.example.traversal ext-traversal
++ local dir=/tmp/fm-extension-binding.4ThGdy/packages/entrypoint-traversal id=org.example.traversal adapter=ext-traversal fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/packages/entrypoint-traversal
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.4ThGdy/packages/entrypoint-traversal/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.4ThGdy/packages/entrypoint-traversal/firstmate-extension.json /tmp/fm-extension-binding.4ThGdy/packages/entrypoint-traversal/scenario /tmp/fm-extension-binding.4ThGdy/packages/entrypoint-traversal/helper.txt
++ python3 - /tmp/fm-extension-binding.4ThGdy/packages/entrypoint-traversal/firstmate-extension.json
++ H_TRAVERSAL=/tmp/fm-extension-binding.4ThGdy/homes/entrypoint-traversal
++ new_home /tmp/fm-extension-binding.4ThGdy/homes/entrypoint-traversal
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/homes/entrypoint-traversal
++ expect_failure 'normalized relative POSIX path' bind_package /tmp/fm-extension-binding.4ThGdy/homes/entrypoint-traversal /tmp/fm-extension-binding.4ThGdy/packages/entrypoint-traversal ext-traversal
++ local 'needle=normalized relative POSIX path' out rc=0
++ shift
+++ bind_package /tmp/fm-extension-binding.4ThGdy/homes/entrypoint-traversal /tmp/fm-extension-binding.4ThGdy/packages/entrypoint-traversal ext-traversal
++ out='++ local home=/tmp/fm-extension-binding.4ThGdy/homes/entrypoint-traversal package=/tmp/fm-extension-binding.4ThGdy/packages/entrypoint-traversal adapter=ext-traversal
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/entrypoint-traversal
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/entrypoint-traversal --adapter ext-traversal --trust-same-user-code
+error[binding-failed]: error[path-unsafe]: manifest entrypoint must be a normalized relative POSIX path'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains '++ local home=/tmp/fm-extension-binding.4ThGdy/homes/entrypoint-traversal package=/tmp/fm-extension-binding.4ThGdy/packages/entrypoint-traversal adapter=ext-traversal
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/entrypoint-traversal
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/entrypoint-traversal --adapter ext-traversal --trust-same-user-code
+error[binding-failed]: error[path-unsafe]: manifest entrypoint must be a normalized relative POSIX path' 'normalized relative POSIX path' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ pass 'manifest entrypoint traversal is rejected before execution'
++ printf 'ok - %s\n' 'manifest entrypoint traversal is rejected before execution'
+ok - manifest entrypoint traversal is rejected before execution
++ P_MANIFEST_DUP=/tmp/fm-extension-binding.4ThGdy/packages/manifest-duplicate
++ make_package /tmp/fm-extension-binding.4ThGdy/packages/manifest-duplicate org.example.dup ext-dup
++ local dir=/tmp/fm-extension-binding.4ThGdy/packages/manifest-duplicate id=org.example.dup adapter=ext-dup fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/packages/manifest-duplicate
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.4ThGdy/packages/manifest-duplicate/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.4ThGdy/packages/manifest-duplicate/firstmate-extension.json /tmp/fm-extension-binding.4ThGdy/packages/manifest-duplicate/scenario /tmp/fm-extension-binding.4ThGdy/packages/manifest-duplicate/helper.txt
++ python3 - /tmp/fm-extension-binding.4ThGdy/packages/manifest-duplicate/firstmate-extension.json
++ H_MANIFEST_DUP=/tmp/fm-extension-binding.4ThGdy/homes/manifest-duplicate
++ new_home /tmp/fm-extension-binding.4ThGdy/homes/manifest-duplicate
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/homes/manifest-duplicate
++ expect_failure 'duplicate object key' bind_package /tmp/fm-extension-binding.4ThGdy/homes/manifest-duplicate /tmp/fm-extension-binding.4ThGdy/packages/manifest-duplicate ext-dup
++ local 'needle=duplicate object key' out rc=0
++ shift
+++ bind_package /tmp/fm-extension-binding.4ThGdy/homes/manifest-duplicate /tmp/fm-extension-binding.4ThGdy/packages/manifest-duplicate ext-dup
++ out='++ local home=/tmp/fm-extension-binding.4ThGdy/homes/manifest-duplicate package=/tmp/fm-extension-binding.4ThGdy/packages/manifest-duplicate adapter=ext-dup
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/manifest-duplicate
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/manifest-duplicate --adapter ext-dup --trust-same-user-code
+error[binding-failed]: error[json-invalid]: extension manifest contains duplicate object key: schema'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains '++ local home=/tmp/fm-extension-binding.4ThGdy/homes/manifest-duplicate package=/tmp/fm-extension-binding.4ThGdy/packages/manifest-duplicate adapter=ext-dup
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/manifest-duplicate
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/manifest-duplicate --adapter ext-dup --trust-same-user-code
+error[binding-failed]: error[json-invalid]: extension manifest contains duplicate object key: schema' 'duplicate object key' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ P_MANIFEST_UNKNOWN=/tmp/fm-extension-binding.4ThGdy/packages/manifest-unknown
++ make_package /tmp/fm-extension-binding.4ThGdy/packages/manifest-unknown org.example.unknown ext-manifest-unknown
++ local dir=/tmp/fm-extension-binding.4ThGdy/packages/manifest-unknown id=org.example.unknown adapter=ext-manifest-unknown fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/packages/manifest-unknown
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.4ThGdy/packages/manifest-unknown/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.4ThGdy/packages/manifest-unknown/firstmate-extension.json /tmp/fm-extension-binding.4ThGdy/packages/manifest-unknown/scenario /tmp/fm-extension-binding.4ThGdy/packages/manifest-unknown/helper.txt
++ python3 - /tmp/fm-extension-binding.4ThGdy/packages/manifest-unknown/firstmate-extension.json
++ H_MANIFEST_UNKNOWN=/tmp/fm-extension-binding.4ThGdy/homes/manifest-unknown
++ new_home /tmp/fm-extension-binding.4ThGdy/homes/manifest-unknown
++ mkdir -p /tmp/fm-extension-binding.4ThGdy/homes/manifest-unknown
++ expect_failure 'fields must be exactly' bind_package /tmp/fm-extension-binding.4ThGdy/homes/manifest-unknown /tmp/fm-extension-binding.4ThGdy/packages/manifest-unknown ext-manifest-unknown
++ local 'needle=fields must be exactly' out rc=0
++ shift
+++ bind_package /tmp/fm-extension-binding.4ThGdy/homes/manifest-unknown /tmp/fm-extension-binding.4ThGdy/packages/manifest-unknown ext-manifest-unknown
++ out='++ local home=/tmp/fm-extension-binding.4ThGdy/homes/manifest-unknown package=/tmp/fm-extension-binding.4ThGdy/packages/manifest-unknown adapter=ext-manifest-unknown
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/manifest-unknown
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/manifest-unknown --adapter ext-manifest-unknown --trust-same-user-code
+error[binding-failed]: error[schema-invalid]: extension manifest fields must be exactly: capabilities, entrypoint, host_protocols, id, required_consents, schema, version'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains '++ local home=/tmp/fm-extension-binding.4ThGdy/homes/manifest-unknown package=/tmp/fm-extension-binding.4ThGdy/packages/manifest-unknown adapter=ext-manifest-unknown
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.4ThGdy/homes/manifest-unknown
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.4ThGdy/packages/manifest-unknown --adapter ext-manifest-unknown --trust-same-user-code
+error[binding-failed]: error[schema-invalid]: extension manifest fields must be exactly: capabilities, entrypoint, host_protocols, id, required_consents, schema, version' 'fields must be exactly' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ pass 'manifest JSON rejects duplicate and unknown fields instead of widening into plugin hooks'
++ printf 'ok - %s\n' 'manifest JSON rejects duplicate and unknown fields instead of widening into plugin hooks'
+ok - manifest JSON rejects duplicate and unknown fields instead of widening into plugin hooks
++ section_enabled early-handshake
++ local section
++ for section in "$@"
++ '[' early-validation = early-handshake ']'
++ return 1
++ section_enabled early-integrity
++ local section
++ for section in "$@"
++ '[' early-validation = early-integrity ']'
++ return 1
++ section_enabled matrix matrix-runtime
++ local section
++ for section in "$@"
++ '[' early-validation = matrix ']'
++ for section in "$@"
++ '[' early-validation = matrix-runtime ']'
++ return 1
++ section_enabled lifecycle-host-errors
++ local section
++ for section in "$@"
++ '[' early-validation = lifecycle-host-errors ']'
++ return 1
++ section_enabled lifecycle-flow
++ local section
++ for section in "$@"
++ '[' early-validation = lifecycle-flow ']'
++ return 1
++ section_enabled lifecycle-order
++ local section
++ for section in "$@"
++ '[' early-validation = lifecycle-order ']'
++ return 1
++ section_enabled lifecycle-lock
++ local section
++ for section in "$@"
++ '[' early-validation = lifecycle-lock ']'
++ return 1
++ section_enabled lifecycle-runner
++ local section
++ for section in "$@"
++ '[' early-validation = lifecycle-runner ']'
++ return 1
++ section_enabled lifecycle-state
++ local section
++ for section in "$@"
++ '[' early-validation = lifecycle-state ']'
++ return 1
++ section_enabled lifecycle-invocation-cleanup
++ local section
++ for section in "$@"
++ '[' early-validation = lifecycle-invocation-cleanup ']'
++ return 1
++ section_enabled lifecycle-flow lifecycle-orphan-readiness
++ local section
++ for section in "$@"
++ '[' early-validation = lifecycle-flow ']'
++ for section in "$@"
++ '[' early-validation = lifecycle-orphan-readiness ']'
++ return 1
++ section_enabled remote-envelope remote-activation remote-lifecycle remote-retirement
++ local section
++ for section in "$@"
++ '[' early-validation = remote-envelope ']'
++ for section in "$@"
++ '[' early-validation = remote-activation ']'
++ for section in "$@"
++ '[' early-validation = remote-lifecycle ']'
++ for section in "$@"
++ '[' early-validation = remote-retirement ']'
++ return 1
++ section_enabled example
++ local section
++ for section in "$@"
++ '[' early-validation = example ']'
++ return 1
++ printf '\nall extension-binding tests passed\n'
+
+all extension-binding tests passed
++ extension_test_cleanup
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -n '' ']'
++ '[' -f /tmp/fm-extension-binding.4ThGdy/remote-jobs/worker.pid ']'
++ '[' -n '' ']'
++ '[' -n '' ']'
++ chmod -R u+w /tmp/fm-extension-binding.4ThGdy
++ test_cleanup
++ local d
++ test_reap_watchers
++ local state lock_home 'seen=
+'
++ '[' -f /tmp/.fm-test-watcher.1.u3T6vP ']'
++ IFS=
++ read -r state
++ rm -f /tmp/.fm-test-watcher.1.u3T6vP
++ test_reap_procevent_homes
++ local home claim_root 'seen=
+'
++ '[' -f /tmp/.fm-test-procevent.1.Y6W44J ']'
++ IFS='	'
++ read -r home claim_root
++ rm -f /tmp/.fm-test-procevent.1.Y6W44J
++ for d in "${FM_TEST_CLEANUP_DIRS[@]:-}"
++ '[' -n '' ']'
++ '[' -f /tmp/.fm-test-cleanup.1.Ai6Px5 ']'
++ IFS=
++ read -r d
++ '[' -n /tmp/fm-extension-binding.4ThGdy ']'
++ test_reap_root_processes /tmp/fm-extension-binding.4ThGdy
++ local root=/tmp/fm-extension-binding.4ThGdy chain pid pids signal i
++ '[' -n /tmp/fm-extension-binding.4ThGdy ']'
++ '[' /tmp/fm-extension-binding.4ThGdy '!=' / ']'
++ chain=' '
++ pid=1
++ '[' -n 1 ']'
++ '[' 1 -gt 1 ']'
++ for signal in TERM KILL
++ i=0
++ '[' 0 -lt 20 ']'
+++ ps -ww -eo pid=,args=
+++ FM_TEST_REAP_ROOT=/tmp/fm-extension-binding.4ThGdy/
+++ awk -v 'chain= ' 'index($0, ENVIRON["FM_TEST_REAP_ROOT"]) && index(chain, " " $1 " ") == 0 { print $1 }'
++ pids=
++ '[' -n '' ']'
++ return 0
++ test_remove_tree /tmp/fm-extension-binding.4ThGdy
++ local dir=/tmp/fm-extension-binding.4ThGdy
++ '[' -d /tmp/fm-extension-binding.4ThGdy ']'
++ '[' '!' -L /tmp/fm-extension-binding.4ThGdy ']'
++ find /tmp/fm-extension-binding.4ThGdy -type d -exec chmod u+rwx '{}' +
++ rm -rf /tmp/fm-extension-binding.4ThGdy
++ IFS=
++ read -r d
++ rm -f /tmp/.fm-test-cleanup.1.Ai6Px5

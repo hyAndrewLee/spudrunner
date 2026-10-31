@@ -1,0 +1,8 @@
+External owner paused at launch boundary:
+387
+.claim.wxlxC6-387
+2096:1335551
+Both extension and built-in re-registration refused while prior owner remains active.
+ok - all registration owner transitions wait for the prior extension runner
+
+all extension-binding tests passed

@@ -1,0 +1,40 @@
+diff --git a/bin/process-events.sh b/bin/process-events.sh
+index 25b570f9..eb6cbb16 100755
+--- a/bin/process-events.sh
++++ b/bin/process-events.sh
+@@ -752,6 +752,12 @@ cmd_register_extension() {
+   # result holds the source lock while the extension host takes the lifecycle
+   # lock. The reverse order here would let both wait on each other forever.
+   process_events_source_lock_acquire "$id" || die "cannot lock the source"
++  # An active external poll holds the lifecycle lock until it completes.
++  # Refuse its replacement before waiting, retaining the locked recheck below.
++  if ! extension_registration_replacement_safe_locked "$id"; then
++    process_events_source_lock_release "$id"
++    die "cannot replace extension registration while its prior runner remains active: $id"
++  fi
+   if ! extension_lifecycle_lock_acquire; then
+     process_events_source_lock_release "$id"
+     die "cannot lock the extension lifecycle"
+diff --git a/tests/extension-host-binding.test.sh b/tests/extension-host-binding.test.sh
+index fb01d130..3bca8cdd 100644
+--- a/tests/extension-host-binding.test.sh
++++ b/tests/extension-host-binding.test.sh
+@@ -1553,8 +1553,18 @@ FM_HOME="$H_ACTIVE_RUNNER" "$PROCEVENT" register-extension ext-flow active-sourc
+ FM_HOME="$H_ACTIVE_RUNNER" "$PROCEVENT" start active-source > "$TMP_ROOT/active-runner.out" 2>&1 &
+ active_runner_pid=$!
+ wait_for_file "$active_runner_marker" || fail "active extension runner never entered its poll"
++cp "$H_ACTIVE_RUNNER/state/procevent/active-source.source" "$TMP_ROOT/active-original.source"
++cp "$FM_PROCEVENT_CLAIM_ROOT/active-source.claim" "$TMP_ROOT/active-original.claim"
++cp "$H_ACTIVE_RUNNER/state/procevent/active-source.runner" "$TMP_ROOT/active-original.runner"
++cp "$active_runner_marker" "$TMP_ROOT/active-original.marker"
+ expect_failure "prior runner remains active" env FM_HOME="$H_ACTIVE_RUNNER" "$PROCEVENT" register-extension ext-flow active-source --config-ref replacement
+ expect_failure "prior runner remains active" env FM_HOME="$H_ACTIVE_RUNNER" "$PROCEVENT" register lavish active-source -- /bin/echo built-in
++kill -0 "$active_runner_pid" || fail "replacement refusal stopped the original runner"
++assert_absent "$active_runner_release" "replacement refusal released the active poll"
++cmp "$TMP_ROOT/active-original.source" "$H_ACTIVE_RUNNER/state/procevent/active-source.source" || fail "refusal changed the registration"
++cmp "$TMP_ROOT/active-original.claim" "$FM_PROCEVENT_CLAIM_ROOT/active-source.claim" || fail "refusal changed the claim owner"
++cmp "$TMP_ROOT/active-original.runner" "$H_ACTIVE_RUNNER/state/procevent/active-source.runner" || fail "refusal changed the runner identity"
++cmp "$TMP_ROOT/active-original.marker" "$active_runner_marker" || fail "refusal restarted the poll"
+ touch "$active_runner_release"
+ active_runner_release=
+ wait "$active_runner_pid" || fail "active extension runner did not complete"

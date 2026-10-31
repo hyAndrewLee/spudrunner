@@ -1,0 +1,12 @@
+schema=fm-remote-delta.v1
+status=delta
+path=state/parent-replies.status
+from_offset=565
+to_offset=578
+from_prefix_sha256=dcdb870cc1707c25073d8178d5938237ef8309419fff59c1a3f3012e999e7787
+to_prefix_sha256=bcc7f008c8c79be90f03ecb1c5ee1538894977a2a46fd7a56cda291993ec1dba
+payload_sha256=722d1fd0c6cbb05105da5e8dedff7c8784d58d03df345f59076ea87cad08c6a5
+payload_bytes=13
+reason=
+
+status=delta

@@ -1,0 +1,494 @@
++ set -u
++ '[' 0 = 1 ']'
+++ dirname tests/extension-host-binding.test.sh
++ . tests/lib.sh
+++ '[' -n '' ']'
+++ FM_TEST_LIB_SOURCED=1
+++ umask 022
++++ dirname tests/lib.sh
+++ . tests/git-config-helpers.sh
++++ export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
++++ GIT_CONFIG_GLOBAL=/dev/null
++++ GIT_CONFIG_NOSYSTEM=1
++++ unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_COMMON_DIR
+++ export FM_GATE_REFUSE_BYPASS=1
+++ FM_GATE_REFUSE_BYPASS=1
+++ export FM_TEST_SEAM=1
+++ FM_TEST_SEAM=1
+++ unset FM_TASK_ID
+++ unset TASKS_AXI_FILE TASKS_AXI_BACKEND
+++ unset REX_SESSION REX_BLOCK
+++++ dirname tests/lib.sh
++++ cd tests/..
++++ pwd
+++ ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ FM_TEST_TMPDIR=/tmp
+++ FM_TEST_CLEANUP_DIRS=()
++++ mktemp /tmp/.fm-test-cleanup.1.XXXXXX
+++ FM_TEST_CLEANUP_REGISTRY=/tmp/.fm-test-cleanup.1.TJj12O
++++ test_pid_identity 1
++++ local pid=1
++++ FM_STATE_OVERRIDE=/tmp
++++ bash -c '. "$1"; pid_identity "$2"' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/supervision-events-lib.sh 1
+++ FM_TEST_OWNER_IDENTITY='linux-starttime=11528831 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
++++ mktemp /tmp/.fm-test-procevent.1.XXXXXX
+++ FM_TEST_PROCEVENT_REGISTRY=/tmp/.fm-test-procevent.1.KJMDLK
++++ mktemp /tmp/.fm-test-watcher.1.XXXXXX
+++ FM_TEST_WATCHER_REGISTRY=/tmp/.fm-test-watcher.1.wSxo8y
+++ FM_TEST_STUB_MAX_BLOCK_SECONDS=120
+++ export FM_TEST_STUB_MAX_BLOCK_SECONDS
+++ FM_TEST_SUITE_PID=1
+++ export FM_TEST_SUITE_PID
+++ trap test_cleanup EXIT
+++ trap 'test_cleanup; exit 130' INT
+++ trap 'test_cleanup; exit 143' TERM
+++ trap 'test_cleanup; exit 129' HUP
+++ trap 'test_cleanup; exit 131' QUIT
+++ FM_TEST_ORPHAN_MAX_AGE_SECONDS=3600
+++ '[' 0 '!=' 1 ']'
+++ test_reap_orphans
+++ local marker dir mtime now owner_pid owner_identity current_identity
++++ date +%s
+++ now=1793433685
+++ for marker in "$FM_TEST_TMPDIR"/fm-*/.fm-test-fixture
+++ '[' -e '/tmp/fm-*/.fm-test-fixture' ']'
+++ continue
++ extension_segment=early-integrity
++ case "$extension_segment" in
++ HOST=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs
++ PROCEVENT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh
+++ test_tmproot fm-extension-binding
+++ local prefix=fm-extension-binding root tmp_base
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ tmp_base=/tmp
+++ tmp_base=/tmp
++++ mktemp -d /tmp/fm-extension-binding.XXXXXX
+++ root=/tmp/fm-extension-binding.KCok30
++++ cd -P -- /tmp/fm-extension-binding.KCok30
++++ pwd -P
+++ root=/tmp/fm-extension-binding.KCok30
+++ printf '%s\n%s\n' 1 'linux-starttime=11528831 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
+++ printf '%s\n' /tmp/fm-extension-binding.KCok30
+++ printf '%s\n' /tmp/fm-extension-binding.KCok30
++ TMP_ROOT_RAW=/tmp/fm-extension-binding.KCok30
+++ cd /tmp/fm-extension-binding.KCok30
+++ pwd -P
++ TMP_ROOT=/tmp/fm-extension-binding.KCok30
++ first_bind_pid=
++ second_bind_pid=
++ handshake_orphan_pid=
++ concurrent_release=
++ race_register_pid=
++ race_retire_pid=
++ race_release=
++ process_race_start_pid=
++ process_race_retire_pid=
++ process_race_release=
++ registry_race_pid=
++ registry_race_release=
++ leaf_race_pid=
++ leaf_race_release=
++ owner_retire_pid=
++ owner_worker_pid=
++ owner_register_pid=
++ signal_retire_pid=
++ signal_worker_pid=
++ active_runner_pid=
++ active_runner_release=
++ remote_active_release=
++ unrelated_daemon_pid=
++ unrelated_launcher_pid=
++ signal_cleanup_host_pid=
++ signal_cleanup_group_pid=
++ crash_cleanup_host_pid=
++ crash_cleanup_group_pid=
++ crash_cleanup_release=
++ crash_silent_start_pid=
++ crash_silent_runner_pid=
++ override_crash_start_pid=
++ override_crash_runner_pid=
++ order_register_pid=
++ order_reconcile_pid=
++ order_release=
++ section_coordinator_pid=
++ trap extension_test_cleanup EXIT
++ trap 'extension_test_cleanup; exit 130' INT
++ trap 'extension_test_cleanup; exit 143' TERM
++ export FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.KCok30/claims
++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.KCok30/claims
++ PACKAGES=/tmp/fm-extension-binding.KCok30/packages
++ HOMES=/tmp/fm-extension-binding.KCok30/homes
++ mkdir -p /tmp/fm-extension-binding.KCok30/packages /tmp/fm-extension-binding.KCok30/homes
++ '[' 0 = 1 ']'
++ section_enabled coordinator-fail
++ local section
++ for section in "$@"
++ '[' early-integrity = coordinator-fail ']'
++ return 1
++ section_enabled coordinator-wait
++ local section
++ for section in "$@"
++ '[' early-integrity = coordinator-wait ']'
++ return 1
++ section_enabled coordinator-stubborn
++ local section
++ for section in "$@"
++ '[' early-integrity = coordinator-stubborn ']'
++ return 1
++ section_enabled coordinator-pass
++ local section
++ for section in "$@"
++ '[' early-integrity = coordinator-pass ']'
++ return 1
++ section_enabled coordinator-late-pass
++ local section
++ for section in "$@"
++ '[' early-integrity = coordinator-late-pass ']'
++ return 1
++ section_enabled coordinator-scheduler-block
++ local section
++ for section in "$@"
++ '[' early-integrity = coordinator-scheduler-block ']'
++ return 1
++ section_enabled coordinator-scheduler-late
++ local section
++ for section in "$@"
++ '[' early-integrity = coordinator-scheduler-late ']'
++ return 1
++ '[' early-integrity = all ']'
++ '[' early-integrity = coordinator ']'
++ section_enabled early-bind
++ local section
++ for section in "$@"
++ '[' early-integrity = early-bind ']'
++ return 1
++ section_enabled early-validation
++ local section
++ for section in "$@"
++ '[' early-integrity = early-validation ']'
++ return 1
++ section_enabled early-handshake
++ local section
++ for section in "$@"
++ '[' early-integrity = early-handshake ']'
++ return 1
++ section_enabled early-integrity
++ local section
++ for section in "$@"
++ '[' early-integrity = early-integrity ']'
++ return 0
++ P_GOOD=/tmp/fm-extension-binding.KCok30/packages/good
++ make_package /tmp/fm-extension-binding.KCok30/packages/good org.example.good ext-good
++ local dir=/tmp/fm-extension-binding.KCok30/packages/good id=org.example.good adapter=ext-good fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.KCok30/packages/good
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.KCok30/packages/good/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.KCok30/packages/good/firstmate-extension.json /tmp/fm-extension-binding.KCok30/packages/good/scenario /tmp/fm-extension-binding.KCok30/packages/good/helper.txt
++ H_GOOD=/tmp/fm-extension-binding.KCok30/homes/good
++ new_home /tmp/fm-extension-binding.KCok30/homes/good
++ mkdir -p /tmp/fm-extension-binding.KCok30/homes/good
++ bind_package /tmp/fm-extension-binding.KCok30/homes/good /tmp/fm-extension-binding.KCok30/packages/good ext-good
++ local home=/tmp/fm-extension-binding.KCok30/homes/good package=/tmp/fm-extension-binding.KCok30/packages/good adapter=ext-good
++ shift 3
++ FM_HOME=/tmp/fm-extension-binding.KCok30/homes/good
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.KCok30/packages/good --adapter ext-good --trust-same-user-code
+++ binding_value /tmp/fm-extension-binding.KCok30/homes/good org.example.good package_root
+++ node -e '
+    const fs = require("fs");
+    const value = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
+    const path = process.argv[2].split(".");
+    let current = value;
+    for (const key of path) current = current[key];
+    process.stdout.write(String(current));
+  ' /tmp/fm-extension-binding.KCok30/homes/good/config/extensions.d/org.example.good.json package_root
++ package_root=/tmp/fm-extension-binding.KCok30/homes/good/data/extensions/packages/org.example.good/1.2.3/53a51c533500f21429633827f792e97e5b919252f60171aa0dec7844ffe9ef32
++ chmod 0644 /tmp/fm-extension-binding.KCok30/homes/good/config/extensions.d/org.example.good.json
++ expect_failure 'mode 0600' env FM_HOME=/tmp/fm-extension-binding.KCok30/homes/good /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs verify org.example.good
++ local 'needle=mode 0600' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.KCok30/homes/good /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs verify org.example.good
++ out='error[mode-unsafe]: extension binding org.example.good.json must have mode 0600'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[mode-unsafe]: extension binding org.example.good.json must have mode 0600' 'mode 0600' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ chmod 0600 /tmp/fm-extension-binding.KCok30/homes/good/config/extensions.d/org.example.good.json
++ binding_good=/tmp/fm-extension-binding.KCok30/homes/good/config/extensions.d/org.example.good.json
++ ln /tmp/fm-extension-binding.KCok30/homes/good/config/extensions.d/org.example.good.json /tmp/fm-extension-binding.KCok30/binding-hardlink
++ expect_failure 'single regular file' env FM_HOME=/tmp/fm-extension-binding.KCok30/homes/good /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs verify org.example.good
++ local 'needle=single regular file' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.KCok30/homes/good /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs verify org.example.good
++ out='error[link-unsafe]: extension binding org.example.good.json is not a single regular file'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[link-unsafe]: extension binding org.example.good.json is not a single regular file' 'single regular file' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ rm -f /tmp/fm-extension-binding.KCok30/binding-hardlink
++ mv /tmp/fm-extension-binding.KCok30/homes/good/config/extensions.d/org.example.good.json /tmp/fm-extension-binding.KCok30/binding-target.json
++ ln -s /tmp/fm-extension-binding.KCok30/binding-target.json /tmp/fm-extension-binding.KCok30/homes/good/config/extensions.d/org.example.good.json
++ expect_failure 'single regular file' env FM_HOME=/tmp/fm-extension-binding.KCok30/homes/good /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs verify org.example.good
++ local 'needle=single regular file' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.KCok30/homes/good /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs verify org.example.good
++ out='error[link-unsafe]: extension binding org.example.good.json is not a single regular file'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[link-unsafe]: extension binding org.example.good.json is not a single regular file' 'single regular file' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ rm -f /tmp/fm-extension-binding.KCok30/homes/good/config/extensions.d/org.example.good.json
++ mv /tmp/fm-extension-binding.KCok30/binding-target.json /tmp/fm-extension-binding.KCok30/homes/good/config/extensions.d/org.example.good.json
++ chmod 0755 /tmp/fm-extension-binding.KCok30/homes/good/data/extensions/packages/org.example.good/1.2.3/53a51c533500f21429633827f792e97e5b919252f60171aa0dec7844ffe9ef32
++ chmod 0644 /tmp/fm-extension-binding.KCok30/homes/good/data/extensions/packages/org.example.good/1.2.3/53a51c533500f21429633827f792e97e5b919252f60171aa0dec7844ffe9ef32/helper.txt
++ printf 'mutated helper\n'
++ chmod 0444 /tmp/fm-extension-binding.KCok30/homes/good/data/extensions/packages/org.example.good/1.2.3/53a51c533500f21429633827f792e97e5b919252f60171aa0dec7844ffe9ef32/helper.txt
++ chmod 0555 /tmp/fm-extension-binding.KCok30/homes/good/data/extensions/packages/org.example.good/1.2.3/53a51c533500f21429633827f792e97e5b919252f60171aa0dec7844ffe9ef32
++ expect_failure 'tree digest' env FM_HOME=/tmp/fm-extension-binding.KCok30/homes/good /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs verify org.example.good
++ local 'needle=tree digest' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.KCok30/homes/good /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs verify org.example.good
++ out='error[integrity-mismatch]: installed package tree digest does not match the binding'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[integrity-mismatch]: installed package tree digest does not match the binding' 'tree digest' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ pass 'binding mode and complete installed code-tree digest are revalidated'
++ printf 'ok - %s\n' 'binding mode and complete installed code-tree digest are revalidated'
+ok - binding mode and complete installed code-tree digest are revalidated
++ P_IDENTITY=/tmp/fm-extension-binding.KCok30/packages/identity
++ make_package /tmp/fm-extension-binding.KCok30/packages/identity org.example.identity ext-identity
++ local dir=/tmp/fm-extension-binding.KCok30/packages/identity id=org.example.identity adapter=ext-identity fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.KCok30/packages/identity
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.KCok30/packages/identity/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.KCok30/packages/identity/firstmate-extension.json /tmp/fm-extension-binding.KCok30/packages/identity/scenario /tmp/fm-extension-binding.KCok30/packages/identity/helper.txt
++ H_IDENTITY=/tmp/fm-extension-binding.KCok30/homes/identity
++ new_home /tmp/fm-extension-binding.KCok30/homes/identity
++ mkdir -p /tmp/fm-extension-binding.KCok30/homes/identity
++ bind_package /tmp/fm-extension-binding.KCok30/homes/identity /tmp/fm-extension-binding.KCok30/packages/identity ext-identity
++ local home=/tmp/fm-extension-binding.KCok30/homes/identity package=/tmp/fm-extension-binding.KCok30/packages/identity adapter=ext-identity
++ shift 3
++ FM_HOME=/tmp/fm-extension-binding.KCok30/homes/identity
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.KCok30/packages/identity --adapter ext-identity --trust-same-user-code
+++ binding_value /tmp/fm-extension-binding.KCok30/homes/identity org.example.identity package_root
+++ node -e '
+    const fs = require("fs");
+    const value = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
+    const path = process.argv[2].split(".");
+    let current = value;
+    for (const key of path) current = current[key];
+    process.stdout.write(String(current));
+  ' /tmp/fm-extension-binding.KCok30/homes/identity/config/extensions.d/org.example.identity.json package_root
++ identity_root=/tmp/fm-extension-binding.KCok30/homes/identity/data/extensions/packages/org.example.identity/1.2.3/ce54713ce01fd3abfb68589047d270789eb53e5e49cee9324526d436d2f58b55
++ chmod 0755 /tmp/fm-extension-binding.KCok30/homes/identity/data/extensions/packages/org.example.identity/1.2.3/ce54713ce01fd3abfb68589047d270789eb53e5e49cee9324526d436d2f58b55
++ chmod 0755 /tmp/fm-extension-binding.KCok30/homes/identity/data/extensions/packages/org.example.identity/1.2.3/ce54713ce01fd3abfb68589047d270789eb53e5e49cee9324526d436d2f58b55/entrypoint.py
++ printf '\n# changed identity\n'
++ chmod 0555 /tmp/fm-extension-binding.KCok30/homes/identity/data/extensions/packages/org.example.identity/1.2.3/ce54713ce01fd3abfb68589047d270789eb53e5e49cee9324526d436d2f58b55/entrypoint.py /tmp/fm-extension-binding.KCok30/homes/identity/data/extensions/packages/org.example.identity/1.2.3/ce54713ce01fd3abfb68589047d270789eb53e5e49cee9324526d436d2f58b55
++ expect_failure 'tree digest' env FM_HOME=/tmp/fm-extension-binding.KCok30/homes/identity /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs verify org.example.identity
++ local 'needle=tree digest' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.KCok30/homes/identity /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs verify org.example.identity
++ out='error[integrity-mismatch]: installed package tree digest does not match the binding'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[integrity-mismatch]: installed package tree digest does not match the binding' 'tree digest' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ pass 'the exact executable identity cannot change underneath a binding'
++ printf 'ok - %s\n' 'the exact executable identity cannot change underneath a binding'
+ok - the exact executable identity cannot change underneath a binding
++ section_enabled matrix matrix-runtime
++ local section
++ for section in "$@"
++ '[' early-integrity = matrix ']'
++ for section in "$@"
++ '[' early-integrity = matrix-runtime ']'
++ return 1
++ section_enabled lifecycle-host-errors
++ local section
++ for section in "$@"
++ '[' early-integrity = lifecycle-host-errors ']'
++ return 1
++ section_enabled lifecycle-flow
++ local section
++ for section in "$@"
++ '[' early-integrity = lifecycle-flow ']'
++ return 1
++ section_enabled lifecycle-order
++ local section
++ for section in "$@"
++ '[' early-integrity = lifecycle-order ']'
++ return 1
++ section_enabled lifecycle-lock
++ local section
++ for section in "$@"
++ '[' early-integrity = lifecycle-lock ']'
++ return 1
++ section_enabled lifecycle-runner
++ local section
++ for section in "$@"
++ '[' early-integrity = lifecycle-runner ']'
++ return 1
++ section_enabled lifecycle-state
++ local section
++ for section in "$@"
++ '[' early-integrity = lifecycle-state ']'
++ return 1
++ section_enabled lifecycle-invocation-cleanup
++ local section
++ for section in "$@"
++ '[' early-integrity = lifecycle-invocation-cleanup ']'
++ return 1
++ section_enabled lifecycle-flow lifecycle-orphan-readiness
++ local section
++ for section in "$@"
++ '[' early-integrity = lifecycle-flow ']'
++ for section in "$@"
++ '[' early-integrity = lifecycle-orphan-readiness ']'
++ return 1
++ section_enabled remote-envelope remote-activation remote-lifecycle remote-retirement
++ local section
++ for section in "$@"
++ '[' early-integrity = remote-envelope ']'
++ for section in "$@"
++ '[' early-integrity = remote-activation ']'
++ for section in "$@"
++ '[' early-integrity = remote-lifecycle ']'
++ for section in "$@"
++ '[' early-integrity = remote-retirement ']'
++ return 1
++ section_enabled example
++ local section
++ for section in "$@"
++ '[' early-integrity = example ']'
++ return 1
++ printf '\nall extension-binding tests passed\n'
+
+all extension-binding tests passed
++ extension_test_cleanup
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -n '' ']'
++ '[' -f /tmp/fm-extension-binding.KCok30/remote-jobs/worker.pid ']'
++ '[' -n '' ']'
++ '[' -n '' ']'
++ chmod -R u+w /tmp/fm-extension-binding.KCok30
++ test_cleanup
++ local d
++ test_reap_watchers
++ local state lock_home 'seen=
+'
++ '[' -f /tmp/.fm-test-watcher.1.wSxo8y ']'
++ IFS=
++ read -r state
++ rm -f /tmp/.fm-test-watcher.1.wSxo8y
++ test_reap_procevent_homes
++ local home claim_root 'seen=
+'
++ '[' -f /tmp/.fm-test-procevent.1.KJMDLK ']'
++ IFS='	'
++ read -r home claim_root
++ rm -f /tmp/.fm-test-procevent.1.KJMDLK
++ for d in "${FM_TEST_CLEANUP_DIRS[@]:-}"
++ '[' -n '' ']'
++ '[' -f /tmp/.fm-test-cleanup.1.TJj12O ']'
++ IFS=
++ read -r d
++ '[' -n /tmp/fm-extension-binding.KCok30 ']'
++ test_reap_root_processes /tmp/fm-extension-binding.KCok30
++ local root=/tmp/fm-extension-binding.KCok30 chain pid pids signal i
++ '[' -n /tmp/fm-extension-binding.KCok30 ']'
++ '[' /tmp/fm-extension-binding.KCok30 '!=' / ']'
++ chain=' '
++ pid=1
++ '[' -n 1 ']'
++ '[' 1 -gt 1 ']'
++ for signal in TERM KILL
++ i=0
++ '[' 0 -lt 20 ']'
+++ ps -ww -eo pid=,args=
+++ FM_TEST_REAP_ROOT=/tmp/fm-extension-binding.KCok30/
+++ awk -v 'chain= ' 'index($0, ENVIRON["FM_TEST_REAP_ROOT"]) && index(chain, " " $1 " ") == 0 { print $1 }'
++ pids=
++ '[' -n '' ']'
++ return 0
++ test_remove_tree /tmp/fm-extension-binding.KCok30
++ local dir=/tmp/fm-extension-binding.KCok30
++ '[' -d /tmp/fm-extension-binding.KCok30 ']'
++ '[' '!' -L /tmp/fm-extension-binding.KCok30 ']'
++ find /tmp/fm-extension-binding.KCok30 -type d -exec chmod u+rwx '{}' +
++ rm -rf /tmp/fm-extension-binding.KCok30
++ IFS=
++ read -r d
++ rm -f /tmp/.fm-test-cleanup.1.TJj12O

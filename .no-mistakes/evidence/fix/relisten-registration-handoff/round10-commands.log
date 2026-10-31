@@ -1,0 +1,30 @@
+timeout -k 10 360 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/remote-reply.test.sh
+remote-reply exit=0
+timeout -k 10 650 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/process-events.test.sh
+process-events exit=0
+timeout -k 10 120 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/remote-delta-read.test.sh
+remote-delta-read exit=0
+FM_EXTENSION_BINDING_SEGMENT=lifecycle-runner timeout -k 10 110 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/extension-host-binding.test.sh
+lifecycle-runner exit=0
+FM_EXTENSION_BINDING_SEGMENT=lifecycle-order timeout -k 10 110 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/extension-host-binding.test.sh
+lifecycle-order exit=0
+FM_EXTENSION_BINDING_SEGMENT=early-integrity timeout -k 10 110 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/extension-host-binding.test.sh
+early-integrity exit=0
+FM_EXTENSION_BINDING_SEGMENT=early-validation timeout -k 10 110 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/extension-host-binding.test.sh
+early-validation exit=0
+FM_EXTENSION_BINDING_SEGMENT=lifecycle-lock timeout -k 10 110 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/extension-host-binding.test.sh
+lifecycle-lock exit=1
+FM_EXTENSION_BINDING_SEGMENT=lifecycle-state timeout -k 10 110 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/extension-host-binding.test.sh
+lifecycle-state exit=1
+FM_EXTENSION_BINDING_SEGMENT=lifecycle-lock timeout -k 10 110 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/.round10-baseline.test.sh
+baseline-lifecycle-lock exit=2
+FM_EXTENSION_BINDING_SEGMENT=lifecycle-state timeout -k 10 110 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/.round10-baseline.test.sh
+baseline-lifecycle-state exit=2
+timeout -k 10 360 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/.round10-handoff.test.sh
+handoff-evidence exit=2
+FM_EXTENSION_BINDING_SEGMENT=lifecycle-lock timeout -k 10 110 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/.round10-baseline.test.sh (complete fixture)
+baseline-complete-lifecycle-lock exit=1
+FM_EXTENSION_BINDING_SEGMENT=lifecycle-state timeout -k 10 110 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/.round10-baseline.test.sh (complete fixture)
+baseline-complete-lifecycle-state exit=1
+timeout -k 10 360 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/.round10-handoff.test.sh (complete fixture)
+handoff-complete exit=0

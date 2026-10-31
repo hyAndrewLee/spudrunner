@@ -1,0 +1,48 @@
+Active poll entered; readiness marker:
+-rw-r--r-- 1 andrew root 4 Oct 31 03:19 /tmp/fm-extension-binding.w8R3MH/active-runner.marker
+
+Registration before replacement:
+adapter=ext-flow
+owner=extension
+extension_schema=fm-procevent-extension-owner.v1
+extension_id=org.example.flow
+extension_version=1.2.3
+capability_version=1
+package_digest=sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13
+binding_digest=sha256:536fcea2f413ea948af450e54a30852cbc2d725ac9f063a24acad1d83aed41c1
+config_ref=active-block|/tmp/fm-extension-binding.w8R3MH/active-runner.marker|/tmp/fm-extension-binding.w8R3MH/active-runner.release
+registration_token=sha256:60c7b334df0db94d5adcaea7188690489d978ee9b124071cf94d5111e212287c
+argc=0
+argv:
+
+Claim before replacement:
+/tmp/fm-extension-binding.w8R3MH/homes/active-runner
+387
+.claim.cmLPzD-387
+linux-starttime=11277503 cmdline-hex=62617368002f686f6d652f616e647265772f2e6e6f2d6d697374616b65732d7370756472756e6e65722d76616c69646174696f6e2f776f726b74726565732f6361353337376631313964342f30314d36383652524e4239354a53464d315035544257513359592f2e76616c69646174696f6e2d746d702f626173656c696e652f62696e2f70726f636573732d6576656e74732e7368005f7374617274006163746976652d736f7572636500
+/tmp/fm-extension-binding.w8R3MH/homes/active-runner/state/procevent
+2096:1339695
+active
+/tmp/fm-extension-binding.w8R3MH/homes/active-runner/state
+2096
+1339667
+0
+755
+
+Private fixture processes:
+  PID  PPID COMMAND
+    1     0 python3 .validation-tmp/pid1.py /usr/bin/bash -x .validation-tmp/baseline/tests/round7-active-trace-driver.sh
+    4     1 /usr/bin/bash -x .validation-tmp/baseline/tests/round7-active-trace-driver.sh
+  330     4 bash /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation-tmp/baseline/bin/process-events.sh start active-source
+  384   330 bash /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation-tmp/baseline/bin/process-events.sh start active-source
+  385   384 sleep 1
+  386   330 perl -e my $mode = shift @ARGV;     defined(my $pid = fork) or exit 125;     if ($pid == 0) {       setpgrp(0, 0) or exit 125;       $ENV{FM_PROCEVENT_RUNNER_GROUP} = $$;       exec @ARGV;       exit 125;     }     exit 0 if $mode eq "detach";     waitpid($pid, 0) == $pid or exit 125;     my $status = $?;     exit(128 + ($status & 127)) if $status & 127;     exit($status >> 8); wait /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation-tmp/baseline/bin/process-events.sh _start active-source
+  387   386 bash /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation-tmp/baseline/bin/process-events.sh _start active-source
+  547     1 bash /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation-tmp/baseline/bin/process-events.sh _owner-watchdog active-source 387 linux-starttime=11277503 cmdline-hex=62617368002f686f6d652f616e647265772f2e6e6f2d6d697374616b65732d7370756472756e6e65722d76616c69646174696f6e2f776f726b74726565732f6361353337376631313964342f30314d36383652524e4239354a53464d315035544257513359592f2e76616c69646174696f6e2d746d702f626173656c696e652f62696e2f70726f636573732d6576656e74732e7368005f7374617274006163746976652d736f7572636500 /tmp/fm-extension-binding.w8R3MH/homes/active-runner/state/procevent/.owner-guard-ready.JVI8Sv 2096 1339667
+  624   547 sleep 7.5
+  738   387 perl /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation-tmp/baseline/bin/process-events-extension-capture.pl 9 8 6 active-source ext-flow org.example.flow 1.2.3 1 sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13 sha256:536fcea2f413ea948af450e54a30852cbc2d725ac9f063a24acad1d83aed41c1 .claim.cmLPzD-387 active-source.runner .active-source..claim.cmLPzD-387.output 387 linux-starttime=11277503 cmdline-hex=62617368002f686f6d652f616e647265772f2e6e6f2d6d697374616b65732d7370756472756e6e65722d76616c69646174696f6e2f776f726b74726565732f6361353337376631313964342f30314d36383652524e4239354a53464d315035544257513359592f2e76616c69646174696f6e2d746d702f626173656c696e652f62696e2f70726f636573732d6576656e74732e7368005f7374617274006163746976652d736f7572636500 1048576 .active-source..claim.cmLPzD-387.launch-ready -- /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation-tmp/baseline/bin/extension-host.mjs process-event ext-flow source.poll --source-id active-source --config-ref active-block|/tmp/fm-extension-binding.w8R3MH/active-runner.marker|/tmp/fm-extension-binding.w8R3MH/active-runner.release --request-id sha256:3fb54e90115ca6e6faa7058c84c6eb22d2c64ec73a07382cb10fbc965c625ffb --expect-extension org.example.flow --expect-version 1.2.3 --expect-capability-version 1 --expect-package-digest sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13 --expect-binding-digest sha256:536fcea2f413ea948af450e54a30852cbc2d725ac9f063a24acad1d83aed41c1
+  748   738 node /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation-tmp/baseline/bin/extension-host.mjs process-event ext-flow source.poll --source-id active-source --config-ref active-block|/tmp/fm-extension-binding.w8R3MH/active-runner.marker|/tmp/fm-extension-binding.w8R3MH/active-runner.release --request-id sha256:3fb54e90115ca6e6faa7058c84c6eb22d2c64ec73a07382cb10fbc965c625ffb --expect-extension org.example.flow --expect-version 1.2.3 --expect-capability-version 1 --expect-package-digest sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13 --expect-binding-digest sha256:536fcea2f413ea948af450e54a30852cbc2d725ac9f063a24acad1d83aed41c1
+  772   748 firstmate-extension-host host-token:sha256:fca32d2fd19b6b8c5c06866b8fa72773934c8b32ee454a3b81819c0b79092993
+  865   772 /home/andrew/.nvm/versions/node/v22.23.3/bin/node /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/.validation-tmp/baseline/bin/extension-host-launch-barrier.mjs sha256:32082408ec88c25cdef37c3a3c2381d8a6c974783e1a3dcf31b93a50e9f80875 /tmp/fm-extension-binding.w8R3MH/homes/active-runner/state/extension-invocations/32082408ec88c25cdef37c3a3c2381d8a6c974783e1a3dcf31b93a50e9f80875.owner.json /tmp/fm-extension-binding.w8R3MH/homes/active-runner/state/extension-invocations/32082408ec88c25cdef37c3a3c2381d8a6c974783e1a3dcf31b93a50e9f80875.ready.json /tmp/fm-extension-binding.w8R3MH/homes/active-runner/state/extension-invocations/32082408ec88c25cdef37c3a3c2381d8a6c974783e1a3dcf31b93a50e9f80875.release.json 772 /tmp/fm-extension-binding.w8R3MH/homes/active-runner/data/extensions/packages/org.example.flow/1.2.3/f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13/entrypoint.py /tmp/fm-extension-binding.w8R3MH/homes/active-runner/data/extensions/packages/org.example.flow/1.2.3/f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13 invoke
+  877   865 python3 /tmp/fm-extension-binding.w8R3MH/homes/active-runner/data/extensions/packages/org.example.flow/1.2.3/f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13/entrypoint.py invoke
+  881     4 ps -eo pid,ppid,args

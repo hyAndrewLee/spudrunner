@@ -1,0 +1,4 @@
++ set -u
++ exec
++ export BASH_XTRACEFD=19
++ BASH_XTRACEFD=19

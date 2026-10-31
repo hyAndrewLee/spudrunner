@@ -1,0 +1,11 @@
+Original external owner at floor (PID, token, identity):
+389
+.claim.1XrtAF-389
+2096:1339655
+
+Runner result:
+
+Replacement registration remains:
+1339656 -rw------- 1 root root 568 Oct 31 02:44 /tmp/fm-extension-binding.PJOrPp/homes/active-runner/state/procevent/active-source.source
+
+Poll marker exists: no

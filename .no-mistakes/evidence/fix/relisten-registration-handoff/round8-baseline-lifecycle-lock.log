@@ -1,0 +1,3 @@
+ok - registration publication and binding retirement share one lifecycle boundary
+ok - process-event resolution reserves the lifecycle before invocation
+not ok - binding retirement bypassed result.classify lifecycle reservation

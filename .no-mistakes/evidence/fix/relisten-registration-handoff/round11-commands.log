@@ -1,0 +1,5 @@
+FM_EXTENSION_BINDING_SEGMENT=lifecycle-lock timeout -k 10 110 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/extension-host-binding.test.sh
+lifecycle-lock exit=0
+FM_EXTENSION_BINDING_SEGMENT=lifecycle-state timeout -k 10 110 bash /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M686RRNB95JSFM1P5TBWQ3YY/round8-run-isolated.sh bash -x tests/extension-host-binding.test.sh
+lifecycle-state exit=1
+environment exit=0

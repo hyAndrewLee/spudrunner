@@ -1,0 +1,1397 @@
++ set -u
++ '[' 0 = 1 ']'
+++ dirname tests/extension-host-binding.test.sh
++ . tests/lib.sh
+++ '[' -n '' ']'
+++ FM_TEST_LIB_SOURCED=1
+++ umask 022
++++ dirname tests/lib.sh
+++ . tests/git-config-helpers.sh
++++ export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
++++ GIT_CONFIG_GLOBAL=/dev/null
++++ GIT_CONFIG_NOSYSTEM=1
++++ unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_COMMON_DIR
+++ export FM_GATE_REFUSE_BYPASS=1
+++ FM_GATE_REFUSE_BYPASS=1
+++ export FM_TEST_SEAM=1
+++ FM_TEST_SEAM=1
+++ unset FM_TASK_ID
+++ unset TASKS_AXI_FILE TASKS_AXI_BACKEND
+++ unset REX_SESSION REX_BLOCK
+++++ dirname tests/lib.sh
++++ cd tests/..
++++ pwd
+++ ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ FM_TEST_TMPDIR=/tmp
+++ FM_TEST_CLEANUP_DIRS=()
++++ mktemp /tmp/.fm-test-cleanup.1.XXXXXX
+++ FM_TEST_CLEANUP_REGISTRY=/tmp/.fm-test-cleanup.1.QfIC5Z
++++ test_pid_identity 1
++++ local pid=1
++++ FM_STATE_OVERRIDE=/tmp
++++ bash -c '. "$1"; pid_identity "$2"' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/supervision-events-lib.sh 1
+++ FM_TEST_OWNER_IDENTITY='linux-starttime=11933732 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
++++ mktemp /tmp/.fm-test-procevent.1.XXXXXX
+++ FM_TEST_PROCEVENT_REGISTRY=/tmp/.fm-test-procevent.1.GeiWlo
++++ mktemp /tmp/.fm-test-watcher.1.XXXXXX
+++ FM_TEST_WATCHER_REGISTRY=/tmp/.fm-test-watcher.1.bixuPN
+++ FM_TEST_STUB_MAX_BLOCK_SECONDS=120
+++ export FM_TEST_STUB_MAX_BLOCK_SECONDS
+++ FM_TEST_SUITE_PID=1
+++ export FM_TEST_SUITE_PID
+++ trap test_cleanup EXIT
+++ trap 'test_cleanup; exit 130' INT
+++ trap 'test_cleanup; exit 143' TERM
+++ trap 'test_cleanup; exit 129' HUP
+++ trap 'test_cleanup; exit 131' QUIT
+++ FM_TEST_ORPHAN_MAX_AGE_SECONDS=3600
+++ '[' 0 '!=' 1 ']'
+++ test_reap_orphans
+++ local marker dir mtime now owner_pid owner_identity current_identity
++++ date +%s
+++ now=1793437734
+++ for marker in "$FM_TEST_TMPDIR"/fm-*/.fm-test-fixture
+++ '[' -e '/tmp/fm-*/.fm-test-fixture' ']'
+++ continue
++ extension_segment=lifecycle-state
++ case "$extension_segment" in
++ HOST=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs
++ PROCEVENT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh
+++ test_tmproot fm-extension-binding
+++ local prefix=fm-extension-binding root tmp_base
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ tmp_base=/tmp
+++ tmp_base=/tmp
++++ mktemp -d /tmp/fm-extension-binding.XXXXXX
+++ root=/tmp/fm-extension-binding.vZyWXX
++++ cd -P -- /tmp/fm-extension-binding.vZyWXX
++++ pwd -P
+++ root=/tmp/fm-extension-binding.vZyWXX
+++ printf '%s\n%s\n' 1 'linux-starttime=11933732 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
+++ printf '%s\n' /tmp/fm-extension-binding.vZyWXX
+++ printf '%s\n' /tmp/fm-extension-binding.vZyWXX
++ TMP_ROOT_RAW=/tmp/fm-extension-binding.vZyWXX
+++ cd /tmp/fm-extension-binding.vZyWXX
+++ pwd -P
++ TMP_ROOT=/tmp/fm-extension-binding.vZyWXX
++ first_bind_pid=
++ second_bind_pid=
++ handshake_orphan_pid=
++ concurrent_release=
++ race_register_pid=
++ race_retire_pid=
++ race_release=
++ process_race_start_pid=
++ process_race_retire_pid=
++ process_race_release=
++ registry_race_pid=
++ registry_race_release=
++ leaf_race_pid=
++ leaf_race_release=
++ owner_retire_pid=
++ owner_worker_pid=
++ owner_register_pid=
++ signal_retire_pid=
++ signal_worker_pid=
++ active_runner_pid=
++ active_runner_release=
++ remote_active_release=
++ unrelated_daemon_pid=
++ unrelated_launcher_pid=
++ signal_cleanup_host_pid=
++ signal_cleanup_group_pid=
++ crash_cleanup_host_pid=
++ crash_cleanup_group_pid=
++ crash_cleanup_release=
++ crash_silent_start_pid=
++ crash_silent_runner_pid=
++ override_crash_start_pid=
++ override_crash_runner_pid=
++ order_register_pid=
++ order_reconcile_pid=
++ order_release=
++ section_coordinator_pid=
++ trap extension_test_cleanup EXIT
++ trap 'extension_test_cleanup; exit 130' INT
++ trap 'extension_test_cleanup; exit 143' TERM
++ export FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.vZyWXX/claims
++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.vZyWXX/claims
++ PACKAGES=/tmp/fm-extension-binding.vZyWXX/packages
++ HOMES=/tmp/fm-extension-binding.vZyWXX/homes
++ mkdir -p /tmp/fm-extension-binding.vZyWXX/packages /tmp/fm-extension-binding.vZyWXX/homes
++ '[' 0 = 1 ']'
++ section_enabled coordinator-fail
++ local section
++ for section in "$@"
++ '[' lifecycle-state = coordinator-fail ']'
++ return 1
++ section_enabled coordinator-wait
++ local section
++ for section in "$@"
++ '[' lifecycle-state = coordinator-wait ']'
++ return 1
++ section_enabled coordinator-stubborn
++ local section
++ for section in "$@"
++ '[' lifecycle-state = coordinator-stubborn ']'
++ return 1
++ section_enabled coordinator-pass
++ local section
++ for section in "$@"
++ '[' lifecycle-state = coordinator-pass ']'
++ return 1
++ section_enabled coordinator-late-pass
++ local section
++ for section in "$@"
++ '[' lifecycle-state = coordinator-late-pass ']'
++ return 1
++ section_enabled coordinator-scheduler-block
++ local section
++ for section in "$@"
++ '[' lifecycle-state = coordinator-scheduler-block ']'
++ return 1
++ section_enabled coordinator-scheduler-late
++ local section
++ for section in "$@"
++ '[' lifecycle-state = coordinator-scheduler-late ']'
++ return 1
++ '[' lifecycle-state = all ']'
++ '[' lifecycle-state = coordinator ']'
++ section_enabled early-bind
++ local section
++ for section in "$@"
++ '[' lifecycle-state = early-bind ']'
++ return 1
++ section_enabled early-validation
++ local section
++ for section in "$@"
++ '[' lifecycle-state = early-validation ']'
++ return 1
++ section_enabled early-handshake
++ local section
++ for section in "$@"
++ '[' lifecycle-state = early-handshake ']'
++ return 1
++ section_enabled early-integrity
++ local section
++ for section in "$@"
++ '[' lifecycle-state = early-integrity ']'
++ return 1
++ section_enabled matrix matrix-runtime
++ local section
++ for section in "$@"
++ '[' lifecycle-state = matrix ']'
++ for section in "$@"
++ '[' lifecycle-state = matrix-runtime ']'
++ return 1
++ section_enabled lifecycle-host-errors
++ local section
++ for section in "$@"
++ '[' lifecycle-state = lifecycle-host-errors ']'
++ return 1
++ section_enabled lifecycle-flow
++ local section
++ for section in "$@"
++ '[' lifecycle-state = lifecycle-flow ']'
++ return 1
++ section_enabled lifecycle-order
++ local section
++ for section in "$@"
++ '[' lifecycle-state = lifecycle-order ']'
++ return 1
++ section_enabled lifecycle-lock
++ local section
++ for section in "$@"
++ '[' lifecycle-state = lifecycle-lock ']'
++ return 1
++ section_enabled lifecycle-runner
++ local section
++ for section in "$@"
++ '[' lifecycle-state = lifecycle-runner ']'
++ return 1
++ section_enabled lifecycle-state
++ local section
++ for section in "$@"
++ '[' lifecycle-state = lifecycle-state ']'
++ return 0
++ P_FLOW=/tmp/fm-extension-binding.vZyWXX/packages/flow
++ make_package /tmp/fm-extension-binding.vZyWXX/packages/flow org.example.flow ext-flow
++ local dir=/tmp/fm-extension-binding.vZyWXX/packages/flow id=org.example.flow adapter=ext-flow fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.vZyWXX/packages/flow
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.vZyWXX/packages/flow/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.vZyWXX/packages/flow/firstmate-extension.json /tmp/fm-extension-binding.vZyWXX/packages/flow/scenario /tmp/fm-extension-binding.vZyWXX/packages/flow/helper.txt
++ H_OWNER_SAFE=/tmp/fm-extension-binding.vZyWXX/homes/owner-safe
++ new_home /tmp/fm-extension-binding.vZyWXX/homes/owner-safe
++ mkdir -p /tmp/fm-extension-binding.vZyWXX/homes/owner-safe
++ bind_package /tmp/fm-extension-binding.vZyWXX/homes/owner-safe /tmp/fm-extension-binding.vZyWXX/packages/flow ext-flow
++ local home=/tmp/fm-extension-binding.vZyWXX/homes/owner-safe package=/tmp/fm-extension-binding.vZyWXX/packages/flow adapter=ext-flow
++ shift 3
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/owner-safe
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.vZyWXX/packages/flow --adapter ext-flow --trust-same-user-code
+++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/owner-safe
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-flow replace-source --config-ref first
++ first='registered: replace-source (ext-flow from org.example.flow@1.2.3)
+owner-token: sha256:fc7e30225d18049be631fbcb01790e3fe2e5d690f93b4d1647822ea11bd8a448
+retire: bin/process-events.sh retire replace-source --if-owner sha256:fc7e30225d18049be631fbcb01790e3fe2e5d690f93b4d1647822ea11bd8a448'
+++ printf '%s\n' 'registered: replace-source (ext-flow from org.example.flow@1.2.3)
+owner-token: sha256:fc7e30225d18049be631fbcb01790e3fe2e5d690f93b4d1647822ea11bd8a448
+retire: bin/process-events.sh retire replace-source --if-owner sha256:fc7e30225d18049be631fbcb01790e3fe2e5d690f93b4d1647822ea11bd8a448'
+++ sed -n 's/^owner-token: //p'
++ first_token=sha256:fc7e30225d18049be631fbcb01790e3fe2e5d690f93b4d1647822ea11bd8a448
+++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/owner-safe
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-flow replace-source --config-ref second
++ second='registered: replace-source (ext-flow from org.example.flow@1.2.3)
+owner-token: sha256:393a3b6b0906d4c7ec1f7ddacac3cbbcd23b449bd2fba5b6447c08e6e054052c
+retire: bin/process-events.sh retire replace-source --if-owner sha256:393a3b6b0906d4c7ec1f7ddacac3cbbcd23b449bd2fba5b6447c08e6e054052c'
+++ printf '%s\n' 'registered: replace-source (ext-flow from org.example.flow@1.2.3)
+owner-token: sha256:393a3b6b0906d4c7ec1f7ddacac3cbbcd23b449bd2fba5b6447c08e6e054052c
+retire: bin/process-events.sh retire replace-source --if-owner sha256:393a3b6b0906d4c7ec1f7ddacac3cbbcd23b449bd2fba5b6447c08e6e054052c'
+++ sed -n 's/^owner-token: //p'
++ second_token=sha256:393a3b6b0906d4c7ec1f7ddacac3cbbcd23b449bd2fba5b6447c08e6e054052c
++ '[' sha256:fc7e30225d18049be631fbcb01790e3fe2e5d690f93b4d1647822ea11bd8a448 '!=' sha256:393a3b6b0906d4c7ec1f7ddacac3cbbcd23b449bd2fba5b6447c08e6e054052c ']'
++ expect_failure 'requires its exact --if-owner token' env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/owner-safe /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire replace-source
++ local 'needle=requires its exact --if-owner token' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/owner-safe /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire replace-source
++ out='error: extension registration requires its exact --if-owner token: replace-source'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error: extension registration requires its exact --if-owner token: replace-source' 'requires its exact --if-owner token' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ expect_failure 'does not match the expected owner' env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/owner-safe /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire replace-source --if-owner sha256:fc7e30225d18049be631fbcb01790e3fe2e5d690f93b4d1647822ea11bd8a448
++ local 'needle=does not match the expected owner' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/owner-safe /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire replace-source --if-owner sha256:fc7e30225d18049be631fbcb01790e3fe2e5d690f93b4d1647822ea11bd8a448
++ out='error: source registration does not match the expected owner: replace-source'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error: source registration does not match the expected owner: replace-source' 'does not match the expected owner' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ assert_present /tmp/fm-extension-binding.vZyWXX/homes/owner-safe/state/procevent/replace-source.source 'stale owner retired the replacement'
++ '[' -e /tmp/fm-extension-binding.vZyWXX/homes/owner-safe/state/procevent/replace-source.source ']'
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/owner-safe
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire replace-source --if-owner sha256:393a3b6b0906d4c7ec1f7ddacac3cbbcd23b449bd2fba5b6447c08e6e054052c
++ assert_absent /tmp/fm-extension-binding.vZyWXX/homes/owner-safe/state/procevent/replace-source.source 'current owner could not retire its own registration'
++ '[' '!' -e /tmp/fm-extension-binding.vZyWXX/homes/owner-safe/state/procevent/replace-source.source ']'
++ pass 'owner-matched retirement refuses a stale generation and accepts the current one'
++ printf 'ok - %s\n' 'owner-matched retirement refuses a stale generation and accepts the current one'
+ok - owner-matched retirement refuses a stale generation and accepts the current one
++ H_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ new_home /tmp/fm-extension-binding.vZyWXX/homes/state-override
++ mkdir -p /tmp/fm-extension-binding.vZyWXX/homes/state-override
++ STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
+++ bind_package /tmp/fm-extension-binding.vZyWXX/homes/state-override /tmp/fm-extension-binding.vZyWXX/packages/flow ext-flow
+++ local home=/tmp/fm-extension-binding.vZyWXX/homes/state-override package=/tmp/fm-extension-binding.vZyWXX/packages/flow adapter=ext-flow
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.vZyWXX/packages/flow --adapter ext-flow --trust-same-user-code
++ override_bind='bound: org.example.flow@1.2.3
+binding: /tmp/fm-extension-binding.vZyWXX/homes/state-override/config/extensions.d/org.example.flow.json
+binding-digest: sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d
+package: /tmp/fm-extension-binding.vZyWXX/homes/state-override/data/extensions/packages/org.example.flow/1.2.3/f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13
+package-digest: sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13
+verified: process-event-adapter/1 (ext-flow)'
+++ printf '%s\n' 'bound: org.example.flow@1.2.3
+binding: /tmp/fm-extension-binding.vZyWXX/homes/state-override/config/extensions.d/org.example.flow.json
+binding-digest: sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d
+package: /tmp/fm-extension-binding.vZyWXX/homes/state-override/data/extensions/packages/org.example.flow/1.2.3/f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13
+package-digest: sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13
+verified: process-event-adapter/1 (ext-flow)'
+++ sed -n 's/^binding-digest: //p'
++ override_bind_digest=sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d
+++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
+++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-flow override-source --config-ref silent-result
++ override_registration='registered: override-source (ext-flow from org.example.flow@1.2.3)
+owner-token: sha256:e973f4591207b366390e828224e18a4d38ca02621257430bedf3a2275ebc9859
+retire: bin/process-events.sh retire override-source --if-owner sha256:e973f4591207b366390e828224e18a4d38ca02621257430bedf3a2275ebc9859'
+++ printf '%s\n' 'registered: override-source (ext-flow from org.example.flow@1.2.3)
+owner-token: sha256:e973f4591207b366390e828224e18a4d38ca02621257430bedf3a2275ebc9859
+retire: bin/process-events.sh retire override-source --if-owner sha256:e973f4591207b366390e828224e18a4d38ca02621257430bedf3a2275ebc9859'
+++ sed -n 's/^owner-token: //p'
++ override_owner=sha256:e973f4591207b366390e828224e18a4d38ca02621257430bedf3a2275ebc9859
+++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
+++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs resolve-process-event ext-flow
++ override_resolution='fm-extension-process-event-resolution.v1	org.example.flow	1.2.3	1	sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13	sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d'
++ IFS='	'
++ read -r override_schema override_id override_version override_cap override_package override_binding override_extra
++ '[' fm-extension-process-event-resolution.v1 = fm-extension-process-event-resolution.v1 ']'
++ '[' -z '' ']'
++ expect_failure 'still owns process-event registration' env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.flow --if-binding-digest sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d
++ local 'needle=still owns process-event registration' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.flow --if-binding-digest sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d
++ out='error[retirement-failed]: error[binding-in-use]: error: binding still owns process-event registration: override-source'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[retirement-failed]: error[binding-in-use]: error: binding still owns process-event registration: override-source' 'still owns process-event registration' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ assert_present /tmp/fm-extension-binding.vZyWXX/homes/state-override/config/extensions.d/org.example.flow.json 'overridden-state dependency did not preserve its binding'
++ '[' -e /tmp/fm-extension-binding.vZyWXX/homes/state-override/config/extensions.d/org.example.flow.json ']'
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start override-source
++ override_result=/tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox/override-source.1.result
++ assert_present /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox/override-source.1.result 'overridden-state runner did not capture its result'
++ '[' -e /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox/override-source.1.result ']'
++ assert_present /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox/override-source.1.handled 'overridden-state silent verdict was not recorded'
++ '[' -e /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox/override-source.1.handled ']'
++ assert_absent /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent/override-source.source 'overridden-state terminal verdict did not retire its registration'
++ '[' '!' -e /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent/override-source.source ']'
+++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
+++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh classify /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox/override-source.1.result
++ assert_contains external-ready external-ready 'overridden-state result could not be classified'
++ case "$1" in
++ :
++ mkdir /tmp/fm-extension-binding.vZyWXX/override-outside
++ cp /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox/override-source.1.result /tmp/fm-extension-binding.vZyWXX/override-outside/override-source.1.result
++ cp /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox/override-source.1.adapter /tmp/fm-extension-binding.vZyWXX/override-outside/override-source.1.adapter
++ cp /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox/override-source.1.extension /tmp/fm-extension-binding.vZyWXX/override-outside/override-source.1.extension
++ chmod 0600 /tmp/fm-extension-binding.vZyWXX/override-outside/override-source.1.result
++ chmod 0600 /tmp/fm-extension-binding.vZyWXX/override-outside/override-source.1.adapter /tmp/fm-extension-binding.vZyWXX/override-outside/override-source.1.extension
++ expect_failure 'directly inside' env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh classify /tmp/fm-extension-binding.vZyWXX/override-outside/override-source.1.result
++ local 'needle=directly inside' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh classify /tmp/fm-extension-binding.vZyWXX/override-outside/override-source.1.result
++ out='error[path-unsafe]: captured result must be directly inside this home'\''s process-event inbox'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[path-unsafe]: captured result must be directly inside this home'\''s process-event inbox' 'directly inside' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ mkdir /tmp/fm-extension-binding.vZyWXX/forged-pinned-result
++ printf 'forged extension evidence\n'
++ chmod 0600 /tmp/fm-extension-binding.vZyWXX/forged-pinned-result/forged-source.1.result
++ expect_failure 'directly inside' env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state FM_PROCEVENT_CAPTURE_PINNED_RESULT=1 sh -c '
+    cd "$1" || exit 1
+    exec "$2" process-event "$3" result.classify --result-file ./forged-source.1.result \
+      --expect-extension "$4" --expect-version "$5" --expect-capability-version "$6" \
+      --expect-package-digest "$7" --expect-binding-digest "$8"
+  ' sh /tmp/fm-extension-binding.vZyWXX/forged-pinned-result /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs ext-flow org.example.flow 1.2.3 1 sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13 sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d
++ local 'needle=directly inside' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state FM_PROCEVENT_CAPTURE_PINNED_RESULT=1 sh -c '
+    cd "$1" || exit 1
+    exec "$2" process-event "$3" result.classify --result-file ./forged-source.1.result \
+      --expect-extension "$4" --expect-version "$5" --expect-capability-version "$6" \
+      --expect-package-digest "$7" --expect-binding-digest "$8"
+  ' sh /tmp/fm-extension-binding.vZyWXX/forged-pinned-result /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs ext-flow org.example.flow 1.2.3 1 sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13 sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d
++ out='error[path-unsafe]: captured result must be directly inside this home'\''s process-event inbox'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[path-unsafe]: captured result must be directly inside this home'\''s process-event inbox' 'directly inside' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ expect_failure 'directly inside' env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state sh -c '
+    cd "$1" || exit 1
+    authority=$(mktemp .forged-authority.XXXXXXXX) || exit 1
+    dd if=/dev/urandom of="$authority" bs=32 count=1 2>/dev/null || exit 1
+    chmod 0600 "$authority" || exit 1
+    exec 7<"$authority"
+    rm -f -- "$authority"
+    exec 8<.
+    exec "$2" extension-process-event "$3" result.classify --result-file ./forged-source.1.result \
+      --expect-extension "$4" --expect-version "$5" --expect-capability-version "$6" \
+      --expect-package-digest "$7" --expect-binding-digest "$8"
+  ' sh /tmp/fm-extension-binding.vZyWXX/forged-pinned-result /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh ext-flow org.example.flow 1.2.3 1 sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13 sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d
++ local 'needle=directly inside' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state sh -c '
+    cd "$1" || exit 1
+    authority=$(mktemp .forged-authority.XXXXXXXX) || exit 1
+    dd if=/dev/urandom of="$authority" bs=32 count=1 2>/dev/null || exit 1
+    chmod 0600 "$authority" || exit 1
+    exec 7<"$authority"
+    rm -f -- "$authority"
+    exec 8<.
+    exec "$2" extension-process-event "$3" result.classify --result-file ./forged-source.1.result \
+      --expect-extension "$4" --expect-version "$5" --expect-capability-version "$6" \
+      --expect-package-digest "$7" --expect-binding-digest "$8"
+  ' sh /tmp/fm-extension-binding.vZyWXX/forged-pinned-result /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh ext-flow org.example.flow 1.2.3 1 sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13 sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d
++ out='error[path-unsafe]: captured result must be directly inside this home'\''s process-event inbox'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[path-unsafe]: captured result must be directly inside this home'\''s process-event inbox' 'directly inside' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
+++ printf d%.0s 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
++ expect_failure 'directly inside' env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state FM_PROCEVENT_INTERNAL_CAPTURE_RESERVATION=dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd FM_PROCEVENT_INTERNAL_CAPTURE_CLAIM_PID=1 FM_PROCEVENT_INTERNAL_CAPTURE_CLAIM_IDENTITY=forged-identity FM_PROCEVENT_INTERNAL_CAPTURE_CLAIM_TOKEN=forged-claim FM_PROCEVENT_INTERNAL_CAPTURE_SOURCE_ID=forged-source FM_PROCEVENT_INTERNAL_CAPTURE_SEQUENCE=1 FM_PROCEVENT_INTERNAL_CAPTURE_PARENT_PID=1 sh -c '
+    cd "$1" || exit 1
+    exec 6<.
+    exec 7<.
+    exec 8<.
+    exec "$2" extension-process-event "$3" result.silent --result-file ./forged-source.1.result \
+      --expect-extension "$4" --expect-version "$5" --expect-capability-version "$6" \
+      --expect-package-digest "$7" --expect-binding-digest "$8"
+  ' sh /tmp/fm-extension-binding.vZyWXX/forged-pinned-result /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh ext-flow org.example.flow 1.2.3 1 sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13 sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d
++ local 'needle=directly inside' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state FM_PROCEVENT_INTERNAL_CAPTURE_RESERVATION=dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd FM_PROCEVENT_INTERNAL_CAPTURE_CLAIM_PID=1 FM_PROCEVENT_INTERNAL_CAPTURE_CLAIM_IDENTITY=forged-identity FM_PROCEVENT_INTERNAL_CAPTURE_CLAIM_TOKEN=forged-claim FM_PROCEVENT_INTERNAL_CAPTURE_SOURCE_ID=forged-source FM_PROCEVENT_INTERNAL_CAPTURE_SEQUENCE=1 FM_PROCEVENT_INTERNAL_CAPTURE_PARENT_PID=1 sh -c '
+    cd "$1" || exit 1
+    exec 6<.
+    exec 7<.
+    exec 8<.
+    exec "$2" extension-process-event "$3" result.silent --result-file ./forged-source.1.result \
+      --expect-extension "$4" --expect-version "$5" --expect-capability-version "$6" \
+      --expect-package-digest "$7" --expect-binding-digest "$8"
+  ' sh /tmp/fm-extension-binding.vZyWXX/forged-pinned-result /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh ext-flow org.example.flow 1.2.3 1 sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13 sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d
++ out='error[path-unsafe]: captured result must be directly inside this home'\''s process-event inbox'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[path-unsafe]: captured result must be directly inside this home'\''s process-event inbox' 'directly inside' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ forged_reservation_root=/tmp/fm-extension-binding.vZyWXX/forged-capture-reservations
++ mkdir /tmp/fm-extension-binding.vZyWXX/forged-capture-reservations
+++ printf c%.0s 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
++ forged_reservation_token=cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/forged-identity-home
+++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/forged-identity-state
+++ bash -c '. "$1"; pid_identity "$2"' sh /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/supervision-events-lib.sh 1
++ forged_claim_identity='linux-starttime=11933732 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
++ printf '%s\n' '{"schema":"fm-procevent-capture-reservation.v1","token":"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc","operation":"result.silent","source_id":"forged-source","sequence":1,"inbox_device":"1","inbox_inode":"1","result_device":"1","result_inode":"1","claim_pid":"1","claim_identity":"linux-starttime=11933732 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800","claim_token":"forged-claim","binding_digest":"sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d"}'
++ chmod 0600 /tmp/fm-extension-binding.vZyWXX/forged-capture-reservations/.extension-capture-forged-claim.cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.json
++ expect_failure reservation env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.vZyWXX/forged-capture-reservations sh -c '
+    cd "$1" || exit 1
+    exec "$2" extension-process-event "$3" result.silent --result-file ./forged-source.1.result \
+      --expect-extension "$4" --expect-version "$5" --expect-capability-version "$6" \
+      --expect-package-digest "$7" --expect-binding-digest "$8" \
+      --capture-reservation "$9"
+  ' sh /tmp/fm-extension-binding.vZyWXX/forged-pinned-result /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh ext-flow org.example.flow 1.2.3 1 sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13 sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
++ local needle=reservation out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.vZyWXX/forged-capture-reservations sh -c '
+    cd "$1" || exit 1
+    exec "$2" extension-process-event "$3" result.silent --result-file ./forged-source.1.result \
+      --expect-extension "$4" --expect-version "$5" --expect-capability-version "$6" \
+      --expect-package-digest "$7" --expect-binding-digest "$8" \
+      --capture-reservation "$9"
+  ' sh /tmp/fm-extension-binding.vZyWXX/forged-pinned-result /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh ext-flow org.example.flow 1.2.3 1 sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13 sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
++ out='error: capture reservation is internal'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error: capture reservation is internal' reservation 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ printf 'forged adapter\n'
++ chmod 0600 /tmp/fm-extension-binding.vZyWXX/forged-pinned-result/forged-source.1.adapter
++ expect_failure 'cannot durably' env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state FM_PROCEVENT_CAPTURE_PINNED_INBOX=1 sh -c '
+    cd "$1" || exit 1
+    exec "$2" handled forged-source 1
+  ' sh /tmp/fm-extension-binding.vZyWXX/forged-pinned-result /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh
++ local 'needle=cannot durably' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state FM_PROCEVENT_CAPTURE_PINNED_INBOX=1 sh -c '
+    cd "$1" || exit 1
+    exec "$2" handled forged-source 1
+  ' sh /tmp/fm-extension-binding.vZyWXX/forged-pinned-result /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh
++ out='error: cannot durably record handling: forged-source 1'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error: cannot durably record handling: forged-source 1' 'cannot durably' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ assert_absent /tmp/fm-extension-binding.vZyWXX/forged-pinned-result/forged-source.1.handled 'caller environment forged a handled acknowledgement'
++ '[' '!' -e /tmp/fm-extension-binding.vZyWXX/forged-pinned-result/forged-source.1.handled ']'
++ pass 'caller environment, descriptors, and lifecycle entry cannot forge capture authority'
++ printf 'ok - %s\n' 'caller environment, descriptors, and lifecycle entry cannot forge capture authority'
+ok - caller environment, descriptors, and lifecycle entry cannot forge capture authority
+++ find /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-capture-reservations -type f -print
+++ wc -l
+++ tr -d '[:space:]'
++ reservation_records=0
++ '[' 0 -eq 0 ']'
++ pass 'extension capture reservations are bounded to their runner lifecycle'
++ printf 'ok - %s\n' 'extension capture reservations are bounded to their runner lifecycle'
+ok - extension capture reservations are bounded to their runner lifecycle
++ state_path_decoy=/tmp/fm-extension-binding.vZyWXX/homes/state-override/state/procevent-capture-reservations/.extension-capture-control-path-decoy.json
++ mkdir -p /tmp/fm-extension-binding.vZyWXX/homes/state-override/state/procevent-capture-reservations
++ chmod 0700 /tmp/fm-extension-binding.vZyWXX/homes/state-override/state /tmp/fm-extension-binding.vZyWXX/homes/state-override/state/procevent-capture-reservations
++ printf 'decoy\n'
++ chmod 0600 /tmp/fm-extension-binding.vZyWXX/homes/state-override/state/procevent-capture-reservations/.extension-capture-control-path-decoy.json
++ for control_kind in tab newline
++ case "$control_kind" in
++ control_state='/tmp/fm-extension-binding.vZyWXX/control-state	tab'
++ control_source=control-tab-state-source
++ mkdir -p '/tmp/fm-extension-binding.vZyWXX/control-state	tab'
++ chmod 0700 '/tmp/fm-extension-binding.vZyWXX/control-state	tab'
++ control_poll_marker=/tmp/fm-extension-binding.vZyWXX/control-tab-state-source.polled
+++ python3 -c 'import os, sys; s = os.stat(sys.argv[1]); print(s.st_dev, s.st_ino, s.st_mode, s.st_uid, s.st_gid)' '/tmp/fm-extension-binding.vZyWXX/control-state	tab'
++ control_directory_before='2096 1343804 16832 1000 1000'
++ cp /tmp/fm-extension-binding.vZyWXX/homes/state-override/state/procevent-capture-reservations/.extension-capture-control-path-decoy.json /tmp/fm-extension-binding.vZyWXX/control-decoy-before
++ case "$control_kind" in
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ FM_STATE_OVERRIDE='/tmp/fm-extension-binding.vZyWXX/control-state	tab'
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register lavish control-tab-state-source -- /bin/sh -c 'touch "$1"; printf "control\n"' sh /tmp/fm-extension-binding.vZyWXX/control-tab-state-source.polled
++ cp '/tmp/fm-extension-binding.vZyWXX/control-state	tab/procevent/control-tab-state-source.source' /tmp/fm-extension-binding.vZyWXX/control-source-before
++ control_rc=0
+++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
+++ FM_STATE_OVERRIDE='/tmp/fm-extension-binding.vZyWXX/control-state	tab'
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start control-tab-state-source
++ control_out='error: cannot claim source: control-tab-state-source'
++ control_rc=1
++ '[' 1 -ne 0 ']'
++ '[' 'error: cannot claim source: control-tab-state-source' = 'error: cannot claim source: control-tab-state-source' ']'
++ cmp /tmp/fm-extension-binding.vZyWXX/control-source-before '/tmp/fm-extension-binding.vZyWXX/control-state	tab/procevent/control-tab-state-source.source'
+++ python3 -c 'import os, sys; s = os.stat(sys.argv[1]); print(s.st_dev, s.st_ino, s.st_mode, s.st_uid, s.st_gid)' '/tmp/fm-extension-binding.vZyWXX/control-state	tab'
++ control_directory_after='2096 1343804 16832 1000 1000'
++ '[' '2096 1343804 16832 1000 1000' = '2096 1343804 16832 1000 1000' ']'
++ assert_absent /tmp/fm-extension-binding.vZyWXX/claims/control-tab-state-source.claim 'control-byte state root created a malformed claim'
++ '[' '!' -e /tmp/fm-extension-binding.vZyWXX/claims/control-tab-state-source.claim ']'
++ assert_absent '/tmp/fm-extension-binding.vZyWXX/control-state	tab/procevent-capture-reservations' 'control-byte state root created reservation state'
++ '[' '!' -e '/tmp/fm-extension-binding.vZyWXX/control-state	tab/procevent-capture-reservations' ']'
++ assert_absent '/tmp/fm-extension-binding.vZyWXX/control-state	tab/procevent/control-tab-state-source.runner' 'control-byte state root published a runner'
++ '[' '!' -e '/tmp/fm-extension-binding.vZyWXX/control-state	tab/procevent/control-tab-state-source.runner' ']'
++ cmp /tmp/fm-extension-binding.vZyWXX/control-decoy-before /tmp/fm-extension-binding.vZyWXX/homes/state-override/state/procevent-capture-reservations/.extension-capture-control-path-decoy.json
++ assert_absent /tmp/fm-extension-binding.vZyWXX/control-tab-state-source.polled 'control-byte state root executed polling'
++ '[' '!' -e /tmp/fm-extension-binding.vZyWXX/control-tab-state-source.polled ']'
++ assert_absent '/tmp/fm-extension-binding.vZyWXX/control-state	tab/procevent-inbox/control-tab-state-source.1.result' 'control-byte state root published a capture'
++ '[' '!' -e '/tmp/fm-extension-binding.vZyWXX/control-state	tab/procevent-inbox/control-tab-state-source.1.result' ']'
++ pass 'tab state root refuses safely without claim, polling, or capture effects'
++ printf 'ok - %s\n' 'tab state root refuses safely without claim, polling, or capture effects'
+ok - tab state root refuses safely without claim, polling, or capture effects
++ for control_kind in tab newline
++ case "$control_kind" in
++ control_state='/tmp/fm-extension-binding.vZyWXX/control-state
+newline'
++ control_source=control-newline-state-source
++ mkdir -p '/tmp/fm-extension-binding.vZyWXX/control-state
+newline'
++ chmod 0700 '/tmp/fm-extension-binding.vZyWXX/control-state
+newline'
++ control_poll_marker=/tmp/fm-extension-binding.vZyWXX/control-newline-state-source.polled
+++ python3 -c 'import os, sys; s = os.stat(sys.argv[1]); print(s.st_dev, s.st_ino, s.st_mode, s.st_uid, s.st_gid)' '/tmp/fm-extension-binding.vZyWXX/control-state
+newline'
++ control_directory_before='2096 1343806 16832 1000 1000'
++ cp /tmp/fm-extension-binding.vZyWXX/homes/state-override/state/procevent-capture-reservations/.extension-capture-control-path-decoy.json /tmp/fm-extension-binding.vZyWXX/control-decoy-before
++ case "$control_kind" in
++ control_rc=0
+++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
+++ FM_STATE_OVERRIDE='/tmp/fm-extension-binding.vZyWXX/control-state
+newline'
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register lavish control-newline-state-source -- /bin/sh -c 'touch "$1"; printf "control\n"' sh /tmp/fm-extension-binding.vZyWXX/control-newline-state-source.polled
++ control_out='error: process-event state root is not a private directory'
++ control_rc=1
++ '[' 1 -ne 0 ']'
++ '[' 'error: process-event state root is not a private directory' = 'error: process-event state root is not a private directory' ']'
++ assert_absent '/tmp/fm-extension-binding.vZyWXX/control-state
+newline/procevent/control-newline-state-source.source' 'newline-state refusal published a registration'
++ '[' '!' -e '/tmp/fm-extension-binding.vZyWXX/control-state
+newline/procevent/control-newline-state-source.source' ']'
+++ python3 -c 'import os, sys; s = os.stat(sys.argv[1]); print(s.st_dev, s.st_ino, s.st_mode, s.st_uid, s.st_gid)' '/tmp/fm-extension-binding.vZyWXX/control-state
+newline'
++ control_directory_after='2096 1343806 16832 1000 1000'
++ '[' '2096 1343806 16832 1000 1000' = '2096 1343806 16832 1000 1000' ']'
++ assert_absent /tmp/fm-extension-binding.vZyWXX/claims/control-newline-state-source.claim 'control-byte state root created a malformed claim'
++ '[' '!' -e /tmp/fm-extension-binding.vZyWXX/claims/control-newline-state-source.claim ']'
++ assert_absent '/tmp/fm-extension-binding.vZyWXX/control-state
+newline/procevent-capture-reservations' 'control-byte state root created reservation state'
++ '[' '!' -e '/tmp/fm-extension-binding.vZyWXX/control-state
+newline/procevent-capture-reservations' ']'
++ assert_absent '/tmp/fm-extension-binding.vZyWXX/control-state
+newline/procevent/control-newline-state-source.runner' 'control-byte state root published a runner'
++ '[' '!' -e '/tmp/fm-extension-binding.vZyWXX/control-state
+newline/procevent/control-newline-state-source.runner' ']'
++ cmp /tmp/fm-extension-binding.vZyWXX/control-decoy-before /tmp/fm-extension-binding.vZyWXX/homes/state-override/state/procevent-capture-reservations/.extension-capture-control-path-decoy.json
++ assert_absent /tmp/fm-extension-binding.vZyWXX/control-newline-state-source.polled 'control-byte state root executed polling'
++ '[' '!' -e /tmp/fm-extension-binding.vZyWXX/control-newline-state-source.polled ']'
++ assert_absent '/tmp/fm-extension-binding.vZyWXX/control-state
+newline/procevent-inbox/control-newline-state-source.1.result' 'control-byte state root published a capture'
++ '[' '!' -e '/tmp/fm-extension-binding.vZyWXX/control-state
+newline/procevent-inbox/control-newline-state-source.1.result' ']'
++ pass 'newline state root refuses safely without claim, polling, or capture effects'
++ printf 'ok - %s\n' 'newline state root refuses safely without claim, polling, or capture effects'
+ok - newline state root refuses safely without claim, polling, or capture effects
++ pass 'control-byte state roots cannot serialize claims or reservations'
++ printf 'ok - %s\n' 'control-byte state roots cannot serialize claims or reservations'
+ok - control-byte state roots cannot serialize claims or reservations
++ override_crash_marker=/tmp/fm-extension-binding.vZyWXX/override-crash.marker
++ override_crash_release=/tmp/fm-extension-binding.vZyWXX/override-crash.release
+++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
+++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-flow override-crash-source --config-ref 'silent-block|/tmp/fm-extension-binding.vZyWXX/override-crash.marker|/tmp/fm-extension-binding.vZyWXX/override-crash.release'
++ override_crash_registration='registered: override-crash-source (ext-flow from org.example.flow@1.2.3)
+owner-token: sha256:8660c76c3150d8c7a64eaf92417b529f05f406de1a9a6a1bddb298882d2eedcf
+retire: bin/process-events.sh retire override-crash-source --if-owner sha256:8660c76c3150d8c7a64eaf92417b529f05f406de1a9a6a1bddb298882d2eedcf'
+++ printf '%s\n' 'registered: override-crash-source (ext-flow from org.example.flow@1.2.3)
+owner-token: sha256:8660c76c3150d8c7a64eaf92417b529f05f406de1a9a6a1bddb298882d2eedcf
+retire: bin/process-events.sh retire override-crash-source --if-owner sha256:8660c76c3150d8c7a64eaf92417b529f05f406de1a9a6a1bddb298882d2eedcf'
+++ sed -n 's/^owner-token: //p'
++ override_crash_owner=sha256:8660c76c3150d8c7a64eaf92417b529f05f406de1a9a6a1bddb298882d2eedcf
++ override_crash_start_pid=3565
++ wait_for_file /tmp/fm-extension-binding.vZyWXX/override-crash.marker
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start override-crash-source
++ local file=/tmp/fm-extension-binding.vZyWXX/override-crash.marker
+++ seq 1 100
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/override-crash.marker ']'
++ return 0
++ override_crash_claim=/tmp/fm-extension-binding.vZyWXX/claims/override-crash-source.claim
++ assert_present /tmp/fm-extension-binding.vZyWXX/claims/override-crash-source.claim 'overridden-state crash fixture did not retain its claim'
++ '[' -e /tmp/fm-extension-binding.vZyWXX/claims/override-crash-source.claim ']'
+++ sed -n 2p /tmp/fm-extension-binding.vZyWXX/claims/override-crash-source.claim
++ override_crash_runner_pid=3622
+++ sed -n 3p /tmp/fm-extension-binding.vZyWXX/claims/override-crash-source.claim
++ override_crash_token=.claim.DSeeuV-3622
+++ find /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-capture-reservations -type f -name '.extension-capture-.claim.DSeeuV-3622.*' -print
+++ tr -d '[:space:]'
+++ wc -l
++ override_crash_records=1
++ '[' 1 -eq 1 ']'
++ python3 - /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-capture-reservations .claim.DSeeuV-3622 3622
+active crash reservation: {"binding_digest": "sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d", "claim_identity": "linux-starttime=11934280 cmdline-hex=62617368002f686f6d652f616e647265772f2e6e6f2d6d697374616b65732d7370756472756e6e65722d76616c69646174696f6e2f776f726b74726565732f6361353337376631313964342f30314d36383652524e4239354a53464d315035544257513359592f62696e2f70726f636573732d6576656e74732e7368005f7374617274006f766572726964652d63726173682d736f7572636500", "claim_pid": "3622", "claim_token": ".claim.DSeeuV-3622", "inbox_device": "2096", "inbox_inode": "1343764", "operation": "result.terminal", "result_device": "2096", "result_inode": "1343809", "schema": "fm-procevent-capture-reservation.v1", "sequence": 1, "source_id": "override-crash-source", "token": "a19e0046d21481f9ab961d969164e8cc4f743b05d710076555f385f82969c09c"}
++ mkdir -p /tmp/fm-extension-binding.vZyWXX/homes/state-override/state/procevent-capture-reservations
++ chmod 0700 /tmp/fm-extension-binding.vZyWXX/homes/state-override/state /tmp/fm-extension-binding.vZyWXX/homes/state-override/state/procevent-capture-reservations
++ override_crash_decoy=/tmp/fm-extension-binding.vZyWXX/homes/state-override/state/procevent-capture-reservations/.extension-capture-.claim.DSeeuV-3622.decoy.json
++ printf 'decoy\n'
++ chmod 0600 /tmp/fm-extension-binding.vZyWXX/homes/state-override/state/procevent-capture-reservations/.extension-capture-.claim.DSeeuV-3622.decoy.json
+++ python3 - /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-capture-reservations .claim.DSeeuV-3622
++ override_unrelated_record=/tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-capture-reservations/.extension-capture-.claim.unrelated-fixture.496d683ed6e7f5311387766fe1933bc053e7d6b850832cc4a38c1c309e42cb45.json
++ mkdir /tmp/fm-extension-binding.vZyWXX/crash-snapshots
++ cp /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-capture-reservations/.extension-capture-.claim.unrelated-fixture.496d683ed6e7f5311387766fe1933bc053e7d6b850832cc4a38c1c309e42cb45.json /tmp/fm-extension-binding.vZyWXX/crash-snapshots/unrelated-reservation
++ for record in "$override_crash_claim" "$override_crash_decoy" "$STATE_OVERRIDE/procevent/override-crash-source.source" "$H_STATE_OVERRIDE/config/extensions.d/org.example.flow.json" "$STATE_OVERRIDE"/procevent-capture-reservations/.extension-capture-"$override_crash_token".*
++ cp /tmp/fm-extension-binding.vZyWXX/claims/override-crash-source.claim /tmp/fm-extension-binding.vZyWXX/crash-snapshots/
++ for record in "$override_crash_claim" "$override_crash_decoy" "$STATE_OVERRIDE/procevent/override-crash-source.source" "$H_STATE_OVERRIDE/config/extensions.d/org.example.flow.json" "$STATE_OVERRIDE"/procevent-capture-reservations/.extension-capture-"$override_crash_token".*
++ cp /tmp/fm-extension-binding.vZyWXX/homes/state-override/state/procevent-capture-reservations/.extension-capture-.claim.DSeeuV-3622.decoy.json /tmp/fm-extension-binding.vZyWXX/crash-snapshots/
++ for record in "$override_crash_claim" "$override_crash_decoy" "$STATE_OVERRIDE/procevent/override-crash-source.source" "$H_STATE_OVERRIDE/config/extensions.d/org.example.flow.json" "$STATE_OVERRIDE"/procevent-capture-reservations/.extension-capture-"$override_crash_token".*
++ cp /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent/override-crash-source.source /tmp/fm-extension-binding.vZyWXX/crash-snapshots/
++ for record in "$override_crash_claim" "$override_crash_decoy" "$STATE_OVERRIDE/procevent/override-crash-source.source" "$H_STATE_OVERRIDE/config/extensions.d/org.example.flow.json" "$STATE_OVERRIDE"/procevent-capture-reservations/.extension-capture-"$override_crash_token".*
++ cp /tmp/fm-extension-binding.vZyWXX/homes/state-override/config/extensions.d/org.example.flow.json /tmp/fm-extension-binding.vZyWXX/crash-snapshots/
++ for record in "$override_crash_claim" "$override_crash_decoy" "$STATE_OVERRIDE/procevent/override-crash-source.source" "$H_STATE_OVERRIDE/config/extensions.d/org.example.flow.json" "$STATE_OVERRIDE"/procevent-capture-reservations/.extension-capture-"$override_crash_token".*
++ cp /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-capture-reservations/.extension-capture-.claim.DSeeuV-3622.a19e0046d21481f9ab961d969164e8cc4f743b05d710076555f385f82969c09c.json /tmp/fm-extension-binding.vZyWXX/crash-snapshots/
++ cat
++ python3 /tmp/fm-extension-binding.vZyWXX/check-crash-owner.py /tmp/fm-extension-binding.vZyWXX/claims/override-crash-source.claim /tmp/fm-extension-binding.vZyWXX/overridden-state /tmp/fm-extension-binding.vZyWXX/homes/state-override ''
+claim bytes: L3RtcC9mbS1leHRlbnNpb24tYmluZGluZy52WnlXWFgvaG9tZXMvc3RhdGUtb3ZlcnJpZGUKMzYyMgouY2xhaW0uRFNlZXVWLTM2MjIKbGludXgtc3RhcnR0aW1lPTExOTM0MjgwIGNtZGxpbmUtaGV4PTYyNjE3MzY4MDAyZjY4NmY2ZDY1MmY2MTZlNjQ3MjY1NzcyZjJlNmU2ZjJkNmQ2OTczNzQ2MTZiNjU3MzJkNzM3MDc1NjQ3Mjc1NmU2ZTY1NzIyZDc2NjE2YzY5NjQ2MTc0Njk2ZjZlMmY3NzZmNzI2Yjc0NzI2NTY1NzMyZjYzNjEzNTMzMzczNzY2MzEzMTM5NjQzNDJmMzAzMTRkMzYzODM2NTI1MjRlNDIzOTM1NGE1MzQ2NGQzMTUwMzU1NDQyNTc1MTMzNTk1OTJmNjI2OTZlMmY3MDcyNmY2MzY1NzM3MzJkNjU3NjY1NmU3NDczMmU3MzY4MDA1ZjczNzQ2MTcyNzQwMDZmNzY2NTcyNzI2OTY0NjUyZDYzNzI2MTczNjgyZDczNmY3NTcyNjM2NTAwCi90bXAvZm0tZXh0ZW5zaW9uLWJpbmRpbmcudlp5V1hYL292ZXJyaWRkZW4tc3RhdGUvcHJvY2V2ZW50CjIwOTY6MTM0MzgyMgphY3RpdmUKL3RtcC9mbS1leHRlbnNpb24tYmluZGluZy52WnlXWFgvb3ZlcnJpZGRlbi1zdGF0ZQoyMDk2CjEzNDM3NjMKMTAwMAo3NTUK sha256: 759929ce728c5f4735f021190ab72ad3a7b9379d361b0db34079e50971fa3b1d
+namespace init: 1 (bash) S 0 0 0 0 -1 4194560 6499 799671 0 1 1 1 341 88 20 0 1 0 11933732 9936896 1056 18446744073709551615 95487028363264 95487029085909 140721025098784 0 0 0 65536 0 1132560127 1 0 0 17 3 0 0 0 0 0 95487029316848 95487029364228 95487263072256 140721025103758 140721025103803 140721025103803 140721025114090 0
+ 62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800
+reservation bytes: eyJjbGFpbV90b2tlbiI6Ii5jbGFpbS5EU2VldVYtMzYyMiIsInJlc3VsdF9kZXZpY2UiOiIyMDk2IiwiYmluZGluZ19kaWdlc3QiOiJzaGEyNTY6YTUwMzdlOGUyY2JiOGVhZDk2Y2I0ZGUyNTNjNjdhNTFhZjM0ZDM5ZWFlMjFmNTIwY2E3YjVhZjc0NTIxNWQ3ZCIsImluYm94X2RldmljZSI6IjIwOTYiLCJ0b2tlbiI6ImExOWUwMDQ2ZDIxNDgxZjlhYjk2MWQ5NjkxNjRlOGNjNGY3NDNiMDVkNzEwMDc2NTU1ZjM4NWY4Mjk2OWMwOWMiLCJvcGVyYXRpb24iOiJyZXN1bHQudGVybWluYWwiLCJpbmJveF9pbm9kZSI6IjEzNDM3NjQiLCJyZXN1bHRfaW5vZGUiOiIxMzQzODA5Iiwic291cmNlX2lkIjoib3ZlcnJpZGUtY3Jhc2gtc291cmNlIiwic2VxdWVuY2UiOjEsImNsYWltX3BpZCI6IjM2MjIiLCJjbGFpbV9pZGVudGl0eSI6ImxpbnV4LXN0YXJ0dGltZT0xMTkzNDI4MCBjbWRsaW5lLWhleD02MjYxNzM2ODAwMmY2ODZmNmQ2NTJmNjE2ZTY0NzI2NTc3MmYyZTZlNmYyZDZkNjk3Mzc0NjE2YjY1NzMyZDczNzA3NTY0NzI3NTZlNmU2NTcyMmQ3NjYxNmM2OTY0NjE3NDY5NmY2ZTJmNzc2ZjcyNmI3NDcyNjU2NTczMmY2MzYxMzUzMzM3Mzc2NjMxMzEzOTY0MzQyZjMwMzE0ZDM2MzgzNjUyNTI0ZTQyMzkzNTRhNTM0NjRkMzE1MDM1NTQ0MjU3NTEzMzU5NTkyZjYyNjk2ZTJmNzA3MjZmNjM2NTczNzMyZDY1NzY2NTZlNzQ3MzJlNzM2ODAwNWY3Mzc0NjE3Mjc0MDA2Zjc2NjU3MjcyNjk2NDY1MmQ2MzcyNjE3MzY4MmQ3MzZmNzU3MjYzNjUwMCIsInNjaGVtYSI6ImZtLXByb2NldmVudC1jYXB0dXJlLXJlc2VydmF0aW9uLnYxIn0K
++ python3 - /tmp/fm-extension-binding.vZyWXX/crash-snapshots
+crash snapshot: .extension-capture-.claim.DSeeuV-3622.a19e0046d21481f9ab961d969164e8cc4f743b05d710076555f385f82969c09c.json 75afd34c58e1a627362954e1d7b0474c6547e38bac65901a77af7073fab400fa eyJjbGFpbV90b2tlbiI6Ii5jbGFpbS5EU2VldVYtMzYyMiIsInJlc3VsdF9kZXZpY2UiOiIyMDk2IiwiYmluZGluZ19kaWdlc3QiOiJzaGEyNTY6YTUwMzdlOGUyY2JiOGVhZDk2Y2I0ZGUyNTNjNjdhNTFhZjM0ZDM5ZWFlMjFmNTIwY2E3YjVhZjc0NTIxNWQ3ZCIsImluYm94X2RldmljZSI6IjIwOTYiLCJ0b2tlbiI6ImExOWUwMDQ2ZDIxNDgxZjlhYjk2MWQ5NjkxNjRlOGNjNGY3NDNiMDVkNzEwMDc2NTU1ZjM4NWY4Mjk2OWMwOWMiLCJvcGVyYXRpb24iOiJyZXN1bHQudGVybWluYWwiLCJpbmJveF9pbm9kZSI6IjEzNDM3NjQiLCJyZXN1bHRfaW5vZGUiOiIxMzQzODA5Iiwic291cmNlX2lkIjoib3ZlcnJpZGUtY3Jhc2gtc291cmNlIiwic2VxdWVuY2UiOjEsImNsYWltX3BpZCI6IjM2MjIiLCJjbGFpbV9pZGVudGl0eSI6ImxpbnV4LXN0YXJ0dGltZT0xMTkzNDI4MCBjbWRsaW5lLWhleD02MjYxNzM2ODAwMmY2ODZmNmQ2NTJmNjE2ZTY0NzI2NTc3MmYyZTZlNmYyZDZkNjk3Mzc0NjE2YjY1NzMyZDczNzA3NTY0NzI3NTZlNmU2NTcyMmQ3NjYxNmM2OTY0NjE3NDY5NmY2ZTJmNzc2ZjcyNmI3NDcyNjU2NTczMmY2MzYxMzUzMzM3Mzc2NjMxMzEzOTY0MzQyZjMwMzE0ZDM2MzgzNjUyNTI0ZTQyMzkzNTRhNTM0NjRkMzE1MDM1NTQ0MjU3NTEzMzU5NTkyZjYyNjk2ZTJmNzA3MjZmNjM2NTczNzMyZDY1NzY2NTZlNzQ3MzJlNzM2ODAwNWY3Mzc0NjE3Mjc0MDA2Zjc2NjU3MjcyNjk2NDY1MmQ2MzcyNjE3MzY4MmQ3MzZmNzU3MjYzNjUwMCIsInNjaGVtYSI6ImZtLXByb2NldmVudC1jYXB0dXJlLXJlc2VydmF0aW9uLnYxIn0K
+crash snapshot: .extension-capture-.claim.DSeeuV-3622.decoy.json af474f3a513dd6f7efba743079489289edf6358e4327faa0d29d240194821736 ZGVjb3kK
+crash snapshot: org.example.flow.json a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d ewogICJjYXBhYmlsaXRpZXMiOiBbCiAgICB7CiAgICAgICJhZGFwdGVyX25hbWVzIjogWwogICAgICAgICJleHQtZmxvdyIKICAgICAgXSwKICAgICAgIm5hbWUiOiAicHJvY2Vzcy1ldmVudC1hZGFwdGVyIiwKICAgICAgInZlcnNpb24iOiAxCiAgICB9CiAgXSwKICAiY29uc2VudHMiOiB7CiAgICAiYXJ0aWZhY3RfcmVmZXJlbmNlcyI6IGZhbHNlLAogICAgImNyZWRlbnRpYWxfc3RvcmUiOiBmYWxzZSwKICAgICJuZXR3b3JrIjogZmFsc2UsCiAgICAidGFza19tZXRhZGF0YSI6IGZhbHNlLAogICAgInRydXN0ZWRfc2FtZV91c2VyX2NvZGUiOiB0cnVlCiAgfSwKICAiZW50cnlwb2ludCI6ICJlbnRyeXBvaW50LnB5IiwKICAiZW50cnlwb2ludF9zaGEyNTYiOiAic2hhMjU2OjNhNmExY2RlMWYxNDVhYTE5MDQ4NWRhM2ZlZjQwN2UwZTNjMzQ5MjA1MzlkMzFiY2FlNWUyZjg2OWQxZGUzYzYiLAogICJleHRlbnNpb25faWQiOiAib3JnLmV4YW1wbGUuZmxvdyIsCiAgImV4dGVuc2lvbl92ZXJzaW9uIjogIjEuMi4zIiwKICAiaG9zdF9wcm90b2NvbCI6IDEsCiAgIm1hbmlmZXN0X3NoYTI1NiI6ICJzaGEyNTY6N2ZkYzE2YzliNzAyNjExNjFhMjY0Y2M3MmI0ZjZkMGEwZjIyN2YwMTM1MjFlOWE0MmJmMWUwZTk1NTkwNWU4MSIsCiAgInBhY2thZ2VfZGlnZXN0IjogInNoYTI1NjpmN2Y1Y2ViNjcwNmFlZWJjOGRiYTZkMmE5NDdkNGU0MGVjYzdhNzI5OGJlZWU1NTIzMmUzODNlN2Q4MzZhZTEzIiwKICAicGFja2FnZV9yb290IjogIi90bXAvZm0tZXh0ZW5zaW9uLWJpbmRpbmcudlp5V1hYL2hvbWVzL3N0YXRlLW92ZXJyaWRlL2RhdGEvZXh0ZW5zaW9ucy9wYWNrYWdlcy9vcmcuZXhhbXBsZS5mbG93LzEuMi4zL2Y3ZjVjZWI2NzA2YWVlYmM4ZGJhNmQyYTk0N2Q0ZTQwZWNjN2E3Mjk4YmVlZTU1MjMyZTM4M2U3ZDgzNmFlMTMiLAogICJzY2hlbWEiOiAiZmlyc3RtYXRlLmV4dGVuc2lvbi1iaW5kaW5nLnYxIiwKICAic291cmNlIjogewogICAgImtpbmQiOiAibG9jYWwtZGlyZWN0b3J5IiwKICAgICJwYXRoIjogIi90bXAvZm0tZXh0ZW5zaW9uLWJpbmRpbmcudlp5V1hYL3BhY2thZ2VzL2Zsb3ciCiAgfSwKICAidGltZW91dF9tcyI6IDMwMDAwMAp9Cg==
+crash snapshot: override-crash-source.claim 759929ce728c5f4735f021190ab72ad3a7b9379d361b0db34079e50971fa3b1d L3RtcC9mbS1leHRlbnNpb24tYmluZGluZy52WnlXWFgvaG9tZXMvc3RhdGUtb3ZlcnJpZGUKMzYyMgouY2xhaW0uRFNlZXVWLTM2MjIKbGludXgtc3RhcnR0aW1lPTExOTM0MjgwIGNtZGxpbmUtaGV4PTYyNjE3MzY4MDAyZjY4NmY2ZDY1MmY2MTZlNjQ3MjY1NzcyZjJlNmU2ZjJkNmQ2OTczNzQ2MTZiNjU3MzJkNzM3MDc1NjQ3Mjc1NmU2ZTY1NzIyZDc2NjE2YzY5NjQ2MTc0Njk2ZjZlMmY3NzZmNzI2Yjc0NzI2NTY1NzMyZjYzNjEzNTMzMzczNzY2MzEzMTM5NjQzNDJmMzAzMTRkMzYzODM2NTI1MjRlNDIzOTM1NGE1MzQ2NGQzMTUwMzU1NDQyNTc1MTMzNTk1OTJmNjI2OTZlMmY3MDcyNmY2MzY1NzM3MzJkNjU3NjY1NmU3NDczMmU3MzY4MDA1ZjczNzQ2MTcyNzQwMDZmNzY2NTcyNzI2OTY0NjUyZDYzNzI2MTczNjgyZDczNmY3NTcyNjM2NTAwCi90bXAvZm0tZXh0ZW5zaW9uLWJpbmRpbmcudlp5V1hYL292ZXJyaWRkZW4tc3RhdGUvcHJvY2V2ZW50CjIwOTY6MTM0MzgyMgphY3RpdmUKL3RtcC9mbS1leHRlbnNpb24tYmluZGluZy52WnlXWFgvb3ZlcnJpZGRlbi1zdGF0ZQoyMDk2CjEzNDM3NjMKMTAwMAo3NTUK
+crash snapshot: override-crash-source.source 3feacd36cb380bf3c0f80bafda0f787c179a209b892388af0cbc463bd80a884c YWRhcHRlcj1leHQtZmxvdwpvd25lcj1leHRlbnNpb24KZXh0ZW5zaW9uX3NjaGVtYT1mbS1wcm9jZXZlbnQtZXh0ZW5zaW9uLW93bmVyLnYxCmV4dGVuc2lvbl9pZD1vcmcuZXhhbXBsZS5mbG93CmV4dGVuc2lvbl92ZXJzaW9uPTEuMi4zCmNhcGFiaWxpdHlfdmVyc2lvbj0xCnBhY2thZ2VfZGlnZXN0PXNoYTI1NjpmN2Y1Y2ViNjcwNmFlZWJjOGRiYTZkMmE5NDdkNGU0MGVjYzdhNzI5OGJlZWU1NTIzMmUzODNlN2Q4MzZhZTEzCmJpbmRpbmdfZGlnZXN0PXNoYTI1NjphNTAzN2U4ZTJjYmI4ZWFkOTZjYjRkZTI1M2M2N2E1MWFmMzRkMzllYWUyMWY1MjBjYTdiNWFmNzQ1MjE1ZDdkCmNvbmZpZ19yZWY9c2lsZW50LWJsb2NrfC90bXAvZm0tZXh0ZW5zaW9uLWJpbmRpbmcudlp5V1hYL292ZXJyaWRlLWNyYXNoLm1hcmtlcnwvdG1wL2ZtLWV4dGVuc2lvbi1iaW5kaW5nLnZaeVdYWC9vdmVycmlkZS1jcmFzaC5yZWxlYXNlCnJlZ2lzdHJhdGlvbl90b2tlbj1zaGEyNTY6ODY2MGM3NmMzMTUwZDhjN2E2NGVhZjkyNDE3YjUyOWYwNWY0MDZkZTFhOWE2YTFiZGRiMjk4ODgyZDJlZWRjZgphcmdjPTAKYXJndjoK
+crash snapshot: unrelated-reservation e05973382ff4ed689f0a711c82deb2058aa7f0ef50bb8013038a6070cc7a1300 eyJjbGFpbV90b2tlbiI6ICIuY2xhaW0udW5yZWxhdGVkLWZpeHR1cmUiLCAicmVzdWx0X2RldmljZSI6ICIyMDk2IiwgImJpbmRpbmdfZGlnZXN0IjogInNoYTI1NjphNTAzN2U4ZTJjYmI4ZWFkOTZjYjRkZTI1M2M2N2E1MWFmMzRkMzllYWUyMWY1MjBjYTdiNWFmNzQ1MjE1ZDdkIiwgImluYm94X2RldmljZSI6ICIyMDk2IiwgInRva2VuIjogIjQ5NmQ2ODNlZDZlN2Y1MzExMzg3NzY2ZmUxOTMzYmMwNTNlN2Q2Yjg1MDgzMmNjNGEzOGMxYzMwOWU0MmNiNDUiLCAib3BlcmF0aW9uIjogInJlc3VsdC50ZXJtaW5hbCIsICJpbmJveF9pbm9kZSI6ICIxMzQzNzY0IiwgInJlc3VsdF9pbm9kZSI6ICIxMzQzODA5IiwgInNvdXJjZV9pZCI6ICJvdmVycmlkZS1jcmFzaC1zb3VyY2UiLCAic2VxdWVuY2UiOiAxLCAiY2xhaW1fcGlkIjogIjM2MjIiLCAiY2xhaW1faWRlbnRpdHkiOiAibGludXgtc3RhcnR0aW1lPTExOTM0MjgwIGNtZGxpbmUtaGV4PTYyNjE3MzY4MDAyZjY4NmY2ZDY1MmY2MTZlNjQ3MjY1NzcyZjJlNmU2ZjJkNmQ2OTczNzQ2MTZiNjU3MzJkNzM3MDc1NjQ3Mjc1NmU2ZTY1NzIyZDc2NjE2YzY5NjQ2MTc0Njk2ZjZlMmY3NzZmNzI2Yjc0NzI2NTY1NzMyZjYzNjEzNTMzMzczNzY2MzEzMTM5NjQzNDJmMzAzMTRkMzYzODM2NTI1MjRlNDIzOTM1NGE1MzQ2NGQzMTUwMzU1NDQyNTc1MTMzNTk1OTJmNjI2OTZlMmY3MDcyNmY2MzY1NzM3MzJkNjU3NjY1NmU3NDczMmU3MzY4MDA1ZjczNzQ2MTcyNzQwMDZmNzY2NTcyNzI2OTY0NjUyZDYzNzI2MTczNjgyZDczNmY3NTcyNjM2NTAwIiwgInNjaGVtYSI6ICJmbS1wcm9jZXZlbnQtY2FwdHVyZS1yZXNlcnZhdGlvbi52MSJ9
++ kill -KILL -3622
++ wait 3565
++ true
++ override_crash_start_pid=
+++ seq 1 400
++ for _ in $(seq 1 400)
++ kill -0 3622
++ kill -0 -3622
++ break
++ kill -0 3622
++ kill -0 -3622
++ '[' '!' -d /proc/3622 ']'
++ printf 'reaped crash runner and group: %s\n' 3622
+reaped crash runner and group: 3622
++ override_crash_runner_pid=
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
++ for record in "$override_crash_claim" "$override_crash_decoy" "$STATE_OVERRIDE/procevent/override-crash-source.source" "$H_STATE_OVERRIDE/config/extensions.d/org.example.flow.json" "$STATE_OVERRIDE"/procevent-capture-reservations/.extension-capture-"$override_crash_token".*
++ cmp /tmp/fm-extension-binding.vZyWXX/crash-snapshots/override-crash-source.claim /tmp/fm-extension-binding.vZyWXX/claims/override-crash-source.claim
++ for record in "$override_crash_claim" "$override_crash_decoy" "$STATE_OVERRIDE/procevent/override-crash-source.source" "$H_STATE_OVERRIDE/config/extensions.d/org.example.flow.json" "$STATE_OVERRIDE"/procevent-capture-reservations/.extension-capture-"$override_crash_token".*
++ cmp /tmp/fm-extension-binding.vZyWXX/crash-snapshots/.extension-capture-.claim.DSeeuV-3622.decoy.json /tmp/fm-extension-binding.vZyWXX/homes/state-override/state/procevent-capture-reservations/.extension-capture-.claim.DSeeuV-3622.decoy.json
++ for record in "$override_crash_claim" "$override_crash_decoy" "$STATE_OVERRIDE/procevent/override-crash-source.source" "$H_STATE_OVERRIDE/config/extensions.d/org.example.flow.json" "$STATE_OVERRIDE"/procevent-capture-reservations/.extension-capture-"$override_crash_token".*
++ cmp /tmp/fm-extension-binding.vZyWXX/crash-snapshots/override-crash-source.source /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent/override-crash-source.source
++ for record in "$override_crash_claim" "$override_crash_decoy" "$STATE_OVERRIDE/procevent/override-crash-source.source" "$H_STATE_OVERRIDE/config/extensions.d/org.example.flow.json" "$STATE_OVERRIDE"/procevent-capture-reservations/.extension-capture-"$override_crash_token".*
++ cmp /tmp/fm-extension-binding.vZyWXX/crash-snapshots/org.example.flow.json /tmp/fm-extension-binding.vZyWXX/homes/state-override/config/extensions.d/org.example.flow.json
++ for record in "$override_crash_claim" "$override_crash_decoy" "$STATE_OVERRIDE/procevent/override-crash-source.source" "$H_STATE_OVERRIDE/config/extensions.d/org.example.flow.json" "$STATE_OVERRIDE"/procevent-capture-reservations/.extension-capture-"$override_crash_token".*
++ cmp /tmp/fm-extension-binding.vZyWXX/crash-snapshots/.extension-capture-.claim.DSeeuV-3622.a19e0046d21481f9ab961d969164e8cc4f743b05d710076555f385f82969c09c.json /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-capture-reservations/.extension-capture-.claim.DSeeuV-3622.a19e0046d21481f9ab961d969164e8cc4f743b05d710076555f385f82969c09c.json
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
+++ find /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-capture-reservations -type f -name '.extension-capture-.claim.DSeeuV-3622.*' -print -quit
++ override_crash_records=
++ '[' -z '' ']'
++ cmp /tmp/fm-extension-binding.vZyWXX/crash-snapshots/.extension-capture-.claim.DSeeuV-3622.decoy.json /tmp/fm-extension-binding.vZyWXX/homes/state-override/state/procevent-capture-reservations/.extension-capture-.claim.DSeeuV-3622.decoy.json
++ cmp /tmp/fm-extension-binding.vZyWXX/crash-snapshots/unrelated-reservation /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-capture-reservations/.extension-capture-.claim.unrelated-fixture.496d683ed6e7f5311387766fe1933bc053e7d6b850832cc4a38c1c309e42cb45.json
++ '[' -e /tmp/fm-extension-binding.vZyWXX/claims/override-crash-source.claim ']'
++ python3 /tmp/fm-extension-binding.vZyWXX/check-crash-owner.py /tmp/fm-extension-binding.vZyWXX/claims/override-crash-source.claim /tmp/fm-extension-binding.vZyWXX/overridden-state /tmp/fm-extension-binding.vZyWXX/homes/state-override .claim.DSeeuV-3622
+claim bytes: L3RtcC9mbS1leHRlbnNpb24tYmluZGluZy52WnlXWFgvaG9tZXMvc3RhdGUtb3ZlcnJpZGUKNDgzNAouY2xhaW0udkRZVTJoLTQ4MzQKbGludXgtc3RhcnR0aW1lPTExOTM0NDI5IGNtZGxpbmUtaGV4PTYyNjE3MzY4MDAyZjY4NmY2ZDY1MmY2MTZlNjQ3MjY1NzcyZjJlNmU2ZjJkNmQ2OTczNzQ2MTZiNjU3MzJkNzM3MDc1NjQ3Mjc1NmU2ZTY1NzIyZDc2NjE2YzY5NjQ2MTc0Njk2ZjZlMmY3NzZmNzI2Yjc0NzI2NTY1NzMyZjYzNjEzNTMzMzczNzY2MzEzMTM5NjQzNDJmMzAzMTRkMzYzODM2NTI1MjRlNDIzOTM1NGE1MzQ2NGQzMTUwMzU1NDQyNTc1MTMzNTk1OTJmNjI2OTZlMmY3MDcyNmY2MzY1NzM3MzJkNjU3NjY1NmU3NDczMmU3MzY4MDA1ZjczNzQ2MTcyNzQwMDZmNzY2NTcyNzI2OTY0NjUyZDYzNzI2MTczNjgyZDczNmY3NTcyNjM2NTAwCi90bXAvZm0tZXh0ZW5zaW9uLWJpbmRpbmcudlp5V1hYL292ZXJyaWRkZW4tc3RhdGUvcHJvY2V2ZW50CjIwOTY6MTM0MzgyMgphY3RpdmUKL3RtcC9mbS1leHRlbnNpb24tYmluZGluZy52WnlXWFgvb3ZlcnJpZGRlbi1zdGF0ZQoyMDk2CjEzNDM3NjMKMTAwMAo3NTUK sha256: 3975d9931c4bcac1eab1b603c9a43d09e1a5a15499b14e7f9d13511122df08e9
+namespace init: 1 (bash) S 0 0 0 0 -1 4194560 7374 1071908 0 1 1 1 454 113 20 0 1 0 11933732 10465280 1184 18446744073709551615 95487028363264 95487029085909 140721025098784 0 0 0 65536 0 1132560127 1 0 0 17 2 0 0 0 0 0 95487029316848 95487029364228 95487263072256 140721025103758 140721025103803 140721025103803 140721025114090 0
+ 62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800
++ cmp /tmp/fm-extension-binding.vZyWXX/crash-snapshots/override-crash-source.source /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent/override-crash-source.source
++ touch /tmp/fm-extension-binding.vZyWXX/override-crash.release
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire override-crash-source --if-owner sha256:8660c76c3150d8c7a64eaf92417b529f05f406de1a9a6a1bddb298882d2eedcf
++ assert_absent /tmp/fm-extension-binding.vZyWXX/claims/override-crash-source.claim 'exact-owner cleanup retained replacement claim'
++ '[' '!' -e /tmp/fm-extension-binding.vZyWXX/claims/override-crash-source.claim ']'
++ pass 'crash recovery revalidates and cleans only the recorded state root'
++ printf 'ok - %s\n' 'crash recovery revalidates and cleans only the recorded state root'
+ok - crash recovery revalidates and cleans only the recorded state root
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-flow inbox-swap-source --config-ref good
++ mkdir /tmp/fm-extension-binding.vZyWXX/inbox-link-target
++ mv /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox /tmp/fm-extension-binding.vZyWXX/override-real-inbox
++ ln -s /tmp/fm-extension-binding.vZyWXX/inbox-link-target /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox
++ expect_failure 'cannot durably capture the extension result' env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start inbox-swap-source
++ local 'needle=cannot durably capture the extension result' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start inbox-swap-source
++ out='error: cannot durably capture the extension result'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error: cannot durably capture the extension result' 'cannot durably capture the extension result' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
+++ find /tmp/fm-extension-binding.vZyWXX/inbox-link-target -mindepth 1 -print -quit
++ '[' -z '' ']'
++ rm /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox
++ mv /tmp/fm-extension-binding.vZyWXX/override-real-inbox /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox
++ pass 'post-registration inbox symlink substitution cannot redirect extension evidence'
++ printf 'ok - %s\n' 'post-registration inbox symlink substitution cannot redirect extension evidence'
+ok - post-registration inbox symlink substitution cannot redirect extension evidence
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-flow registry-swap-source --config-ref good
++ mkdir /tmp/fm-extension-binding.vZyWXX/registry-link-target
++ mv /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent /tmp/fm-extension-binding.vZyWXX/registry-link-target
++ REGISTRY_LINK_TARGET=/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent
+++ find /tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent -mindepth 1 -maxdepth 1 -print
+++ LC_ALL=C
+++ sort
++ registry_entries_before='/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/.owner-lease
+/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/inbox-swap-source.source
+/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/override-crash-source.2096-1343822.last-launch
+/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/override-source.2096-1343792.last-launch
+/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/registry-swap-source.source'
++ ln -s /tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent
++ expect_failure 'cannot safely prepare the external registry staging boundary' env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start registry-swap-source
++ local 'needle=cannot safely prepare the external registry staging boundary' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start registry-swap-source
++ out='error: cannot safely prepare the external registry staging boundary'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error: cannot safely prepare the external registry staging boundary' 'cannot safely prepare the external registry staging boundary' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
+++ find /tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent -mindepth 1 -maxdepth 1 -print
+++ LC_ALL=C
+++ sort
++ registry_entries_after='/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/.owner-lease
+/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/inbox-swap-source.source
+/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/override-crash-source.2096-1343822.last-launch
+/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/override-source.2096-1343792.last-launch
+/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/registry-swap-source.source'
++ '[' '/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/.owner-lease
+/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/inbox-swap-source.source
+/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/override-crash-source.2096-1343822.last-launch
+/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/override-source.2096-1343792.last-launch
+/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/registry-swap-source.source' = '/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/.owner-lease
+/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/inbox-swap-source.source
+/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/override-crash-source.2096-1343822.last-launch
+/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/override-source.2096-1343792.last-launch
+/tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent/registry-swap-source.source' ']'
++ rm /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent
++ mv /tmp/fm-extension-binding.vZyWXX/registry-link-target/procevent /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent
++ pass 'post-registration registry symlink substitution cannot redirect external evidence'
++ printf 'ok - %s\n' 'post-registration registry symlink substitution cannot redirect external evidence'
+ok - post-registration registry symlink substitution cannot redirect external evidence
++ registry_race_marker=/tmp/fm-extension-binding.vZyWXX/registry-race.marker
++ registry_race_release=/tmp/fm-extension-binding.vZyWXX/registry-race.release
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-flow registry-race-source --config-ref 'active-block|/tmp/fm-extension-binding.vZyWXX/registry-race.marker|/tmp/fm-extension-binding.vZyWXX/registry-race.release'
++ registry_race_pid=6791
++ wait_for_file /tmp/fm-extension-binding.vZyWXX/registry-race.marker
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start registry-race-source
++ local file=/tmp/fm-extension-binding.vZyWXX/registry-race.marker
+++ seq 1 100
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/registry-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/registry-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/registry-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/registry-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/registry-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/registry-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/registry-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/registry-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/registry-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/registry-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/registry-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/registry-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/registry-race.marker ']'
++ return 0
++ mkdir /tmp/fm-extension-binding.vZyWXX/registry-race-outside
++ cp /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent/registry-race-source.source /tmp/fm-extension-binding.vZyWXX/registry-race-source.before
++ cp /tmp/fm-extension-binding.vZyWXX/homes/state-override/config/extensions.d/org.example.flow.json /tmp/fm-extension-binding.vZyWXX/registry-race-binding.before
++ mv /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent /tmp/fm-extension-binding.vZyWXX/registry-race-real
++ ln -s /tmp/fm-extension-binding.vZyWXX/registry-race-outside /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent
++ touch /tmp/fm-extension-binding.vZyWXX/registry-race.release
++ registry_race_rc=0
++ wait 6791
++ registry_race_rc=1
++ registry_race_pid=
++ '[' 1 -eq 1 ']'
+++ cat /tmp/fm-extension-binding.vZyWXX/registry-race.out
++ assert_equals 'error: cannot establish the source launch boundary: registry-race-source' 'error: cannot establish the source launch boundary: registry-race-source' 'registry swap produced an unexpected refusal'
++ '[' 'error: cannot establish the source launch boundary: registry-race-source' = 'error: cannot establish the source launch boundary: registry-race-source' ']'
++ cmp /tmp/fm-extension-binding.vZyWXX/registry-race-source.before /tmp/fm-extension-binding.vZyWXX/registry-race-real/registry-race-source.source
++ cmp /tmp/fm-extension-binding.vZyWXX/registry-race-binding.before /tmp/fm-extension-binding.vZyWXX/homes/state-override/config/extensions.d/org.example.flow.json
+++ find /tmp/fm-extension-binding.vZyWXX/registry-race-outside -mindepth 1 -print -quit
++ '[' -z '' ']'
++ rm /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent
++ mv /tmp/fm-extension-binding.vZyWXX/registry-race-real /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent
++ pass 'registry directory swap refuses the lost launch boundary without redirecting evidence'
++ printf 'ok - %s\n' 'registry directory swap refuses the lost launch boundary without redirecting evidence'
+ok - registry directory swap refuses the lost launch boundary without redirecting evidence
++ registry_race_release=
++ leaf_race_marker=/tmp/fm-extension-binding.vZyWXX/leaf-race.marker
++ leaf_race_release=/tmp/fm-extension-binding.vZyWXX/leaf-race.release
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-flow leaf-race-source --config-ref 'active-block|/tmp/fm-extension-binding.vZyWXX/leaf-race.marker|/tmp/fm-extension-binding.vZyWXX/leaf-race.release'
++ leaf_race_pid=7664
++ wait_for_file /tmp/fm-extension-binding.vZyWXX/leaf-race.marker
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start leaf-race-source
++ local file=/tmp/fm-extension-binding.vZyWXX/leaf-race.marker
+++ seq 1 100
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/leaf-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/leaf-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/leaf-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/leaf-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/leaf-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/leaf-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/leaf-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/leaf-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/leaf-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/leaf-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/leaf-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/leaf-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/leaf-race.marker ']'
++ return 0
+++ find /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent -maxdepth 1 -name '.leaf-race-source.*.output' -print -quit
++ leaf_stage=/tmp/fm-extension-binding.vZyWXX/overridden-state/procevent/.leaf-race-source..claim.ZBOJIj-7721.output
++ leaf_runner=/tmp/fm-extension-binding.vZyWXX/overridden-state/procevent/leaf-race-source.runner
++ '[' -n /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent/.leaf-race-source..claim.ZBOJIj-7721.output ']'
++ '[' -f /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent/leaf-race-source.runner ']'
++ mkdir /tmp/fm-extension-binding.vZyWXX/leaf-race-outside
++ mv /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent/.leaf-race-source..claim.ZBOJIj-7721.output /tmp/fm-extension-binding.vZyWXX/leaf-race-real-output
++ mv /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent/leaf-race-source.runner /tmp/fm-extension-binding.vZyWXX/leaf-race-real-runner
++ ln -s /tmp/fm-extension-binding.vZyWXX/leaf-race-outside/output /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent/.leaf-race-source..claim.ZBOJIj-7721.output
++ ln -s /tmp/fm-extension-binding.vZyWXX/leaf-race-outside/runner /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent/leaf-race-source.runner
++ touch /tmp/fm-extension-binding.vZyWXX/leaf-race.release
++ leaf_race_rc=0
++ wait 7664
++ leaf_race_pid=
++ '[' 0 -eq 0 ']'
++ '[' '!' -e /tmp/fm-extension-binding.vZyWXX/leaf-race-outside/output ']'
++ '[' '!' -e /tmp/fm-extension-binding.vZyWXX/leaf-race-outside/runner ']'
++ rm -f /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent/.leaf-race-source..claim.ZBOJIj-7721.output /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent/leaf-race-source.runner
++ pass 'external staging leaves remain no-follow descriptor-bound through capture'
++ printf 'ok - %s\n' 'external staging leaves remain no-follow descriptor-bound through capture'
+ok - external staging leaves remain no-follow descriptor-bound through capture
++ leaf_race_release=
++ publication_race_marker=/tmp/fm-extension-binding.vZyWXX/publication-race.marker
++ publication_race_release=/tmp/fm-extension-binding.vZyWXX/publication-race.release
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-flow publication-race-source --config-ref 'silent-block|/tmp/fm-extension-binding.vZyWXX/publication-race.marker|/tmp/fm-extension-binding.vZyWXX/publication-race.release'
++ publication_race_pid=9317
++ wait_for_file /tmp/fm-extension-binding.vZyWXX/publication-race.marker
++ local file=/tmp/fm-extension-binding.vZyWXX/publication-race.marker
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start publication-race-source
+++ seq 1 100
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.vZyWXX/publication-race.marker ']'
++ return 0
++ mkdir /tmp/fm-extension-binding.vZyWXX/publication-race-outside
++ mv /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox /tmp/fm-extension-binding.vZyWXX/publication-race-real-inbox
++ ln -s /tmp/fm-extension-binding.vZyWXX/publication-race-outside /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox
++ touch /tmp/fm-extension-binding.vZyWXX/publication-race.release
++ publication_race_rc=0
++ wait 9317
++ publication_race_pid=
++ '[' 0 -eq 0 ']'
++ assert_present /tmp/fm-extension-binding.vZyWXX/publication-race-real-inbox/publication-race-source.1.result 'pinned inbox lost the captured result during publication'
++ '[' -e /tmp/fm-extension-binding.vZyWXX/publication-race-real-inbox/publication-race-source.1.result ']'
++ assert_present /tmp/fm-extension-binding.vZyWXX/publication-race-real-inbox/publication-race-source.1.handled 'pinned inbox lost its handled acknowledgement during publication'
++ '[' -e /tmp/fm-extension-binding.vZyWXX/publication-race-real-inbox/publication-race-source.1.handled ']'
+++ find /tmp/fm-extension-binding.vZyWXX/publication-race-outside -mindepth 1 -print -quit
++ '[' -z '' ']'
++ rm /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox
++ mv /tmp/fm-extension-binding.vZyWXX/publication-race-real-inbox /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox
++ pass 'external publication remains descriptor-bound after capture'
++ printf 'ok - %s\n' 'external publication remains descriptor-bound after capture'
+ok - external publication remains descriptor-bound after capture
++ publication_race_release=
++ capture_signal_state=/tmp/fm-extension-binding.vZyWXX/capture-signal-state
++ capture_signal_registry=/tmp/fm-extension-binding.vZyWXX/capture-signal-state/procevent
++ mkdir -p /tmp/fm-extension-binding.vZyWXX/capture-signal-state/procevent /tmp/fm-extension-binding.vZyWXX/capture-signal-state/procevent-inbox
++ chmod 0700 /tmp/fm-extension-binding.vZyWXX/capture-signal-state /tmp/fm-extension-binding.vZyWXX/capture-signal-state/procevent /tmp/fm-extension-binding.vZyWXX/capture-signal-state/procevent-inbox
++ exec
++ exec
++ exec
+++ mktemp /tmp/fm-extension-binding.vZyWXX/capture-signal-state/procevent/.authority.XXXXXXXX
++ capture_signal_authority=/tmp/fm-extension-binding.vZyWXX/capture-signal-state/procevent/.authority.fekGSImB
++ dd if=/dev/urandom of=/tmp/fm-extension-binding.vZyWXX/capture-signal-state/procevent/.authority.fekGSImB bs=32 count=1
++ chmod 0600 /tmp/fm-extension-binding.vZyWXX/capture-signal-state/procevent/.authority.fekGSImB
++ exec
++ rm /tmp/fm-extension-binding.vZyWXX/capture-signal-state/procevent/.authority.fekGSImB
++++ printf a%.0s 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
++++ printf b%.0s 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
+++ perl /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-extension-capture.pl 9 8 6 capture-signal-source ext-flow org.example.flow 1.2.3 1 sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb signal-token capture-signal-source.runner .capture-signal.output 1 'linux-starttime=11933732 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800' 1024 -- perl -e 'kill "KILL", $$'
++ capture_signal='failure	0'
++ exec
++ exec
++ exec
++ exec
++ '[' 'failure	0' = 'failure	0' ']'
+++ find /tmp/fm-extension-binding.vZyWXX/capture-signal-state/procevent /tmp/fm-extension-binding.vZyWXX/capture-signal-state/procevent-inbox -mindepth 1 -print -quit
++ '[' -z '' ']'
++ pass 'signal-terminated extension capture cannot publish an empty success'
++ printf 'ok - %s\n' 'signal-terminated extension capture cannot publish an empty success'
+ok - signal-terminated extension capture cannot publish an empty success
++ capture_swap_state=/tmp/fm-extension-binding.vZyWXX/capture-swap-state
++ capture_swap_registry=/tmp/fm-extension-binding.vZyWXX/capture-swap-state/procevent
++ capture_swap_inbox=/tmp/fm-extension-binding.vZyWXX/capture-swap-state/procevent-inbox
++ mkdir -p /tmp/fm-extension-binding.vZyWXX/capture-swap-state/procevent /tmp/fm-extension-binding.vZyWXX/capture-swap-state/procevent-inbox /tmp/fm-extension-binding.vZyWXX/capture-swap-outside
++ chmod 0700 /tmp/fm-extension-binding.vZyWXX/capture-swap-state /tmp/fm-extension-binding.vZyWXX/capture-swap-state/procevent /tmp/fm-extension-binding.vZyWXX/capture-swap-state/procevent-inbox /tmp/fm-extension-binding.vZyWXX/capture-swap-outside
++ exec
++ exec
++ exec
+++ mktemp /tmp/fm-extension-binding.vZyWXX/capture-swap-state/procevent/.authority.XXXXXXXX
++ capture_swap_authority=/tmp/fm-extension-binding.vZyWXX/capture-swap-state/procevent/.authority.i6Y3pCJN
++ dd if=/dev/urandom of=/tmp/fm-extension-binding.vZyWXX/capture-swap-state/procevent/.authority.i6Y3pCJN bs=32 count=1
++ chmod 0600 /tmp/fm-extension-binding.vZyWXX/capture-swap-state/procevent/.authority.i6Y3pCJN
++ exec
++ rm /tmp/fm-extension-binding.vZyWXX/capture-swap-state/procevent/.authority.i6Y3pCJN
++ mv /tmp/fm-extension-binding.vZyWXX/capture-swap-state/procevent-inbox /tmp/fm-extension-binding.vZyWXX/capture-swap-real-inbox
++ ln -s /tmp/fm-extension-binding.vZyWXX/capture-swap-outside /tmp/fm-extension-binding.vZyWXX/capture-swap-state/procevent-inbox
++++ printf a%.0s 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
++++ printf b%.0s 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
+++ perl /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-extension-capture.pl 9 8 6 capture-swap-source ext-flow org.example.flow 1.2.3 1 sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb swap-token capture-swap-source.runner .capture-swap.output 1 'linux-starttime=11933732 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800' 1024 -- /bin/printf 'pinned helper result'
++ capture_swap='captured	capture-swap-source.1.result	0	0	7086534974be85079e715a2022c15da0ff6466807d2cee2100ff5427cc355e0d	6049b771a1352bee259708e1da214fd3dafbfc35b278d94374ee8b5b2934d08e'
++ exec
++ exec
++ exec
++ exec
++ IFS='	'
++ read -r capture_swap_state capture_swap_result capture_swap_rc capture_swap_truncated _
++ '[' captured = captured ']'
++ '[' capture-swap-source.1.result = capture-swap-source.1.result ']'
++ '[' 0 = 0 ']'
++ '[' 0 = 0 ']'
++ assert_present /tmp/fm-extension-binding.vZyWXX/capture-swap-real-inbox/capture-swap-source.1.result 'pinned capture helper lost evidence after an inbox substitution'
++ '[' -e /tmp/fm-extension-binding.vZyWXX/capture-swap-real-inbox/capture-swap-source.1.result ']'
+++ find /tmp/fm-extension-binding.vZyWXX/capture-swap-outside -mindepth 1 -print -quit
++ '[' -z '' ']'
++ pass 'capture helper retains the inherited inbox descriptor before publication'
++ printf 'ok - %s\n' 'capture helper retains the inherited inbox descriptor before publication'
+ok - capture helper retains the inherited inbox descriptor before publication
++ H_LEGACY_LINK=/tmp/fm-extension-binding.vZyWXX/homes/legacy-link
++ new_home /tmp/fm-extension-binding.vZyWXX/homes/legacy-link
++ mkdir -p /tmp/fm-extension-binding.vZyWXX/homes/legacy-link
++ LEGACY_REAL_STATE=/tmp/fm-extension-binding.vZyWXX/legacy-real-state
++ LEGACY_LINK_STATE=/tmp/fm-extension-binding.vZyWXX/legacy-state-link
++ mkdir /tmp/fm-extension-binding.vZyWXX/legacy-real-state
++ ln -s /tmp/fm-extension-binding.vZyWXX/legacy-real-state /tmp/fm-extension-binding.vZyWXX/legacy-state-link
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/legacy-link
++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/legacy-state-link
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register lavish legacy-link-source -- /bin/echo legacy-link
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/legacy-link
++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/legacy-state-link
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start legacy-link-source
+not-autohandled: legacy-link-source (left for the handler; still unacknowledged)
++ assert_present /tmp/fm-extension-binding.vZyWXX/legacy-real-state/procevent-inbox/legacy-link-source.1.result 'an absent-registry built-in capture no longer accepts its legacy state path'
++ '[' -e /tmp/fm-extension-binding.vZyWXX/legacy-real-state/procevent-inbox/legacy-link-source.1.result ']'
++ pass 'absent-registry built-in capture retains its legacy state-path behavior'
++ printf 'ok - %s\n' 'absent-registry built-in capture retains its legacy state-path behavior'
+ok - absent-registry built-in capture retains its legacy state-path behavior
++ mv /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox /tmp/fm-extension-binding.vZyWXX/override-real-inbox
++ ln -s /tmp/fm-extension-binding.vZyWXX/override-real-inbox /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox
++ expect_failure 'traverses a symbolic link' env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh classify /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox/override-source.1.result
++ local 'needle=traverses a symbolic link' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh classify /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox/override-source.1.result
++ out='error[path-unsafe]: process-event inbox traverses a symbolic link'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[path-unsafe]: process-event inbox traverses a symbolic link' 'traverses a symbolic link' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ rm /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox
++ mv /tmp/fm-extension-binding.vZyWXX/override-real-inbox /tmp/fm-extension-binding.vZyWXX/overridden-state/procevent-inbox
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire override-source --if-owner sha256:e973f4591207b366390e828224e18a4d38ca02621257430bedf3a2275ebc9859
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/state-override
++ FM_STATE_OVERRIDE=/tmp/fm-extension-binding.vZyWXX/overridden-state
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.flow --if-binding-digest sha256:a5037e8e2cbb8ead96cb4de253c67a51af34d39eae21f520ca7b5af745215d7d
+error[retirement-failed]: error[binding-in-use]: error: binding still owns process-event registration: inbox-swap-source
++ pass 'overridden state confines extension work and captured-result operations'
++ printf 'ok - %s\n' 'overridden state confines extension work and captured-result operations'
+ok - overridden state confines extension work and captured-result operations
++ H_SWEEP=/tmp/fm-extension-binding.vZyWXX/homes/sweep
++ new_home /tmp/fm-extension-binding.vZyWXX/homes/sweep
++ mkdir -p /tmp/fm-extension-binding.vZyWXX/homes/sweep
++ bind_package /tmp/fm-extension-binding.vZyWXX/homes/sweep /tmp/fm-extension-binding.vZyWXX/packages/flow ext-flow
++ local home=/tmp/fm-extension-binding.vZyWXX/homes/sweep package=/tmp/fm-extension-binding.vZyWXX/packages/flow adapter=ext-flow
++ shift 3
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/sweep
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.vZyWXX/packages/flow --adapter ext-flow --trust-same-user-code
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/sweep
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-flow sweep-source --config-ref good
+++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/sweep
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh sweep-home
++ assert_contains 'retired: sweep-source
+swept: attempted=1' 'swept: attempted=1' 'home sweep did not use the extension registration'\''s owner identity'
++ case "$1" in
++ :
++ assert_absent /tmp/fm-extension-binding.vZyWXX/homes/sweep/state/procevent/sweep-source.source 'home sweep retained an extension registration'
++ '[' '!' -e /tmp/fm-extension-binding.vZyWXX/homes/sweep/state/procevent/sweep-source.source ']'
++ pass 'bounded home sweep retires an extension source through its exact owner token'
++ printf 'ok - %s\n' 'bounded home sweep retires an extension source through its exact owner token'
+ok - bounded home sweep retires an extension source through its exact owner token
++ H_LEGACY=/tmp/fm-extension-binding.vZyWXX/homes/legacy
++ mkdir -p /tmp/fm-extension-binding.vZyWXX/homes/legacy/state
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/legacy
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register lavish legacy-source -- /bin/echo legacy
++ expect_failure 'does not match the expected owner' env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/legacy /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire legacy-source --if-matches lavish -- /bin/echo replacement
++ local 'needle=does not match the expected owner' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/legacy /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire legacy-source --if-matches lavish -- /bin/echo replacement
++ out='error: source registration does not match the expected owner: legacy-source'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error: source registration does not match the expected owner: legacy-source' 'does not match the expected owner' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ assert_present /tmp/fm-extension-binding.vZyWXX/homes/legacy/state/procevent/legacy-source.source 'legacy conditional mismatch retired the registration'
++ '[' -e /tmp/fm-extension-binding.vZyWXX/homes/legacy/state/procevent/legacy-source.source ']'
++ FM_HOME=/tmp/fm-extension-binding.vZyWXX/homes/legacy
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire legacy-source --if-matches lavish -- /bin/echo legacy
++ pass 'legacy built-in registrations retain behavior and gain exact conditional retirement'
++ printf 'ok - %s\n' 'legacy built-in registrations retain behavior and gain exact conditional retirement'
+ok - legacy built-in registrations retain behavior and gain exact conditional retirement
++ section_enabled lifecycle-invocation-cleanup
++ local section
++ for section in "$@"
++ '[' lifecycle-state = lifecycle-invocation-cleanup ']'
++ return 1
++ section_enabled lifecycle-flow lifecycle-orphan-readiness
++ local section
++ for section in "$@"
++ '[' lifecycle-state = lifecycle-flow ']'
++ for section in "$@"
++ '[' lifecycle-state = lifecycle-orphan-readiness ']'
++ return 1
++ section_enabled remote-envelope remote-activation remote-lifecycle remote-retirement
++ local section
++ for section in "$@"
++ '[' lifecycle-state = remote-envelope ']'
++ for section in "$@"
++ '[' lifecycle-state = remote-activation ']'
++ for section in "$@"
++ '[' lifecycle-state = remote-lifecycle ']'
++ for section in "$@"
++ '[' lifecycle-state = remote-retirement ']'
++ return 1
++ section_enabled example
++ local section
++ for section in "$@"
++ '[' lifecycle-state = example ']'
++ return 1
++ printf '\nall extension-binding tests passed\n'
+
+all extension-binding tests passed
++ extension_test_cleanup
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -n '' ']'
++ '[' -f /tmp/fm-extension-binding.vZyWXX/remote-jobs/worker.pid ']'
++ '[' -n '' ']'
++ '[' -n '' ']'
++ chmod -R u+w /tmp/fm-extension-binding.vZyWXX
++ test_cleanup
++ local d
++ test_reap_watchers
++ local state lock_home 'seen=
+'
++ '[' -f /tmp/.fm-test-watcher.1.bixuPN ']'
++ IFS=
++ read -r state
++ rm -f /tmp/.fm-test-watcher.1.bixuPN
++ test_reap_procevent_homes
++ local home claim_root 'seen=
+'
++ '[' -f /tmp/.fm-test-procevent.1.GeiWlo ']'
++ IFS='	'
++ read -r home claim_root
++ rm -f /tmp/.fm-test-procevent.1.GeiWlo
++ for d in "${FM_TEST_CLEANUP_DIRS[@]:-}"
++ '[' -n '' ']'
++ '[' -f /tmp/.fm-test-cleanup.1.QfIC5Z ']'
++ IFS=
++ read -r d
++ '[' -n /tmp/fm-extension-binding.vZyWXX ']'
++ test_reap_root_processes /tmp/fm-extension-binding.vZyWXX
++ local root=/tmp/fm-extension-binding.vZyWXX chain pid pids signal i
++ '[' -n /tmp/fm-extension-binding.vZyWXX ']'
++ '[' /tmp/fm-extension-binding.vZyWXX '!=' / ']'
++ chain=' '
++ pid=1
++ '[' -n 1 ']'
++ '[' 1 -gt 1 ']'
++ for signal in TERM KILL
++ i=0
++ '[' 0 -lt 20 ']'
+++ ps -ww -eo pid=,args=
+++ FM_TEST_REAP_ROOT=/tmp/fm-extension-binding.vZyWXX/
+++ awk -v 'chain= ' 'index($0, ENVIRON["FM_TEST_REAP_ROOT"]) && index(chain, " " $1 " ") == 0 { print $1 }'
++ pids='6431
+7008
+7881
+9534
+10618'
++ '[' -n '6431
+7008
+7881
+9534
+10618' ']'
++ '[' 0 -gt 0 ']'
++ kill -s TERM 6431 7008 7881 9534 10618
++ sleep 0.1
++ i=1
++ '[' 1 -lt 20 ']'
+++ ps -ww -eo pid=,args=
+++ FM_TEST_REAP_ROOT=/tmp/fm-extension-binding.vZyWXX/
+++ awk -v 'chain= ' 'index($0, ENVIRON["FM_TEST_REAP_ROOT"]) && index(chain, " " $1 " ") == 0 { print $1 }'
++ pids=
++ '[' -n '' ']'
++ return 0
++ test_remove_tree /tmp/fm-extension-binding.vZyWXX
++ local dir=/tmp/fm-extension-binding.vZyWXX
++ '[' -d /tmp/fm-extension-binding.vZyWXX ']'
++ '[' '!' -L /tmp/fm-extension-binding.vZyWXX ']'
++ find /tmp/fm-extension-binding.vZyWXX -type d -exec chmod u+rwx '{}' +
++ rm -rf /tmp/fm-extension-binding.vZyWXX
++ IFS=
++ read -r d
++ rm -f /tmp/.fm-test-cleanup.1.QfIC5Z

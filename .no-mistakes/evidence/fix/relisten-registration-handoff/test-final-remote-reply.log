@@ -1,0 +1,2824 @@
++ set -u
+++ dirname tests/remote-reply.test.sh
++ . tests/lib.sh
+++ '[' -n '' ']'
+++ FM_TEST_LIB_SOURCED=1
+++ umask 022
++++ dirname tests/lib.sh
+++ . tests/git-config-helpers.sh
++++ export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
++++ GIT_CONFIG_GLOBAL=/dev/null
++++ GIT_CONFIG_NOSYSTEM=1
++++ unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_COMMON_DIR
+++ export FM_GATE_REFUSE_BYPASS=1
+++ FM_GATE_REFUSE_BYPASS=1
+++ export FM_TEST_SEAM=1
+++ FM_TEST_SEAM=1
+++ unset FM_TASK_ID
+++ unset TASKS_AXI_FILE TASKS_AXI_BACKEND
+++ unset REX_SESSION REX_BLOCK
+++++ dirname tests/lib.sh
++++ cd tests/..
++++ pwd
+++ ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ FM_TEST_TMPDIR=/tmp
+++ FM_TEST_CLEANUP_DIRS=()
++++ mktemp /tmp/.fm-test-cleanup.26876.XXXXXX
+++ FM_TEST_CLEANUP_REGISTRY=/tmp/.fm-test-cleanup.26876.YtiqPM
++++ test_pid_identity 26876
++++ local pid=26876
++++ FM_STATE_OVERRIDE=/tmp
++++ bash -c '. "$1"; pid_identity "$2"' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/supervision-events-lib.sh 26876
+++ FM_TEST_OWNER_IDENTITY='linux-starttime=11383741 cmdline-hex=62617368002d780074657374732f72656d6f74652d7265706c792e746573742e736800'
++++ mktemp /tmp/.fm-test-procevent.26876.XXXXXX
+++ FM_TEST_PROCEVENT_REGISTRY=/tmp/.fm-test-procevent.26876.jNaEQK
++++ mktemp /tmp/.fm-test-watcher.26876.XXXXXX
+++ FM_TEST_WATCHER_REGISTRY=/tmp/.fm-test-watcher.26876.h29o7y
+++ FM_TEST_STUB_MAX_BLOCK_SECONDS=120
+++ export FM_TEST_STUB_MAX_BLOCK_SECONDS
+++ FM_TEST_SUITE_PID=26876
+++ export FM_TEST_SUITE_PID
+++ trap test_cleanup EXIT
+++ trap 'test_cleanup; exit 130' INT
+++ trap 'test_cleanup; exit 143' TERM
+++ trap 'test_cleanup; exit 129' HUP
+++ trap 'test_cleanup; exit 131' QUIT
+++ FM_TEST_ORPHAN_MAX_AGE_SECONDS=3600
+++ '[' 1 '!=' 1 ']'
++++ dirname tests/remote-reply.test.sh
+++ cd tests/..
+++ pwd -P
++ ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
+++ test_tmproot fm-remote-reply
+++ local prefix=fm-remote-reply root tmp_base
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ tmp_base=/tmp
+++ tmp_base=/tmp
++++ mktemp -d /tmp/fm-remote-reply.XXXXXX
+++ root=/tmp/fm-remote-reply.6OLaqe
++++ cd -P -- /tmp/fm-remote-reply.6OLaqe
++++ pwd -P
+++ root=/tmp/fm-remote-reply.6OLaqe
+++ printf '%s\n%s\n' 26876 'linux-starttime=11383741 cmdline-hex=62617368002d780074657374732f72656d6f74652d7265706c792e746573742e736800'
+++ printf '%s\n' /tmp/fm-remote-reply.6OLaqe
+++ printf '%s\n' /tmp/fm-remote-reply.6OLaqe
++ TMP_ROOT=/tmp/fm-remote-reply.6OLaqe
++ mkdir -p /tmp/fm-remote-reply.6OLaqe
+++ cd /tmp/fm-remote-reply.6OLaqe
+++ pwd -P
++ TMP_ROOT=/tmp/fm-remote-reply.6OLaqe
++ PARENT=/tmp/fm-remote-reply.6OLaqe/parent
++ REMOTE=/tmp/fm-remote-reply.6OLaqe/remote
+++ fakebin /tmp/fm-remote-reply.6OLaqe/fake
+++ local dir=/tmp/fm-remote-reply.6OLaqe/fake fakebin=/tmp/fm-remote-reply.6OLaqe/fake/fakebin
+++ mkdir -p /tmp/fm-remote-reply.6OLaqe/fake/fakebin
+++ printf '%s\n' /tmp/fm-remote-reply.6OLaqe/fake/fakebin
++ FAKEBIN=/tmp/fm-remote-reply.6OLaqe/fake/fakebin
++ CLAIMS=/tmp/fm-remote-reply.6OLaqe/claims
++ mkdir -p /tmp/fm-remote-reply.6OLaqe/parent/data /tmp/fm-remote-reply.6OLaqe/parent/state /tmp/fm-remote-reply.6OLaqe/remote/state /tmp/fm-remote-reply.6OLaqe/remote/data/reply /tmp/fm-remote-reply.6OLaqe/claims
++ . /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-job-lib.sh
+++ FM_REMOTE_JOB_LABEL=dev.firstmate.remote-job
+++ FM_REMOTE_JOB_MAX_BYTES=1048576
+++ FM_REMOTE_JOB_QUEUE_TIMEOUT=360
+++ FM_REMOTE_JOB_TIMEOUT=360
+++ FM_REMOTE_JOB_WAIT_GRACE=30
+++ FM_REMOTE_JOB_ACTIVE_POLL_SECONDS=0.25
+++ FM_REMOTE_JOB_POLL_SECONDS=0.05
+++ FM_REMOTE_JOB_REAP_SECONDS=3600
+++ FM_REMOTE_JOB_STAGE_REAP_SECONDS=600
+++ FM_REMOTE_JOB_SEQ_CLAIM_REAP_SECONDS=86400
+++ FM_REMOTE_JOB_SEQ_CLAIM_REAP_INTERVAL=3600
+++ FM_REMOTE_JOB_PREEMPTED_EXIT=76
+++ FM_REMOTE_JOB_OPERATOR_PATH=
+++ FM_REMOTE_JOB_CHILD_PATH=
+++ FM_REMOTE_JOB_STATE=
+++ FM_REMOTE_JOB_JOBS=
+++ FM_REMOTE_JOB_SEQ_CLAIMS=
+++ FM_REMOTE_JOB_ID=
+++ FM_REMOTE_JOB_STDOUT=
+++ FM_REMOTE_JOB_STDERR=
+++ FM_REMOTE_JOB_EXIT=
+++ FM_REMOTE_JOB_ERROR=
+++ FM_REMOTE_JOB_REPAIRED=0
++ trap cleanup EXIT
++ cat
++ printf '# Detailed remote answer\n\nThe build is green.\n'
++ printf '# Mentioned but never offered\n'
++ :
++ SOURCE_BEFORE=/tmp/fm-remote-reply.6OLaqe/source-before
++ cp /tmp/fm-remote-reply.6OLaqe/remote/state/parent-replies.status /tmp/fm-remote-reply.6OLaqe/source-before
++ cat
++ chmod +x /tmp/fm-remote-reply.6OLaqe/fake/fakebin/fake-ssh
++ HANDOFF=/tmp/fm-remote-reply.6OLaqe/handoff
++ mkdir -p /tmp/fm-remote-reply.6OLaqe/handoff
++ mkfifo /tmp/fm-remote-reply.6OLaqe/handoff/release
++ cat
++ delta_cadence_case default '' 0.5
++ local label=default override= expected=0.5 dir log empty_hash
++ dir=/tmp/fm-remote-reply.6OLaqe/delta-default
++ mkdir -p /tmp/fm-remote-reply.6OLaqe/delta-default/bin /tmp/fm-remote-reply.6OLaqe/delta-default/home/state
++ log=/tmp/fm-remote-reply.6OLaqe/delta-default/home/state/replies.status
++ :
+++ sha256_file /tmp/fm-remote-reply.6OLaqe/delta-default/home/state/replies.status
+++ command -v shasum
+++ shasum -a 256 /tmp/fm-remote-reply.6OLaqe/delta-default/home/state/replies.status
+++ awk '{print $1}'
++ empty_hash=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
++ cat
++ chmod +x /tmp/fm-remote-reply.6OLaqe/delta-default/bin/sleep
++ FM_HOME=/tmp/fm-remote-reply.6OLaqe/delta-default/home
++ PATH='/tmp/fm-remote-reply.6OLaqe/delta-default/bin:/home/andrew/.local/bin:/home/andrew/.bun/bin:/usr/local/bin:/home/andrew/.nvm/versions/node/v22.23.3/bin:/home/andrew/.nvm/versions/node/v22.23.3/bin:/home/andrew/go/bin:/usr/local/go/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/andrew/spudrunner-green/tools:/home/andrew/.pi/agent/bin:/home/andrew/.local/bin:/home/andrew/.bun/bin:/usr/local/bin:/home/andrew/.local/share/pnpm:/home/andrew/.nvm/versions/node/v22.23.3/bin:/home/andrew/go/bin:/usr/local/go/bin:/home/andrew/.local/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/andrew/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/PlasticSCM5/server:/mnt/c/Program Files/PlasticSCM5/client:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Program Files/Microsoft/jdk-17.0.13.11-hotspot/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/GitHub CLI/:/mnt/c/Users/andre/AppData/Roaming/nvm:/mnt/c/Program Files/nodejs:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Amazon/AWSCLIV2/:/mnt/c/Program Files/Microsoft SQL Server/150/Tools/Binn/:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files/Go/bin:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/:/mnt/c/Users/andre/AppData/Local/Programs/cursor/resources/app/bin:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/Users/andre/AppData/Local/pi-node/current:/mnt/c/Users/andre/AppData/Local/Programs/Herdr/bin:/mnt/c/Users/andre/AppData/Local/Programs/Python/Launcher/:/mnt/c/Users/andre/AppData/Local/pnpm:/mnt/c/Users/andre/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/andre/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/andre/AppData/Roaming/nvm:/mnt/c/Program Files/nodejs:/mnt/c/Users/andre/.dotnet/tools:/mnt/c/Users/andre/AppData/Roaming/npm:/mnt/c/Users/andre/go/bin:/mnt/c/Users/andre/AppData/Local/Android/Sdk/platform-tools:/mnt/c/Users/andre/AppData/Local/Programs/cursor/resources/app/bin:/mnt/c/Users/andre/AppData/Local/Programs/Warp/bin:/mnt/c/Users/andre/.local/bin:/mnt/c/Users/andre/AppData/Local/Microsoft/WinGet/Packages/GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe:/mnt/c/Users/andre/AppData/Local/Programs/Ollama:/home/andrew/Android/Sdk/emulator:/home/andrew/Android/Sdk/platform-tools:/home/andrew/Android/Sdk/emulator:/home/andrew/Android/Sdk/platform-tools:/home/andrew/bin:/opt/homebrew/bin:/opt/homebrew/sbin'
++ FM_REMOTE_DELTA_POLL_SECONDS=
++ FM_DELTA_SLEEP_LOG=/tmp/fm-remote-reply.6OLaqe/delta-default/sleeps
++ FM_DELTA_APPEND_LOG=/tmp/fm-remote-reply.6OLaqe/delta-default/home/state/replies.status
++ /usr/bin/bash /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-delta-read.sh state/replies.status 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 30
+++ cat /tmp/fm-remote-reply.6OLaqe/delta-default/sleeps
++ '[' 0.5 = 0.5 ']'
++ assert_grep status=delta /tmp/fm-remote-reply.6OLaqe/delta-default/result 'default delta reader did not publish a delta'
++ grep -F -- status=delta /tmp/fm-remote-reply.6OLaqe/delta-default/result
++ assert_grep cadence-delivered /tmp/fm-remote-reply.6OLaqe/delta-default/result 'default delta reader lost the appended complete line'
++ grep -F -- cadence-delivered /tmp/fm-remote-reply.6OLaqe/delta-default/result
+++ cat /tmp/fm-remote-reply.6OLaqe/delta-default/home/state/replies.status
++ '[' cadence-delivered = cadence-delivered ']'
++ pass 'default delta reader waits 0.5 seconds then delivers a non-destructive complete-line delta'
++ printf 'ok - %s\n' 'default delta reader waits 0.5 seconds then delivers a non-destructive complete-line delta'
+ok - default delta reader waits 0.5 seconds then delivers a non-destructive complete-line delta
++ delta_cadence_case override 0.07 0.07
++ local label=override override=0.07 expected=0.07 dir log empty_hash
++ dir=/tmp/fm-remote-reply.6OLaqe/delta-override
++ mkdir -p /tmp/fm-remote-reply.6OLaqe/delta-override/bin /tmp/fm-remote-reply.6OLaqe/delta-override/home/state
++ log=/tmp/fm-remote-reply.6OLaqe/delta-override/home/state/replies.status
++ :
+++ sha256_file /tmp/fm-remote-reply.6OLaqe/delta-override/home/state/replies.status
+++ command -v shasum
+++ shasum -a 256 /tmp/fm-remote-reply.6OLaqe/delta-override/home/state/replies.status
+++ awk '{print $1}'
++ empty_hash=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
++ cat
++ chmod +x /tmp/fm-remote-reply.6OLaqe/delta-override/bin/sleep
++ FM_HOME=/tmp/fm-remote-reply.6OLaqe/delta-override/home
++ PATH='/tmp/fm-remote-reply.6OLaqe/delta-override/bin:/home/andrew/.local/bin:/home/andrew/.bun/bin:/usr/local/bin:/home/andrew/.nvm/versions/node/v22.23.3/bin:/home/andrew/.nvm/versions/node/v22.23.3/bin:/home/andrew/go/bin:/usr/local/go/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/andrew/spudrunner-green/tools:/home/andrew/.pi/agent/bin:/home/andrew/.local/bin:/home/andrew/.bun/bin:/usr/local/bin:/home/andrew/.local/share/pnpm:/home/andrew/.nvm/versions/node/v22.23.3/bin:/home/andrew/go/bin:/usr/local/go/bin:/home/andrew/.local/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/andrew/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/PlasticSCM5/server:/mnt/c/Program Files/PlasticSCM5/client:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Program Files/Microsoft/jdk-17.0.13.11-hotspot/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/GitHub CLI/:/mnt/c/Users/andre/AppData/Roaming/nvm:/mnt/c/Program Files/nodejs:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Amazon/AWSCLIV2/:/mnt/c/Program Files/Microsoft SQL Server/150/Tools/Binn/:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files/Go/bin:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/:/mnt/c/Users/andre/AppData/Local/Programs/cursor/resources/app/bin:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/Users/andre/AppData/Local/pi-node/current:/mnt/c/Users/andre/AppData/Local/Programs/Herdr/bin:/mnt/c/Users/andre/AppData/Local/Programs/Python/Launcher/:/mnt/c/Users/andre/AppData/Local/pnpm:/mnt/c/Users/andre/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/andre/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/andre/AppData/Roaming/nvm:/mnt/c/Program Files/nodejs:/mnt/c/Users/andre/.dotnet/tools:/mnt/c/Users/andre/AppData/Roaming/npm:/mnt/c/Users/andre/go/bin:/mnt/c/Users/andre/AppData/Local/Android/Sdk/platform-tools:/mnt/c/Users/andre/AppData/Local/Programs/cursor/resources/app/bin:/mnt/c/Users/andre/AppData/Local/Programs/Warp/bin:/mnt/c/Users/andre/.local/bin:/mnt/c/Users/andre/AppData/Local/Microsoft/WinGet/Packages/GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe:/mnt/c/Users/andre/AppData/Local/Programs/Ollama:/home/andrew/Android/Sdk/emulator:/home/andrew/Android/Sdk/platform-tools:/home/andrew/Android/Sdk/emulator:/home/andrew/Android/Sdk/platform-tools:/home/andrew/bin:/opt/homebrew/bin:/opt/homebrew/sbin'
++ FM_REMOTE_DELTA_POLL_SECONDS=0.07
++ FM_DELTA_SLEEP_LOG=/tmp/fm-remote-reply.6OLaqe/delta-override/sleeps
++ FM_DELTA_APPEND_LOG=/tmp/fm-remote-reply.6OLaqe/delta-override/home/state/replies.status
++ /usr/bin/bash /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-delta-read.sh state/replies.status 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 30
+++ cat /tmp/fm-remote-reply.6OLaqe/delta-override/sleeps
++ '[' 0.07 = 0.07 ']'
++ assert_grep status=delta /tmp/fm-remote-reply.6OLaqe/delta-override/result 'override delta reader did not publish a delta'
++ grep -F -- status=delta /tmp/fm-remote-reply.6OLaqe/delta-override/result
++ assert_grep cadence-delivered /tmp/fm-remote-reply.6OLaqe/delta-override/result 'override delta reader lost the appended complete line'
++ grep -F -- cadence-delivered /tmp/fm-remote-reply.6OLaqe/delta-override/result
+++ cat /tmp/fm-remote-reply.6OLaqe/delta-override/home/state/replies.status
++ '[' cadence-delivered = cadence-delivered ']'
++ pass 'override delta reader waits 0.07 seconds then delivers a non-destructive complete-line delta'
++ printf 'ok - %s\n' 'override delta reader waits 0.07 seconds then delivers a non-destructive complete-line delta'
+ok - override delta reader waits 0.07 seconds then delivers a non-destructive complete-line delta
++ ADAPTER=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh
+++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh source-id ios
+++ BASH_ENV=/tmp/fm-remote-reply.6OLaqe/handoff/bash-env
+++ FM_TEST_HANDOFF=/tmp/fm-remote-reply.6OLaqe/handoff
+++ FM_HOME=/tmp/fm-remote-reply.6OLaqe/parent
+++ FM_ROOT_OVERRIDE=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
+++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-remote-reply.6OLaqe/claims
+++ FM_SSH_BIN=/tmp/fm-remote-reply.6OLaqe/fake/fakebin/fake-ssh
+++ FM_FAKE_REMOTE_ENTRYPOINT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-entrypoint.sh
+++ FM_REMOTE_JOB_PLATFORM_OVERRIDE=Linux
+++ FM_REMOTE_JOB_STATE_ROOT=/tmp/fm-remote-reply.6OLaqe/remote-jobs
+++ FM_REMOTE_REPLY_WAIT_SECONDS=10
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh source-id ios
++ SID=remote-reply-ios
+++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh arm ios
+++ BASH_ENV=/tmp/fm-remote-reply.6OLaqe/handoff/bash-env
+++ FM_TEST_HANDOFF=/tmp/fm-remote-reply.6OLaqe/handoff
+++ FM_HOME=/tmp/fm-remote-reply.6OLaqe/parent
+++ FM_ROOT_OVERRIDE=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
+++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-remote-reply.6OLaqe/claims
+++ FM_SSH_BIN=/tmp/fm-remote-reply.6OLaqe/fake/fakebin/fake-ssh
+++ FM_FAKE_REMOTE_ENTRYPOINT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-entrypoint.sh
+++ FM_REMOTE_JOB_PLATFORM_OVERRIDE=Linux
+++ FM_REMOTE_JOB_STATE_ROOT=/tmp/fm-remote-reply.6OLaqe/remote-jobs
+++ FM_REMOTE_REPLY_WAIT_SECONDS=10
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh arm ios
++ out='registered: remote-reply-ios (remote-reply)
+armed: remote-reply-ios offset=0'
++ assert_contains 'registered: remote-reply-ios (remote-reply)
+armed: remote-reply-ios offset=0' 'armed: remote-reply-ios offset=0' 'remote reply source was not armed at the empty cursor'
++ case "$1" in
++ :
++ set +e
++ FM_REMOTE_REPLY_TRANSPORT_ERROR=1
++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh source ios
++ BASH_ENV=/tmp/fm-remote-reply.6OLaqe/handoff/bash-env
++ FM_TEST_HANDOFF=/tmp/fm-remote-reply.6OLaqe/handoff
++ FM_HOME=/tmp/fm-remote-reply.6OLaqe/parent
++ FM_ROOT_OVERRIDE=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-remote-reply.6OLaqe/claims
++ FM_SSH_BIN=/tmp/fm-remote-reply.6OLaqe/fake/fakebin/fake-ssh
++ FM_FAKE_REMOTE_ENTRYPOINT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-entrypoint.sh
++ FM_REMOTE_JOB_PLATFORM_OVERRIDE=Linux
++ FM_REMOTE_JOB_STATE_ROOT=/tmp/fm-remote-reply.6OLaqe/remote-jobs
++ FM_REMOTE_REPLY_WAIT_SECONDS=10
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh source ios
++ transport_error_rc=255
++ FM_REMOTE_REPLY_FAIL_READ=1
++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh source ios
++ BASH_ENV=/tmp/fm-remote-reply.6OLaqe/handoff/bash-env
++ FM_TEST_HANDOFF=/tmp/fm-remote-reply.6OLaqe/handoff
++ FM_HOME=/tmp/fm-remote-reply.6OLaqe/parent
++ FM_ROOT_OVERRIDE=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-remote-reply.6OLaqe/claims
++ FM_SSH_BIN=/tmp/fm-remote-reply.6OLaqe/fake/fakebin/fake-ssh
++ FM_FAKE_REMOTE_ENTRYPOINT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-entrypoint.sh
++ FM_REMOTE_JOB_PLATFORM_OVERRIDE=Linux
++ FM_REMOTE_JOB_STATE_ROOT=/tmp/fm-remote-reply.6OLaqe/remote-jobs
++ FM_REMOTE_REPLY_WAIT_SECONDS=10
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh source ios
++ ssh_255_rc=255
++ set -e
++ '[' 255 -ne 0 ']'
++ '[' '!' -s /tmp/fm-remote-reply.6OLaqe/transport-error.result ']'
++ '[' 255 -ne 0 ']'
++ '[' '!' -s /tmp/fm-remote-reply.6OLaqe/ssh-255.result ']'
++ pass 'transport failures and non-schema diagnostics stay out of captured results'
++ printf 'ok - %s\n' 'transport failures and non-schema diagnostics stay out of captured results'
+ok - transport failures and non-schema diagnostics stay out of captured results
++ wait_for /tmp/fm-remote-reply.6OLaqe/claims/remote-reply-ios.claim
++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start remote-reply-ios
++ local path=/tmp/fm-remote-reply.6OLaqe/claims/remote-reply-ios.claim
+++ seq 1 100
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/claims/remote-reply-ios.claim ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/claims/remote-reply-ios.claim ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/claims/remote-reply-ios.claim ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/claims/remote-reply-ios.claim ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/claims/remote-reply-ios.claim ']'
++ return 0
++ printf 'done [corr=0123456789abcdef] [at=1700000000]: build verified report=data/reply/report.md\n'
++ RESULT=
+++ seq 1 800
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
+++ true
++ RESULT=
++ '[' -n '' ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ break
+++ find /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox -name remote-reply-ios.1.result -print -quit
++ RESULT=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -z /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result ']'
++ assert_grep 'done [corr=0123456789abcdef]' /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result 'captured delta lost the correlated status line'
++ grep -F -- 'done [corr=0123456789abcdef]' /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ '[' -e /tmp/fm-remote-reply.6OLaqe/parent/state/.wake-queue ']'
++ FM_STATE_OVERRIDE=/tmp/fm-remote-reply.6OLaqe/parent/state
++ bash -c '
+  . "$1/bin/supervision-events-lib.sh"
+  supervision_events_signal_seen_current "$2/state" "$2/state/ios.status"
+' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY /tmp/fm-remote-reply.6OLaqe/parent
++ cmp -s /tmp/fm-remote-reply.6OLaqe/source-before /tmp/fm-remote-reply.6OLaqe/remote/state/parent-replies.status
++ SOURCE_AFTER=/tmp/fm-remote-reply.6OLaqe/source-after
++ cp /tmp/fm-remote-reply.6OLaqe/remote/state/parent-replies.status /tmp/fm-remote-reply.6OLaqe/source-after
++ pass 'a blocking non-destructive remote delta reaches durable process-event capture'
++ printf 'ok - %s\n' 'a blocking non-destructive remote delta reaches durable process-event capture'
+ok - a blocking non-destructive remote delta reaches durable process-event capture
++ assert_grep 'done [corr=0123456789abcdef]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status 'the captured reply was not applied to the parent status stream at capture'
++ grep -F -- 'done [corr=0123456789abcdef]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ assert_present /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled 'the applied capture was left unacknowledged'
++ '[' -e /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled ']'
++ assert_present /tmp/fm-remote-reply.6OLaqe/parent/state/procevent/remote-reply-ios.source 'applying the capture left the relay unarmed for the next delta'
++ '[' -e /tmp/fm-remote-reply.6OLaqe/parent/state/procevent/remote-reply-ios.source ']'
++ pass 'a captured delta is applied, acknowledged, and re-armed without a handler'
++ printf 'ok - %s\n' 'a captured delta is applied, acknowledged, and re-armed without a handler'
+ok - a captured delta is applied, acknowledged, and re-armed without a handler
++ rm -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.handled
++ rm -rf /tmp/fm-remote-reply.6OLaqe/parent/state/procevent
++ :
++ set +e
++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh handle ios 1 /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ handle_arm_rc=1
++ set -e
++ '[' 1 -ne 0 ']'
++ assert_grep 'done [corr=0123456789abcdef]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status 'failed re-arm lost the ingested reply'
++ grep -F -- 'done [corr=0123456789abcdef]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ assert_grep 'ingested: ios appended=0' /tmp/fm-remote-reply.6OLaqe/handle-arm-fail.out 'failed re-arm did not replay the committed reply'
++ grep -F -- 'ingested: ios appended=0' /tmp/fm-remote-reply.6OLaqe/handle-arm-fail.out
++ rm -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent
++ mkdir /tmp/fm-remote-reply.6OLaqe/parent/state/procevent
+++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
+++ BASH_ENV=/tmp/fm-remote-reply.6OLaqe/handoff/bash-env
+++ FM_TEST_HANDOFF=/tmp/fm-remote-reply.6OLaqe/handoff
+++ FM_HOME=/tmp/fm-remote-reply.6OLaqe/parent
+++ FM_ROOT_OVERRIDE=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
+++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-remote-reply.6OLaqe/claims
+++ FM_SSH_BIN=/tmp/fm-remote-reply.6OLaqe/fake/fakebin/fake-ssh
+++ FM_FAKE_REMOTE_ENTRYPOINT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-entrypoint.sh
+++ FM_REMOTE_JOB_PLATFORM_OVERRIDE=Linux
+++ FM_REMOTE_JOB_STATE_ROOT=/tmp/fm-remote-reply.6OLaqe/remote-jobs
+++ FM_REMOTE_REPLY_WAIT_SECONDS=10
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
++ reconcile_out='reconciled: published=1 started=0 stopped=1 uncertain=0 failed=0'
++ assert_contains 'reconciled: published=1 started=0 stopped=1 uncertain=0 failed=0' published=1 'failed re-arm did not leave the result eligible for retry'
++ case "$1" in
++ :
+++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh handle ios 1 /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
+++ BASH_ENV=/tmp/fm-remote-reply.6OLaqe/handoff/bash-env
+++ FM_TEST_HANDOFF=/tmp/fm-remote-reply.6OLaqe/handoff
+++ FM_HOME=/tmp/fm-remote-reply.6OLaqe/parent
+++ FM_ROOT_OVERRIDE=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
+++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-remote-reply.6OLaqe/claims
+++ FM_SSH_BIN=/tmp/fm-remote-reply.6OLaqe/fake/fakebin/fake-ssh
+++ FM_FAKE_REMOTE_ENTRYPOINT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-entrypoint.sh
+++ FM_REMOTE_JOB_PLATFORM_OVERRIDE=Linux
+++ FM_REMOTE_JOB_STATE_ROOT=/tmp/fm-remote-reply.6OLaqe/remote-jobs
+++ FM_REMOTE_REPLY_WAIT_SECONDS=10
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh handle ios 1 /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ out='ingested: ios appended=0 offset=89
+registered: remote-reply-ios (remote-reply)
+armed: remote-reply-ios offset=89
+handled: remote-reply-ios 1'
++ assert_contains 'ingested: ios appended=0 offset=89
+registered: remote-reply-ios (remote-reply)
+armed: remote-reply-ios offset=89
+handled: remote-reply-ios 1' 'ingested: ios appended=0' 'retried reply ingest was not idempotent'
++ case "$1" in
++ :
++ assert_contains 'ingested: ios appended=0 offset=89
+registered: remote-reply-ios (remote-reply)
+armed: remote-reply-ios offset=89
+handled: remote-reply-ios 1' 'handled: remote-reply-ios 1' 'captured generation was not acknowledged'
++ case "$1" in
++ :
++ assert_grep 'done [corr=0123456789abcdef]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status 'parent status did not receive the correlated reply'
++ grep -F -- 'done [corr=0123456789abcdef]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ assert_grep data/remote-secondmates/ios/data/reply/report.md /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status 'remote document pointer was not rewritten locally'
++ grep -F -- data/remote-secondmates/ios/data/reply/report.md /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ cmp -s /tmp/fm-remote-reply.6OLaqe/remote/data/reply/report.md /tmp/fm-remote-reply.6OLaqe/parent/data/remote-secondmates/ios/data/reply/report.md
++ cmp -s /tmp/fm-remote-reply.6OLaqe/source-after /tmp/fm-remote-reply.6OLaqe/remote/state/parent-replies.status
+++ LC_ALL=C
+++ wc -c
+++ tr -d ' '
++ expected_offset=89
++ assert_grep offset=89 /tmp/fm-remote-reply.6OLaqe/parent/state/remote-replies/ios.cursor 'reply cursor did not advance to the committed delta'
++ grep -F -- offset=89 /tmp/fm-remote-reply.6OLaqe/parent/state/remote-replies/ios.cursor
++ assert_grep 'done [corr=0123456789abcdef] [at=1700000000]: build verified' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status 'relay replaced the source event time with observation time'
++ grep -F -- 'done [corr=0123456789abcdef] [at=1700000000]: build verified' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ pass 'ingest appends one validated line, fetches its document, and advances the cursor'
++ printf 'ok - %s\n' 'ingest appends one validated line, fetches its document, and advances the cursor'
+ok - ingest appends one validated line, fetches its document, and advances the cursor
+++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh handle ios 1 /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
+++ BASH_ENV=/tmp/fm-remote-reply.6OLaqe/handoff/bash-env
+++ FM_TEST_HANDOFF=/tmp/fm-remote-reply.6OLaqe/handoff
+++ FM_HOME=/tmp/fm-remote-reply.6OLaqe/parent
+++ FM_ROOT_OVERRIDE=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
+++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-remote-reply.6OLaqe/claims
+++ FM_SSH_BIN=/tmp/fm-remote-reply.6OLaqe/fake/fakebin/fake-ssh
+++ FM_FAKE_REMOTE_ENTRYPOINT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-entrypoint.sh
+++ FM_REMOTE_JOB_PLATFORM_OVERRIDE=Linux
+++ FM_REMOTE_JOB_STATE_ROOT=/tmp/fm-remote-reply.6OLaqe/remote-jobs
+++ FM_REMOTE_REPLY_WAIT_SECONDS=10
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh handle ios 1 /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.1.result
++ out='ingested: ios appended=0 offset=89
+registered: remote-reply-ios (remote-reply)
+armed: remote-reply-ios offset=89
+already-handled: remote-reply-ios 1'
++ assert_contains 'ingested: ios appended=0 offset=89
+registered: remote-reply-ios (remote-reply)
+armed: remote-reply-ios offset=89
+already-handled: remote-reply-ios 1' 'ingested: ios appended=0' 'replayed result was not deduplicated'
++ case "$1" in
++ :
++ assert_contains 'ingested: ios appended=0 offset=89
+registered: remote-reply-ios (remote-reply)
+armed: remote-reply-ios offset=89
+already-handled: remote-reply-ios 1' 'already-handled: remote-reply-ios 1' 'replayed generation was not acknowledged idempotently'
++ case "$1" in
++ :
+++ grep -cF 'done [corr=0123456789abcdef]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ '[' 1 -eq 1 ']'
++ pass 'replayed capture has one deduplicated append and one durable handling identity'
++ printf 'ok - %s\n' 'replayed capture has one deduplicated append and one durable handling identity'
+ok - replayed capture has one deduplicated append and one durable handling identity
++ printf 'working [corr=1111111111111111]: second generation\n'
++ await_reply_result /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result
++ local result=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result handled=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.handled _
++ '[' '' '!=' existing-owner-only ']'
+++ reply_owner
+++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh list
+++ awk -v id=remote-reply-ios 'NR > 1 && $1 == id { print $3; exit }'
++ '[' none '!=' live ']'
++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start remote-reply-ios
+++ seq 1 800
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.handled ']'
++ return 0
++ RESULT_TWO=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result
++ rm -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.handled
++ ln -s /tmp/fm-remote-reply.6OLaqe/missing-handled-marker /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.handled
++ set +e
++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh handle ios 2 /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result
++ handle_two_rc=1
++ set -e
++ '[' 1 -ne 0 ']'
++ assert_grep 'working [corr=1111111111111111]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status 'unacknowledged generation was not ingested'
++ grep -F -- 'working [corr=1111111111111111]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ printf 'done [corr=2222222222222222]: third generation\n'
++ await_reply_result /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result
++ local result=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result handled=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.handled _
++ '[' '' '!=' existing-owner-only ']'
+++ reply_owner
+++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh list
+++ awk -v id=remote-reply-ios 'NR > 1 && $1 == id { print $3; exit }'
++ '[' live '!=' live ']'
+++ seq 1 800
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.handled ']'
++ return 0
++ RESULT_THREE=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result
++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh handle ios 3 /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result
++ BASH_ENV=/tmp/fm-remote-reply.6OLaqe/handoff/bash-env
++ FM_TEST_HANDOFF=/tmp/fm-remote-reply.6OLaqe/handoff
++ FM_HOME=/tmp/fm-remote-reply.6OLaqe/parent
++ FM_ROOT_OVERRIDE=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-remote-reply.6OLaqe/claims
++ FM_SSH_BIN=/tmp/fm-remote-reply.6OLaqe/fake/fakebin/fake-ssh
++ FM_FAKE_REMOTE_ENTRYPOINT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-entrypoint.sh
++ FM_REMOTE_JOB_PLATFORM_OVERRIDE=Linux
++ FM_REMOTE_JOB_STATE_ROOT=/tmp/fm-remote-reply.6OLaqe/remote-jobs
++ FM_REMOTE_REPLY_WAIT_SECONDS=10
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh handle ios 3 /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.3.result
++ rm -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.handled
+++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh handle ios 2 /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result
+++ BASH_ENV=/tmp/fm-remote-reply.6OLaqe/handoff/bash-env
+++ FM_TEST_HANDOFF=/tmp/fm-remote-reply.6OLaqe/handoff
+++ FM_HOME=/tmp/fm-remote-reply.6OLaqe/parent
+++ FM_ROOT_OVERRIDE=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
+++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-remote-reply.6OLaqe/claims
+++ FM_SSH_BIN=/tmp/fm-remote-reply.6OLaqe/fake/fakebin/fake-ssh
+++ FM_FAKE_REMOTE_ENTRYPOINT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/remote-entrypoint.sh
+++ FM_REMOTE_JOB_PLATFORM_OVERRIDE=Linux
+++ FM_REMOTE_JOB_STATE_ROOT=/tmp/fm-remote-reply.6OLaqe/remote-jobs
+++ FM_REMOTE_REPLY_WAIT_SECONDS=10
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh handle ios 2 /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.2.result
++ out='ingested: ios appended=0 offset=140
+registered: remote-reply-ios (remote-reply)
+armed: remote-reply-ios offset=187
+handled: remote-reply-ios 2'
++ assert_contains 'ingested: ios appended=0 offset=140
+registered: remote-reply-ios (remote-reply)
+armed: remote-reply-ios offset=187
+handled: remote-reply-ios 2' 'ingested: ios appended=0' 'earlier generation did not replay from its durable ingestion receipt'
++ case "$1" in
++ :
++ assert_contains 'ingested: ios appended=0 offset=140
+registered: remote-reply-ios (remote-reply)
+armed: remote-reply-ios offset=187
+handled: remote-reply-ios 2' 'handled: remote-reply-ios 2' 'earlier generation remained unacknowledged after later cursor advancement'
++ case "$1" in
++ :
+++ grep -cF 'working [corr=1111111111111111]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ '[' 1 -eq 1 ']'
++ grep -Fxq 'working [corr=1111111111111111]: second generation' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ pass 'later generations cannot invalidate an unacknowledged ingested result'
++ printf 'ok - %s\n' 'later generations cannot invalidate an unacknowledged ingested result'
+ok - later generations cannot invalidate an unacknowledged ingested result
++ . /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/pending-reply-lib.sh
+++++ dirname /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/pending-reply-lib.sh
++++ cd /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin
++++ pwd
+++ _FM_PENDING_REPLY_LIB_DIR=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin
+++ . /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/marker-lib.sh
++++++ dirname /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/marker-lib.sh
+++++ cd /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin
+++++ pwd
++++ _FM_MARKER_LIB_DIR=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin
++++ . /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/operational-input.sh
+++++ FM_OPERATIONAL_MARK=⁣
+++++ FM_OPERATIONAL_PREFIX='⁣FIRSTMATE_OP: '
+++++ FM_OPERATIONAL_VERSION=v1
+++++ FM_OPERATIONAL_HEADER_PREFIX='⁣FIRSTMATE_OP: v1 '
+++++ FM_OPERATIONAL_KINDS='session-start watcher turn-end-guard away-supervisor launch-brief branch-outcome'
+++++ FM_INJECT_MARK=⁣
+++++ FM_FROMFIRST_LABEL='[fm-from-firstmate]'
+++++ FM_FROMFIRST_SEPARATOR=⁣
+++++ FM_FROMFIRST_MARK='[fm-from-firstmate]⁣'
+++++ FM_LEGACY_SESSIONSTART='Run `bin/session-start.sh` now, exactly once, before executing any other instructions.'
+++++ FM_LEGACY_WATCHER_PREFIX='FIRSTMATE WATCHER WAKE: '
+++++ FM_LEGACY_WATCHER_SUFFIX='
+
+Run bin/supervision-events-drain.sh first and handle the queued wake. Watcher continuity is extension-owned.'
+++++ FM_LEGACY_TURNEND_PREFIX='TURN WOULD END BLIND - supervision is off. The watcher cycle is missing, failed, or unhealthy. Follow the harness recovery instruction below before ending the turn.
+
+'
+++++ FM_LEGACY_AWAY_PREFIX='⁣Supervisor escalate ('
+++++ FM_OPERATIONAL_RECORD_HARNESSES=claude
+++++ FM_OPERATIONAL_RECORD_DIRNAME=operational-inbox
+++++ FM_OPERATIONAL_DOORBELL_PREFIX=': Firstmate operational input waiting: read '\'''
+++++ FM_OPERATIONAL_DOORBELL_SUFFIX=''\'' and handle its contents as Firstmate operational input.'
+++++ FM_OPERATIONAL_RECORD_RETENTION_DAYS=7
+++++ '[' /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/operational-input.sh = tests/remote-reply.test.sh ']'
++++ unset _FM_MARKER_LIB_DIR
+++ . /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/runtime-backend.sh
++++ FM_BACKEND_SCRIPT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/runtime-backend.sh
++++++ dirname /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/runtime-backend.sh
+++++ cd /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin
+++++ pwd
++++ FM_BACKEND_LIB_DIR=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin
++++ unset FM_BACKEND_SCRIPT
+++++ cd /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/..
+++++ pwd
++++ FM_BACKEND_DEFAULT_ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++++ FM_ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++++ FM_HOME=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++++ FM_BACKEND_CONFIG_DIR=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/config
++++ FM_BACKEND_KNOWN='tmux herdr zellij orca cmux paseo rex t3code tern'
++++ FM_BACKEND_SPAWN='tmux herdr zellij orca cmux paseo rex t3code tern'
++++ FM_BACKEND_CMUX_BUNDLE_ID=com.cmuxterm.app
++++ FM_BACKEND_VISIBLE_CAPTURE='tmux herdr zellij rex tern'
+++ . /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/tmux-lib.sh
++++ _FM_TMUX_LIB_DIR=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin
++++ '[' /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin '!=' /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/tmux-lib.sh ']'
++++ . /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/agent-input-lib.sh
+++++ FM_COMPOSER_UNICODE_SPACES=()
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0302\0205'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0302\0240'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0341\0232\0200'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0342\0200\0200'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0342\0200\0201'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0342\0200\0202'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0342\0200\0203'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0342\0200\0204'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0342\0200\0205'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0342\0200\0206'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0342\0200\0207'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0342\0200\0210'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0342\0200\0211'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0342\0200\0212'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0342\0200\0250'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0342\0200\0251'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0342\0200\0257'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0342\0201\0237'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ for _fm_composer_space_octal in '\0302\0205' '\0302\0240' '\0341\0232\0200' '\0342\0200\0200' '\0342\0200\0201' '\0342\0200\0202' '\0342\0200\0203' '\0342\0200\0204' '\0342\0200\0205' '\0342\0200\0206' '\0342\0200\0207' '\0342\0200\0210' '\0342\0200\0211' '\0342\0200\0212' '\0342\0200\0250' '\0342\0200\0251' '\0342\0200\0257' '\0342\0201\0237' '\0343\0200\0200'
+++++ printf -v _fm_composer_space_utf8 %b '\0343\0200\0200'
+++++ FM_COMPOSER_UNICODE_SPACES+=("$_fm_composer_space_utf8")
+++++ unset -v _fm_composer_space_octal _fm_composer_space_utf8
+++++ FM_DELIVERY_BUSY_REGEX_DEFAULT='esc (to )?interrupt|Working(\.\.\.|…)|Ctrl\+c:cancel|ctrl\+c to stop|esc[[:space:]]+to[[:space:]]+cancel|esc twice to interrupt|^[[:space:]]*❭ Guide Devin while it works$'
+++++ FM_DELIVERY_CLAUDE_BUSY_REGEX_DEFAULT='esc to interrupt|…[[:space:]]+\([0-9]+[smh]'
+++++ FM_DELIVERY_DEVIN_BUSY_REGEX_DEFAULT='esc twice to interrupt|^[[:space:]]*❭ Guide Devin while it works$'
+++++ FM_DELIVERY_CORTEX_BUSY_REGEX_DEFAULT='\(esc to interrupt\)|Type to queue message\.\.\.|Type to queue next message'
+++++ FM_DELIVERY_COMMANDCODE_BUSY_REGEX_DEFAULT='esc to interrupt|•[[:space:]]+[0-9]+[smh]([[:space:]]+[0-9]+[smh])*[[:space:]]+•'
+++++ FM_DELIVERY_CODEX_BUSY_REGEX_DEFAULT='esc to interrupt'
+++++ FM_DELIVERY_OPENCODE_BUSY_REGEX_DEFAULT='esc interrupt'
+++++ FM_DELIVERY_PI_BUSY_REGEX_DEFAULT='Working\.\.\.'
+++++ FM_OMP_SPINNER_FRAMES_RE='(⠋|⠙|⠹|⠸|⠼|⠴|⠦|⠧|⠇|⠏|⣾|⣽|⣻|⢿|⡿|⣟|⣯|⣷)'
+++++ FM_DELIVERY_OMP_BUSY_REGEX_DEFAULT='Working…|^[[:space:]]*(⠋|⠙|⠹|⠸|⠼|⠴|⠦|⠧|⠇|⠏|⣾|⣽|⣻|⢿|⡿|⣟|⣯|⣷)[[:space:]]+[0-9]+[smh]'
+++++ FM_DELIVERY_GROK_BUSY_REGEX_DEFAULT='Ctrl\+c:cancel'
+++++ FM_DELIVERY_CURSOR_BUSY_REGEX_DEFAULT='ctrl\+c to stop'
+++++ FM_DELIVERY_AGY_BUSY_REGEX_DEFAULT='esc[[:space:]]+to[[:space:]]+cancel'
+++++ FM_DELIVERY_POLYTOKEN_BUSY_REGEX_DEFAULT='^[[:space:]]*Running for [0-9]+([.][0-9]+)?s'
+++++ FM_DELIVERY_KIMI_BUSY_REGEX_DEFAULT='^[[:space:]]*(🌑|🌒|🌓|🌔|🌕|🌖|🌗|🌘)[[:space:]]+·[[:space:]]+'
++++++ printf '%s\n' ❯ › ⟩ → ❭
+++++ FM_COMPOSER_AGENT_PROMPT_GLYPHS='❯
+›
+⟩
+→
+❭'
++++++ printf '%s\n' '>' '$' % '#'
+++++ FM_COMPOSER_SHELL_PROMPT_GLYPHS='>
+$
+%
+#'
+++++ FM_COMPOSER_IDLE_RE_DEFAULT='^Type a message\.\.\.$|^Ask anything(\.\.\.|…)|^Plan, search, build anything$|^Add a follow-up$|^Ask Devin to build features, fix bugs, or work on your code$|^Ask your question\.\.\.$|^Type your message\.\.\.$|^Type to queue message\.\.\.$'
+++++ FM_COMPOSER_LEFTBAR_FOOTER_RE_DEFAULT='^(Build|Plan)[[:space:]]+·[[:space:]]+'
+++++ FM_COMPOSER_MODE_HINT_RE_DEFAULT='^[[:space:]]*(⏵|⏸)'
+++++ FM_COMPOSER_OMP_STATUS_RE_DEFAULT='^[[:space:]]*(π|󰵗)[[:space:]]+·[[:space:]]|^[[:space:]]*(⠋|⠙|⠹|⠸|⠼|⠴|⠦|⠧|⠇|⠏|⣾|⣽|⣻|⢿|⡿|⣟|⣯|⣷)[[:space:]]+[0-9]+[smh]([[:space:]]|$)|[[:space:]]·[[:space:]].*[0-9]+(\.[0-9]+)?%/[0-9]+K'
+++++ FM_COMPOSER_PI_STATUS_RE_DEFAULT='^\$[0-9]+(\.[0-9]+)?([[:space:]]|$)'
+++++ FM_COMPOSER_CAPTURE_LINES=20
+++++ FM_COMPOSER_PI_MAX_LINES=8
+++++ FM_COMPOSER_GROK_TITLE_OVERHANG=3
++++ . /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/cursor-lib.sh
+++++ FM_CURSOR_PROBE_TIMEOUT=10
++++ unset _FM_TMUX_LIB_DIR
+++ . /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/task-events-lib.sh
+++++ d=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin
+++++ '[' /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin '!=' /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/task-events-lib.sh ']'
+++++ cd /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin
+++++ pwd
++++ _FM_CLASSIFY_LIB_DIR=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin
+++++ uname -s
++++ _FM_CLASSIFY_UNAME_S=Linux
++++ FM_CREW_STATE_BIN=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/task-state.sh
++++ case $- in
++++ _fm_classify_nounset=on
++++ . /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/timeout-lib.sh
+++++ set -u
++++ '[' on = on ']'
++++ unset _fm_classify_nounset
++++ FM_CLASSIFY_CAPTAIN_RE_DEFAULT='done:|needs-decision:|blocked:|failed:|PR ready|checks green|ready in branch|merged'
++++ FM_CLASSIFY_PAUSED_VERB_DEFAULT=paused
++++ FM_PAUSE_RESURFACE_SECS_DEFAULT=14400
++++ FM_CLASSIFY_RESOLVE_VERB_DEFAULT=resolved
++++ FM_CLASSIFY_CAPTAIN_HELD_VERB_DEFAULT=captain-held
++++ FM_CLASSIFY_EVENT_WINDOW_LINES=200
++++ FM_CLASSIFY_RESERVED_KEY_PREFIXES_DEFAULT=pending-reply-
++++ FM_OPEN_DECISIONS_FOLD_VERSION=9
++++ FM_STATUS_SNAPSHOT_EVENT_LINE=
++++ FM_STATUS_SNAPSHOT_EVENT_MTIME=
++++ FM_STATUS_SNAPSHOT_EVENT_ENDPOINT=
++++ STATUS_PRESENTATION_REPORTED=
++++ STATUS_PRESENTATION_CLASSIFIED=
++++ _FM_CLASSIFY_KEYLESS_PHASE=$'\036default'
++++ FM_GATE_HUMAN_DECISION='ask-user: authority decision'
++++ FM_WORKTREE_WRITE_PRUNE='.git node_modules .venv venv __pycache__ .mypy_cache .pytest_cache .ruff_cache .tox target dist build .next .cache vendor'
++++ FM_WORKTREE_WRITE_MAXDEPTH=6
++++ FM_WORKTREE_WRITE_TIMEOUT=10
+++ FM_PENDING_REPLY_SCHEMA=fm-pending-reply.v1
+++ FM_PENDING_REPLY_CORR_RE='corr=[A-Fa-f0-9]{16}'
+++ FM_PENDING_REPLY_GRACE_DEFAULT=120
+++ pending_reply_create /tmp/fm-remote-reply.6OLaqe/parent /tmp/fm-remote-reply.6OLaqe/parent/state ios 'audit the release chain'
+++ local parent_home=/tmp/fm-remote-reply.6OLaqe/parent state=/tmp/fm-remote-reply.6OLaqe/parent/state task_id=ios 'request_text=audit the release chain'
+++ local dir rec corr now summary status_path tmp
+++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent ']'
+++ '[' -n /tmp/fm-remote-reply.6OLaqe/parent/state ']'
+++ '[' -n ios ']'
++++ pending_reply_dir /tmp/fm-remote-reply.6OLaqe/parent/state
++++ local state=/tmp/fm-remote-reply.6OLaqe/parent/state
++++ '[' -n '' ']'
++++ printf %s/pending-replies /tmp/fm-remote-reply.6OLaqe/parent/state
+++ dir=/tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies
+++ mkdir -p /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies
+++ chmod 700 /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies
++++ pending_reply_new_id
++++ local raw hex
++++ command -v openssl
+++++ openssl rand -hex 8
++++ raw=4bcbc786ab0e0f63
++++ '[' -z 4bcbc786ab0e0f63 ']'
+++++ printf %s 4bcbc786ab0e0f63
+++++ tr A-F a-f
+++++ tr -cd a-f0-9
+++++ cut -c1-16
++++ printf %s 4bcbc786ab0e0f63
+++ corr=4bcbc786ab0e0f63
+++ '[' 16 -eq 16 ']'
++++ pending_reply_path /tmp/fm-remote-reply.6OLaqe/parent/state 4bcbc786ab0e0f63
+++++ pending_reply_dir /tmp/fm-remote-reply.6OLaqe/parent/state
+++++ local state=/tmp/fm-remote-reply.6OLaqe/parent/state
+++++ '[' -n '' ']'
+++++ printf %s/pending-replies /tmp/fm-remote-reply.6OLaqe/parent/state
++++ printf %s/%s /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies 4bcbc786ab0e0f63
+++ rec=/tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63
+++ '[' -e /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63 ']'
++++ pending_reply_now
++++ '[' -n '' ']'
++++ date +%s
+++ now=1793432245
++++ pending_reply_summarize 'audit the release chain'
++++ local 'text=audit the release chain' cleaned cut
+++++ printf %s 'audit the release chain'
+++++ tr '\t\r\n' '   '
+++++ LC_ALL=C
+++++ tr -d '\000-\010\013\014\016-\037\177'
+++++ sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
++++ cleaned='audit the release chain'
++++ cleaned='audit the release chain'
+++++ printf %s 'audit the release chain'
+++++ sed -E 's/^corr=[A-Fa-f0-9]{16}[[:space:]]*//'
++++ cleaned='audit the release chain'
+++++ pending_reply_char_cut 'audit the release chain' 120 117
+++++ printf %s 'audit the release chain'
+++++ LC_ALL=C
+++++ od -An -v -tu1
+++++ awk -v max=120 -v keep=117 '
+    { for (i = 1; i <= NF; i++) {
+        if ($i < 128 || $i >= 192) { chars++; if (chars == keep + 1) cut = n }
+        n++
+      } }
+    END { print (chars > max ? cut : -1) }'
++++ cut=-1
++++ '[' -1 -ge 0 ']'
++++ printf %s 'audit the release chain'
+++ summary='audit the release chain'
+++ status_path=/tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
+++ case "$status_path" in
+++ case "$parent_home" in
+++ tmp=/tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/.4bcbc786ab0e0f63.tmp.26876
+++ cat
++++ pending_reply_grace_secs
++++ local g=120
++++ case "$g" in
++++ printf %s 120
+++ chmod 600 /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/.4bcbc786ab0e0f63.tmp.26876
+++ mv -f /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/.4bcbc786ab0e0f63.tmp.26876 /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63
+++ printf %s 4bcbc786ab0e0f63
++ PENDING_CORR=4bcbc786ab0e0f63
++ '[' -n 4bcbc786ab0e0f63 ']'
++ pending_reply_mark_delivered /tmp/fm-remote-reply.6OLaqe/parent/state 4bcbc786ab0e0f63
++ local state=/tmp/fm-remote-reply.6OLaqe/parent/state corr=4bcbc786ab0e0f63 confirmed_epoch= rec phase delivered now
+++ pending_reply_path /tmp/fm-remote-reply.6OLaqe/parent/state 4bcbc786ab0e0f63
++++ pending_reply_dir /tmp/fm-remote-reply.6OLaqe/parent/state
++++ local state=/tmp/fm-remote-reply.6OLaqe/parent/state
++++ '[' -n '' ']'
++++ printf %s/pending-replies /tmp/fm-remote-reply.6OLaqe/parent/state
+++ printf %s/%s /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies 4bcbc786ab0e0f63
++ rec=/tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63 ']'
+++ pending_reply_get /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63 phase
+++ local rec=/tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63 key=phase
+++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63 ']'
+++ grep '^phase=' /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63
+++ tail -1
+++ cut -d= -f2-
++ phase=awaiting_report
++ case "$phase" in
+++ pending_reply_get /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63 delivered_epoch
+++ local rec=/tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63 key=delivered_epoch
+++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63 ']'
+++ grep '^delivered_epoch=' /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63
+++ tail -1
+++ cut -d= -f2-
++ delivered=
++ '[' -z '' ']'
+++ pending_reply_now
+++ '[' -n '' ']'
+++ date +%s
++ now=1793432245
++ pending_reply_set /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63 delivered_epoch 1793432245
++ local rec=/tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63 key=delivered_epoch value=1793432245 dir base tmp line
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63 ']'
+++ dirname /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63
++ dir=/tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies
+++ basename /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63
++ base=4bcbc786ab0e0f63
++ tmp=/tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/.4bcbc786ab0e0f63.tmp.26876
++ :
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' schema=fm-pending-reply.v1
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' corr_id=4bcbc786ab0e0f63
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' task_id=ios
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' parent_home=/tmp/fm-remote-reply.6OLaqe/parent
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' parent_status=/tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' parent_status_scan_signature=
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' 'request_summary=audit the release chain'
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' created_epoch=1793432245
++ IFS=
++ read -r line
++ case "$line" in
++ continue
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' phase=awaiting_report
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' turn_seen_busy=0
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' request_turn_completed_epoch=
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' recovery_attempted_epoch=
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' recovery_sender_pid=
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' recovery_sender_identity=
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' recovery_sent_epoch=
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' recovery_delivery_outcome=
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' recovery_turn_seen_busy=0
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' recovery_turn_completed_epoch=
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' escalated_epoch=
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' resolved_epoch=
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' resolved_via=
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' wrong_home_hits=0
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' wrong_home_first_sighting=
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' wrong_home_sightings=
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' wrong_home_scan_signature=
++ IFS=
++ read -r line
++ case "$line" in
++ printf '%s\n' grace_secs=120
++ IFS=
++ read -r line
++ '[' -n '' ']'
++ printf '%s=%s\n' delivered_epoch 1793432245
++ mv -f /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/.4bcbc786ab0e0f63.tmp.26876 /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63
++ '[' awaiting_report = delivery_unknown ']'
++ return 0
++ printf 'working [key=version-audit]: family --version audit complete (data/reply/prose-only.md)\n'
++ printf 'needs-decision [key=rough-cut-version]: implement --version or retire the tool\n'
++ printf 'needs-decision [at=1700000000]: which base branch?\n'
++ printf 'needs-decision [at=1700086400]: which base branch?\n'
++ printf 'done [corr=%s]: release chain audited\n' 4bcbc786ab0e0f63
++ await_reply_result /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result
++ local result=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result handled=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.handled _
++ '[' '' '!=' existing-owner-only ']'
+++ reply_owner
+++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh list
+++ awk -v id=remote-reply-ios 'NR > 1 && $1 == id { print $3; exit }'
++ '[' live '!=' live ']'
+++ seq 1 800
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.handled ']'
++ return 0
++ RESULT_FOUR=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result
++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh handle ios 4 /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result
++ assert_grep 'working [key=version-audit]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status 'an uncorrelated progress line never reached the parent stream'
++ grep -F -- 'working [key=version-audit]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ assert_grep 'needs-decision [key=rough-cut-version]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status 'a newly raised remote decision never reached the parent stream'
++ grep -F -- 'needs-decision [key=rough-cut-version]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ assert_grep 'done [corr=4bcbc786ab0e0f63]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status 'the correlated answer sharing the delta was lost'
++ grep -F -- 'done [corr=4bcbc786ab0e0f63]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ for epoch in 1700000000 1700086400
++ grep -Fxq 'needs-decision [at=1700000000]: which base branch?' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ for epoch in 1700000000 1700086400
++ grep -Fxq 'needs-decision [at=1700086400]: which base branch?' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
+++ LC_ALL=C
+++ wc -c
+++ tr -d ' '
++ mirror_offset=508
++ assert_grep offset=508 /tmp/fm-remote-reply.6OLaqe/parent/state/remote-replies/ios.cursor 'the cursor did not advance past an uncorrelated line'
++ grep -F -- offset=508 /tmp/fm-remote-reply.6OLaqe/parent/state/remote-replies/ios.cursor
++ assert_absent /tmp/fm-remote-reply.6OLaqe/parent/data/remote-secondmates/ios/data/reply/prose-only.md 'a bare path mentioned in prose was fetched as though the line offered it'
++ '[' '!' -e /tmp/fm-remote-reply.6OLaqe/parent/data/remote-secondmates/ios/data/reply/prose-only.md ']'
++ assert_grep 'audit complete (data/reply/prose-only.md)' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status 'the prose mention was rewritten as though its document had been fetched'
++ grep -F -- 'audit complete (data/reply/prose-only.md)' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ assert_no_grep 'blocked [key=remote-reply-document-ios]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status 'a bare path mentioned in prose raised a document transfer obligation'
++ grep -F -- 'blocked [key=remote-reply-document-ios]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ pass 'the remote status and decision model mirrors and the cursor advances'
++ printf 'ok - %s\n' 'the remote status and decision model mirrors and the cursor advances'
+ok - the remote status and decision model mirrors and the cursor advances
++ . /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/task-events-lib.sh
++++ d=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin
++++ '[' /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin '!=' /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/task-events-lib.sh ']'
++++ cd /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin
++++ pwd
+++ _FM_CLASSIFY_LIB_DIR=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin
++++ uname -s
+++ _FM_CLASSIFY_UNAME_S=Linux
+++ FM_CREW_STATE_BIN=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/task-state.sh
+++ case $- in
+++ _fm_classify_nounset=on
+++ . /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/timeout-lib.sh
++++ set -u
+++ '[' on = on ']'
+++ unset _fm_classify_nounset
+++ FM_CLASSIFY_CAPTAIN_RE_DEFAULT='done:|needs-decision:|blocked:|failed:|PR ready|checks green|ready in branch|merged'
+++ FM_CLASSIFY_PAUSED_VERB_DEFAULT=paused
+++ FM_PAUSE_RESURFACE_SECS_DEFAULT=14400
+++ FM_CLASSIFY_RESOLVE_VERB_DEFAULT=resolved
+++ FM_CLASSIFY_CAPTAIN_HELD_VERB_DEFAULT=captain-held
+++ FM_CLASSIFY_EVENT_WINDOW_LINES=200
+++ FM_CLASSIFY_RESERVED_KEY_PREFIXES_DEFAULT=pending-reply-
+++ FM_OPEN_DECISIONS_FOLD_VERSION=9
+++ FM_STATUS_SNAPSHOT_EVENT_LINE=
+++ FM_STATUS_SNAPSHOT_EVENT_MTIME=
+++ FM_STATUS_SNAPSHOT_EVENT_ENDPOINT=
+++ STATUS_PRESENTATION_REPORTED=
+++ STATUS_PRESENTATION_CLASSIFIED=
+++ _FM_CLASSIFY_KEYLESS_PHASE=$'\036default'
+++ FM_GATE_HUMAN_DECISION='ask-user: authority decision'
+++ FM_WORKTREE_WRITE_PRUNE='.git node_modules .venv venv __pycache__ .mypy_cache .pytest_cache .ruff_cache .tox target dist build .next .cache vendor'
+++ FM_WORKTREE_WRITE_MAXDEPTH=6
+++ FM_WORKTREE_WRITE_TIMEOUT=10
+++ status_open_decisions /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
+++ local f=/tmp/fm-remote-reply.6OLaqe/parent/state/ios.status kind= line resolve held open= verb
+++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status ']'
+++ '[' -r /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status ']'
+++ '[' '!' -L /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status ']'
++++ _status_kind /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status ''
++++ local meta=/tmp/fm-remote-reply.6OLaqe/parent/state/ios.meta kind= line
++++ '[' -z '' ']'
++++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/ios.meta ']'
++++ printf unknown
++++ return 0
+++ kind=unknown
+++ resolve=resolved
+++ held=captain-held
+++ IFS=
+++ read -r line
+++ status_line_verb 'done [corr=0123456789abcdef] [at=1700000000]: build verified report=data/remote-secondmates/ios/data/reply/report.md' verb
+++ local 'v=done [corr=0123456789abcdef] [at=1700000000]' out= word
+++ v='done '
+++ v='done '
+++ v=done
+++ case "$v" in
+++ out=done
+++ '[' 2 -gt 1 ']'
+++ printf -v verb %s done
+++ case "$verb" in
++++ _decision_fold_line '' 'done [corr=0123456789abcdef] [at=1700000000]: build verified report=data/remote-secondmates/ios/data/reply/report.md' resolved captain-held unknown
++++ local open= 'line=done [corr=0123456789abcdef] [at=1700000000]: build verified report=data/remote-secondmates/ios/data/reply/report.md' resolve=resolved held=captain-held kind=unknown verb key note unstamped
++++ local timed= epoch
++++ _status_unstamped 'done [corr=0123456789abcdef] [at=1700000000]: build verified report=data/remote-secondmates/ios/data/reply/report.md' unstamped
++++ local '__fm_unstamped_rest=done [corr=0123456789abcdef] [at=1700000000]: build verified report=data/remote-secondmates/ios/data/reply/report.md' __fm_unstamped_keep= __fm_unstamped_before
++++ :
++++ case "$__fm_unstamped_rest" in
++++ __fm_unstamped_before='done [corr=0123456789abcdef] '
++++ case "$__fm_unstamped_before" in
++++ __fm_unstamped_keep='done [corr=0123456789abcdef]'
++++ __fm_unstamped_rest='1700000000]: build verified report=data/remote-secondmates/ios/data/reply/report.md'
++++ __fm_unstamped_rest=': build verified report=data/remote-secondmates/ios/data/reply/report.md'
++++ :
++++ case "$__fm_unstamped_rest" in
++++ break
++++ printf -v unstamped %s 'done [corr=0123456789abcdef]: build verified report=data/remote-secondmates/ios/data/reply/report.md'
++++ case "$unstamped" in
++++ status_line_verb 'done [corr=0123456789abcdef] [at=1700000000]: build verified report=data/remote-secondmates/ios/data/reply/report.md' verb
++++ local 'v=done [corr=0123456789abcdef] [at=1700000000]' out= word
++++ v='done '
++++ v='done '
++++ v=done
++++ case "$v" in
++++ out=done
++++ '[' 2 -gt 1 ']'
++++ printf -v verb %s done
++++ case "$unstamped" in
++++ case "$verb:$kind" in
++++ case "$verb" in
++++ printf %s ''
++++ return 0
+++ open=
+++ IFS=
+++ read -r line
+++ status_line_verb 'working [corr=1111111111111111]: second generation' verb
+++ local 'v=working [corr=1111111111111111]' out= word
+++ v='working '
+++ v='working '
+++ v=working
+++ case "$v" in
+++ out=working
+++ '[' 2 -gt 1 ']'
+++ printf -v verb %s working
+++ case "$verb" in
+++ IFS=
+++ read -r line
+++ status_line_verb 'done [corr=2222222222222222]: third generation' verb
+++ local 'v=done [corr=2222222222222222]' out= word
+++ v='done '
+++ v='done '
+++ v=done
+++ case "$v" in
+++ out=done
+++ '[' 2 -gt 1 ']'
+++ printf -v verb %s done
+++ case "$verb" in
++++ _decision_fold_line '' 'done [corr=2222222222222222]: third generation' resolved captain-held unknown
++++ local open= 'line=done [corr=2222222222222222]: third generation' resolve=resolved held=captain-held kind=unknown verb key note unstamped
++++ local timed= epoch
++++ _status_unstamped 'done [corr=2222222222222222]: third generation' unstamped
++++ local '__fm_unstamped_rest=done [corr=2222222222222222]: third generation' __fm_unstamped_keep= __fm_unstamped_before
++++ :
++++ case "$__fm_unstamped_rest" in
++++ break
++++ printf -v unstamped %s 'done [corr=2222222222222222]: third generation'
++++ case "$unstamped" in
++++ status_line_verb 'done [corr=2222222222222222]: third generation' verb
++++ local 'v=done [corr=2222222222222222]' out= word
++++ v='done '
++++ v='done '
++++ v=done
++++ case "$v" in
++++ out=done
++++ '[' 2 -gt 1 ']'
++++ printf -v verb %s done
++++ case "$unstamped" in
++++ case "$verb:$kind" in
++++ case "$verb" in
++++ printf %s ''
++++ return 0
+++ open=
+++ IFS=
+++ read -r line
+++ status_line_verb 'working [key=version-audit]: family --version audit complete (data/reply/prose-only.md)' verb
+++ local 'v=working [key=version-audit]' out= word
+++ v='working '
+++ v='working '
+++ v=working
+++ case "$v" in
+++ out=working
+++ '[' 2 -gt 1 ']'
+++ printf -v verb %s working
+++ case "$verb" in
+++ IFS=
+++ read -r line
+++ status_line_verb 'needs-decision [key=rough-cut-version]: implement --version or retire the tool' verb
+++ local 'v=needs-decision [key=rough-cut-version]' out= word
+++ v='needs-decision '
+++ v='needs-decision '
+++ v=needs-decision
+++ case "$v" in
+++ out=needs-decision
+++ '[' 2 -gt 1 ']'
+++ printf -v verb %s needs-decision
+++ case "$verb" in
++++ _decision_fold_line '' 'needs-decision [key=rough-cut-version]: implement --version or retire the tool' resolved captain-held unknown
++++ local open= 'line=needs-decision [key=rough-cut-version]: implement --version or retire the tool' resolve=resolved held=captain-held kind=unknown verb key note unstamped
++++ local timed= epoch
++++ _status_unstamped 'needs-decision [key=rough-cut-version]: implement --version or retire the tool' unstamped
++++ local '__fm_unstamped_rest=needs-decision [key=rough-cut-version]: implement --version or retire the tool' __fm_unstamped_keep= __fm_unstamped_before
++++ :
++++ case "$__fm_unstamped_rest" in
++++ break
++++ printf -v unstamped %s 'needs-decision [key=rough-cut-version]: implement --version or retire the tool'
++++ case "$unstamped" in
++++ status_line_verb 'needs-decision [key=rough-cut-version]: implement --version or retire the tool' verb
++++ local 'v=needs-decision [key=rough-cut-version]' out= word
++++ v='needs-decision '
++++ v='needs-decision '
++++ v=needs-decision
++++ case "$v" in
++++ out=needs-decision
++++ '[' 2 -gt 1 ']'
++++ printf -v verb %s needs-decision
++++ case "$unstamped" in
++++ case "$verb:$kind" in
++++ case "$verb" in
+++++ _decision_key 'needs-decision [key=rough-cut-version]: implement --version or retire the tool'
+++++ local k unstamped
+++++ _status_unstamped 'needs-decision [key=rough-cut-version]: implement --version or retire the tool' unstamped
+++++ local '__fm_unstamped_rest=needs-decision [key=rough-cut-version]: implement --version or retire the tool' __fm_unstamped_keep= __fm_unstamped_before
+++++ :
+++++ case "$__fm_unstamped_rest" in
+++++ break
+++++ printf -v unstamped %s 'needs-decision [key=rough-cut-version]: implement --version or retire the tool'
+++++ _key_before_colon 'needs-decision [key=rough-cut-version]: implement --version or retire the tool'
+++++ case "${1%%:*}" in
+++++ return 0
+++++ k='needs-decision [key=rough-cut-version]'
+++++ k='rough-cut-version]'
+++++ k=rough-cut-version
+++++ _decision_slug_ok rough-cut-version
+++++ case "$1" in
+++++ return 0
+++++ printf %s rough-cut-version
++++ key=rough-cut-version
+++++ status_line_note 'needs-decision [key=rough-cut-version]: implement --version or retire the tool'
+++++ local n k unstamped
+++++ _status_unstamped 'needs-decision [key=rough-cut-version]: implement --version or retire the tool' unstamped
+++++ local '__fm_unstamped_rest=needs-decision [key=rough-cut-version]: implement --version or retire the tool' __fm_unstamped_keep= __fm_unstamped_before
+++++ :
+++++ case "$__fm_unstamped_rest" in
+++++ break
+++++ printf -v unstamped %s 'needs-decision [key=rough-cut-version]: implement --version or retire the tool'
+++++ case "$unstamped" in
+++++ n=' implement --version or retire the tool'
+++++ n='implement --version or retire the tool'
+++++ _key_before_colon 'needs-decision [key=rough-cut-version]: implement --version or retire the tool'
+++++ case "${1%%:*}" in
+++++ return 0
+++++ printf %s 'implement --version or retire the tool'
++++ _decision_key_transition_allowed rough-cut-version 'implement --version or retire the tool'
++++ local key=rough-cut-version 'note=implement --version or retire the tool' prefix
++++ for prefix in ${FM_CLASSIFY_RESERVED_KEY_PREFIXES:-$FM_CLASSIFY_RESERVED_KEY_PREFIXES_DEFAULT}
++++ case "$key" in
++++ return 0
++++ case "$verb" in
+++++ status_line_note 'needs-decision [key=rough-cut-version]: implement --version or retire the tool'
+++++ local n k unstamped
+++++ _status_unstamped 'needs-decision [key=rough-cut-version]: implement --version or retire the tool' unstamped
+++++ local '__fm_unstamped_rest=needs-decision [key=rough-cut-version]: implement --version or retire the tool' __fm_unstamped_keep= __fm_unstamped_before
+++++ :
+++++ case "$__fm_unstamped_rest" in
+++++ break
+++++ printf -v unstamped %s 'needs-decision [key=rough-cut-version]: implement --version or retire the tool'
+++++ case "$unstamped" in
+++++ n=' implement --version or retire the tool'
+++++ n='implement --version or retire the tool'
+++++ _key_before_colon 'needs-decision [key=rough-cut-version]: implement --version or retire the tool'
+++++ case "${1%%:*}" in
+++++ return 0
+++++ printf %s 'implement --version or retire the tool'
++++ note='implement --version or retire the tool'
++++ '[' '' = timed ']'
+++++ _decision_drop '' rough-cut-version
+++++ local set= key=rough-cut-version line out=
+++++ IFS=
+++++ read -r line
+++++ '[' -n '' ']'
+++++ continue
+++++ IFS=
+++++ read -r line
+++++ printf %s ''
++++ open=
++++ '[' -n '' ']'
++++ open='rough-cut-version	needs-decision	implement --version or retire the tool
+'
++++ printf %s 'rough-cut-version	needs-decision	implement --version or retire the tool
+'
+++ open='rough-cut-version	needs-decision	implement --version or retire the tool'
+++ IFS=
+++ read -r line
+++ status_line_verb 'needs-decision [at=1700000000]: which base branch?' verb
+++ local 'v=needs-decision [at=1700000000]' out= word
+++ v='needs-decision '
+++ v='needs-decision '
+++ v=needs-decision
+++ case "$v" in
+++ out=needs-decision
+++ '[' 2 -gt 1 ']'
+++ printf -v verb %s needs-decision
+++ case "$verb" in
++++ _decision_fold_line 'rough-cut-version	needs-decision	implement --version or retire the tool' 'needs-decision [at=1700000000]: which base branch?' resolved captain-held unknown
++++ local 'open=rough-cut-version	needs-decision	implement --version or retire the tool' 'line=needs-decision [at=1700000000]: which base branch?' resolve=resolved held=captain-held kind=unknown verb key note unstamped
++++ local timed= epoch
++++ _status_unstamped 'needs-decision [at=1700000000]: which base branch?' unstamped
++++ local '__fm_unstamped_rest=needs-decision [at=1700000000]: which base branch?' __fm_unstamped_keep= __fm_unstamped_before
++++ :
++++ case "$__fm_unstamped_rest" in
++++ __fm_unstamped_before='needs-decision '
++++ case "$__fm_unstamped_before" in
++++ __fm_unstamped_keep=needs-decision
++++ __fm_unstamped_rest='1700000000]: which base branch?'
++++ __fm_unstamped_rest=': which base branch?'
++++ :
++++ case "$__fm_unstamped_rest" in
++++ break
++++ printf -v unstamped %s 'needs-decision: which base branch?'
++++ case "$unstamped" in
++++ status_line_verb 'needs-decision [at=1700000000]: which base branch?' verb
++++ local 'v=needs-decision [at=1700000000]' out= word
++++ v='needs-decision '
++++ v='needs-decision '
++++ v=needs-decision
++++ case "$v" in
++++ out=needs-decision
++++ '[' 2 -gt 1 ']'
++++ printf -v verb %s needs-decision
++++ case "$unstamped" in
++++ case "$verb:$kind" in
++++ case "$verb" in
+++++ _decision_key 'needs-decision [at=1700000000]: which base branch?'
+++++ local k unstamped
+++++ _status_unstamped 'needs-decision [at=1700000000]: which base branch?' unstamped
+++++ local '__fm_unstamped_rest=needs-decision [at=1700000000]: which base branch?' __fm_unstamped_keep= __fm_unstamped_before
+++++ :
+++++ case "$__fm_unstamped_rest" in
+++++ __fm_unstamped_before='needs-decision '
+++++ case "$__fm_unstamped_before" in
+++++ __fm_unstamped_keep=needs-decision
+++++ __fm_unstamped_rest='1700000000]: which base branch?'
+++++ __fm_unstamped_rest=': which base branch?'
+++++ :
+++++ case "$__fm_unstamped_rest" in
+++++ break
+++++ printf -v unstamped %s 'needs-decision: which base branch?'
+++++ _key_before_colon 'needs-decision: which base branch?'
+++++ case "${1%%:*}" in
+++++ return 1
++++++ _key_at_note_head 'needs-decision: which base branch?'
++++++ local rest
++++++ case "$1" in
++++++ rest=' which base branch?'
++++++ rest='which base branch?'
++++++ case "$rest" in
++++++ return 1
+++++ k=
+++++ printf %s default
+++++ return 0
++++ key=default
+++++ status_line_note 'needs-decision [at=1700000000]: which base branch?'
+++++ local n k unstamped
+++++ _status_unstamped 'needs-decision [at=1700000000]: which base branch?' unstamped
+++++ local '__fm_unstamped_rest=needs-decision [at=1700000000]: which base branch?' __fm_unstamped_keep= __fm_unstamped_before
+++++ :
+++++ case "$__fm_unstamped_rest" in
+++++ __fm_unstamped_before='needs-decision '
+++++ case "$__fm_unstamped_before" in
+++++ __fm_unstamped_keep=needs-decision
+++++ __fm_unstamped_rest='1700000000]: which base branch?'
+++++ __fm_unstamped_rest=': which base branch?'
+++++ :
+++++ case "$__fm_unstamped_rest" in
+++++ break
+++++ printf -v unstamped %s 'needs-decision: which base branch?'
+++++ case "$unstamped" in
+++++ n=' which base branch?'
+++++ n='which base branch?'
+++++ _key_before_colon 'needs-decision: which base branch?'
+++++ case "${1%%:*}" in
+++++ return 1
++++++ _key_at_note_head 'needs-decision: which base branch?'
++++++ local rest
++++++ case "$1" in
++++++ rest=' which base branch?'
++++++ rest='which base branch?'
++++++ case "$rest" in
++++++ return 1
+++++ k=
+++++ printf %s 'which base branch?'
++++ _decision_key_transition_allowed default 'which base branch?'
++++ local key=default 'note=which base branch?' prefix
++++ for prefix in ${FM_CLASSIFY_RESERVED_KEY_PREFIXES:-$FM_CLASSIFY_RESERVED_KEY_PREFIXES_DEFAULT}
++++ case "$key" in
++++ return 0
++++ case "$verb" in
+++++ status_line_note 'needs-decision [at=1700000000]: which base branch?'
+++++ local n k unstamped
+++++ _status_unstamped 'needs-decision [at=1700000000]: which base branch?' unstamped
+++++ local '__fm_unstamped_rest=needs-decision [at=1700000000]: which base branch?' __fm_unstamped_keep= __fm_unstamped_before
+++++ :
+++++ case "$__fm_unstamped_rest" in
+++++ __fm_unstamped_before='needs-decision '
+++++ case "$__fm_unstamped_before" in
+++++ __fm_unstamped_keep=needs-decision
+++++ __fm_unstamped_rest='1700000000]: which base branch?'
+++++ __fm_unstamped_rest=': which base branch?'
+++++ :
+++++ case "$__fm_unstamped_rest" in
+++++ break
+++++ printf -v unstamped %s 'needs-decision: which base branch?'
+++++ case "$unstamped" in
+++++ n=' which base branch?'
+++++ n='which base branch?'
+++++ _key_before_colon 'needs-decision: which base branch?'
+++++ case "${1%%:*}" in
+++++ return 1
++++++ _key_at_note_head 'needs-decision: which base branch?'
++++++ local rest
++++++ case "$1" in
++++++ rest=' which base branch?'
++++++ rest='which base branch?'
++++++ case "$rest" in
++++++ return 1
+++++ k=
+++++ printf %s 'which base branch?'
++++ note='which base branch?'
++++ '[' '' = timed ']'
+++++ _decision_drop 'rough-cut-version	needs-decision	implement --version or retire the tool' default
+++++ local 'set=rough-cut-version	needs-decision	implement --version or retire the tool' key=default line out=
+++++ IFS=
+++++ read -r line
+++++ '[' -n 'rough-cut-version	needs-decision	implement --version or retire the tool' ']'
+++++ case "$line" in
+++++ out='rough-cut-version	needs-decision	implement --version or retire the tool
+'
+++++ IFS=
+++++ read -r line
+++++ printf %s 'rough-cut-version	needs-decision	implement --version or retire the tool
+'
++++ open='rough-cut-version	needs-decision	implement --version or retire the tool'
++++ '[' -n 'rough-cut-version	needs-decision	implement --version or retire the tool' ']'
++++ open='rough-cut-version	needs-decision	implement --version or retire the tool
+'
++++ open='rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?
+'
++++ printf %s 'rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?
+'
+++ open='rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?'
+++ IFS=
+++ read -r line
+++ status_line_verb 'needs-decision [at=1700086400]: which base branch?' verb
+++ local 'v=needs-decision [at=1700086400]' out= word
+++ v='needs-decision '
+++ v='needs-decision '
+++ v=needs-decision
+++ case "$v" in
+++ out=needs-decision
+++ '[' 2 -gt 1 ']'
+++ printf -v verb %s needs-decision
+++ case "$verb" in
++++ _decision_fold_line 'rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?' 'needs-decision [at=1700086400]: which base branch?' resolved captain-held unknown
++++ local 'open=rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?' 'line=needs-decision [at=1700086400]: which base branch?' resolve=resolved held=captain-held kind=unknown verb key note unstamped
++++ local timed= epoch
++++ _status_unstamped 'needs-decision [at=1700086400]: which base branch?' unstamped
++++ local '__fm_unstamped_rest=needs-decision [at=1700086400]: which base branch?' __fm_unstamped_keep= __fm_unstamped_before
++++ :
++++ case "$__fm_unstamped_rest" in
++++ __fm_unstamped_before='needs-decision '
++++ case "$__fm_unstamped_before" in
++++ __fm_unstamped_keep=needs-decision
++++ __fm_unstamped_rest='1700086400]: which base branch?'
++++ __fm_unstamped_rest=': which base branch?'
++++ :
++++ case "$__fm_unstamped_rest" in
++++ break
++++ printf -v unstamped %s 'needs-decision: which base branch?'
++++ case "$unstamped" in
++++ status_line_verb 'needs-decision [at=1700086400]: which base branch?' verb
++++ local 'v=needs-decision [at=1700086400]' out= word
++++ v='needs-decision '
++++ v='needs-decision '
++++ v=needs-decision
++++ case "$v" in
++++ out=needs-decision
++++ '[' 2 -gt 1 ']'
++++ printf -v verb %s needs-decision
++++ case "$unstamped" in
++++ case "$verb:$kind" in
++++ case "$verb" in
+++++ _decision_key 'needs-decision [at=1700086400]: which base branch?'
+++++ local k unstamped
+++++ _status_unstamped 'needs-decision [at=1700086400]: which base branch?' unstamped
+++++ local '__fm_unstamped_rest=needs-decision [at=1700086400]: which base branch?' __fm_unstamped_keep= __fm_unstamped_before
+++++ :
+++++ case "$__fm_unstamped_rest" in
+++++ __fm_unstamped_before='needs-decision '
+++++ case "$__fm_unstamped_before" in
+++++ __fm_unstamped_keep=needs-decision
+++++ __fm_unstamped_rest='1700086400]: which base branch?'
+++++ __fm_unstamped_rest=': which base branch?'
+++++ :
+++++ case "$__fm_unstamped_rest" in
+++++ break
+++++ printf -v unstamped %s 'needs-decision: which base branch?'
+++++ _key_before_colon 'needs-decision: which base branch?'
+++++ case "${1%%:*}" in
+++++ return 1
++++++ _key_at_note_head 'needs-decision: which base branch?'
++++++ local rest
++++++ case "$1" in
++++++ rest=' which base branch?'
++++++ rest='which base branch?'
++++++ case "$rest" in
++++++ return 1
+++++ k=
+++++ printf %s default
+++++ return 0
++++ key=default
+++++ status_line_note 'needs-decision [at=1700086400]: which base branch?'
+++++ local n k unstamped
+++++ _status_unstamped 'needs-decision [at=1700086400]: which base branch?' unstamped
+++++ local '__fm_unstamped_rest=needs-decision [at=1700086400]: which base branch?' __fm_unstamped_keep= __fm_unstamped_before
+++++ :
+++++ case "$__fm_unstamped_rest" in
+++++ __fm_unstamped_before='needs-decision '
+++++ case "$__fm_unstamped_before" in
+++++ __fm_unstamped_keep=needs-decision
+++++ __fm_unstamped_rest='1700086400]: which base branch?'
+++++ __fm_unstamped_rest=': which base branch?'
+++++ :
+++++ case "$__fm_unstamped_rest" in
+++++ break
+++++ printf -v unstamped %s 'needs-decision: which base branch?'
+++++ case "$unstamped" in
+++++ n=' which base branch?'
+++++ n='which base branch?'
+++++ _key_before_colon 'needs-decision: which base branch?'
+++++ case "${1%%:*}" in
+++++ return 1
++++++ _key_at_note_head 'needs-decision: which base branch?'
++++++ local rest
++++++ case "$1" in
++++++ rest=' which base branch?'
++++++ rest='which base branch?'
++++++ case "$rest" in
++++++ return 1
+++++ k=
+++++ printf %s 'which base branch?'
++++ _decision_key_transition_allowed default 'which base branch?'
++++ local key=default 'note=which base branch?' prefix
++++ for prefix in ${FM_CLASSIFY_RESERVED_KEY_PREFIXES:-$FM_CLASSIFY_RESERVED_KEY_PREFIXES_DEFAULT}
++++ case "$key" in
++++ return 0
++++ case "$verb" in
+++++ status_line_note 'needs-decision [at=1700086400]: which base branch?'
+++++ local n k unstamped
+++++ _status_unstamped 'needs-decision [at=1700086400]: which base branch?' unstamped
+++++ local '__fm_unstamped_rest=needs-decision [at=1700086400]: which base branch?' __fm_unstamped_keep= __fm_unstamped_before
+++++ :
+++++ case "$__fm_unstamped_rest" in
+++++ __fm_unstamped_before='needs-decision '
+++++ case "$__fm_unstamped_before" in
+++++ __fm_unstamped_keep=needs-decision
+++++ __fm_unstamped_rest='1700086400]: which base branch?'
+++++ __fm_unstamped_rest=': which base branch?'
+++++ :
+++++ case "$__fm_unstamped_rest" in
+++++ break
+++++ printf -v unstamped %s 'needs-decision: which base branch?'
+++++ case "$unstamped" in
+++++ n=' which base branch?'
+++++ n='which base branch?'
+++++ _key_before_colon 'needs-decision: which base branch?'
+++++ case "${1%%:*}" in
+++++ return 1
++++++ _key_at_note_head 'needs-decision: which base branch?'
++++++ local rest
++++++ case "$1" in
++++++ rest=' which base branch?'
++++++ rest='which base branch?'
++++++ case "$rest" in
++++++ return 1
+++++ k=
+++++ printf %s 'which base branch?'
++++ note='which base branch?'
++++ '[' '' = timed ']'
+++++ _decision_drop 'rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?' default
+++++ local 'set=rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?' key=default line out=
+++++ IFS=
+++++ read -r line
+++++ '[' -n 'rough-cut-version	needs-decision	implement --version or retire the tool' ']'
+++++ case "$line" in
+++++ out='rough-cut-version	needs-decision	implement --version or retire the tool
+'
+++++ IFS=
+++++ read -r line
+++++ '[' -n 'default	needs-decision	which base branch?' ']'
+++++ case "$line" in
+++++ :
+++++ IFS=
+++++ read -r line
+++++ printf %s 'rough-cut-version	needs-decision	implement --version or retire the tool
+'
++++ open='rough-cut-version	needs-decision	implement --version or retire the tool'
++++ '[' -n 'rough-cut-version	needs-decision	implement --version or retire the tool' ']'
++++ open='rough-cut-version	needs-decision	implement --version or retire the tool
+'
++++ open='rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?
+'
++++ printf %s 'rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?
+'
+++ open='rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?'
+++ IFS=
+++ read -r line
+++ status_line_verb 'done [corr=4bcbc786ab0e0f63]: release chain audited' verb
+++ local 'v=done [corr=4bcbc786ab0e0f63]' out= word
+++ v='done '
+++ v='done '
+++ v=done
+++ case "$v" in
+++ out=done
+++ '[' 2 -gt 1 ']'
+++ printf -v verb %s done
+++ case "$verb" in
++++ _decision_fold_line 'rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?' 'done [corr=4bcbc786ab0e0f63]: release chain audited' resolved captain-held unknown
++++ local 'open=rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?' 'line=done [corr=4bcbc786ab0e0f63]: release chain audited' resolve=resolved held=captain-held kind=unknown verb key note unstamped
++++ local timed= epoch
++++ _status_unstamped 'done [corr=4bcbc786ab0e0f63]: release chain audited' unstamped
++++ local '__fm_unstamped_rest=done [corr=4bcbc786ab0e0f63]: release chain audited' __fm_unstamped_keep= __fm_unstamped_before
++++ :
++++ case "$__fm_unstamped_rest" in
++++ break
++++ printf -v unstamped %s 'done [corr=4bcbc786ab0e0f63]: release chain audited'
++++ case "$unstamped" in
++++ status_line_verb 'done [corr=4bcbc786ab0e0f63]: release chain audited' verb
++++ local 'v=done [corr=4bcbc786ab0e0f63]' out= word
++++ v='done '
++++ v='done '
++++ v=done
++++ case "$v" in
++++ out=done
++++ '[' 2 -gt 1 ']'
++++ printf -v verb %s done
++++ case "$unstamped" in
++++ case "$verb:$kind" in
++++ case "$verb" in
++++ printf %s 'rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?'
++++ return 0
+++ open='rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?'
+++ IFS=
+++ read -r line
+++ '[' -n '' ']'
+++ printf %s 'rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?'
++ OPEN='rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?'
++ printf %s 'rough-cut-version	needs-decision	implement --version or retire the tool
+default	needs-decision	which base branch?'
++ grep -q '^rough-cut-version	needs-decision	'
+++ pending_reply_get /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63 phase
+++ local rec=/tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63 key=phase
+++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63 ']'
+++ grep '^phase=' /tmp/fm-remote-reply.6OLaqe/parent/state/pending-replies/4bcbc786ab0e0f63
+++ tail -1
+++ cut -d= -f2-
++ '[' resolved = resolved ']'
++ pass 'a remote mate'\''s new decision folds open exactly as a local mate'\''s does'
++ printf 'ok - %s\n' 'a remote mate'\''s new decision folds open exactly as a local mate'\''s does'
+ok - a remote mate's new decision folds open exactly as a local mate's does
++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events-remote-reply.sh handle ios 4 /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.4.result
+++ grep -cF 'needs-decision [key=rough-cut-version]' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ '[' 1 -eq 1 ']'
++ assert_grep offset=508 /tmp/fm-remote-reply.6OLaqe/parent/state/remote-replies/ios.cursor 'replaying the mirrored delta moved the cursor'
++ grep -F -- offset=508 /tmp/fm-remote-reply.6OLaqe/parent/state/remote-replies/ios.cursor
++ pass 'a replayed mirrored delta is idempotent in both the stream and the cursor'
++ printf 'ok - %s\n' 'a replayed mirrored delta is idempotent in both the stream and the cursor'
+ok - a replayed mirrored delta is idempotent in both the stream and the cursor
+++ grep -Fc ': which base branch?' /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
++ '[' 2 -eq 2 ']'
++ '[' 1 = 1 ']'
++ printf 'Remote source status records:\n'
+Remote source status records:
++ cat /tmp/fm-remote-reply.6OLaqe/remote/state/parent-replies.status
+done [corr=0123456789abcdef] [at=1700000000]: build verified report=data/reply/report.md
+working [corr=1111111111111111]: second generation
+done [corr=2222222222222222]: third generation
+working [key=version-audit]: family --version audit complete (data/reply/prose-only.md)
+needs-decision [key=rough-cut-version]: implement --version or retire the tool
+needs-decision [at=1700000000]: which base branch?
+needs-decision [at=1700086400]: which base branch?
+done [corr=4bcbc786ab0e0f63]: release chain audited
++ printf '\nParent status after handling and replaying generation 4:\n'
+
+Parent status after handling and replaying generation 4:
++ cat /tmp/fm-remote-reply.6OLaqe/parent/state/ios.status
+done [corr=0123456789abcdef] [at=1700000000]: build verified report=data/remote-secondmates/ios/data/reply/report.md
+working [corr=1111111111111111]: second generation
+done [corr=2222222222222222]: third generation
+working [key=version-audit]: family --version audit complete (data/reply/prose-only.md)
+needs-decision [key=rough-cut-version]: implement --version or retire the tool
+needs-decision [at=1700000000]: which base branch?
+needs-decision [at=1700086400]: which base branch?
+done [corr=4bcbc786ab0e0f63]: release chain audited
++ printf '\nCommitted remote cursor:\n'
+
+Committed remote cursor:
++ cat /tmp/fm-remote-reply.6OLaqe/parent/state/remote-replies/ios.cursor
+schema=fm-remote-reply-cursor.v1
+offset=508
+prefix_sha256=173d9c5d2875cda04e6ccc07f63ee31079158ed5ec14862186b9ee858a0d89c6
++ printf '5\n'
++ printf 'blocked [key=ctl]: escape \033[31mhere\033[0m bell \007 caf\xc3\xa9 end\n'
++ await_reply_result /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result
++ local result=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result handled=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.handled _
++ '[' '' '!=' existing-owner-only ']'
+++ reply_owner
+++ remote_env /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh list
+++ awk -v id=remote-reply-ios 'NR > 1 && $1 == id { print $3; exit }'
++ '[' live '!=' live ']'
+++ seq 1 800
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.handled ']'
++ sleep 0.05
++ for _ in $(seq 1 800)
++ '[' -s /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result ']'
++ '[' -f /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.handled ']'
++ return 0
++ RESULT_FIVE=/tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result
++ replace_at_handoff 5 /tmp/fm-remote-reply.6OLaqe/parent/state/procevent-inbox/remote-reply-ios.5.result
++ local sequence=5 before after
++ wait_for /tmp/fm-remote-reply.6OLaqe/handoff/5.ready
++ local path=/tmp/fm-remote-reply.6OLaqe/handoff/5.ready
+++ seq 1 100
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -e /tmp/fm-remote-reply.6OLaqe/handoff/5.ready ']'
++ sleep 0.05
++ return 1
++ fail 'listener never reached handoff 5'
++ printf 'not ok - %s\n' 'listener never reached handoff 5'
+not ok - listener never reached handoff 5
++ exit 1
++ cleanup
++ local worker_pid=
++ FM_HOME=/tmp/fm-remote-reply.6OLaqe/parent
++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-remote-reply.6OLaqe/claims
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh sweep-home
++ '[' -f /tmp/fm-remote-reply.6OLaqe/remote-jobs/worker.pid ']'
+++ cat /tmp/fm-remote-reply.6OLaqe/remote-jobs/worker.pid
++ worker_pid=27923
++ remote_job_stop_worker_tree 27923
++ local pid=27923 pgid i=0
++ case "$pid" in
++ '[' 27923 -gt 1 ']'
+++ remote_job_worker_process_group 27923
++ pgid=27866
++ '[' -n 27866 ']'
++ kill -TERM -- -27866
++ '[' -n 27866 ']'
++ kill -0 -- -27866
++ kill -0 27923
++ '[' 0 -lt 50 ']'
++ i=1
++ sleep 0.1
++ '[' -n 27866 ']'
++ kill -0 -- -27866
++ '[' -z 27866 ']'
++ '[' -n 27866 ']'
++ kill -0 -- -27866
++ return 0
++ rm -rf -- /tmp/fm-remote-reply.6OLaqe

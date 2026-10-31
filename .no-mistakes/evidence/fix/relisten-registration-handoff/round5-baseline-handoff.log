@@ -1,0 +1,8 @@
+ok - default delta reader waits 0.5 seconds then delivers a non-destructive complete-line delta
+ok - override delta reader waits 0.07 seconds then delivers a non-destructive complete-line delta
+error: remote command is not tracked by this Firstmate checkout: remote-delta-read.sh
+error: remote command is not tracked by this Firstmate checkout: remote-delta-read.sh
+ok - transport failures and non-schema diagnostics stay out of captured results
+runner output:
+no-result: remote-reply-ios (exit 1)
+not ok - the remote reply delta was not durably captured

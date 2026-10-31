@@ -1,0 +1,2 @@
+unshare: unrecognized option '--map-current-user'
+Try 'unshare --help' for more information.

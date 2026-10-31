@@ -1,0 +1,8 @@
+ok - owner-matched retirement refuses a stale generation and accepts the current one
+ok - caller environment, descriptors, and lifecycle entry cannot forge capture authority
+ok - extension capture reservations are bounded to their runner lifecycle
+ok - tab state root refuses safely without claim, polling, or capture effects
+ok - newline state root refuses safely without claim, polling, or capture effects
+ok - control-byte state roots cannot serialize claims or reservations
+active crash reservation: {"binding_digest": "sha256:906d9404896373ca8c0a0fa439bbd2ef9958d18c53349938e1a27d09551100a9", "claim_identity": "linux-starttime=11782319 cmdline-hex=62617368002f686f6d652f616e647265772f2e6e6f2d6d697374616b65732d7370756472756e6e65722d76616c69646174696f6e2f776f726b74726565732f6361353337376631313964342f30314d36383652524e4239354a53464d315035544257513359592f62696e2f70726f636573732d6576656e74732e7368005f7374617274006f766572726964652d63726173682d736f7572636500", "claim_pid": "3620", "claim_token": ".claim.C6w9bx-3620", "inbox_device": "2096", "inbox_inode": "1340000", "operation": "result.terminal", "result_device": "2096", "result_inode": "1340045", "schema": "fm-procevent-capture-reservation.v1", "sequence": 1, "source_id": "override-crash-source", "token": "7627b822bc85b3c520e27f2fb84efb5dfda1151f0b19bf79ad2d72f7ecddc04e"}
+not ok - reconcile retained a dead overridden-state claim

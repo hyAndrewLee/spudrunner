@@ -1,0 +1,512 @@
++ set -u
++ '[' 0 = 1 ']'
+++ dirname tests/extension-host-binding.test.sh
++ . tests/lib.sh
+++ '[' -n '' ']'
+++ FM_TEST_LIB_SOURCED=1
+++ umask 022
++++ dirname tests/lib.sh
+++ . tests/git-config-helpers.sh
++++ export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
++++ GIT_CONFIG_GLOBAL=/dev/null
++++ GIT_CONFIG_NOSYSTEM=1
++++ unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_COMMON_DIR
+++ export FM_GATE_REFUSE_BYPASS=1
+++ FM_GATE_REFUSE_BYPASS=1
+++ export FM_TEST_SEAM=1
+++ FM_TEST_SEAM=1
+++ unset FM_TASK_ID
+++ unset TASKS_AXI_FILE TASKS_AXI_BACKEND
+++ unset REX_SESSION REX_BLOCK
+++++ dirname tests/lib.sh
++++ cd tests/..
++++ pwd
+++ ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ FM_TEST_TMPDIR=/tmp
+++ FM_TEST_CLEANUP_DIRS=()
++++ mktemp /tmp/.fm-test-cleanup.1.XXXXXX
+++ FM_TEST_CLEANUP_REGISTRY=/tmp/.fm-test-cleanup.1.KDx6Ny
++++ test_pid_identity 1
++++ local pid=1
++++ FM_STATE_OVERRIDE=/tmp
++++ bash -c '. "$1"; pid_identity "$2"' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/supervision-events-lib.sh 1
+++ FM_TEST_OWNER_IDENTITY='linux-starttime=11320812 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
++++ mktemp /tmp/.fm-test-procevent.1.XXXXXX
+++ FM_TEST_PROCEVENT_REGISTRY=/tmp/.fm-test-procevent.1.3n3kA4
++++ mktemp /tmp/.fm-test-watcher.1.XXXXXX
+++ FM_TEST_WATCHER_REGISTRY=/tmp/.fm-test-watcher.1.OKEvWj
+++ FM_TEST_STUB_MAX_BLOCK_SECONDS=120
+++ export FM_TEST_STUB_MAX_BLOCK_SECONDS
+++ FM_TEST_SUITE_PID=1
+++ export FM_TEST_SUITE_PID
+++ trap test_cleanup EXIT
+++ trap 'test_cleanup; exit 130' INT
+++ trap 'test_cleanup; exit 143' TERM
+++ trap 'test_cleanup; exit 129' HUP
+++ trap 'test_cleanup; exit 131' QUIT
+++ FM_TEST_ORPHAN_MAX_AGE_SECONDS=3600
+++ '[' 0 '!=' 1 ']'
+++ test_reap_orphans
+++ local marker dir mtime now owner_pid owner_identity current_identity
++++ date +%s
+++ now=1793431605
+++ for marker in "$FM_TEST_TMPDIR"/fm-*/.fm-test-fixture
+++ '[' -e '/tmp/fm-*/.fm-test-fixture' ']'
+++ continue
++ extension_segment=lifecycle-order
++ case "$extension_segment" in
++ HOST=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs
++ PROCEVENT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh
+++ test_tmproot fm-extension-binding
+++ local prefix=fm-extension-binding root tmp_base
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ tmp_base=/tmp
+++ tmp_base=/tmp
++++ mktemp -d /tmp/fm-extension-binding.XXXXXX
+++ root=/tmp/fm-extension-binding.pkoJe8
++++ cd -P -- /tmp/fm-extension-binding.pkoJe8
++++ pwd -P
+++ root=/tmp/fm-extension-binding.pkoJe8
+++ printf '%s\n%s\n' 1 'linux-starttime=11320812 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
+++ printf '%s\n' /tmp/fm-extension-binding.pkoJe8
+++ printf '%s\n' /tmp/fm-extension-binding.pkoJe8
++ TMP_ROOT_RAW=/tmp/fm-extension-binding.pkoJe8
+++ cd /tmp/fm-extension-binding.pkoJe8
+++ pwd -P
++ TMP_ROOT=/tmp/fm-extension-binding.pkoJe8
++ first_bind_pid=
++ second_bind_pid=
++ handshake_orphan_pid=
++ concurrent_release=
++ race_register_pid=
++ race_retire_pid=
++ race_release=
++ process_race_start_pid=
++ process_race_retire_pid=
++ process_race_release=
++ registry_race_pid=
++ registry_race_release=
++ leaf_race_pid=
++ leaf_race_release=
++ owner_retire_pid=
++ owner_worker_pid=
++ owner_register_pid=
++ signal_retire_pid=
++ signal_worker_pid=
++ active_runner_pid=
++ active_runner_release=
++ remote_active_release=
++ unrelated_daemon_pid=
++ unrelated_launcher_pid=
++ signal_cleanup_host_pid=
++ signal_cleanup_group_pid=
++ crash_cleanup_host_pid=
++ crash_cleanup_group_pid=
++ crash_cleanup_release=
++ crash_silent_start_pid=
++ crash_silent_runner_pid=
++ override_crash_start_pid=
++ override_crash_runner_pid=
++ order_register_pid=
++ order_reconcile_pid=
++ order_release=
++ section_coordinator_pid=
++ trap extension_test_cleanup EXIT
++ trap 'extension_test_cleanup; exit 130' INT
++ trap 'extension_test_cleanup; exit 143' TERM
++ export FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.pkoJe8/claims
++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.pkoJe8/claims
++ PACKAGES=/tmp/fm-extension-binding.pkoJe8/packages
++ HOMES=/tmp/fm-extension-binding.pkoJe8/homes
++ mkdir -p /tmp/fm-extension-binding.pkoJe8/packages /tmp/fm-extension-binding.pkoJe8/homes
++ '[' 0 = 1 ']'
++ section_enabled coordinator-fail
++ local section
++ for section in "$@"
++ '[' lifecycle-order = coordinator-fail ']'
++ return 1
++ section_enabled coordinator-wait
++ local section
++ for section in "$@"
++ '[' lifecycle-order = coordinator-wait ']'
++ return 1
++ section_enabled coordinator-stubborn
++ local section
++ for section in "$@"
++ '[' lifecycle-order = coordinator-stubborn ']'
++ return 1
++ section_enabled coordinator-pass
++ local section
++ for section in "$@"
++ '[' lifecycle-order = coordinator-pass ']'
++ return 1
++ section_enabled coordinator-late-pass
++ local section
++ for section in "$@"
++ '[' lifecycle-order = coordinator-late-pass ']'
++ return 1
++ section_enabled coordinator-scheduler-block
++ local section
++ for section in "$@"
++ '[' lifecycle-order = coordinator-scheduler-block ']'
++ return 1
++ section_enabled coordinator-scheduler-late
++ local section
++ for section in "$@"
++ '[' lifecycle-order = coordinator-scheduler-late ']'
++ return 1
++ '[' lifecycle-order = all ']'
++ '[' lifecycle-order = coordinator ']'
++ section_enabled early-bind
++ local section
++ for section in "$@"
++ '[' lifecycle-order = early-bind ']'
++ return 1
++ section_enabled early-validation
++ local section
++ for section in "$@"
++ '[' lifecycle-order = early-validation ']'
++ return 1
++ section_enabled early-handshake
++ local section
++ for section in "$@"
++ '[' lifecycle-order = early-handshake ']'
++ return 1
++ section_enabled early-integrity
++ local section
++ for section in "$@"
++ '[' lifecycle-order = early-integrity ']'
++ return 1
++ section_enabled matrix matrix-runtime
++ local section
++ for section in "$@"
++ '[' lifecycle-order = matrix ']'
++ for section in "$@"
++ '[' lifecycle-order = matrix-runtime ']'
++ return 1
++ section_enabled lifecycle-host-errors
++ local section
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-host-errors ']'
++ return 1
++ section_enabled lifecycle-flow
++ local section
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-flow ']'
++ return 1
++ section_enabled lifecycle-order
++ local section
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-order ']'
++ return 0
++ P_ORDER=/tmp/fm-extension-binding.pkoJe8/packages/lock-order
++ order_marker=/tmp/fm-extension-binding.pkoJe8/lock-order.marker
++ order_release=/tmp/fm-extension-binding.pkoJe8/lock-order.release
+++ printf 'handshake-block\n%s\n%s' /tmp/fm-extension-binding.pkoJe8/lock-order.marker /tmp/fm-extension-binding.pkoJe8/lock-order.release
++ make_package /tmp/fm-extension-binding.pkoJe8/packages/lock-order org.example.lock-order ext-lock-order 'handshake-block
+/tmp/fm-extension-binding.pkoJe8/lock-order.marker
+/tmp/fm-extension-binding.pkoJe8/lock-order.release'
++ local dir=/tmp/fm-extension-binding.pkoJe8/packages/lock-order id=org.example.lock-order adapter=ext-lock-order 'fixed=handshake-block
+/tmp/fm-extension-binding.pkoJe8/lock-order.marker
+/tmp/fm-extension-binding.pkoJe8/lock-order.release' consent= required
++ mkdir -p /tmp/fm-extension-binding.pkoJe8/packages/lock-order
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' 'handshake-block
+/tmp/fm-extension-binding.pkoJe8/lock-order.marker
+/tmp/fm-extension-binding.pkoJe8/lock-order.release'
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.pkoJe8/packages/lock-order/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.pkoJe8/packages/lock-order/firstmate-extension.json /tmp/fm-extension-binding.pkoJe8/packages/lock-order/scenario /tmp/fm-extension-binding.pkoJe8/packages/lock-order/helper.txt
++ H_ORDER=/tmp/fm-extension-binding.pkoJe8/homes/lock-order
++ new_home /tmp/fm-extension-binding.pkoJe8/homes/lock-order
++ mkdir -p /tmp/fm-extension-binding.pkoJe8/homes/lock-order
++ touch /tmp/fm-extension-binding.pkoJe8/lock-order.release
++ bind_package /tmp/fm-extension-binding.pkoJe8/homes/lock-order /tmp/fm-extension-binding.pkoJe8/packages/lock-order ext-lock-order
++ local home=/tmp/fm-extension-binding.pkoJe8/homes/lock-order package=/tmp/fm-extension-binding.pkoJe8/packages/lock-order adapter=ext-lock-order
++ shift 3
++ FM_HOME=/tmp/fm-extension-binding.pkoJe8/homes/lock-order
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.pkoJe8/packages/lock-order --adapter ext-lock-order --trust-same-user-code
++ FM_HOME=/tmp/fm-extension-binding.pkoJe8/homes/lock-order
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-lock-order order-source --config-ref good
++ FM_HOME=/tmp/fm-extension-binding.pkoJe8/homes/lock-order
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start order-source
++ assert_absent /tmp/fm-extension-binding.pkoJe8/homes/lock-order/state/procevent/order-source.source 'lock-order terminal source stayed registered'
++ '[' '!' -e /tmp/fm-extension-binding.pkoJe8/homes/lock-order/state/procevent/order-source.source ']'
++ assert_absent /tmp/fm-extension-binding.pkoJe8/homes/lock-order/state/procevent-inbox/order-source.1.handled 'lock-order result was not left unhandled'
++ '[' '!' -e /tmp/fm-extension-binding.pkoJe8/homes/lock-order/state/procevent-inbox/order-source.1.handled ']'
++ rm -f /tmp/fm-extension-binding.pkoJe8/lock-order.marker /tmp/fm-extension-binding.pkoJe8/lock-order.release
++ order_register_pid=1477
++ wait_for_file /tmp/fm-extension-binding.pkoJe8/lock-order.marker
++ FM_HOME=/tmp/fm-extension-binding.pkoJe8/homes/lock-order
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-lock-order order-source --config-ref no-result
++ local file=/tmp/fm-extension-binding.pkoJe8/lock-order.marker
+++ seq 1 100
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.pkoJe8/lock-order.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.pkoJe8/lock-order.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.pkoJe8/lock-order.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.pkoJe8/lock-order.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.pkoJe8/lock-order.marker ']'
++ return 0
++ order_reconcile_pid=1596
++ FM_HOME=/tmp/fm-extension-binding.pkoJe8/homes/lock-order
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh reconcile
+++ seq 1 200
++ for _ in $(seq 1 200)
++ '[' -L /tmp/fm-extension-binding.pkoJe8/claims/order-source.lock ']'
++ break
++ '[' -L /tmp/fm-extension-binding.pkoJe8/claims/order-source.lock ']'
++ sleep 0.2
++ touch /tmp/fm-extension-binding.pkoJe8/lock-order.release
++ order_deadline=14
++ kill -0 1477
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 1477
++ kill -0 1596
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 1477
++ kill -0 1596
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 1477
++ kill -0 1596
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 1477
++ kill -0 1596
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 1477
++ kill -0 1596
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 1477
++ kill -0 1596
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 1477
++ kill -0 1596
++ '[' 2 -ge 14 ']'
++ sleep 0.05
++ kill -0 1477
++ kill -0 1596
++ '[' 3 -ge 14 ']'
++ sleep 0.05
++ kill -0 1477
++ kill -0 1596
++ '[' 3 -ge 14 ']'
++ sleep 0.05
++ kill -0 1477
++ kill -0 1596
++ '[' 3 -ge 14 ']'
++ sleep 0.05
++ kill -0 1477
++ kill -0 1596
++ '[' 3 -ge 14 ']'
++ sleep 0.05
++ kill -0 1477
++ kill -0 1596
++ order_register_rc=0
++ wait 1477
++ order_register_pid=
++ wait 1596
++ order_reconcile_pid=
++ order_release=
++ '[' 0 -eq 0 ']'
+++ cat /tmp/fm-extension-binding.pkoJe8/lock-order-reconcile.out
++ assert_contains 'reconciled: published=1 started=1 stopped=0 uncertain=0 failed=0' reconciled: 'lock-order reconcile did not complete its cycle'
++ case "$1" in
++ :
+++ sed -n 's/^owner-token: //p' /tmp/fm-extension-binding.pkoJe8/lock-order-register.out
++ order_owner=sha256:da430963f7b3219a157bfa00a7e7b385dad5cb11c14a6e3e8e24fb22de4d2294
++ FM_HOME=/tmp/fm-extension-binding.pkoJe8/homes/lock-order
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire order-source --if-owner sha256:da430963f7b3219a157bfa00a7e7b385dad5cb11c14a6e3e8e24fb22de4d2294
++ FM_HOME=/tmp/fm-extension-binding.pkoJe8/homes/lock-order
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh handled order-source 1
++ pass 'register-extension and reconcile of an unhandled extension result take their locks in one order'
++ printf 'ok - %s\n' 'register-extension and reconcile of an unhandled extension result take their locks in one order'
+ok - register-extension and reconcile of an unhandled extension result take their locks in one order
++ section_enabled lifecycle-lock
++ local section
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-lock ']'
++ return 1
++ section_enabled lifecycle-runner
++ local section
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-runner ']'
++ return 1
++ section_enabled lifecycle-state
++ local section
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-state ']'
++ return 1
++ section_enabled lifecycle-invocation-cleanup
++ local section
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-invocation-cleanup ']'
++ return 1
++ section_enabled lifecycle-flow lifecycle-orphan-readiness
++ local section
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-flow ']'
++ for section in "$@"
++ '[' lifecycle-order = lifecycle-orphan-readiness ']'
++ return 1
++ section_enabled remote-envelope remote-activation remote-lifecycle remote-retirement
++ local section
++ for section in "$@"
++ '[' lifecycle-order = remote-envelope ']'
++ for section in "$@"
++ '[' lifecycle-order = remote-activation ']'
++ for section in "$@"
++ '[' lifecycle-order = remote-lifecycle ']'
++ for section in "$@"
++ '[' lifecycle-order = remote-retirement ']'
++ return 1
++ section_enabled example
++ local section
++ for section in "$@"
++ '[' lifecycle-order = example ']'
++ return 1
++ printf '\nall extension-binding tests passed\n'
+
+all extension-binding tests passed
++ extension_test_cleanup
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -n '' ']'
++ '[' -f /tmp/fm-extension-binding.pkoJe8/remote-jobs/worker.pid ']'
++ '[' -n '' ']'
++ '[' -n '' ']'
++ chmod -R u+w /tmp/fm-extension-binding.pkoJe8
++ test_cleanup
++ local d
++ test_reap_watchers
++ local state lock_home 'seen=
+'
++ '[' -f /tmp/.fm-test-watcher.1.OKEvWj ']'
++ IFS=
++ read -r state
++ rm -f /tmp/.fm-test-watcher.1.OKEvWj
++ test_reap_procevent_homes
++ local home claim_root 'seen=
+'
++ '[' -f /tmp/.fm-test-procevent.1.3n3kA4 ']'
++ IFS='	'
++ read -r home claim_root
++ rm -f /tmp/.fm-test-procevent.1.3n3kA4
++ for d in "${FM_TEST_CLEANUP_DIRS[@]:-}"
++ '[' -n '' ']'
++ '[' -f /tmp/.fm-test-cleanup.1.KDx6Ny ']'
++ IFS=
++ read -r d
++ '[' -n /tmp/fm-extension-binding.pkoJe8 ']'
++ test_reap_root_processes /tmp/fm-extension-binding.pkoJe8
++ local root=/tmp/fm-extension-binding.pkoJe8 chain pid pids signal i
++ '[' -n /tmp/fm-extension-binding.pkoJe8 ']'
++ '[' /tmp/fm-extension-binding.pkoJe8 '!=' / ']'
++ chain=' '
++ pid=1
++ '[' -n 1 ']'
++ '[' 1 -gt 1 ']'
++ for signal in TERM KILL
++ i=0
++ '[' 0 -lt 20 ']'
+++ ps -ww -eo pid=,args=
+++ FM_TEST_REAP_ROOT=/tmp/fm-extension-binding.pkoJe8/
+++ awk -v 'chain= ' 'index($0, ENVIRON["FM_TEST_REAP_ROOT"]) && index(chain, " " $1 " ") == 0 { print $1 }'
++ pids='544
+2291'
++ '[' -n '544
+2291' ']'
++ '[' 0 -gt 0 ']'
++ kill -s TERM 544 2291
++ sleep 0.1
++ i=1
++ '[' 1 -lt 20 ']'
+++ ps -ww -eo pid=,args=
+++ FM_TEST_REAP_ROOT=/tmp/fm-extension-binding.pkoJe8/
+++ awk -v 'chain= ' 'index($0, ENVIRON["FM_TEST_REAP_ROOT"]) && index(chain, " " $1 " ") == 0 { print $1 }'
++ pids=
++ '[' -n '' ']'
++ return 0
++ test_remove_tree /tmp/fm-extension-binding.pkoJe8
++ local dir=/tmp/fm-extension-binding.pkoJe8
++ '[' -d /tmp/fm-extension-binding.pkoJe8 ']'
++ '[' '!' -L /tmp/fm-extension-binding.pkoJe8 ']'
++ find /tmp/fm-extension-binding.pkoJe8 -type d -exec chmod u+rwx '{}' +
++ rm -rf /tmp/fm-extension-binding.pkoJe8
++ IFS=
++ read -r d
++ rm -f /tmp/.fm-test-cleanup.1.KDx6Ny

@@ -1,0 +1,4 @@
+1423dbe3c8765b24a17742701c31820ee5f569b11dcec10b2ab5c072b5d98fb9  tests/extension-host-binding.test.sh
+fbef84dfb3d1c2917d4b115793c1855a49086deaa970c81805763ccb09d368f4  bin/process-events-lib.sh
+259be27014ff285404d0dde9299232b182734a7c0b9acc8220e2874263c39fe9  bin/process-events.sh
+f36665a0cabb2dd059860f214e0d5c020bc80fad2ce8c1459ca82fd0adfa147b  tests/remote-reply.test.sh

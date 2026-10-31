@@ -1,0 +1,23 @@
+--- tests/remote-reply.test.sh	2026-10-31 01:26:25.364810827 -0400
++++ tests/.validation-remote.test.sh	2026-10-31 03:45:17.482252495 -0400
+@@ -178,6 +178,9 @@
+   after=$(remote_env bash -c '. "$1/bin/pr-lib.sh"; pr_file_identity "$2"' \
+     _ "$ROOT" "$PARENT/state/procevent/$SID.source")
+   [ "$before" != "$after" ] || fail "handoff $sequence did not replace the adopted registration"
++  printf '\nLIVE HANDOFF %s: adopted identity=%s replacement identity=%s; owner PID/token:\n' "$sequence" "$before" "$after"
++  head -2 "$HANDOFF/$sequence.ready"
++  printf 'Durable claim:\n'; cat "$CLAIMS/$SID.claim"
+ }
+ 
+ release_handoff() {
+@@ -485,6 +488,10 @@
+   "the cursor did not advance past a NUL-bearing line"
+ [ "$(sed -n '1,2p' "$HANDOFF/6.ready")" = "$(sed -n '2,3p' "$CLAIMS/$SID.claim")" ] \
+   || fail "NUL-bearing handoff changed the listener owner"
++printf '\nLIVE HANDOFF captured payload and normalization:\n'
++cat "$RESULT_SEVEN"
++printf '\nParent mirrored status:\n'; cat "$PARENT/state/ios.status"
++printf '\nCommitted cursor:\n'; cat "$PARENT/state/remote-replies/ios.cursor"
+ pass "same-command replacement retains the owner and normalizes NUL bytes before shell line processing"
+ 
+ stop_reply_listener || fail "the reply listener did not stop before the obstructed document capture"

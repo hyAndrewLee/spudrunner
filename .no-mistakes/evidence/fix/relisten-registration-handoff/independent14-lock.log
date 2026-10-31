@@ -1,0 +1,1115 @@
++ set -u
++ '[' 0 = 1 ']'
+++ dirname tests/extension-host-binding.test.sh
++ . tests/lib.sh
+++ '[' -n '' ']'
+++ FM_TEST_LIB_SOURCED=1
+++ umask 022
++++ dirname tests/lib.sh
+++ . tests/git-config-helpers.sh
++++ export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
++++ GIT_CONFIG_GLOBAL=/dev/null
++++ GIT_CONFIG_NOSYSTEM=1
++++ unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_COMMON_DIR
+++ export FM_GATE_REFUSE_BYPASS=1
+++ FM_GATE_REFUSE_BYPASS=1
+++ export FM_TEST_SEAM=1
+++ FM_TEST_SEAM=1
+++ unset FM_TASK_ID
+++ unset TASKS_AXI_FILE TASKS_AXI_BACKEND
+++ unset REX_SESSION REX_BLOCK
+++++ dirname tests/lib.sh
++++ cd tests/..
++++ pwd
+++ ROOT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ FM_TEST_TMPDIR=/tmp
+++ FM_TEST_CLEANUP_DIRS=()
++++ mktemp /tmp/.fm-test-cleanup.1.XXXXXX
+++ FM_TEST_CLEANUP_REGISTRY=/tmp/.fm-test-cleanup.1.DRo1zC
++++ test_pid_identity 1
++++ local pid=1
++++ FM_STATE_OVERRIDE=/tmp
++++ bash -c '. "$1"; pid_identity "$2"' _ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/supervision-events-lib.sh 1
+++ FM_TEST_OWNER_IDENTITY='linux-starttime=11948196 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
++++ mktemp /tmp/.fm-test-procevent.1.XXXXXX
+++ FM_TEST_PROCEVENT_REGISTRY=/tmp/.fm-test-procevent.1.zwhRQE
++++ mktemp /tmp/.fm-test-watcher.1.XXXXXX
+++ FM_TEST_WATCHER_REGISTRY=/tmp/.fm-test-watcher.1.0lD8jt
+++ FM_TEST_STUB_MAX_BLOCK_SECONDS=120
+++ export FM_TEST_STUB_MAX_BLOCK_SECONDS
+++ FM_TEST_SUITE_PID=1
+++ export FM_TEST_SUITE_PID
+++ trap test_cleanup EXIT
+++ trap 'test_cleanup; exit 130' INT
+++ trap 'test_cleanup; exit 143' TERM
+++ trap 'test_cleanup; exit 129' HUP
+++ trap 'test_cleanup; exit 131' QUIT
+++ FM_TEST_ORPHAN_MAX_AGE_SECONDS=3600
+++ '[' 0 '!=' 1 ']'
+++ test_reap_orphans
+++ local marker dir mtime now owner_pid owner_identity current_identity
++++ date +%s
+++ now=1793437879
+++ for marker in "$FM_TEST_TMPDIR"/fm-*/.fm-test-fixture
+++ '[' -e '/tmp/fm-*/.fm-test-fixture' ']'
+++ continue
++ extension_segment=lifecycle-lock
++ case "$extension_segment" in
++ HOST=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs
++ PROCEVENT=/home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh
+++ test_tmproot fm-extension-binding
+++ local prefix=fm-extension-binding root tmp_base
++++ test_tmpdir
++++ local base=/tmp physical
++++ base=/tmp
++++ '[' -n /tmp ']'
++++ case "$base" in
+++++ CDPATH=
+++++ cd -- /tmp
+++++ pwd -P
++++ physical=/tmp
++++ base=/tmp
++++ '[' -e /tmp/.git ']'
++++ printf '%s\n' /tmp
+++ tmp_base=/tmp
+++ tmp_base=/tmp
++++ mktemp -d /tmp/fm-extension-binding.XXXXXX
+++ root=/tmp/fm-extension-binding.U7gudh
++++ cd -P -- /tmp/fm-extension-binding.U7gudh
++++ pwd -P
+++ root=/tmp/fm-extension-binding.U7gudh
+++ printf '%s\n%s\n' 1 'linux-starttime=11948196 cmdline-hex=62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800'
+++ printf '%s\n' /tmp/fm-extension-binding.U7gudh
+++ printf '%s\n' /tmp/fm-extension-binding.U7gudh
++ TMP_ROOT_RAW=/tmp/fm-extension-binding.U7gudh
+++ cd /tmp/fm-extension-binding.U7gudh
+++ pwd -P
++ TMP_ROOT=/tmp/fm-extension-binding.U7gudh
++ first_bind_pid=
++ second_bind_pid=
++ handshake_orphan_pid=
++ concurrent_release=
++ race_register_pid=
++ race_retire_pid=
++ race_release=
++ process_race_start_pid=
++ process_race_retire_pid=
++ process_race_release=
++ registry_race_pid=
++ registry_race_release=
++ leaf_race_pid=
++ leaf_race_release=
++ owner_retire_pid=
++ owner_worker_pid=
++ owner_register_pid=
++ signal_retire_pid=
++ signal_worker_pid=
++ active_runner_pid=
++ active_runner_release=
++ remote_active_release=
++ unrelated_daemon_pid=
++ unrelated_launcher_pid=
++ signal_cleanup_host_pid=
++ signal_cleanup_group_pid=
++ crash_cleanup_host_pid=
++ crash_cleanup_group_pid=
++ crash_cleanup_release=
++ crash_silent_start_pid=
++ crash_silent_runner_pid=
++ override_crash_start_pid=
++ override_crash_runner_pid=
++ order_register_pid=
++ order_reconcile_pid=
++ order_release=
++ section_coordinator_pid=
++ trap extension_test_cleanup EXIT
++ trap 'extension_test_cleanup; exit 130' INT
++ trap 'extension_test_cleanup; exit 143' TERM
++ export FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.U7gudh/claims
++ FM_PROCEVENT_CLAIM_ROOT=/tmp/fm-extension-binding.U7gudh/claims
++ PACKAGES=/tmp/fm-extension-binding.U7gudh/packages
++ HOMES=/tmp/fm-extension-binding.U7gudh/homes
++ mkdir -p /tmp/fm-extension-binding.U7gudh/packages /tmp/fm-extension-binding.U7gudh/homes
++ '[' 0 = 1 ']'
++ section_enabled coordinator-fail
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = coordinator-fail ']'
++ return 1
++ section_enabled coordinator-wait
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = coordinator-wait ']'
++ return 1
++ section_enabled coordinator-stubborn
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = coordinator-stubborn ']'
++ return 1
++ section_enabled coordinator-pass
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = coordinator-pass ']'
++ return 1
++ section_enabled coordinator-late-pass
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = coordinator-late-pass ']'
++ return 1
++ section_enabled coordinator-scheduler-block
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = coordinator-scheduler-block ']'
++ return 1
++ section_enabled coordinator-scheduler-late
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = coordinator-scheduler-late ']'
++ return 1
++ '[' lifecycle-lock = all ']'
++ '[' lifecycle-lock = coordinator ']'
++ section_enabled early-bind
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = early-bind ']'
++ return 1
++ section_enabled early-validation
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = early-validation ']'
++ return 1
++ section_enabled early-handshake
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = early-handshake ']'
++ return 1
++ section_enabled early-integrity
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = early-integrity ']'
++ return 1
++ section_enabled matrix matrix-runtime
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = matrix ']'
++ for section in "$@"
++ '[' lifecycle-lock = matrix-runtime ']'
++ return 1
++ section_enabled lifecycle-host-errors
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = lifecycle-host-errors ']'
++ return 1
++ section_enabled lifecycle-flow
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = lifecycle-flow ']'
++ return 1
++ section_enabled lifecycle-order
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = lifecycle-order ']'
++ return 1
++ section_enabled lifecycle-lock
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = lifecycle-lock ']'
++ return 0
+++ printf 0%.0s 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64
++ wrong_binding_digest=sha256:0000000000000000000000000000000000000000000000000000000000000000
++ P_RETIRE_RACE=/tmp/fm-extension-binding.U7gudh/packages/retire-race
++ race_marker=/tmp/fm-extension-binding.U7gudh/retire-race.marker
++ race_release=/tmp/fm-extension-binding.U7gudh/retire-race.release
+++ printf 'handshake-block\n%s\n%s' /tmp/fm-extension-binding.U7gudh/retire-race.marker /tmp/fm-extension-binding.U7gudh/retire-race.release
++ make_package /tmp/fm-extension-binding.U7gudh/packages/retire-race org.example.retire-race ext-retire-race 'handshake-block
+/tmp/fm-extension-binding.U7gudh/retire-race.marker
+/tmp/fm-extension-binding.U7gudh/retire-race.release'
++ local dir=/tmp/fm-extension-binding.U7gudh/packages/retire-race id=org.example.retire-race adapter=ext-retire-race 'fixed=handshake-block
+/tmp/fm-extension-binding.U7gudh/retire-race.marker
+/tmp/fm-extension-binding.U7gudh/retire-race.release' consent= required
++ mkdir -p /tmp/fm-extension-binding.U7gudh/packages/retire-race
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' 'handshake-block
+/tmp/fm-extension-binding.U7gudh/retire-race.marker
+/tmp/fm-extension-binding.U7gudh/retire-race.release'
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.U7gudh/packages/retire-race/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.U7gudh/packages/retire-race/firstmate-extension.json /tmp/fm-extension-binding.U7gudh/packages/retire-race/scenario /tmp/fm-extension-binding.U7gudh/packages/retire-race/helper.txt
++ H_RETIRE_RACE=/tmp/fm-extension-binding.U7gudh/homes/retire-race
++ new_home /tmp/fm-extension-binding.U7gudh/homes/retire-race
++ mkdir -p /tmp/fm-extension-binding.U7gudh/homes/retire-race
++ touch /tmp/fm-extension-binding.U7gudh/retire-race.release
+++ bind_package /tmp/fm-extension-binding.U7gudh/homes/retire-race /tmp/fm-extension-binding.U7gudh/packages/retire-race ext-retire-race
+++ local home=/tmp/fm-extension-binding.U7gudh/homes/retire-race package=/tmp/fm-extension-binding.U7gudh/packages/retire-race adapter=ext-retire-race
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/retire-race
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.U7gudh/packages/retire-race --adapter ext-retire-race --trust-same-user-code
++ race_bind='bound: org.example.retire-race@1.2.3
+binding: /tmp/fm-extension-binding.U7gudh/homes/retire-race/config/extensions.d/org.example.retire-race.json
+binding-digest: sha256:26a61f336f40274e27145af95f4829434aa79441e8f6774399bcd0cc9c5dab1b
+package: /tmp/fm-extension-binding.U7gudh/homes/retire-race/data/extensions/packages/org.example.retire-race/1.2.3/0ef74a169ef12cf20b6e4d275316bc1da79a8d487a5540076f5d809a7bb0fa79
+package-digest: sha256:0ef74a169ef12cf20b6e4d275316bc1da79a8d487a5540076f5d809a7bb0fa79
+verified: process-event-adapter/1 (ext-retire-race)'
+++ printf '%s\n' 'bound: org.example.retire-race@1.2.3
+binding: /tmp/fm-extension-binding.U7gudh/homes/retire-race/config/extensions.d/org.example.retire-race.json
+binding-digest: sha256:26a61f336f40274e27145af95f4829434aa79441e8f6774399bcd0cc9c5dab1b
+package: /tmp/fm-extension-binding.U7gudh/homes/retire-race/data/extensions/packages/org.example.retire-race/1.2.3/0ef74a169ef12cf20b6e4d275316bc1da79a8d487a5540076f5d809a7bb0fa79
+package-digest: sha256:0ef74a169ef12cf20b6e4d275316bc1da79a8d487a5540076f5d809a7bb0fa79
+verified: process-event-adapter/1 (ext-retire-race)'
+++ sed -n 's/^binding-digest: //p'
++ race_binding_digest=sha256:26a61f336f40274e27145af95f4829434aa79441e8f6774399bcd0cc9c5dab1b
++ rm -f /tmp/fm-extension-binding.U7gudh/retire-race.marker /tmp/fm-extension-binding.U7gudh/retire-race.release
++ race_register_pid=159
++ wait_for_file /tmp/fm-extension-binding.U7gudh/retire-race.marker
++ local file=/tmp/fm-extension-binding.U7gudh/retire-race.marker
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/retire-race
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-retire-race race-source --config-ref good
+++ seq 1 100
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/retire-race.marker ']'
++ return 0
++ race_retire_pid=278
++ sleep 0.2
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/retire-race
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.retire-race --if-binding-digest sha256:26a61f336f40274e27145af95f4829434aa79441e8f6774399bcd0cc9c5dab1b
++ kill -0 278
++ touch /tmp/fm-extension-binding.U7gudh/retire-race.release
++ race_register_rc=0
++ wait 159
++ race_register_pid=
++ '[' 0 -eq 0 ']'
++ race_retire_rc=0
++ wait 278
++ race_retire_rc=1
++ race_retire_pid=
++ '[' 1 -ne 0 ']'
+++ cat /tmp/fm-extension-binding.U7gudh/retire-race-retire.out
++ assert_contains 'error[retirement-failed]: error[binding-in-use]: error: binding still owns process-event registration: race-source' 'still owns process-event registration' 'serialized retirement did not observe the published registration'
++ case "$1" in
++ :
++ assert_present /tmp/fm-extension-binding.U7gudh/homes/retire-race/config/extensions.d/org.example.retire-race.json 'registration race left a dangling owner record'
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/retire-race/config/extensions.d/org.example.retire-race.json ']'
+++ sed -n 's/^owner-token: //p' /tmp/fm-extension-binding.U7gudh/retire-race-register.out
++ race_owner=sha256:97a4f5429eb3dc7f492e10d9478f295b4cb21142cf98591fa26161ade509ab71
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/retire-race
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire race-source --if-owner sha256:97a4f5429eb3dc7f492e10d9478f295b4cb21142cf98591fa26161ade509ab71
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/retire-race
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.retire-race --if-binding-digest sha256:26a61f336f40274e27145af95f4829434aa79441e8f6774399bcd0cc9c5dab1b
++ race_release=
++ pass 'registration publication and binding retirement share one lifecycle boundary'
++ printf 'ok - %s\n' 'registration publication and binding retirement share one lifecycle boundary'
+ok - registration publication and binding retirement share one lifecycle boundary
++ P_PROCESS_RETIRE_RACE=/tmp/fm-extension-binding.U7gudh/packages/process-retire-race
++ process_race_marker=/tmp/fm-extension-binding.U7gudh/process-retire-race.marker
++ process_race_release=/tmp/fm-extension-binding.U7gudh/process-retire-race.release
+++ printf 'handshake-block\n%s\n%s' /tmp/fm-extension-binding.U7gudh/process-retire-race.marker /tmp/fm-extension-binding.U7gudh/process-retire-race.release
++ make_package /tmp/fm-extension-binding.U7gudh/packages/process-retire-race org.example.process-retire-race ext-process-retire-race 'handshake-block
+/tmp/fm-extension-binding.U7gudh/process-retire-race.marker
+/tmp/fm-extension-binding.U7gudh/process-retire-race.release'
++ local dir=/tmp/fm-extension-binding.U7gudh/packages/process-retire-race id=org.example.process-retire-race adapter=ext-process-retire-race 'fixed=handshake-block
+/tmp/fm-extension-binding.U7gudh/process-retire-race.marker
+/tmp/fm-extension-binding.U7gudh/process-retire-race.release' consent= required
++ mkdir -p /tmp/fm-extension-binding.U7gudh/packages/process-retire-race
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' 'handshake-block
+/tmp/fm-extension-binding.U7gudh/process-retire-race.marker
+/tmp/fm-extension-binding.U7gudh/process-retire-race.release'
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.U7gudh/packages/process-retire-race/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.U7gudh/packages/process-retire-race/firstmate-extension.json /tmp/fm-extension-binding.U7gudh/packages/process-retire-race/scenario /tmp/fm-extension-binding.U7gudh/packages/process-retire-race/helper.txt
++ H_PROCESS_RETIRE_RACE=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
++ new_home /tmp/fm-extension-binding.U7gudh/homes/process-retire-race
++ mkdir -p /tmp/fm-extension-binding.U7gudh/homes/process-retire-race
++ touch /tmp/fm-extension-binding.U7gudh/process-retire-race.release
+++ bind_package /tmp/fm-extension-binding.U7gudh/homes/process-retire-race /tmp/fm-extension-binding.U7gudh/packages/process-retire-race ext-process-retire-race
+++ local home=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race package=/tmp/fm-extension-binding.U7gudh/packages/process-retire-race adapter=ext-process-retire-race
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.U7gudh/packages/process-retire-race --adapter ext-process-retire-race --trust-same-user-code
++ process_race_bind='bound: org.example.process-retire-race@1.2.3
+binding: /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/config/extensions.d/org.example.process-retire-race.json
+binding-digest: sha256:b4a76a01e236f5f57f6585679230db6f816d28130d017ec6feb94b259484185c
+package: /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/data/extensions/packages/org.example.process-retire-race/1.2.3/dbec3b75723083045d598a895f9b18a94e47e3133cfc0427ed83388c382c68e3
+package-digest: sha256:dbec3b75723083045d598a895f9b18a94e47e3133cfc0427ed83388c382c68e3
+verified: process-event-adapter/1 (ext-process-retire-race)'
+++ printf '%s\n' 'bound: org.example.process-retire-race@1.2.3
+binding: /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/config/extensions.d/org.example.process-retire-race.json
+binding-digest: sha256:b4a76a01e236f5f57f6585679230db6f816d28130d017ec6feb94b259484185c
+package: /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/data/extensions/packages/org.example.process-retire-race/1.2.3/dbec3b75723083045d598a895f9b18a94e47e3133cfc0427ed83388c382c68e3
+package-digest: sha256:dbec3b75723083045d598a895f9b18a94e47e3133cfc0427ed83388c382c68e3
+verified: process-event-adapter/1 (ext-process-retire-race)'
+++ sed -n 's/^binding-digest: //p'
++ process_race_binding=sha256:b4a76a01e236f5f57f6585679230db6f816d28130d017ec6feb94b259484185c
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-process-retire-race process-race-source --config-ref good
++ rm -f /tmp/fm-extension-binding.U7gudh/process-retire-race.marker /tmp/fm-extension-binding.U7gudh/process-retire-race.release
++ process_race_start_pid=1113
++ wait_for_file /tmp/fm-extension-binding.U7gudh/process-retire-race.marker
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh start process-race-source
++ local file=/tmp/fm-extension-binding.U7gudh/process-retire-race.marker
+++ seq 1 100
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ return 0
++ process_race_retire_pid=1648
++ sleep 0.2
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.process-retire-race --if-binding-digest sha256:b4a76a01e236f5f57f6585679230db6f816d28130d017ec6feb94b259484185c
++ kill -0 1648
++ touch /tmp/fm-extension-binding.U7gudh/process-retire-race.release
++ wait 1113
++ process_race_start_pid=
++ process_race_retire_rc=0
++ wait 1648
++ process_race_retire_rc=1
++ process_race_retire_pid=
++ '[' 1 -ne 0 ']'
+++ cat /tmp/fm-extension-binding.U7gudh/process-retire-race-retire.out
++ assert_contains 'error[retirement-failed]: error[binding-in-use]: error: binding still owns process-event registration: process-race-source' 'still owns process-event registration' 'retirement did not observe the reserved process-event registration'
++ case "$1" in
++ :
++ assert_present /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.result 'reserved process-event did not capture its result'
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.result ']'
++ pass 'process-event resolution reserves the lifecycle before invocation'
++ printf 'ok - %s\n' 'process-event resolution reserves the lifecycle before invocation'
+ok - process-event resolution reserves the lifecycle before invocation
++ process_race_result=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.result
+++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs resolve-process-event ext-process-retire-race
++ process_race_resolution='fm-extension-process-event-resolution.v1	org.example.process-retire-race	1.2.3	1	sha256:dbec3b75723083045d598a895f9b18a94e47e3133cfc0427ed83388c382c68e3	sha256:b4a76a01e236f5f57f6585679230db6f816d28130d017ec6feb94b259484185c'
++ IFS='	'
++ read -r process_race_schema process_race_id process_race_version process_race_cap process_race_package process_race_resolution_binding process_race_extra
++ '[' fm-extension-process-event-resolution.v1 = fm-extension-process-event-resolution.v1 ']'
++ '[' -z '' ']'
++ for process_race_operation in result.classify result.terminal result.silent
++ process_race_guard=process-race-classify
+++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-process-retire-race process-race-classify --config-ref good
++ process_race_registration='registered: process-race-classify (ext-process-retire-race from org.example.process-retire-race@1.2.3)
+owner-token: sha256:a64af7adff8c00df85ef374e7e8ccf7b102a5db73b69a5fb8330ea0b127b1f38
+retire: bin/process-events.sh retire process-race-classify --if-owner sha256:a64af7adff8c00df85ef374e7e8ccf7b102a5db73b69a5fb8330ea0b127b1f38'
+++ printf '%s\n' 'registered: process-race-classify (ext-process-retire-race from org.example.process-retire-race@1.2.3)
+owner-token: sha256:a64af7adff8c00df85ef374e7e8ccf7b102a5db73b69a5fb8330ea0b127b1f38
+retire: bin/process-events.sh retire process-race-classify --if-owner sha256:a64af7adff8c00df85ef374e7e8ccf7b102a5db73b69a5fb8330ea0b127b1f38'
+++ sed -n 's/^owner-token: //p'
++ process_race_owner=sha256:a64af7adff8c00df85ef374e7e8ccf7b102a5db73b69a5fb8330ea0b127b1f38
++ rm -f /tmp/fm-extension-binding.U7gudh/process-retire-race.marker /tmp/fm-extension-binding.U7gudh/process-retire-race.release
++ process_race_start_pid=2671
++ wait_for_file /tmp/fm-extension-binding.U7gudh/process-retire-race.marker
++ local file=/tmp/fm-extension-binding.U7gudh/process-retire-race.marker
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs process-event ext-process-retire-race result.classify --result-file /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.result --expect-extension org.example.process-retire-race --expect-version 1.2.3 --expect-capability-version 1 --expect-package-digest sha256:dbec3b75723083045d598a895f9b18a94e47e3133cfc0427ed83388c382c68e3 --expect-binding-digest sha256:b4a76a01e236f5f57f6585679230db6f816d28130d017ec6feb94b259484185c
+++ seq 1 100
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ return 0
++ assert_absent /tmp/fm-extension-binding.U7gudh/process-retire-race.release 'result.classify handshake was already released'
++ '[' '!' -e /tmp/fm-extension-binding.U7gudh/process-retire-race.release ']'
++ kill -0 2671
++ process_race_records=("$H_PROCESS_RETIRE_RACE/config/extensions.d/org.example.process-retire-race.json" "$H_PROCESS_RETIRE_RACE/state/procevent/$process_race_guard.source" "$process_race_result" "${process_race_result%.result}.extension")
++ for process_race_index in "${!process_race_records[@]}"
++ cp /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/config/extensions.d/org.example.process-retire-race.json /tmp/fm-extension-binding.U7gudh/process-race-before-0
++ for process_race_index in "${!process_race_records[@]}"
++ cp /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent/process-race-classify.source /tmp/fm-extension-binding.U7gudh/process-race-before-1
++ for process_race_index in "${!process_race_records[@]}"
++ cp /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.result /tmp/fm-extension-binding.U7gudh/process-race-before-2
++ for process_race_index in "${!process_race_records[@]}"
++ cp /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.extension /tmp/fm-extension-binding.U7gudh/process-race-before-3
++ process_race_retire_pid=2782
++ sleep 0.2
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.process-retire-race --if-binding-digest sha256:b4a76a01e236f5f57f6585679230db6f816d28130d017ec6feb94b259484185c
++ kill -0 2782
++ touch /tmp/fm-extension-binding.U7gudh/process-retire-race.release
++ process_race_operation_rc=0
++ wait 2671
++ process_race_start_pid=
++ '[' result.classify = result.classify ']'
++ '[' 0 -eq 0 ']'
+++ cat /tmp/fm-extension-binding.U7gudh/process-retire-race-classify.out
++ assert_equals external-ready external-ready 'classification lost its positive verdict'
++ '[' external-ready = external-ready ']'
++ process_race_retire_rc=0
++ wait 2782
++ process_race_retire_rc=1
++ process_race_retire_pid=
++ '[' 1 -ne 0 ']'
+++ cat /tmp/fm-extension-binding.U7gudh/process-retire-race-classify-retire.out
++ assert_contains 'error[retirement-failed]: error[binding-in-use]: error: binding still owns process-event registration: process-race-classify' 'still owns process-event registration' 'retirement did not observe the result.classify registration'
++ case "$1" in
++ :
++ for process_race_index in "${!process_race_records[@]}"
++ cmp /tmp/fm-extension-binding.U7gudh/process-race-before-0 /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/config/extensions.d/org.example.process-retire-race.json
++ for process_race_index in "${!process_race_records[@]}"
++ cmp /tmp/fm-extension-binding.U7gudh/process-race-before-1 /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent/process-race-classify.source
++ for process_race_index in "${!process_race_records[@]}"
++ cmp /tmp/fm-extension-binding.U7gudh/process-race-before-2 /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.result
++ for process_race_index in "${!process_race_records[@]}"
++ cmp /tmp/fm-extension-binding.U7gudh/process-race-before-3 /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.extension
++ assert_absent /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.handled 'result.classify refusal marked the result handled'
++ '[' '!' -e /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.handled ']'
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire process-race-classify --if-owner sha256:a64af7adff8c00df85ef374e7e8ccf7b102a5db73b69a5fb8330ea0b127b1f38
++ for process_race_operation in result.classify result.terminal result.silent
++ process_race_guard=process-race-terminal
+++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-process-retire-race process-race-terminal --config-ref good
++ process_race_registration='registered: process-race-terminal (ext-process-retire-race from org.example.process-retire-race@1.2.3)
+owner-token: sha256:98426ec0793e8f1f991a24e745759822374049aa4ded6d9374c4d2c417937715
+retire: bin/process-events.sh retire process-race-terminal --if-owner sha256:98426ec0793e8f1f991a24e745759822374049aa4ded6d9374c4d2c417937715'
+++ printf '%s\n' 'registered: process-race-terminal (ext-process-retire-race from org.example.process-retire-race@1.2.3)
+owner-token: sha256:98426ec0793e8f1f991a24e745759822374049aa4ded6d9374c4d2c417937715
+retire: bin/process-events.sh retire process-race-terminal --if-owner sha256:98426ec0793e8f1f991a24e745759822374049aa4ded6d9374c4d2c417937715'
+++ sed -n 's/^owner-token: //p'
++ process_race_owner=sha256:98426ec0793e8f1f991a24e745759822374049aa4ded6d9374c4d2c417937715
++ rm -f /tmp/fm-extension-binding.U7gudh/process-retire-race.marker /tmp/fm-extension-binding.U7gudh/process-retire-race.release
++ process_race_start_pid=3316
++ wait_for_file /tmp/fm-extension-binding.U7gudh/process-retire-race.marker
++ local file=/tmp/fm-extension-binding.U7gudh/process-retire-race.marker
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs process-event ext-process-retire-race result.terminal --result-file /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.result --expect-extension org.example.process-retire-race --expect-version 1.2.3 --expect-capability-version 1 --expect-package-digest sha256:dbec3b75723083045d598a895f9b18a94e47e3133cfc0427ed83388c382c68e3 --expect-binding-digest sha256:b4a76a01e236f5f57f6585679230db6f816d28130d017ec6feb94b259484185c
+++ seq 1 100
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ return 0
++ assert_absent /tmp/fm-extension-binding.U7gudh/process-retire-race.release 'result.terminal handshake was already released'
++ '[' '!' -e /tmp/fm-extension-binding.U7gudh/process-retire-race.release ']'
++ kill -0 3316
++ process_race_records=("$H_PROCESS_RETIRE_RACE/config/extensions.d/org.example.process-retire-race.json" "$H_PROCESS_RETIRE_RACE/state/procevent/$process_race_guard.source" "$process_race_result" "${process_race_result%.result}.extension")
++ for process_race_index in "${!process_race_records[@]}"
++ cp /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/config/extensions.d/org.example.process-retire-race.json /tmp/fm-extension-binding.U7gudh/process-race-before-0
++ for process_race_index in "${!process_race_records[@]}"
++ cp /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent/process-race-terminal.source /tmp/fm-extension-binding.U7gudh/process-race-before-1
++ for process_race_index in "${!process_race_records[@]}"
++ cp /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.result /tmp/fm-extension-binding.U7gudh/process-race-before-2
++ for process_race_index in "${!process_race_records[@]}"
++ cp /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.extension /tmp/fm-extension-binding.U7gudh/process-race-before-3
++ process_race_retire_pid=3427
++ sleep 0.2
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.process-retire-race --if-binding-digest sha256:b4a76a01e236f5f57f6585679230db6f816d28130d017ec6feb94b259484185c
++ kill -0 3427
++ touch /tmp/fm-extension-binding.U7gudh/process-retire-race.release
++ process_race_operation_rc=0
++ wait 3316
++ process_race_start_pid=
++ '[' result.terminal = result.classify ']'
++ '[' result.terminal = result.terminal ']'
++ '[' 0 -eq 0 ']'
+++ cat /tmp/fm-extension-binding.U7gudh/process-retire-race-terminal.out
++ assert_equals '' '' 'terminal verdict emitted an error'
++ '[' '' = '' ']'
++ process_race_retire_rc=0
++ wait 3427
++ process_race_retire_rc=1
++ process_race_retire_pid=
++ '[' 1 -ne 0 ']'
+++ cat /tmp/fm-extension-binding.U7gudh/process-retire-race-terminal-retire.out
++ assert_contains 'error[retirement-failed]: error[binding-in-use]: error: binding still owns process-event registration: process-race-terminal' 'still owns process-event registration' 'retirement did not observe the result.terminal registration'
++ case "$1" in
++ :
++ for process_race_index in "${!process_race_records[@]}"
++ cmp /tmp/fm-extension-binding.U7gudh/process-race-before-0 /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/config/extensions.d/org.example.process-retire-race.json
++ for process_race_index in "${!process_race_records[@]}"
++ cmp /tmp/fm-extension-binding.U7gudh/process-race-before-1 /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent/process-race-terminal.source
++ for process_race_index in "${!process_race_records[@]}"
++ cmp /tmp/fm-extension-binding.U7gudh/process-race-before-2 /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.result
++ for process_race_index in "${!process_race_records[@]}"
++ cmp /tmp/fm-extension-binding.U7gudh/process-race-before-3 /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.extension
++ assert_absent /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.handled 'result.terminal refusal marked the result handled'
++ '[' '!' -e /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.handled ']'
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire process-race-terminal --if-owner sha256:98426ec0793e8f1f991a24e745759822374049aa4ded6d9374c4d2c417937715
++ for process_race_operation in result.classify result.terminal result.silent
++ process_race_guard=process-race-silent
+++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-process-retire-race process-race-silent --config-ref good
++ process_race_registration='registered: process-race-silent (ext-process-retire-race from org.example.process-retire-race@1.2.3)
+owner-token: sha256:d48fc2f7abe1cb9e5f51ef7991e89e36f21a4ca4256f6a4a18b10d07945ecca1
+retire: bin/process-events.sh retire process-race-silent --if-owner sha256:d48fc2f7abe1cb9e5f51ef7991e89e36f21a4ca4256f6a4a18b10d07945ecca1'
+++ printf '%s\n' 'registered: process-race-silent (ext-process-retire-race from org.example.process-retire-race@1.2.3)
+owner-token: sha256:d48fc2f7abe1cb9e5f51ef7991e89e36f21a4ca4256f6a4a18b10d07945ecca1
+retire: bin/process-events.sh retire process-race-silent --if-owner sha256:d48fc2f7abe1cb9e5f51ef7991e89e36f21a4ca4256f6a4a18b10d07945ecca1'
+++ sed -n 's/^owner-token: //p'
++ process_race_owner=sha256:d48fc2f7abe1cb9e5f51ef7991e89e36f21a4ca4256f6a4a18b10d07945ecca1
++ rm -f /tmp/fm-extension-binding.U7gudh/process-retire-race.marker /tmp/fm-extension-binding.U7gudh/process-retire-race.release
++ process_race_start_pid=3961
++ wait_for_file /tmp/fm-extension-binding.U7gudh/process-retire-race.marker
++ local file=/tmp/fm-extension-binding.U7gudh/process-retire-race.marker
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs process-event ext-process-retire-race result.silent --result-file /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.result --expect-extension org.example.process-retire-race --expect-version 1.2.3 --expect-capability-version 1 --expect-package-digest sha256:dbec3b75723083045d598a895f9b18a94e47e3133cfc0427ed83388c382c68e3 --expect-binding-digest sha256:b4a76a01e236f5f57f6585679230db6f816d28130d017ec6feb94b259484185c
+++ seq 1 100
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ sleep 0.05
++ for _ in $(seq 1 100)
++ '[' -s /tmp/fm-extension-binding.U7gudh/process-retire-race.marker ']'
++ return 0
++ assert_absent /tmp/fm-extension-binding.U7gudh/process-retire-race.release 'result.silent handshake was already released'
++ '[' '!' -e /tmp/fm-extension-binding.U7gudh/process-retire-race.release ']'
++ kill -0 3961
++ process_race_records=("$H_PROCESS_RETIRE_RACE/config/extensions.d/org.example.process-retire-race.json" "$H_PROCESS_RETIRE_RACE/state/procevent/$process_race_guard.source" "$process_race_result" "${process_race_result%.result}.extension")
++ for process_race_index in "${!process_race_records[@]}"
++ cp /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/config/extensions.d/org.example.process-retire-race.json /tmp/fm-extension-binding.U7gudh/process-race-before-0
++ for process_race_index in "${!process_race_records[@]}"
++ cp /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent/process-race-silent.source /tmp/fm-extension-binding.U7gudh/process-race-before-1
++ for process_race_index in "${!process_race_records[@]}"
++ cp /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.result /tmp/fm-extension-binding.U7gudh/process-race-before-2
++ for process_race_index in "${!process_race_records[@]}"
++ cp /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.extension /tmp/fm-extension-binding.U7gudh/process-race-before-3
++ process_race_retire_pid=4072
++ sleep 0.2
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.process-retire-race --if-binding-digest sha256:b4a76a01e236f5f57f6585679230db6f816d28130d017ec6feb94b259484185c
++ kill -0 4072
++ touch /tmp/fm-extension-binding.U7gudh/process-retire-race.release
++ process_race_operation_rc=0
++ wait 3961
++ process_race_operation_rc=1
++ process_race_start_pid=
++ '[' result.silent = result.classify ']'
++ '[' result.silent = result.terminal ']'
++ '[' 1 -eq 1 ']'
+++ cat /tmp/fm-extension-binding.U7gudh/process-retire-race-silent.out
++ assert_equals '' '' 'silent failure was mistaken for a false verdict'
++ '[' '' = '' ']'
++ process_race_retire_rc=0
++ wait 4072
++ process_race_retire_rc=1
++ process_race_retire_pid=
++ '[' 1 -ne 0 ']'
+++ cat /tmp/fm-extension-binding.U7gudh/process-retire-race-silent-retire.out
++ assert_contains 'error[retirement-failed]: error[binding-in-use]: error: binding still owns process-event registration: process-race-silent' 'still owns process-event registration' 'retirement did not observe the result.silent registration'
++ case "$1" in
++ :
++ for process_race_index in "${!process_race_records[@]}"
++ cmp /tmp/fm-extension-binding.U7gudh/process-race-before-0 /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/config/extensions.d/org.example.process-retire-race.json
++ for process_race_index in "${!process_race_records[@]}"
++ cmp /tmp/fm-extension-binding.U7gudh/process-race-before-1 /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent/process-race-silent.source
++ for process_race_index in "${!process_race_records[@]}"
++ cmp /tmp/fm-extension-binding.U7gudh/process-race-before-2 /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.result
++ for process_race_index in "${!process_race_records[@]}"
++ cmp /tmp/fm-extension-binding.U7gudh/process-race-before-3 /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.extension
++ assert_absent /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.handled 'result.silent refusal marked the result handled'
++ '[' '!' -e /tmp/fm-extension-binding.U7gudh/homes/process-retire-race/state/procevent-inbox/process-race-source.1.handled ']'
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/process-retire-race
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire process-race-silent --if-owner sha256:d48fc2f7abe1cb9e5f51ef7991e89e36f21a4ca4256f6a4a18b10d07945ecca1
++ process_race_release=
++ pass 'every external result operation reserves the lifecycle before invocation'
++ printf 'ok - %s\n' 'every external result operation reserves the lifecycle before invocation'
+ok - every external result operation reserves the lifecycle before invocation
++ expect_failure 'unknown command' env FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/retire-race /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding-locked org.example.retire-race --if-binding-digest sha256:26a61f336f40274e27145af95f4829434aa79441e8f6774399bcd0cc9c5dab1b
++ local 'needle=unknown command' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/retire-race /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding-locked org.example.retire-race --if-binding-digest sha256:26a61f336f40274e27145af95f4829434aa79441e8f6774399bcd0cc9c5dab1b
++ out='error[usage]: unknown command: retire-binding-locked'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[usage]: unknown command: retire-binding-locked' 'unknown command' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ expect_failure 'unknown command' env FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/retire-race /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-transfer-locked org.example.retire-race --if-transfer-digest sha256:0000000000000000000000000000000000000000000000000000000000000000 --if-binding-digest sha256:26a61f336f40274e27145af95f4829434aa79441e8f6774399bcd0cc9c5dab1b
++ local 'needle=unknown command' out rc=0
++ shift
+++ env FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/retire-race /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-transfer-locked org.example.retire-race --if-transfer-digest sha256:0000000000000000000000000000000000000000000000000000000000000000 --if-binding-digest sha256:26a61f336f40274e27145af95f4829434aa79441e8f6774399bcd0cc9c5dab1b
++ out='error[usage]: unknown command: retire-transfer-locked'
++ rc=1
++ '[' 1 -ne 0 ']'
++ assert_contains 'error[usage]: unknown command: retire-transfer-locked' 'unknown command' 'failure did not report the expected diagnostic'
++ case "$1" in
++ :
++ pass 'public extension dispatch exposes no unlocked retirement entry'
++ printf 'ok - %s\n' 'public extension dispatch exposes no unlocked retirement entry'
+ok - public extension dispatch exposes no unlocked retirement entry
++ P_LOCK_OWNER=/tmp/fm-extension-binding.U7gudh/packages/lock-owner
++ make_package /tmp/fm-extension-binding.U7gudh/packages/lock-owner org.example.lock-owner ext-lock-owner
++ local dir=/tmp/fm-extension-binding.U7gudh/packages/lock-owner id=org.example.lock-owner adapter=ext-lock-owner fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.U7gudh/packages/lock-owner
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.U7gudh/packages/lock-owner/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.U7gudh/packages/lock-owner/firstmate-extension.json /tmp/fm-extension-binding.U7gudh/packages/lock-owner/scenario /tmp/fm-extension-binding.U7gudh/packages/lock-owner/helper.txt
++ H_LOCK_OWNER=/tmp/fm-extension-binding.U7gudh/homes/lock-owner
++ new_home /tmp/fm-extension-binding.U7gudh/homes/lock-owner
++ mkdir -p /tmp/fm-extension-binding.U7gudh/homes/lock-owner
+++ bind_package /tmp/fm-extension-binding.U7gudh/homes/lock-owner /tmp/fm-extension-binding.U7gudh/packages/lock-owner ext-lock-owner
+++ local home=/tmp/fm-extension-binding.U7gudh/homes/lock-owner package=/tmp/fm-extension-binding.U7gudh/packages/lock-owner adapter=ext-lock-owner
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/lock-owner
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.U7gudh/packages/lock-owner --adapter ext-lock-owner --trust-same-user-code
++ owner_bind='bound: org.example.lock-owner@1.2.3
+binding: /tmp/fm-extension-binding.U7gudh/homes/lock-owner/config/extensions.d/org.example.lock-owner.json
+binding-digest: sha256:7254672218b8947acf27d0426358c8506209f4d0ceaa6b7cd718fa3e658ba462
+package: /tmp/fm-extension-binding.U7gudh/homes/lock-owner/data/extensions/packages/org.example.lock-owner/1.2.3/83dcd476f333665d975867586ba4f862d422338884a134e2271affe896c01fc3
+package-digest: sha256:83dcd476f333665d975867586ba4f862d422338884a134e2271affe896c01fc3
+verified: process-event-adapter/1 (ext-lock-owner)'
+++ printf '%s\n' 'bound: org.example.lock-owner@1.2.3
+binding: /tmp/fm-extension-binding.U7gudh/homes/lock-owner/config/extensions.d/org.example.lock-owner.json
+binding-digest: sha256:7254672218b8947acf27d0426358c8506209f4d0ceaa6b7cd718fa3e658ba462
+package: /tmp/fm-extension-binding.U7gudh/homes/lock-owner/data/extensions/packages/org.example.lock-owner/1.2.3/83dcd476f333665d975867586ba4f862d422338884a134e2271affe896c01fc3
+package-digest: sha256:83dcd476f333665d975867586ba4f862d422338884a134e2271affe896c01fc3
+verified: process-event-adapter/1 (ext-lock-owner)'
+++ sed -n 's/^binding-digest: //p'
++ owner_binding_digest=sha256:7254672218b8947acf27d0426358c8506209f4d0ceaa6b7cd718fa3e658ba462
++ owner_lock=/tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock
++ owner_retire_pid=4563
++ owner_worker_pid=
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/lock-owner
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.lock-owner --if-binding-digest sha256:7254672218b8947acf27d0426358c8506209f4d0ceaa6b7cd718fa3e658ba462
+++ seq 1 400
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock/pid ']'
+++ cat /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock/pid
++ candidate=4581
++ '[' -n 4581 ']'
++ kill -STOP 4581
++ owner_worker_pid=4581
++ break
++ '[' -n 4581 ']'
++ '[' 4581 '!=' 4563 ']'
++ kill -TERM 4563
++ wait 4563
++ true
++ owner_retire_pid=
++ owner_register_pid=4658
++ sleep 0.2
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/lock-owner
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-lock-owner owner-source --config-ref good
++ kill -0 4658
++ '[' -d /proc/1 ']'
++ python3 - 4581 /tmp/fm-extension-binding.U7gudh/homes/lock-owner/state/procevent/.extension-binding-lifecycle.lock
+lock process identity: 1 1 (bash) S 0 0 0 0 -1 4194560 9376 1000647 0 0 0 3 436 108 20 0 1 0 11948196 10334208 1152 18446744073709551615 111127725498368 111127726221013 140722448259056 0 0 0 65536 0 1132560127 1 0 0 17 0 0 0 0 0 0 111127726451952 111127726499332 111127896686592 140722448263055 140722448263100 140722448263100 140722448273386 0
+ 62617368002d780074657374732f657874656e73696f6e2d686f73742d62696e64696e672e746573742e736800
+lock process identity: 4581 4581 (bash) T 1 0 0 0 -1 4194304 4480 7422 0 0 2 0 2 0 20 0 1 0 11948850 11075584 2400 18446744073709551615 100575358636032 100575359358677 140733569097856 0 0 0 0 4 65536 1 0 0 17 1 0 0 0 0 0 100575359589616 100575359636996 100576157810688 140733569101173 140733569101451 140733569101451 140733569101802 19
+ 2f7573722f62696e2f62617368002f686f6d652f616e647265772f2e6e6f2d6d697374616b65732d7370756472756e6e65722d76616c69646174696f6e2f776f726b74726565732f6361353337376631313964342f30314d36383652524e4239354a53464d315035544257513359592f62696e2f70726f636573732d6576656e74732e736800657874656e73696f6e2d7265746972656d656e740062696e64696e67006f72672e6578616d706c652e6c6f636b2d6f776e6572002d2d69662d62696e64696e672d646967657374007368613235363a3732353436373232313862383934376163663237643034323633353863383530363230396634643063656161366237636437313866613365363538626134363200
++ kill -KILL 4581
+++ seq 1 400
++ for _ in $(seq 1 400)
++ kill -0 4581
++ break
++ kill -0 4581
++ '[' '!' -d /proc/4581 ']'
++ printf 'reaped retirement worker: %s\n' 4581
+reaped retirement worker: 4581
++ owner_worker_pid=
++ owner_register_rc=0
++ wait 4658
++ owner_register_pid=
++ '[' 0 -eq 0 ']'
++ assert_present /tmp/fm-extension-binding.U7gudh/homes/lock-owner/config/extensions.d/org.example.lock-owner.json 'dead retirement worker continued mutating after lock recovery'
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/lock-owner/config/extensions.d/org.example.lock-owner.json ']'
+++ sed -n 's/^owner-token: //p' /tmp/fm-extension-binding.U7gudh/lock-owner-register.out
++ owner_token=sha256:7c6b18d41a28137a96b18568e4393d3c9c7f8dd9fd2cdb3e00bf52e93173f55c
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/lock-owner
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire owner-source --if-owner sha256:7c6b18d41a28137a96b18568e4393d3c9c7f8dd9fd2cdb3e00bf52e93173f55c
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/lock-owner
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.lock-owner --if-binding-digest sha256:7254672218b8947acf27d0426358c8506209f4d0ceaa6b7cd718fa3e658ba462
++ pass 'retirement worker ownership survives wrapper death and recovers exactly'
++ printf 'ok - %s\n' 'retirement worker ownership survives wrapper death and recovers exactly'
+ok - retirement worker ownership survives wrapper death and recovers exactly
++ P_SIGNAL_LOCK=/tmp/fm-extension-binding.U7gudh/packages/signal-lock
++ make_package /tmp/fm-extension-binding.U7gudh/packages/signal-lock org.example.signal-lock ext-signal-lock
++ local dir=/tmp/fm-extension-binding.U7gudh/packages/signal-lock id=org.example.signal-lock adapter=ext-signal-lock fixed=good consent= required
++ mkdir -p /tmp/fm-extension-binding.U7gudh/packages/signal-lock
++ '[' -n '' ']'
++ required='[]'
++ cat
++ printf '%s\n' good
++ printf 'complete-tree helper\n'
++ cat
++ chmod 0755 /tmp/fm-extension-binding.U7gudh/packages/signal-lock/entrypoint.py
++ chmod 0644 /tmp/fm-extension-binding.U7gudh/packages/signal-lock/firstmate-extension.json /tmp/fm-extension-binding.U7gudh/packages/signal-lock/scenario /tmp/fm-extension-binding.U7gudh/packages/signal-lock/helper.txt
++ H_SIGNAL_LOCK=/tmp/fm-extension-binding.U7gudh/homes/signal-lock
++ new_home /tmp/fm-extension-binding.U7gudh/homes/signal-lock
++ mkdir -p /tmp/fm-extension-binding.U7gudh/homes/signal-lock
+++ bind_package /tmp/fm-extension-binding.U7gudh/homes/signal-lock /tmp/fm-extension-binding.U7gudh/packages/signal-lock ext-signal-lock
+++ local home=/tmp/fm-extension-binding.U7gudh/homes/signal-lock package=/tmp/fm-extension-binding.U7gudh/packages/signal-lock adapter=ext-signal-lock
+++ shift 3
+++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/signal-lock
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs bind /tmp/fm-extension-binding.U7gudh/packages/signal-lock --adapter ext-signal-lock --trust-same-user-code
++ signal_bind='bound: org.example.signal-lock@1.2.3
+binding: /tmp/fm-extension-binding.U7gudh/homes/signal-lock/config/extensions.d/org.example.signal-lock.json
+binding-digest: sha256:083185d06444a120a8deb0fd0766ce309549df5b062c4e820d9e85886be0460a
+package: /tmp/fm-extension-binding.U7gudh/homes/signal-lock/data/extensions/packages/org.example.signal-lock/1.2.3/c7d0b609b0a0d21b4339d2af5ed5ff7846fbf9bd927a1fe76ee83a421e2d75d3
+package-digest: sha256:c7d0b609b0a0d21b4339d2af5ed5ff7846fbf9bd927a1fe76ee83a421e2d75d3
+verified: process-event-adapter/1 (ext-signal-lock)'
+++ printf '%s\n' 'bound: org.example.signal-lock@1.2.3
+binding: /tmp/fm-extension-binding.U7gudh/homes/signal-lock/config/extensions.d/org.example.signal-lock.json
+binding-digest: sha256:083185d06444a120a8deb0fd0766ce309549df5b062c4e820d9e85886be0460a
+package: /tmp/fm-extension-binding.U7gudh/homes/signal-lock/data/extensions/packages/org.example.signal-lock/1.2.3/c7d0b609b0a0d21b4339d2af5ed5ff7846fbf9bd927a1fe76ee83a421e2d75d3
+package-digest: sha256:c7d0b609b0a0d21b4339d2af5ed5ff7846fbf9bd927a1fe76ee83a421e2d75d3
+verified: process-event-adapter/1 (ext-signal-lock)'
+++ sed -n 's/^binding-digest: //p'
++ signal_binding_digest=sha256:083185d06444a120a8deb0fd0766ce309549df5b062c4e820d9e85886be0460a
++ signal_lock=/tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock
++ signal_retire_pid=5309
++ signal_worker_pid=
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/signal-lock
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.signal-lock --if-binding-digest sha256:083185d06444a120a8deb0fd0766ce309549df5b062c4e820d9e85886be0460a
+++ seq 1 400
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock/pid ']'
++ sleep 0.005
++ for _ in $(seq 1 400)
++ '[' -e /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock/pid ']'
+++ cat /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock/pid
++ candidate=5327
++ '[' -n 5327 ']'
++ kill -STOP 5327
++ signal_worker_pid=5327
++ break
++ '[' -n 5327 ']'
++ kill -TERM 5327
++ kill -CONT 5327
+++ seq 1 400
++ for _ in $(seq 1 400)
++ kill -0 5327
++ break
++ kill -0 5327
++ signal_worker_pid=
++ wait 5309
++ true
++ signal_retire_pid=
++ '[' -L /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock ']'
+++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/signal-lock
+++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh register-extension ext-signal-lock signal-source --config-ref good
++ signal_registration='registered: signal-source (ext-signal-lock from org.example.signal-lock@1.2.3)
+owner-token: sha256:a660bb5fe3e52306cbd1b13d648a2c67462da841fe532597e7c944d56b59c516
+retire: bin/process-events.sh retire signal-source --if-owner sha256:a660bb5fe3e52306cbd1b13d648a2c67462da841fe532597e7c944d56b59c516'
+++ printf '%s\n' 'registered: signal-source (ext-signal-lock from org.example.signal-lock@1.2.3)
+owner-token: sha256:a660bb5fe3e52306cbd1b13d648a2c67462da841fe532597e7c944d56b59c516
+retire: bin/process-events.sh retire signal-source --if-owner sha256:a660bb5fe3e52306cbd1b13d648a2c67462da841fe532597e7c944d56b59c516'
+++ sed -n 's/^owner-token: //p'
++ signal_owner=sha256:a660bb5fe3e52306cbd1b13d648a2c67462da841fe532597e7c944d56b59c516
++ assert_absent /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock 'registration left a recovered lifecycle lock behind'
++ '[' '!' -e /tmp/fm-extension-binding.U7gudh/homes/signal-lock/state/procevent/.extension-binding-lifecycle.lock ']'
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/signal-lock
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/process-events.sh retire signal-source --if-owner sha256:a660bb5fe3e52306cbd1b13d648a2c67462da841fe532597e7c944d56b59c516
++ FM_HOME=/tmp/fm-extension-binding.U7gudh/homes/signal-lock
++ /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M686RRNB95JSFM1P5TBWQ3YY/bin/extension-host.mjs retire-binding org.example.signal-lock --if-binding-digest sha256:083185d06444a120a8deb0fd0766ce309549df5b062c4e820d9e85886be0460a
++ pass 'signal interruption leaves lifecycle lock recovery to the next owner'
++ printf 'ok - %s\n' 'signal interruption leaves lifecycle lock recovery to the next owner'
+ok - signal interruption leaves lifecycle lock recovery to the next owner
++ section_enabled lifecycle-runner
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = lifecycle-runner ']'
++ return 1
++ section_enabled lifecycle-state
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = lifecycle-state ']'
++ return 1
++ section_enabled lifecycle-invocation-cleanup
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = lifecycle-invocation-cleanup ']'
++ return 1
++ section_enabled lifecycle-flow lifecycle-orphan-readiness
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = lifecycle-flow ']'
++ for section in "$@"
++ '[' lifecycle-lock = lifecycle-orphan-readiness ']'
++ return 1
++ section_enabled remote-envelope remote-activation remote-lifecycle remote-retirement
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = remote-envelope ']'
++ for section in "$@"
++ '[' lifecycle-lock = remote-activation ']'
++ for section in "$@"
++ '[' lifecycle-lock = remote-lifecycle ']'
++ for section in "$@"
++ '[' lifecycle-lock = remote-retirement ']'
++ return 1
++ section_enabled example
++ local section
++ for section in "$@"
++ '[' lifecycle-lock = example ']'
++ return 1
++ printf '\nall extension-binding tests passed\n'
+
+all extension-binding tests passed
++ extension_test_cleanup
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -z '' ']'
++ '[' -n '' ']'
++ '[' -f /tmp/fm-extension-binding.U7gudh/remote-jobs/worker.pid ']'
++ '[' -n '' ']'
++ '[' -n '' ']'
++ chmod -R u+w /tmp/fm-extension-binding.U7gudh
++ test_cleanup
++ local d
++ test_reap_watchers
++ local state lock_home 'seen=
+'
++ '[' -f /tmp/.fm-test-watcher.1.0lD8jt ']'
++ IFS=
++ read -r state
++ rm -f /tmp/.fm-test-watcher.1.0lD8jt
++ test_reap_procevent_homes
++ local home claim_root 'seen=
+'
++ '[' -f /tmp/.fm-test-procevent.1.zwhRQE ']'
++ IFS='	'
++ read -r home claim_root
++ rm -f /tmp/.fm-test-procevent.1.zwhRQE
++ for d in "${FM_TEST_CLEANUP_DIRS[@]:-}"
++ '[' -n '' ']'
++ '[' -f /tmp/.fm-test-cleanup.1.DRo1zC ']'
++ IFS=
++ read -r d
++ '[' -n /tmp/fm-extension-binding.U7gudh ']'
++ test_reap_root_processes /tmp/fm-extension-binding.U7gudh
++ local root=/tmp/fm-extension-binding.U7gudh chain pid pids signal i
++ '[' -n /tmp/fm-extension-binding.U7gudh ']'
++ '[' /tmp/fm-extension-binding.U7gudh '!=' / ']'
++ chain=' '
++ pid=1
++ '[' -n 1 ']'
++ '[' 1 -gt 1 ']'
++ for signal in TERM KILL
++ i=0
++ '[' 0 -lt 20 ']'
+++ ps -ww -eo pid=,args=
+++ FM_TEST_REAP_ROOT=/tmp/fm-extension-binding.U7gudh/
+++ awk -v 'chain= ' 'index($0, ENVIRON["FM_TEST_REAP_ROOT"]) && index(chain, " " $1 " ") == 0 { print $1 }'
++ pids=1330
++ '[' -n 1330 ']'
++ '[' 0 -gt 0 ']'
++ kill -s TERM 1330
++ sleep 0.1
++ i=1
++ '[' 1 -lt 20 ']'
+++ ps -ww -eo pid=,args=
+++ FM_TEST_REAP_ROOT=/tmp/fm-extension-binding.U7gudh/
+++ awk -v 'chain= ' 'index($0, ENVIRON["FM_TEST_REAP_ROOT"]) && index(chain, " " $1 " ") == 0 { print $1 }'
++ pids=
++ '[' -n '' ']'
++ return 0
++ test_remove_tree /tmp/fm-extension-binding.U7gudh
++ local dir=/tmp/fm-extension-binding.U7gudh
++ '[' -d /tmp/fm-extension-binding.U7gudh ']'
++ '[' '!' -L /tmp/fm-extension-binding.U7gudh ']'
++ find /tmp/fm-extension-binding.U7gudh -type d -exec chmod u+rwx '{}' +
++ rm -rf /tmp/fm-extension-binding.U7gudh
++ IFS=
++ read -r d
++ rm -f /tmp/.fm-test-cleanup.1.DRo1zC

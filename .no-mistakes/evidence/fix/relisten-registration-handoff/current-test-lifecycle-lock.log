@@ -1,0 +1,4 @@
+ok - registration publication and binding retirement share one lifecycle boundary
+ok - process-event resolution reserves the lifecycle before invocation
+ok - every external result operation reserves the lifecycle before invocation
+ok - public extension dispatch exposes no unlocked retirement entry

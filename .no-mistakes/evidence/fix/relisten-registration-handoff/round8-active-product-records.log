@@ -1,0 +1,48 @@
+
+Active poll retained before release (PID 330):
+
+/tmp/fm-extension-binding.UpTiS1/homes/active-runner/state/procevent/active-source.source
+adapter=ext-flow
+owner=extension
+extension_schema=fm-procevent-extension-owner.v1
+extension_id=org.example.flow
+extension_version=1.2.3
+capability_version=1
+package_digest=sha256:f7f5ceb6706aeebc8dba6d2a947d4e40ecc7a7298beee55232e383e7d836ae13
+binding_digest=sha256:31addbd2908fa89718f27cf431ff9ae48c9c83980c4372aa43d67422902f1777
+config_ref=active-block|/tmp/fm-extension-binding.UpTiS1/active-runner.marker|/tmp/fm-extension-binding.UpTiS1/active-runner.release
+registration_token=sha256:21957e2fef2c89da691b322e1d2524c4f4e8d9b8d3bcbf4be3dbe51482712ef2
+argc=0
+argv:
+
+/tmp/fm-extension-binding.UpTiS1/claims/active-source.claim
+/tmp/fm-extension-binding.UpTiS1/homes/active-runner
+387
+.claim.sRXIyX-387
+linux-starttime=11375474 cmdline-hex=62617368002f686f6d652f616e647265772f2e6e6f2d6d697374616b65732d7370756472756e6e65722d76616c69646174696f6e2f776f726b74726565732f6361353337376631313964342f30314d36383652524e4239354a53464d315035544257513359592f62696e2f70726f636573732d6576656e74732e7368005f7374617274006163746976652d736f7572636500
+/tmp/fm-extension-binding.UpTiS1/homes/active-runner/state/procevent
+2096:1335720
+active
+/tmp/fm-extension-binding.UpTiS1/homes/active-runner/state
+2096
+1335692
+1000
+755
+
+/tmp/fm-extension-binding.UpTiS1/homes/active-runner/state/procevent/active-source.runner
+387
+
+/tmp/fm-extension-binding.UpTiS1/active-runner.marker
+877
+lrwxrwxrwx 1 andrew andrew 115 Oct 31 03:35 /tmp/fm-extension-binding.UpTiS1/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock -> /tmp/fm-extension-binding.UpTiS1/homes/active-runner/state/procevent/.extension-binding-lifecycle.lock.owner.OrPltd
+
+Original snapshots versus live records:
+3951c7ebffa59db7dda087de1744a1f4fdc86f25a7edae93333b7645712ba514  /tmp/fm-extension-binding.UpTiS1/active-original.source
+3951c7ebffa59db7dda087de1744a1f4fdc86f25a7edae93333b7645712ba514  /tmp/fm-extension-binding.UpTiS1/homes/active-runner/state/procevent/active-source.source
+c58f8858c0f6fc684dba0354453a587b41d1e27f24898633ca6fe06315510ed1  /tmp/fm-extension-binding.UpTiS1/active-original.claim
+c58f8858c0f6fc684dba0354453a587b41d1e27f24898633ca6fe06315510ed1  /tmp/fm-extension-binding.UpTiS1/claims/active-source.claim
+dfbcf5a21b1ae87621fa8c6c1fe8c0252c1ab6bece314c458bf6498d9c9d3e8a  /tmp/fm-extension-binding.UpTiS1/active-original.runner
+dfbcf5a21b1ae87621fa8c6c1fe8c0252c1ab6bece314c458bf6498d9c9d3e8a  /tmp/fm-extension-binding.UpTiS1/homes/active-runner/state/procevent/active-source.runner
+ok - all registration owner transitions wait for the prior extension runner
+
+all extension-binding tests passed
