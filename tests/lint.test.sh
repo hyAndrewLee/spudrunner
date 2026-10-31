@@ -1507,7 +1507,7 @@ test_root_memory_limit_reports_a_named_death() {
   # Control: with no memory limit the same allocator succeeds, so a memory
   # death below can only come from the enforced cap.
   rc=0
-  out=$(PATH="$fakebin:$PATH" FM_LINT_JOBS=1 \
+  out=$(PATH="$fakebin:$PATH" FM_LINT_JOBS=1 FM_LINT_REQUIRE_BOUNDS=0 \
     FM_TEST_STUB_LOG="$stub_log" \
     "$LINT" --telemetry "$tmp/control.tsv" "$ok" "$hoarder" 2>&1) || rc=$?
   [ "$rc" -eq 0 ] || fail "the allocator failed without any memory limit"$'\n'"$out"
@@ -1943,7 +1943,7 @@ test_roots_sidecar_records_per_root_lifecycle() {
   printf '#!/usr/bin/env bash\nexit 0\n' > "$gamma"
 
   rc=0
-  out=$(PATH="$fakebin:$PATH" FM_TEST_STUB_LOG="$stub_log" \
+  out=$(PATH="$fakebin:$PATH" FM_LINT_REQUIRE_BOUNDS=0 FM_TEST_STUB_LOG="$stub_log" \
     "$LINT" --telemetry "$telemetry" "$alpha" "$beta" "$gamma" 2>&1) || rc=$?
   [ "$rc" -eq 0 ] || fail "a clean bounded run failed"$'\n'"$out"
   [ -f "$roots_log" ] || fail "the run wrote no per-root sidecar beside telemetry"
