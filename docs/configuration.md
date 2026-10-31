@@ -2852,7 +2852,10 @@ This section is the single owner of the runner's operating contract.
 - The watcher delivers a queued result on its ordinary cycle by reporting it as an actionable `check` wake, so a default or fallback publication reaches Spudrunner through the same rewake path every other wake uses and never waits for a manual drain.
 - A queued `check` delivery is reported at most once per captured source and sequence while any records for that key remain queued.
 - A durable handled acknowledgement stops future source re-announcement, while a record already queued remains under the durable queue's authority until the ordinary drain's sequence-bound post-handling acknowledgement consumes it.
-- By default, a runner releases its claim after one poll; an adapter that opts into `relisten` keeps that runner and claim across empty waits and captured results, adopting a replacement registration only when the registered command is unchanged and the claim still belongs to it.
+- By default, a runner releases its claim after one poll; a built-in adapter that opts into `relisten` keeps that runner and claim across empty waits and captured results.
+  It adopts a replacement registration only when the adapter and registered command are unchanged and the active claim still matches its home, PID, and token.
+  If registration changes between adoption and the launch-floor check, the runner repeats that proof before retrying the new generation's floor, without a separate start or reconcile.
+  External registrations cannot use this handoff.
   A failed relisten check releases the claim; the runner never refreshes its own home lease.
   The `bin/process-events.sh` header owns the exact seam, and [remote project coordinators](remote-project-coordinators.md#how-remote-lines-are-mirrored) owns the reply listener's behavior.
 
