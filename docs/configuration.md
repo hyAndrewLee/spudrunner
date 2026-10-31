@@ -1818,9 +1818,11 @@ This single-provider table is separate from the frozen legacy mapping used by `q
 **Model, effort, and fallback behavior**
 
 - `ultra` is native-only: the model-aware validation contract and launch mapping are owned by `bin/agent-runtime.sh validate-native-effort` and `bin/task-launch.sh` respectively.
-- Codex `max` is valid when the profile selects `gpt-5.6-luna`, whose installed catalog entry supports that reasoning level.
-- On pane backends, canonical Codex task workers with no model choice select the installed runtime catalog's recommendation, rather than inheriting the user's incidental Codex model default; explicit task/profile models and project coordinator pins remain authoritative.
+- Codex `max` is passed for an explicitly selected `gpt-5.6-luna`, or for an automatically recommended model whose catalog advertises that reasoning level.
+- On pane backends, canonical Codex task workers with no model choice select the installed runtime catalog's unique default recommendation, rather than inheriting the user's incidental Codex model default; explicit task/profile models and project coordinator pins remain authoritative.
+  Raw launch commands bypass this selection.
   An explicit `--model default` intentionally retains runtime inheritance.
+  Successful automatic selection records the concrete `model`, `model_source=codex-model-list`, and `model_provider=openai` in task metadata.
   Discovery failures, custom providers without verified recommendation discovery, and incompatible reasoning preferences stop automatic selection with an actionable error.
   Automatic Codex selection uses an absolute configuration root, respecting removal of `CODEX_HOME` by launch filtering, and binds execution to that root, including the default `$HOME/.codex` case.
   Before discovery or task publication, the destination must confirm the same root; a conflicting destination `CODEX_HOME` or default `HOME`, or an unconfirmed destination check, fails the parent launch with an explicit supported `--model` request and no active task or backlog transition, rather than changing accounts.
@@ -1830,7 +1832,7 @@ This single-provider table is separate from the frozen legacy mapping used by `q
 - OpenCode receives the effort as its default `build` agent's `variant`, keyed to the resolved model, inside the `OPENCODE_CONFIG_CONTENT` JSON its launch already writes (the per-model reasoning-effort field of the config schema, verified on opencode 1.18.32); with no model resolved, the effort is recorded in task metadata but omitted from the launch.
 - Every profile array is an implicit quota-aware choice resolved through `quota-array-dispatch`.
 - If no dispatch rule fits, Spudrunner resolves `default` through the same object-or-array path before falling back to `config/crew-harness`.
-- On pane backends, except for `ultra` under the native-effort contract above, an effort value the chosen harness does not accept is recorded as `effort=` in task meta for traceability but omitted from the launch flags.
+- On pane backends, except for automatic Codex selection and `ultra` under the native-effort contract above, an effort value the chosen harness does not accept is recorded as `effort=` in task meta for traceability but omitted from the launch flags.
   For T3 Code, follow the [catalog validation contract](t3code-backend.md#provider-instances-and-models).
 - Bootstrap reports unsupported harness/model/effort combinations as a `CREW_DISPATCH` diagnostic when they are visible in the file.
 
