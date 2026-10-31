@@ -210,7 +210,7 @@ done
   || fail "the real Herdr pane did not drift out of its recorded worktree"
 
 OUT=$(env FM_HOME="$HOME_DIR" HERDR_SESSION="$SESSION" FM_SPAWN_NO_GUARD=1 \
-  "$ROOT/bin/task-launch.sh" hsmoke --relaunch --harness codex) \
+  "$ROOT/bin/task-launch.sh" hsmoke --relaunch --harness codex --model default) \
   || fail "a drifted, agent-free Herdr pane should be re-homed and relaunched: $OUT"
 for _ in $(seq 1 20); do
   [ ! -e "$SCRATCH/codex-launched" ] || break
@@ -324,7 +324,7 @@ pass "real herdr: exit on a pane with a stale registration is idempotent success
 
 rm -f "$SCRATCH/codex-launched"
 OUT=$(env FM_HOME="$HOME_DIR" HERDR_SESSION="$SESSION" FM_SPAWN_NO_GUARD=1 \
-  "$ROOT/bin/task-launch.sh" hsmoke --relaunch --harness codex) \
+  "$ROOT/bin/task-launch.sh" hsmoke --relaunch --harness codex --model default) \
   || fail "a stale-registration Herdr pane should be relaunched: $OUT"
 for _ in $(seq 1 20); do
   [ ! -e "$SCRATCH/codex-launched" ] || break

@@ -2771,11 +2771,13 @@ test_codex_configuration_root_binding() {
     out=$(
       export FM_FAKE_CODEX_RPC_LOG="$log" FM_FAKE_CODEX_DEST_ROOT="$dest_root" FM_FAKE_CODEX_DEST_HOME="$dest_home"
       [ "$conflict" != unconfirmed ] || export FM_FAKE_CODEX_ENV_UNCONFIRMED=1
-      case "$setting" in
-        default) unset CODEX_HOME ;;
-        filtered) export CODEX_HOME="$CASE_DIR/filtered-supervisor-account" ;;
-        *) export CODEX_HOME="$pane_root" ;;
-      esac
+      if [ "$setting" = default ]; then
+        unset CODEX_HOME
+      elif [ "$setting" = filtered ]; then
+        export CODEX_HOME="$CASE_DIR/filtered-supervisor-account"
+      else
+        export CODEX_HOME="$pane_root"
+      fi
       run_implementation_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" "$id" "$PROJ_DIR"
     )
     status=$?
