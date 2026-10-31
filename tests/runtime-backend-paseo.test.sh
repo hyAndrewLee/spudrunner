@@ -1019,7 +1019,7 @@ test_project_coordinator_spawn_refuses_explicit_paseo_only() {
   out=$(paseo_project_coordinator_spawn "$dir" "$dir/config" '')
   assert_not_contains "$out" "does not support --secondmate" \
     "an unconfigured spawn inside Paseo must stay on tmux, not resolve paseo from PASEO_AGENT_ID"
-  assert_contains "$out" "no firstmate home supplied" \
+  assert_contains "$out" "no Spudrunner home supplied" \
     "the unconfigured --secondmate spawn should continue past backend selection to the home check"
   pass "task-launch.sh: an explicit paseo refuses --secondmate (mirrors cmux/Orca); ambient Paseo markers never select paseo"
 }

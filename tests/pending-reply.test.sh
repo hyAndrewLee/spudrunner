@@ -409,7 +409,7 @@ test_partial_resolve_write_blocks_firing() {
     eval "_orig_$(declare -f pending_reply_set)"
     pending_reply_set() {
       [ "$2" != resolved_epoch ] || [ "${FAIL_RESOLVED_EPOCH:-0}" != 1 ] || return 1
-      _orig_fm_pending_reply_set "$@"
+      _orig_pending_reply_set "$@"
     }
 
     corr=$(pending_reply_create "$home" "$state" "hibit" "partial resolve before recovery")

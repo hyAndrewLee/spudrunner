@@ -178,53 +178,58 @@ test_list_files_reports_the_shell_inventory() {
 }
 
 test_canonical_partitions_preserve_full_lint() {
-  local tmp fakebin all part selected log flags mode rc option invocation_count root_count
+  local tmp fakebin all total index part selected log flags mode rc option invocation_count root_count
   tmp=$(test_tmproot fm-lint-partitions)
   fakebin="$tmp/bin"
   mkdir -p "$fakebin"
   all=$(CI=true "$LINT" --list-files | LC_ALL=C sort)
-  : > "$tmp/union"
-  for part in 1of2 2of2; do
-    selected=$(CI=false GITHUB_ACTIONS=false "$LINT" --partition "$part" --list-files) \
-      || fail "partition $part must select full canonical roots even on a local branch"
-    [ -n "$selected" ] || fail "empty lint partition $part"
-    printf '%s\n' "$selected" >> "$tmp/union"
-    [ "$selected" = "$("$LINT" --partition "$part" --list-files)" ] \
-      || fail "partition $part is nondeterministic"
-    log="$tmp/$part.roots"
-    flags="$tmp/$part.flags"
-    mode="$tmp/$part.mode"
-    lint_stub_shellcheck "$fakebin" "$log"
-    PATH="$fakebin:$PATH" FM_TEST_FLAG_LOG="$flags" FM_TEST_MODE_LOG="$mode" \
-      "$LINT" --partition "$part" > "$tmp/$part.out" 2>&1 \
-      || fail "canonical partition $part failed: $(cat "$tmp/$part.out")"
-    [ "$(LC_ALL=C sort "$log")" = "$(printf '%s\n' "$selected" | LC_ALL=C sort)" ] \
-      || fail "partition $part executed a different root set than it listed"
-    [ "$(LC_ALL=C sort -u "$flags")" = "$(printf 'exclude=none\nexternal-sources=yes')" ] \
-      || fail "partition $part weakened source-aware analysis"
-    [ "$(LC_ALL=C sort -u "$mode")" = on ] || fail "partition $part disabled full analysis"
-    root_count=$(printf '%s\n' "$selected" | grep -c .)
-    invocation_count=$(grep -c '^external-sources=' "$flags" || true)
-    [ "$invocation_count" -eq "$root_count" ] \
-      || fail "partition $part used $invocation_count ShellCheck calls for $root_count roots"
-    [ "$(grep -c '^fm-lint: begin ' "$tmp/$part.out" || true)" -eq "$root_count" ] \
-      || fail "partition $part did not stream a begin record per root"
-    [ "$(grep -c '^fm-lint: end ' "$tmp/$part.out" || true)" -eq "$root_count" ] \
-      || fail "partition $part did not stream an end record per root"
+  for total in 2 4; do
+    : > "$tmp/union"
+    for ((index=1; index<=total; index++)); do
+      part="${index}of${total}"
+      selected=$(CI=false GITHUB_ACTIONS=false "$LINT" --partition "$part" --list-files) \
+        || fail "partition $part must select full canonical roots even on a local branch"
+      [ -n "$selected" ] || fail "empty lint partition $part"
+      printf '%s\n' "$selected" >> "$tmp/union"
+      [ "$selected" = "$("$LINT" --partition "$part" --list-files)" ] \
+        || fail "partition $part is nondeterministic"
+      log="$tmp/$part.roots"
+      flags="$tmp/$part.flags"
+      mode="$tmp/$part.mode"
+      lint_stub_shellcheck "$fakebin" "$log"
+      PATH="$fakebin:$PATH" FM_TEST_FLAG_LOG="$flags" FM_TEST_MODE_LOG="$mode" \
+        "$LINT" --partition "$part" > "$tmp/$part.out" 2>&1 \
+        || fail "canonical partition $part failed: $(cat "$tmp/$part.out")"
+      [ "$(LC_ALL=C sort "$log")" = "$(printf '%s\n' "$selected" | LC_ALL=C sort)" ] \
+        || fail "partition $part executed a different root set than it listed"
+      [ "$(LC_ALL=C sort -u "$flags")" = "$(printf 'exclude=none\nexternal-sources=yes')" ] \
+        || fail "partition $part weakened source-aware analysis"
+      [ "$(LC_ALL=C sort -u "$mode")" = on ] || fail "partition $part disabled full analysis"
+      root_count=$(printf '%s\n' "$selected" | grep -c .)
+      invocation_count=$(grep -c '^external-sources=' "$flags" || true)
+      [ "$invocation_count" -eq "$root_count" ] \
+        || fail "partition $part used $invocation_count ShellCheck calls for $root_count roots"
+      [ "$(grep -c '^fm-lint: begin ' "$tmp/$part.out" || true)" -eq "$root_count" ] \
+        || fail "partition $part did not stream a begin record per root"
+      [ "$(grep -c '^fm-lint: end ' "$tmp/$part.out" || true)" -eq "$root_count" ] \
+        || fail "partition $part did not stream an end record per root"
+    done
+    [ "$(LC_ALL=C sort "$tmp/union")" = "$all" ] || fail "$total lint partitions lose or duplicate canonical roots"
   done
-  [ "$(LC_ALL=C sort "$tmp/union")" = "$all" ] || fail "lint partitions lose or duplicate canonical roots"
-  for option in 0of2 3of2 1of3; do
+  for option in 0of2 3of2 1of3 0of4 5of4 1of5 01of4 1of04 malformed; do
     rc=0
     "$LINT" --partition "$option" --list-files > "$tmp/refused" 2>&1 || rc=$?
     [ "$rc" = 2 ] || fail "invalid partition $option was not refused"
   done
-  rc=0
-  "$LINT" --partition 1of2 --fast > "$tmp/refused" 2>&1 || rc=$?
-  [ "$rc" = 2 ] || fail "partition accepted --fast"
-  rc=0
-  "$LINT" --partition 1of2 bin/lint.sh > "$tmp/refused" 2>&1 || rc=$?
-  [ "$rc" = 2 ] || fail "partition accepted an explicit subset"
-  pass "two canonical lint partitions preserve complete source-aware coverage and reject weakened modes"
+  for part in 1of2 1of4; do
+    rc=0
+    "$LINT" --partition "$part" --fast > "$tmp/refused" 2>&1 || rc=$?
+    [ "$rc" = 2 ] || fail "partition $part accepted --fast"
+    rc=0
+    "$LINT" --partition "$part" bin/lint.sh > "$tmp/refused" 2>&1 || rc=$?
+    [ "$rc" = 2 ] || fail "partition $part accepted an explicit subset"
+  done
+  pass "two and four canonical lint partitions preserve complete source-aware coverage and reject weakened modes"
 }
 
 # lint_stub_git <fakebin-dir>: install a git stub for the changed-file mode
@@ -798,6 +803,7 @@ test_changed_mode_hides_cross_file_codes_that_ci_still_sees() {
   mkdir -p "$test_root/bin/backends" "$test_root/tests" "$test_root/.github/workflows"
   lint="$test_root/bin/lint.sh"
   cp "$LINT" "$lint"
+  cp "$ROOT/bin/timeout-lib.sh" "$test_root/bin/"
   cp "$ROOT/bin/lint-workflows.sh" "$test_root/bin/"
   cp "$ROOT"/.github/workflows/* "$test_root/.github/workflows/"
   printf '#!/usr/bin/env bash\nexit 0\n' > "$test_root/bin/backends/noop.sh"
@@ -1154,6 +1160,7 @@ test_rejects_direct_beads_cli_invocations() {
   mkdir -p "$tmp/repo/bin/backends" "$tmp/repo/tests"
   lint_copy="$tmp/repo/bin/lint.sh"
   cp "$LINT" "$lint_copy"
+  cp "$ROOT/bin/timeout-lib.sh" "$tmp/repo/bin/"
   cat > "$tmp/repo/bin/lint-workflows.sh" <<'SH'
 #!/usr/bin/env bash
 exit 0
@@ -1206,6 +1213,7 @@ test_rejects_direct_beads_cli_in_explicit_core_path() {
   lint_copy="$tmp/repo/bin/lint.sh"
   target="$tmp/repo/bin/direct-beads.sh"
   cp "$LINT" "$lint_copy"
+  cp "$ROOT/bin/timeout-lib.sh" "$tmp/repo/bin/"
   printf '#!/usr/bin/env bash\nbd close fm-example\n' > "$target"
   chmod +x "$lint_copy"
   lint_stub_shellcheck "$fakebin" "$log"
@@ -1499,7 +1507,7 @@ test_root_memory_limit_reports_a_named_death() {
   # Control: with no memory limit the same allocator succeeds, so a memory
   # death below can only come from the enforced cap.
   rc=0
-  out=$(PATH="$fakebin:$PATH" FM_LINT_JOBS=1 \
+  out=$(PATH="$fakebin:$PATH" FM_LINT_JOBS=1 FM_LINT_REQUIRE_BOUNDS=0 \
     FM_TEST_STUB_LOG="$stub_log" \
     "$LINT" --telemetry "$tmp/control.tsv" "$ok" "$hoarder" 2>&1) || rc=$?
   [ "$rc" -eq 0 ] || fail "the allocator failed without any memory limit"$'\n'"$out"
@@ -1854,8 +1862,9 @@ test_pinned_shellcheck_memory_limit() {
   # limit - this is what proves the address-space cap leaves GHC enough head
   # room instead of discovering the conflict mid-partition in CI.
   rc=0
-  out=$(FM_LINT_REQUIRE_BOUNDS=1 "$LINT" \
-    --telemetry "$telemetry" "$fixture" 2>&1) || rc=$?
+  out=$(unset FM_LINT_ROOT_MEMORY_KIB
+    FM_LINT_REQUIRE_BOUNDS=1 "$LINT" \
+      --telemetry "$telemetry" "$fixture" 2>&1) || rc=$?
   [ "$rc" -eq 0 ] || fail "pinned ShellCheck did not lint under the default memory limit"$'\n'"$out"
   grep -q $'^meta\tbounds_enforced\t1$' "$roots_log" \
     || fail "the sidecar did not record enforced bounds"
@@ -1935,7 +1944,7 @@ test_roots_sidecar_records_per_root_lifecycle() {
   printf '#!/usr/bin/env bash\nexit 0\n' > "$gamma"
 
   rc=0
-  out=$(PATH="$fakebin:$PATH" FM_TEST_STUB_LOG="$stub_log" \
+  out=$(PATH="$fakebin:$PATH" FM_LINT_REQUIRE_BOUNDS=0 FM_TEST_STUB_LOG="$stub_log" \
     "$LINT" --telemetry "$telemetry" "$alpha" "$beta" "$gamma" 2>&1) || rc=$?
   [ "$rc" -eq 0 ] || fail "a clean bounded run failed"$'\n'"$out"
   [ -f "$roots_log" ] || fail "the run wrote no per-root sidecar beside telemetry"

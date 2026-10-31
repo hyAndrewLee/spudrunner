@@ -312,7 +312,7 @@ P=$(make_lab p pi)
 PH="$P/home"
 run_check "$P"
 expect_code 0 "$CHECK_RC" "a Pi lab in up's shape is ready: $CHECK_OUT"
-assert_contains "$CHECK_OUT" "ok extensions: fm-primary-pi-watch fm-primary-turnend-guard fm-branch-supervision" "all three extensions load"
+assert_contains "$CHECK_OUT" "ok extensions: coordinator-supervision-watch coordinator-turn-end-guard fm-branch-supervision" "all three extensions load"
 assert_contains "$CHECK_OUT" "ok trust: Pi trust store unchanged" "the Pi trust store is untouched"
 assert_not_contains "$CHECK_OUT" "mirror" "a Pi lab has no host mirror check"
 rm -f "$PH/state/.pi-branch-extension-loaded"

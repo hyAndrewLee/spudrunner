@@ -2931,7 +2931,7 @@ SH
     FM_SPAWN_NO_GUARD=1 FM_FAKE_LAUNCH_LOG="$launchlog" \
     "$ROOT/bin/task-launch.sh" sm "$sm" --secondmate 2>&1); status=$?
   expect_code 0 "$status" "spawn should remain available after reread cleanup failure"
-  assert_contains "$out" "CONFIG_REREAD: secondmate sm: quarantined pre-relaunch generations" \
+  assert_contains "$out" "CONFIG_REREAD: project coordinator sm: quarantined pre-relaunch generations" \
     "spawn cleanup failure did not emit a CONFIG_REREAD quarantine diagnostic"
   assert_no_reread_pending "$sm"
   assert_no_reread_instructions "$sm"
