@@ -169,8 +169,30 @@ await_reply_result() { # <result-path> [existing-owner-only]
 # adopted inode. The next payload must be collected by this exact owner, without
 # the helper's usual fallback start or a reconcile hiding a stranded source.
 replace_at_handoff() { # <handled-sequence> <result-file>
-  local sequence=$1 before after
-  wait_for "$HANDOFF/$sequence.ready" || fail "listener never reached handoff $sequence"
+  local sequence=$1 before after path owner_pid
+  if ! wait_for "$HANDOFF/$sequence.ready"; then
+    reply_diagnostics
+    for path in "$HANDOFF/sequence" "$HANDOFF/$sequence.ready" "$HANDOFF/$sequence.ready.tmp"; do
+      printf '\n%s:\n' "$path" >&2
+      if [ -e "$path" ]; then
+        head -c 4096 "$path" >&2 2>/dev/null || true
+      else
+        printf 'absent\n' >&2
+      fi
+    done
+    owner_pid=$(sed -n '2p' "$CLAIMS/$SID.claim" 2>/dev/null || true)
+    case "$owner_pid" in
+      ''|*[!0-9]*) printf 'handoff owner PID unavailable\n' >&2 ;;
+      *)
+        if kill -0 "$owner_pid" 2>/dev/null; then
+          printf 'handoff owner PID %s alive\n' "$owner_pid" >&2
+        else
+          printf 'handoff owner PID %s not alive\n' "$owner_pid" >&2
+        fi
+        ;;
+    esac
+    fail "listener never reached handoff $sequence"
+  fi
   before=$(sed -n '3p' "$HANDOFF/$sequence.ready")
   remote_env "$ADAPTER" handle ios "$sequence" "$2" >/dev/null 2>&1 \
     || fail "handoff $sequence replay failed"

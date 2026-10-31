@@ -1741,19 +1741,39 @@ for control_kind in tab newline; do
   mkdir -p "$control_state"
   chmod 0700 "$control_state"
   control_poll_marker="$TMP_ROOT/$control_source.polled"
-  FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$control_state" \
-    "$PROCEVENT" register lavish "$control_source" -- /bin/sh -c 'touch "$1"; printf "control\n"' sh "$control_poll_marker" >/dev/null \
-    || fail "control-byte registration fixture failed: $control_kind"
-  cp "$control_state/procevent/$control_source.source" "$TMP_ROOT/control-source-before" || fail "could not snapshot control-byte registration"
+  control_directory_before=$(python3 -c 'import os, sys; s = os.stat(sys.argv[1]); print(s.st_dev, s.st_ino, s.st_mode, s.st_uid, s.st_gid)' "$control_state")
   cp "$state_path_decoy" "$TMP_ROOT/control-decoy-before" || fail "could not snapshot reservation decoy"
-  expect_failure "cannot claim source: $control_source" env FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$control_state" \
-    "$PROCEVENT" start "$control_source"
+  case "$control_kind" in
+    tab)
+      FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$control_state" \
+        "$PROCEVENT" register lavish "$control_source" -- /bin/sh -c 'touch "$1"; printf "control\n"' sh "$control_poll_marker" >/dev/null \
+        || fail "control-byte registration fixture failed: $control_kind"
+      cp "$control_state/procevent/$control_source.source" "$TMP_ROOT/control-source-before" || fail "could not snapshot control-byte registration"
+      control_rc=0
+      control_out=$(FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$control_state" \
+        "$PROCEVENT" start "$control_source" 2>&1) || control_rc=$?
+      [ "$control_rc" -ne 0 ] || fail "tab-state start unexpectedly succeeded"
+      [ "$control_out" = "error: cannot claim source: $control_source" ] || fail "unexpected tab-state refusal: $control_out"
+      cmp "$TMP_ROOT/control-source-before" "$control_state/procevent/$control_source.source" || fail "control-byte refusal changed registration"
+      ;;
+    newline)
+      control_rc=0
+      control_out=$(FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$control_state" \
+        "$PROCEVENT" register lavish "$control_source" -- /bin/sh -c 'touch "$1"; printf "control\n"' sh "$control_poll_marker" 2>&1) || control_rc=$?
+      [ "$control_rc" -ne 0 ] || fail "newline-state registration unexpectedly succeeded"
+      [ "$control_out" = "error: process-event state root is not a private directory" ] || fail "unexpected newline-state refusal: $control_out"
+      assert_absent "$control_state/procevent/$control_source.source" "newline-state refusal published a registration"
+      ;;
+  esac
+  control_directory_after=$(python3 -c 'import os, sys; s = os.stat(sys.argv[1]); print(s.st_dev, s.st_ino, s.st_mode, s.st_uid, s.st_gid)' "$control_state")
+  [ "$control_directory_before" = "$control_directory_after" ] || fail "control-byte refusal changed state directory identity or permissions"
   assert_absent "$TMP_ROOT/claims/$control_source.claim" "control-byte state root created a malformed claim"
   assert_absent "$control_state/procevent-capture-reservations" "control-byte state root created reservation state"
-  cmp "$TMP_ROOT/control-source-before" "$control_state/procevent/$control_source.source" || fail "control-byte refusal changed registration"
+  assert_absent "$control_state/procevent/$control_source.runner" "control-byte state root published a runner"
   cmp "$TMP_ROOT/control-decoy-before" "$state_path_decoy" || fail "control-byte refusal changed unrelated reservation bytes"
   assert_absent "$control_poll_marker" "control-byte state root executed polling"
   assert_absent "$control_state/procevent-inbox/$control_source.1.result" "control-byte state root published a capture"
+  pass "$control_kind state root refuses safely without claim, polling, or capture effects"
 done
 pass "control-byte state roots cannot serialize claims or reservations"
 override_crash_marker="$TMP_ROOT/override-crash.marker"
@@ -1771,7 +1791,22 @@ override_crash_runner_pid=$(sed -n '2p' "$override_crash_claim")
 override_crash_token=$(sed -n '3p' "$override_crash_claim")
 override_crash_records=$(find "$STATE_OVERRIDE/procevent-capture-reservations" -type f \
   -name ".extension-capture-$override_crash_token.*" -print | wc -l | tr -d '[:space:]')
-[ "$override_crash_records" -eq 2 ] || fail "overridden-state crash fixture did not create both immediate reservations"
+[ "$override_crash_records" -eq 1 ] || fail "overridden-state crash fixture did not retain its pending terminal reservation"
+# result.silent consumes its reservation before blocking; terminal is still pending.
+python3 - "$STATE_OVERRIDE/procevent-capture-reservations" "$override_crash_token" "$override_crash_runner_pid" <<'PY' || fail "overridden-state crash reservation did not match its active owner"
+import glob
+import json
+import sys
+root, token, pid = sys.argv[1:]
+paths = glob.glob(root + '/.extension-capture-' + token + '.*')
+assert len(paths) == 1, paths
+with open(paths[0], encoding='utf-8') as stream:
+    record = json.load(stream)
+print('active crash reservation:', json.dumps(record, sort_keys=True))
+assert record['operation'] == 'result.terminal', record
+assert record['source_id'] == 'override-crash-source', record
+assert record['claim_token'] == token and record['claim_pid'] == pid, record
+PY
 mkdir -p "$H_STATE_OVERRIDE/state/procevent-capture-reservations"
 chmod 0700 "$H_STATE_OVERRIDE/state" "$H_STATE_OVERRIDE/state/procevent-capture-reservations"
 override_crash_decoy="$H_STATE_OVERRIDE/state/procevent-capture-reservations/.extension-capture-$override_crash_token.decoy.json"
