@@ -1,0 +1,232 @@
+{
+  "families": [
+    {
+      "count": 3,
+      "duration_ms": 299494,
+      "failed": 0,
+      "name": "backend-dispatch"
+    },
+    {
+      "count": 1,
+      "duration_ms": 11089,
+      "failed": 0,
+      "name": "live-harness-optin"
+    },
+    {
+      "count": 1,
+      "duration_ms": 4513,
+      "failed": 0,
+      "name": "paseo"
+    },
+    {
+      "count": 3,
+      "duration_ms": 274901,
+      "failed": 0,
+      "name": "pure-contract-unit"
+    },
+    {
+      "count": 5,
+      "duration_ms": 813192,
+      "failed": 0,
+      "name": "secondmate"
+    },
+    {
+      "count": 1,
+      "duration_ms": 12916,
+      "failed": 0,
+      "name": "snapshot-work_summary"
+    },
+    {
+      "count": 2,
+      "duration_ms": 60473,
+      "failed": 0,
+      "name": "standalone"
+    },
+    {
+      "count": 1,
+      "duration_ms": 66576,
+      "failed": 0,
+      "name": "unclassified"
+    },
+    {
+      "count": 1,
+      "duration_ms": 67675,
+      "failed": 0,
+      "name": "watcher-wake-lock"
+    }
+  ],
+  "finished_at": "2026-10-31T01:19:40Z",
+  "run_id": "fm-test-run-1793407968802-1",
+  "scripts": [
+    {
+      "duration_ms": 472192,
+      "exit": 0,
+      "expected_gate_skip": "none",
+      "family": "secondmate",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/remote-project-coordinator-lifecycle-e2e.test.sh"
+    },
+    {
+      "duration_ms": 11089,
+      "exit": 0,
+      "expected_gate_skip": "live-capability",
+      "family": "live-harness-optin",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/pi-branch-responsiveness-live-e2e.test.sh"
+    },
+    {
+      "duration_ms": 124141,
+      "exit": 0,
+      "expected_gate_skip": "none",
+      "family": "secondmate",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/remote-project-coordinator-trace-context.test.sh"
+    },
+    {
+      "duration_ms": 62188,
+      "exit": 0,
+      "expected_gate_skip": "none",
+      "family": "backend-dispatch",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/task-launch-compact-adviser-disable-remote.test.sh"
+    },
+    {
+      "duration_ms": 42868,
+      "exit": 0,
+      "expected_gate_skip": "none",
+      "family": "secondmate",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/project-coordinator-safety.test.sh"
+    },
+    {
+      "duration_ms": 58610,
+      "exit": 0,
+      "expected_gate_skip": "none",
+      "family": "backend-dispatch",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/worker-account.test.sh"
+    },
+    {
+      "duration_ms": 141972,
+      "exit": 0,
+      "expected_gate_skip": "none",
+      "family": "secondmate",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/project-coordinator-harness.test.sh"
+    },
+    {
+      "duration_ms": 178696,
+      "exit": 0,
+      "expected_gate_skip": "none",
+      "family": "backend-dispatch",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/runtime-backend-t3code.test.sh"
+    },
+    {
+      "duration_ms": 29959,
+      "exit": 0,
+      "expected_gate_skip": "none",
+      "family": "standalone",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/pending-reply.test.sh"
+    },
+    {
+      "duration_ms": 30514,
+      "exit": 0,
+      "expected_gate_skip": "none",
+      "family": "standalone",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/test-fixtures.test.sh"
+    },
+    {
+      "duration_ms": 207533,
+      "exit": 0,
+      "expected_gate_skip": "none",
+      "family": "pure-contract-unit",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/test-run.test.sh"
+    },
+    {
+      "duration_ms": 2166,
+      "exit": 0,
+      "expected_gate_skip": "none",
+      "family": "pure-contract-unit",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/test-isolation-proof.test.sh"
+    },
+    {
+      "duration_ms": 65202,
+      "exit": 0,
+      "expected_gate_skip": "none",
+      "family": "pure-contract-unit",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/kimi-harness.test.sh"
+    },
+    {
+      "duration_ms": 67675,
+      "exit": 0,
+      "expected_gate_skip": "none",
+      "family": "watcher-wake-lock",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/watcher-lock.test.sh"
+    },
+    {
+      "duration_ms": 32019,
+      "exit": 0,
+      "expected_gate_skip": "none",
+      "family": "secondmate",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/project-coordinator-sync.test.sh"
+    },
+    {
+      "duration_ms": 4513,
+      "exit": 0,
+      "expected_gate_skip": "optional-binary",
+      "family": "paseo",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/runtime-backend-paseo.test.sh"
+    },
+    {
+      "duration_ms": 66576,
+      "exit": 0,
+      "expected_gate_skip": "none",
+      "family": "unclassified",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/live-lab.test.sh"
+    },
+    {
+      "duration_ms": 12916,
+      "exit": 0,
+      "expected_gate_skip": "optional-binary",
+      "family": "snapshot-work_summary",
+      "gate_skip": false,
+      "gate_skip_reason": "",
+      "path": "tests/work-summary-board-render.test.sh"
+    }
+  ],
+  "selection": "scripts;jobs=1",
+  "started_at": "2026-10-31T00:52:48Z",
+  "summary": {
+    "duration_ms": 1611242,
+    "failed": 0,
+    "skipped_gate": 0,
+    "total": 18
+  }
+}

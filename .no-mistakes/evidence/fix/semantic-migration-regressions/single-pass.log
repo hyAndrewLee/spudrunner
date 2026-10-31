@@ -1,0 +1,760 @@
+FM_TEST_BEGIN 2026-10-31T00:52:48Z tests/remote-project-coordinator-lifecycle-e2e.test.sh family=secondmate expected_gate_skip=none
+ok - overlapping remote home provisioning serializes through publication and rollback
+ok - competing cleanup of the public home cannot reach a live provisioning clone
+ok - a home that appears mid-provision makes the provision die without touching it
+ok - remote seed rollback preserves serialized competing routes
+ok - unknown readiness preserves its route and brief for reconciliation
+ok - remote seeding checks, repairs, and re-checks readiness, then stops on a remaining gap
+ok - remote seeding proceeds once the repair closes every gap
+ok - remote seeding provisions a supplied origin without touching the primary project tree
+ok - remote provisioning re-validates a supplied origin at the receiving host
+ok - seeding carries bitbucket, self-hosted, and scp-like origins through to the remote clone
+ok - remote seed registers the route and provisions the whole home and project clone on that host
+ok - remote inheritance rejects incomplete and superseded payload generations
+ok - mixed local and remote routes validate without migration
+ok - remote spawn launches on the remote-local backend and records a host-qualified route
+ok - legacy and mismatched remote endpoints fail closed before backend access
+ok - non-herdr remote endpoints are refused without changing either route
+ok - remote spawn serializes inheritance through launch publication
+ok - marked send and routed reply complete through the existing parent correlation owner
+ok - partial remote inheritance retains reread intent through bootstrap convergence
+ok - config push and bootstrap serialize remote inheritance convergence
+WARNING: watcher still down (same stale episode; last beat: 103s ago, grace 300s) - full banner already printed this episode.
+ok - remote inherited config retains and retries a failed live reread nudge
+ok - fleet snapshot projects mixed local and remote structured state
+ok - remote update imports and fast-forwards the persistent home on its configured host
+ok - the remote restart verb delegates to the host-local control plane and refuses before stopping anything
+ok - startup repairs remote readiness before probing without relaunching
+ok - watch liveness: a dead remote secondmate is auto-relaunched on its own host with one wake
+ok - watch liveness: an unreachable remote secondmate is probed, preserved, and never failed over
+ok - the host-local state read steps around a stale shadowing herdr client
+ok - startup reports alive legacy backends without changing their routes
+ok - unreachable no-ledger remote state remains explicit with no local respawn or failover
+ok - remote retirement refuses child work, then removes only its own endpoint while a shared-session sibling survives
+ok - remote retirement archives the complete parent-side status log when enabled
+ok - remote retirement commits parent-side metadata, status, and inbox records before cleanup
+ok - remote missing-status retirement remains lock-free with archival enabled
+ok - an absent remote home retires only with the dispatcher's arguments and is never recreated
+ALL TESTS PASSED
+FM_TEST_END 2026-10-31T01:00:41Z tests/remote-project-coordinator-lifecycle-e2e.test.sh exit=0 duration_ms=472192 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:00:41Z tests/pi-branch-responsiveness-live-e2e.test.sh family=live-harness-optin expected_gate_skip=live-capability
+pi 1.4.0 keystroke echo, worst observed: floor 13.2 ms, extension idle 13.7 ms, extension delivering 22.6 ms
+ok - supervision outcome delivery keeps the real Pi 1.4.0 TUI echoing keystrokes at its unloaded floor
+FM_TEST_END 2026-10-31T01:00:52Z tests/pi-branch-responsiveness-live-e2e.test.sh exit=0 duration_ms=11089 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:00:52Z tests/remote-project-coordinator-trace-context.test.sh family=secondmate expected_gate_skip=none
+ok - disabled: a remote-routed second mate records and receives no carrier and stays enabled-off end to end
+ok - enabled: a remote-routed second mate receives one carrier in its pane, identical to the parent's recorded identity, before launch
+ok - relaunch: a remote-routed second mate keeps one stable identity across restarts
+ok - boundary: each remote-routed second mate roots its own trace and never adopts the spawning environment's carrier
+ok - allowlist: the remote receiver accepts exactly the declared inherited-material set, including the enablement flag
+ok - delivery: a parent-supplied carrier is accepted only for a secondmate launch and only as a strict W3C value
+ALL TESTS PASSED
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home-2/state/parent-route/ios2.git-hooks/pre-applypatch': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home-2/state/parent-route/ios2.git-hooks/commit-msg': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home-2/state/parent-route/ios2.git-hooks/pre-auto-gc': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home-2/state/parent-route/ios2.git-hooks/pre-rebase': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home-2/state/parent-route/ios2.git-hooks/post-commit': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home-2/state/parent-route/ios2.git-hooks/post-applypatch': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home-2/state/parent-route/ios2.git-hooks/pre-merge-commit': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home-2/state/parent-route/ios2.git-hooks/applypatch-msg': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home-2/state/parent-route/ios2.git-hooks/sendemail-validate': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home-2/state/parent-route/ios2.git-hooks/post-merge': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home-2/state/parent-route/ios2.git-hooks/pre-push': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home-2/state/parent-route/ios2.git-hooks/prepare-commit-msg': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home-2/state/parent-route/ios2.git-hooks/pre-commit': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home-2/state/parent-route/ios2.git-hooks/post-rewrite': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home-2/state/parent-route/ios2.git-hooks/post-checkout': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home/state/parent-route/ios.git-hooks/pre-applypatch': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home/state/parent-route/ios.git-hooks/commit-msg': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home/state/parent-route/ios.git-hooks/pre-auto-gc': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home/state/parent-route/ios.git-hooks/pre-rebase': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home/state/parent-route/ios.git-hooks/post-commit': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home/state/parent-route/ios.git-hooks/post-applypatch': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home/state/parent-route/ios.git-hooks/pre-merge-commit': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home/state/parent-route/ios.git-hooks/applypatch-msg': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home/state/parent-route/ios.git-hooks/sendemail-validate': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home/state/parent-route/ios.git-hooks/post-merge': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home/state/parent-route/ios.git-hooks/pre-push': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home/state/parent-route/ios.git-hooks/prepare-commit-msg': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home/state/parent-route/ios.git-hooks/pre-commit': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home/state/parent-route/ios.git-hooks/post-rewrite': Permission denied
+rm: cannot remove '/tmp/fm-remote-trace-context.UjN8XZ/remote-home/state/parent-route/ios.git-hooks/post-checkout': Permission denied
+FM_TEST_END 2026-10-31T01:02:56Z tests/remote-project-coordinator-trace-context.test.sh exit=0 duration_ms=124141 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:02:56Z tests/task-launch-compact-adviser-disable-remote.test.sh family=backend-dispatch expected_gate_skip=none
+ok - a remote-routed second mate starts with the compact adviser disabled, from the pane export and from the launch command alike
+ok - the remote route keeps the compact-adviser switch through the cleared allowlisted environment
+ALL TESTS PASSED
+rm: cannot remove '/tmp/fm-remote-compact-adviser.pv3OeW/remote-home/state/parent-route/ios.git-hooks/pre-applypatch': Permission denied
+rm: cannot remove '/tmp/fm-remote-compact-adviser.pv3OeW/remote-home/state/parent-route/ios.git-hooks/commit-msg': Permission denied
+rm: cannot remove '/tmp/fm-remote-compact-adviser.pv3OeW/remote-home/state/parent-route/ios.git-hooks/pre-auto-gc': Permission denied
+rm: cannot remove '/tmp/fm-remote-compact-adviser.pv3OeW/remote-home/state/parent-route/ios.git-hooks/pre-rebase': Permission denied
+rm: cannot remove '/tmp/fm-remote-compact-adviser.pv3OeW/remote-home/state/parent-route/ios.git-hooks/post-commit': Permission denied
+rm: cannot remove '/tmp/fm-remote-compact-adviser.pv3OeW/remote-home/state/parent-route/ios.git-hooks/post-applypatch': Permission denied
+rm: cannot remove '/tmp/fm-remote-compact-adviser.pv3OeW/remote-home/state/parent-route/ios.git-hooks/pre-merge-commit': Permission denied
+rm: cannot remove '/tmp/fm-remote-compact-adviser.pv3OeW/remote-home/state/parent-route/ios.git-hooks/applypatch-msg': Permission denied
+rm: cannot remove '/tmp/fm-remote-compact-adviser.pv3OeW/remote-home/state/parent-route/ios.git-hooks/sendemail-validate': Permission denied
+rm: cannot remove '/tmp/fm-remote-compact-adviser.pv3OeW/remote-home/state/parent-route/ios.git-hooks/post-merge': Permission denied
+rm: cannot remove '/tmp/fm-remote-compact-adviser.pv3OeW/remote-home/state/parent-route/ios.git-hooks/pre-push': Permission denied
+rm: cannot remove '/tmp/fm-remote-compact-adviser.pv3OeW/remote-home/state/parent-route/ios.git-hooks/prepare-commit-msg': Permission denied
+rm: cannot remove '/tmp/fm-remote-compact-adviser.pv3OeW/remote-home/state/parent-route/ios.git-hooks/pre-commit': Permission denied
+rm: cannot remove '/tmp/fm-remote-compact-adviser.pv3OeW/remote-home/state/parent-route/ios.git-hooks/post-rewrite': Permission denied
+rm: cannot remove '/tmp/fm-remote-compact-adviser.pv3OeW/remote-home/state/parent-route/ios.git-hooks/post-checkout': Permission denied
+FM_TEST_END 2026-10-31T01:03:58Z tests/task-launch-compact-adviser-disable-remote.test.sh exit=0 duration_ms=62188 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:03:58Z tests/project-coordinator-safety.test.sh family=secondmate expected_gate_skip=none
+ok - FM_HOME parameterizes data and state paths
+ok - fm-lock status is scoped per home
+ok - seed allows overlapping project clone lists and drops the owns/owner routing
+ok - home-seed validation rejects registry records no operational parser can consume
+ok - home seeding refuses broken registry symlinks before provisioning
+ok - home seeding refuses unreadable registries before provisioning
+ok - home seed validation rejects duplicate home routes
+ok - home seed validation rejects duplicate id routes
+ok - home seed validation rejects nested home routes
+leased worktree for dash
+ok - home seeding durably leases treehouse-acquired dash homes under the secondmate id
+ok - home seeding returns rejected acquired homes through treehouse
+ok - home seed rollback warns when treehouse-acquired return fails
+ok - home seeding leaves unsafe acquired active homes untouched
+ok - home seeding rolls back failed clone attempts without residue
+ok - home seeding refuses direct seed without filled charter text
+ok - home seeding refuses unfilled placeholder charters
+ok - home seeding refuses empty normalized charter fields
+ok - home seeding scaffolds, registers, and spawns a project-less home end to end
+ok - secondmate spawn resolves home validation and projects from punctuated registry fields
+ok - secondmate spawn refuses ambiguous, supplied-home, and metadata-home registry bindings
+ok - home seeding validates reused project-less charters before mutation
+ok - home seeding refuses project-less conversion of a populated home
+ok - home seeding handles spaced project names in project-less refusal and registry queries
+ok - home seeding refuses project-less homes whose projects directory cannot be inspected
+ok - home seeding refuses project-less homes with symlinked projects directories
+ok - home seeding refuses project-less homes with non-directory projects paths
+ok - home seeding refuses project-less homes whose project registry cannot be inspected
+ok - home seeding fails loudly on accidental project omission and rejects mixed --no-projects
+ok - home seeding refuses local-only projects
+ok - home seeding refuses a registry entry whose posture does not resolve
+ok - home seeding refuses registry delimiter home paths
+ok - home seeding refuses active home and repo root
+ok - home seeding refuses homes marked for another id
+ok - home seeding refuses homes registered to another id
+ok - home seeding refuses same-id reassignment to a different home
+ok - home seeding refuses registered home overlaps
+ok - remote-backed subhome seeding requires a source origin
+ok - remote-backed subhome seeding validates existing destination origins
+ok - home seeding resolves relative source origins against the source project
+ok - home seeding skips initialized existing no-mistakes clones
+ok - home seeding refuses uninitialized existing no-mistakes clones
+ok - home seeding refuses project destinations outside the subhome
+ok - home seeding refuses operational directories outside the subhome
+ok - home seeding refuses symlinked and non-regular leaf files
+ok - home reseeding preserves and enforces the durable parent binding
+ok - secondmate spawn validates homes before launch
+ok - secondmate spawn refuses operational directories outside the subhome
+ok - fm-send refuses a bare firstmate window with no metadata in this home
+ok - secondmate teardown retires empty homes and releases routing
+ok - the supervision branch cannot retire a secondmate and leaves it fully intact
+ok - secondmate teardown refuses ambiguous and identity-mismatched registry bindings
+ok - normal secondmate teardown sweeps process events before removal
+ok - secondmate teardown preserves state when process-event sweeping is unavailable
+ok - later teardown refusals preserve active process-event sources
+ok - force teardown sweeps nested secondmate homes before deletion
+ok - force teardown preserves nested process-event restoration status and recovery state
+ok - secondmate teardown refuses to hide failed leased-home return
+ok - secondmate teardown raw-removes plain-clone homes, including a leaked read-only strip dir
+ok - secondmate force teardown discards child work
+ok - forced secondmate teardown refuses duplicated descendant pool slots
+ok - secondmate force teardown preserves child worktree after unproven lock refusal
+ok - force teardown allows non-state operational directory symlinks inside the subhome
+ok - force teardown refuses operational directory symlinks outside the subhome
+ok - secondmate teardown refuses homes containing registered nested homes
+ok - secondmate teardown refuses nested homes from the child registry
+ok - force teardown validates subhome before child cleanup
+ok - forced teardown refuses a non-directory descendant state path
+ok - forced teardown refuses a symlinked descendant state path
+ok - forced teardown locks a descendant whose state directory was absent
+ok - forced teardown refuses while a fresh task is being published in the home
+ok - a fresh spawn refuses to publish while a forced teardown owns the task set
+ok - a fresh spawn refusal identifies another spawn as the task-set holder
+ok - a fresh remote secondmate spawn refuses while the task set is owned
+ok - force teardown refuses child worktrees inside the active home
+ok - force teardown refuses child worktrees inside the firstmate repo
+ok - force teardown refuses unregistered child worktree paths
+ok - secondmate teardown path-boundary matrix refuses unmarked/ancestor/active-descendant/repo-descendant homes
+ok - idle kind=secondmate pane is healthy and not stale
+ok - secondmate charter brief is idle by default and does not self-initiate work
+ok - fm-backlog-handoff aborts atomically on unmatched, in-flight, and unregistered targets
+ok - fm-backlog-handoff refuses Done items under whitespace section headings and unsafe homes
+FM_TEST_END 2026-10-31T01:04:41Z tests/project-coordinator-safety.test.sh exit=0 duration_ms=42868 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:04:41Z tests/worker-account.test.sh family=backend-dispatch expected_gate_skip=none
+ok - Claude, Pi, and pi-signed secondmates use their own pins without changing other launches
+warning: re-init: ignored --initial-branch=main
+warning: re-init: ignored --initial-branch=main
+warning: re-init: ignored --initial-branch=main
+warning: re-init: ignored --initial-branch=main
+warning: re-init: ignored --initial-branch=main
+warning: re-init: ignored --initial-branch=main
+warning: re-init: ignored --initial-branch=main
+warning: re-init: ignored --initial-branch=main
+warning: re-init: ignored --initial-branch=main
+warning: re-init: ignored --initial-branch=main
+ok - unusable per-mate pins name the setting and refuse rather than use the primary's usable account
+ok - a remote route refuses a primary-side account override instead of silently ignoring it
+ok - an absent pin leaves Claude and Pi launches exactly as they were
+ok - a Claude pin selects its root and sheds the credentials that would outrank it
+ok - a Claude pin refuses a signed-out root even when the invoking process has a usable login and API key
+ok - an ordinary Claude pin selects the default login and drops an ambient root
+ok - malformed, relative, CR-terminated, empty, extra-line, missing-root, and non-file pins refuse before launch
+ok - a Pi pin selects its root and passes the declared provider
+ok - a Pi pin refuses unqualified, missing, undeclared, signed-out, and raw launches
+ok - extension providers and a Pi without auth check fall back to an exact model-listing match
+ok - a Claude pin leaves codex and Pi launches unchanged
+ok - a raw Claude launch command receives the home's pin
+ok - a pinned home refuses a raw Claude command that overrides the account
+ok - an unpinned home keeps a raw Claude account override
+ok - a local secondmate reads the launching home's pin and its own home's file is never inherited over
+# all fm-worker-account tests passed
+FM_TEST_END 2026-10-31T01:05:40Z tests/worker-account.test.sh exit=0 duration_ms=58610 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:05:40Z tests/project-coordinator-harness.test.sh family=secondmate expected_gate_skip=none
+ok - A1 agent-runtime.sh secondmate resolves the fallback chain; crew mode unchanged
+ok - fm-harness detects only Cursor Agent CLI's exact invocation marker
+ok - C1 agent-runtime.sh secondmate-model/secondmate-effort resolve the optional tokens; bare harness stays empty (backward-compat)
+ok - D1 agent-runtime.sh honors a mate override line for its id and changes nothing else
+ok - D2 malformed config/secondmate-harness refuses with its line number on every read verb
+ok - D3 a config/secondmate-harness that declares no mate line is never refused
+ok - pi-signed identity: authoritative launch selection distinguishes shared wrapper ancestry
+ok - harness identity: dash-leading ps command names are basename operands, not options
+ok - B1 propagate_inheritable_config: copy, idempotence, convergence, absence-mirror, exclusion, no-op, skip diagnostics
+ok - B2 spawn: secondmate runs the secondmate harness; its home inherits declared config
+ok - B3 spawn: an absent secondmate-harness falls back to the crew harness (backward-compat)
+ok - B4 spawn: no config at all -> own harness and no propagation side effects
+ok - B5 spawn: an explicit per-spawn harness arg overrides config/secondmate-harness
+ok - B6 spawn: an unverified resolved secondmate harness is refused (guard intact)
+skip: cursor executable not resolvable in this environment, so the launch could not be built
+ok - B5b spawn: FM_BACKEND wins over inherited config/backend
+ok - B5c spawn: explicit --backend wins over FM_BACKEND and inherited config/backend
+ok - C2 spawn: a bare harness-only secondmate-harness file launches with no model/effort flag (backward-compat)
+ok - C3 spawn: config/secondmate-harness's model token threads --model into the launch and meta
+ok - C4 spawn: config/secondmate-harness's model+effort tokens thread into the launch and meta
+ok - C10 spawn: a legacy secondmate-harness file still launches on its first line (opt-in scope)
+ok - C11 spawn: a declared pin file that is malformed refuses the spawn with its line number
+ok - C5 spawn: an explicit --model overrides config/secondmate-harness's model token; the file's effort token still applies
+ok - C6 spawn: an explicit --effort overrides config/secondmate-harness's effort token; the file's model token still applies
+ok - C7 spawn: an explicit --harness starts with clean model/effort defaults
+ok - C8 spawn: an explicit --harness still honors explicit model/effort flags
+ok - C9 spawn: secondmate launch pins supervision to its own harness
+ok - C9 spawn: the harness fallback chain still resolves with no tokens; crew/scout launches are unaffected by this feature
+ok - B7 bootstrap sweep pushes, re-converges, and mirrors absence; never inherits secondmate-harness
+ok - B8 bootstrap sweep propagates config even when the home's tracked files are already current
+ok - B9 bootstrap sweep defers new inherited config until the home ignores it
+ok - B10 bootstrap sweep materializes and inherits the startup-memory default while fast-forwarding
+ok - B12b backend inheritance: present values and primary absence converge exactly
+ok - C2b spawn: config/claude-permission-mode=auto reaches a Claude secondmate launch
+ok - claude secondmate launches cover the parent-home steering inbox in auto and bypass modes
+ok - B12c approval modes follow primary values and primary absence
+ok - B12c presentation inheritance: the primary default converges on, and only an explicit opt-out propagates off
+ok - B11 bootstrap sweep surfaces config propagation failures
+ok - B11 bootstrap rereads completed config writes after partial propagation
+ok - B12 config-push propagates via shared live discovery, reports items, rereads on change only, and does not fast-forward
+ok - B13 config-push reports dirty, non-allowing, and invalid homes without failing warnings-only runs
+ok - B14 config-push exits nonzero on real propagation errors
+ok - B14 config-push rereads completed config writes after partial propagation
+ok - B15 config reread is per-home, exact-byte, ordered, and pointer-only
+ok - B16 config reread isolation, ABSENT, generation safety, send failure, and retry
+ok - B20 config reread publication failures retain exact generations for retry
+ok - B21 config reread instruction-write failures retain exact retry generations
+ok - B21 config reread preserves exact bytes when temporary adoption also fails
+ok - B21 config reread serializes concurrent propagation and delivery
+ok - B22 full config reread retry queues drain before new publication
+ok - B23 mixed config reread delivery failures still bound sent history
+ok - B26 config reread delivery stops after the oldest failed generation
+ok - B17 config reread skips unchanged homes and reads destination post-write bytes
+ok - B18 bootstrap config reread path works; spawn flexibility remains defaults-only
+ok - B19 bootstrap respawns before inherited-config reread
+ok - B25 spawn quarantines stale rereads without blocking relaunch
+ok - B24 bootstrap detect-only mode remains filesystem read-only
+# all fm-secondmate-harness tests passed
+FM_TEST_END 2026-10-31T01:08:02Z tests/project-coordinator-harness.test.sh exit=0 duration_ms=141972 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:08:02Z tests/runtime-backend-t3code.test.sh family=backend-dispatch expected_gate_skip=none
+fm-afk-launch: away-posture record archived at /tmp/fm-backend-t3code-tests.hod1nj/restart-unknown-completed/home/state/afk-contracts/1793408882.afk-contract
+fm-afk-launch: away mode stopped; no daemon terminal was running, .afk cleared, and the posture record archived
+fm-afk-launch: away-posture record archived at /tmp/fm-backend-t3code-tests.hod1nj/restart-unknown-failed/home/state/afk-contracts/1793408884.afk-contract
+fm-afk-launch: away mode stopped; no daemon terminal was running, .afk cleared, and the posture record archived
+ok - native restart re-arms discarded T3 stale warnings exactly once and preserves delivered suppression
+ok - away housekeeping preserves unknown stale rechecks and reports possible wedges until work resumes
+ok - away daemon on T3: a stall reported while unknown is not reported again once T3 reads idle
+ok - T3 stale watcher: harness=codex status=failed turn=fresh -> dead
+ok - t3code: a failed thread read reports unknown busy state, submits no away-mode injection, and keeps stale rechecks uncertain
+ok - T3 stale lookup honors paused and captain-held declarations
+ok - T3 stale watcher: harness=codex status=running turn=fresh -> absorb
+ok - T3 stale watcher: harness=claude status=running turn=fresh -> absorb
+ok - T3 stale watcher: harness=codex status=waiting turn=fresh -> absorb
+ok - T3 stale watcher: harness=codex status=starting turn=fresh -> surface
+ok - T3 stale watcher: harness=codex status=completed turn=fresh -> surface
+ok - T3 stale watcher: harness=codex status=failed turn=fresh -> dead
+ok - T3 stale watcher: harness=codex status=running turn=hung -> surface
+ok - runtime_backend_t3code_runtime_check: a missing credential names the sign-in
+ok - runtime_backend_t3code_runtime_check: a 401 names the fresh sign-in
+warning: T3 telemetry at http://127.0.0.1:35005 is on; run the server that hosts Firstmate workers with T3CODE_TELEMETRY_ENABLED=false (docs/t3code-backend.md)
+ok - runtime_backend_t3code_runtime_check: the tools/list gate and environment pin refuse control and teardown without a mutation
+ok - runtime_backend_t3code_project_ensure: matches by realpath, otherwise creates with the fm- title
+ok - runtime_backend_t3code_model_selection: T3's catalog decides driver, model, and effort; overrides keep other options; default handling, instances file
+ok - runtime_backend_t3code_thread_create/turn_start: verified t3_thread_launch and t3_thread_send payloads
+ok - runtime_backend_t3code_thread_create: a lost reply is uncertain and never retried; a mis-bound thread is archived and refused
+ok - runtime_backend_t3code_thread_for_home: zero, one, ambiguous, and unreachable
+ok - T3 requires explicit selection and does not query the server during runtime detection
+ok - runtime_backend_t3code_capture: renders the activity tail and the thread's status line
+ok - runtime_backend_t3code_send_key: Escape and C-c interrupt, Enter no-ops, others refuse
+ok - runtime_backend_t3code_send_text_submit: empty on accept, send-failed on rejection
+ok - t3code send: a reply lost after commit is unconfirmed through the adapter and fm-send, and the resend lands once
+ok - t3code send: a held request id stays unconfirmed when the next attempt fails locally, and the retry lands once
+ok - t3code send: a lost reply to a secondmate names its armed correlation instead of advising a resend
+ok - t3code status table: every V2 thread status, a pending request, archived, archived-but-draining, missing, unreachable, and unreadable rows
+ok - t3code push wait: a pending question wakes the supervisor once with how to answer it, approvals are named apart, and answering clears it
+ok - t3code-answer.sh: lists a T3 worker's pending questions and answers one by request id
+ok - secondmate liveness backend=t3code: a failed run is resumed on its own thread, never archived and replaced
+ok - secondmate liveness backend=t3code: a missing thread re-proves its archive before replacement, and an unproved close spawns nothing
+ok - away daemon on T3: an unconfirmed digest is frozen and retried verbatim; a later event goes in the next digest, each event once
+ok - away daemon on T3: a delivered frozen digest leaves the items behind it with the first one's undelivered age
+ok - away daemon on T3: a supervisor thread waiting on a pending request defers digests until it is answered
+ok - t3code helper: runs through a symlinked Firstmate root, and a kill that cannot read the thread fails closed
+ok - secondmate liveness backend=t3code: an archived thread whose run still drains is left in place, not replaced
+ok - runtime_backend_t3code_kill: interrupt then archive with a proven close, idempotent on archived and missing, loud on failure
+ok - fm-backend dispatcher: routes every t3code primitive, validates and resolves t3_thread_id records, and joins the push wait
+ok - T3 harness admission refuses every non-T3 adapter and launch-time typing refuses without a thread read
+ok - agent_activity_classify: t3code native busy, idle, and unknown are trusted without a record
+ok - fm-control-lib: t3code key set, state-verified, no-exit, and no-replacement membership
+ok - agent-control.sh backend=t3code: exit refuses before any call (V2 has no session stop); interrupt ends the turn natively
+ok - agent-control.sh relaunch backend=t3code: refused before anything is stopped, by the control plane and by the launch owner
+ok - task-launch.sh --backend t3code: leases the slot, launches the thread on it, records metadata, sends the launch brief
+ok - t3code Claude PR-tool clause: dropped only at or past the verified T3 build, kept for older or unreadable servers
+ok - codex-cli 0.159.3: project config retained; shell FM_TASK_ID=t3codextrk2053c37853
+ok - task-launch.sh backend=t3code: compatible tracked Codex config launches, stays out of commits, and survives cleanup
+ok - tracked Codex overlay: edited files survive refusal, interrupted restoration recovers, quoted and dotted policy keys refuse
+ok - task-launch.sh --backend t3code codex: refuses to overwrite a project's tracked .codex/config.toml before any mutation
+ok - task-launch.sh --backend t3code claude: refuses to overwrite a project's tracked CLAUDE.local.md before any mutation
+ok - Claude channel refuses a symlink in the leased worktree without following it
+ok - untracked Codex config is preserved unless Firstmate's marker owns it
+ok - t3code-codex-env.sh cleanup: without an installed overlay it needs no Python and never refuses
+ok - task-launch.sh --backend t3code codex: an untracked Codex config in the main checkout does not refuse a worker
+ok - task-launch.sh --backend t3code codex: writes .codex/config.toml with GOTMPDIR, FM_TASK_ID, and TRACEPARENT
+ok - task-launch.sh --backend t3code codex: warns once, and still launches, unless the Codex configuration trusts the launch directory's main checkout
+ok - task-launch.sh --backend t3code --secondmate: project on the home, root-strategy thread, charter message, launch prefix as settings env
+ok - task-launch.sh --backend t3code --secondmate codex: launch prefix as .codex/config.toml shell_environment_policy
+ok - task-launch.sh --backend t3code: refuses before mutation when the credential is rejected
+ok - task-cleanup.sh backend=t3code: interrupts and archives the thread with a proven close, then returns the slot
+ok - task-cleanup.sh backend=t3code secondmate: interrupts and archives, then ends the home's lingering provider process before the home is removed; an unprovable scan keeps the home
+ok - task-cleanup.sh backend=t3code secondmate: interrupts and archives, then ends the home's lingering provider process before the home is removed; an unprovable scan keeps the home
+ok - task-cleanup.sh backend=t3code pooled secondmate: the slot returns only after the provider ended, without the T3 environment the spawn wrote
+ok - task-cleanup.sh backend=t3code: an unreachable or gate-refused server keeps the slot a live thread still points at
+ok - task-launch.sh --backend t3code claude: refuses config/claude-permission-mode=auto it cannot honor before any mutation
+ok - task-launch.sh --backend t3code codex: refuses config/codex-approval-mode=approve-for-me it cannot honor before any mutation
+ok - task-launch.sh --backend t3code codex: refuses config/codex-permission-mode=restricted it cannot honor before any mutation
+ok - task-launch.sh --backend t3code codex: config/codex-approval-mode=bypass still launches
+ok - task-launch.sh --backend t3code claude: refuses config/launch-env-allowlist=HOME it cannot honor before any mutation
+ok - task-launch.sh --backend t3code: refuses a raw launch command before any mutation
+ok - task-launch.sh --backend t3code: an abort archives the thread, then returns the lease
+ok - task-launch.sh --backend t3code: an abort that cannot archive the thread keeps the lease
+ok - task-launch.sh --backend t3code: a launch whose response was lost keeps the lease
+ok - task-launch.sh --backend t3code: inherited Git config values never reach the env file, which carries only Firstmate's hook entry
+ok - task-launch.sh --backend t3code --secondmate: a symlinked .claude/settings.local.json is refused, never written through
+ok - task-launch.sh --backend t3code: a gate failure before the launch request returns the lease
+ok - task-launch.sh --backend t3code: a refused launch turn archives the thread, removes its environment files, then returns the lease
+ok - task-launch.sh --backend t3code: a thread T3 bound elsewhere is archived and the lease returned
+ok - task-launch.sh --backend t3code: a leased slot holding uncommitted work gets no thread and keeps its lease
+ok - task-launch.sh --backend t3code: a clean leased slot whose refresh fails gets no thread and is returned
+ok - task-launch.sh --backend t3code --secondmate: an aborted spawn archives its thread, then removes the T3 environment it wrote into the home
+ok - task-cleanup.sh backend=t3code: a nested T3 secondmate's home is reaped before it is removed
+ok - task-launch.sh --backend t3code: a launch brief whose reply is lost is reported unconfirmed and keeps its task record
+ok - task-launch.sh --backend t3code: a lease the isolation guard rejects is neither cleaned nor returned
+ok - task-cleanup.sh backend=t3code: a tracked CLAUDE.local.md stays in the slot
+ok - t3code push wait: a fractional poll interval runs the event wait with its budget in milliseconds
+ok - away housekeeping clears the stale marker it rechecked when two records share an endpoint
+FM_TEST_END 2026-10-31T01:11:00Z tests/runtime-backend-t3code.test.sh exit=0 duration_ms=178696 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:11:00Z tests/pending-reply.test.sh family=standalone expected_gate_skip=none
+ok - normal correlated reply resolves once (idempotent)
+ok - completed turn with no report triggers exactly one recovery
+ok - recovery never pokes a mate waiting on its own decision, and runs once it closes
+ok - recovery sends during an open decision when config/wait-no-turns is absent
+ok - recovery grace is measured from the request turn's completion, not delivery
+ok - one fresh status read immediately before firing catches a just-landed reply, any verb
+ok - a resolve that fails after committing resolved still blocks repost and escalation
+ok - missed-report escalation grace is measured from the recovery turn's completion
+ok - recovery attempts reconcile without reinjection
+ok - recovery reply resolves the original expectation
+ok - second missed turn escalates once and remains durable
+ok - escalations and replies wake; the home's own escalation close stays quiet
+ok - failed escalation publication remains retryable and publishes once
+ok - legacy escalation closes under the shared default key
+ok - legacy escalation cannot close an unrelated default-key decision
+ok - foreign correlated blocker cannot impersonate a pending-reply escalation
+ok - concurrent resolution closes one keyed escalation exactly once
+ok - concurrent escalation yields to a late correlated reply
+ok - transport success cannot masquerade as reply success
+ok - undelivered records remain immutable across scan paths
+ok - delivery confirmation fallback reconciles durably
+ok - delivery confirmation serializes with reconciliation
+ok - unrelated events and stale correlation ids cannot resolve
+ok - another mate's echoed token cannot resolve a request
+ok - restart preserves expectation and exact parent destination
+ok - wrong-home reports are detected but do not silently acknowledge
+ok - direct unmarked captain input creates no expectation
+ok - fm-send marked secondmate path creates pending and embeds corr
+ok - status-pointed document resolves the expectation
+ok - optional helper report resolves without being required for correctness
+ok - backend busy/idle observation covers Pi/Claude paths without conversation scrape
+ok - tmux and zellij unknown states use bounded capture fallback
+ok - pending replies scope Kimi capture fallback by recorded harness
+ok - tick skips terminal records and reuses target observations
+ok - the tick leaves settled records alone and still does the selected records' work
+ok - correlations are reused only for matching open task records
+ok - tick end-to-end: miss -> one recovery -> escalate -> durable
+ok - failed transport discards undelivered expectation only
+ok - a remote repost waits for the reply channel and still fires on a real miss
+ok - a mirrored correlated remote reply resolves without any repost
+ok - same-basename self-home corr= is restated onto the parent channel and resolves
+ok - same-basename reply resolves at the recovery failure boundary
+ok - a child-file mate-home sighting is not copied and still escalates
+ok - mechanical helper writes the parent channel from verb, corr, and note
+ok - remote parent-replies.status is not classified as wrong-home
+ok - local parent-replies.status remains wrong-home evidence
+ok - an escalated correlation stays retryable only while undelivered
+ok - a same-kind escalation after an operator close opens the decision again
+ok - the summary keeps accented letters, drops control characters, and caps by character
+ok - all pending-reply tests passed
+FM_TEST_END 2026-10-31T01:11:30Z tests/pending-reply.test.sh exit=0 duration_ms=29959 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:11:30Z tests/test-fixtures.test.sh family=standalone expected_gate_skip=none
+ok - runner and shared helpers isolate host Git config and preserve explicit config and outside commits
+ok - shared helpers and runner keep fixture Git off an inherited repository location
+ok - agent stand-in: a multicall sleep is refused, and the compiled stand-in survives a harness name
+ok - touch_epoch preserves both epochs in the repeated DST hour
+ok - fake no-mistakes --version is the shared constant and overridable
+ok - init/doctor no-mistakes stub touches markers and refuses other verbs
+ok - fake gh authenticates and fake gh-axi reports the shared version
+ok - spawn fakebin answers pane path, logs -l payloads, and installs extra tools
+ok - send stubs log typed text and fake ssh records argv with a controllable exit
+ok - spawn-home layout writes harness pin, beat, and brief
+FM_TEST_END 2026-10-31T01:12:01Z tests/test-fixtures.test.sh exit=0 duration_ms=30514 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:12:01Z tests/test-run.test.sh family=pure-contract-unit expected_gate_skip=none
+ok - exact suite coverage: --all lists every tests/*.test.sh once
+ok - family selection returns a proper subset of the suite
+ok - single-script selection lists exactly that path
+ok - changed-file selection stays conservative (never silent full suite)
+ok - a task marker refuses execution in the primary checkout and leaves worktrees and inspection alone
+ok - runner and its documentation surfaces select their curated family, not just their contract owners
+ok - shell line-ending policy selects runner coverage
+fm-test-run: no tests selected for changes vs HEAD (map is conservative; use --all for the complete suite)
+ok - changed selection covers dependents, fails closed for live unmapped source, and accepts retired unconsumed source
+ok - a bin reference selects the referencing scripts, and consumers still select their curated families
+ok - changed defaults to bounded automatic scheduling with serial override
+ok - Windows emulation exempts only synthetic POSIX modes
+ok - a plain script list defaults to bounded automatic concurrency without an automatic timeout
+ok - family proofs run concurrently only within separate family phases
+ok - empty changed selection emits deterministic text and JSON summaries
+ok - timing markers and JSON artifact are valid
+ok - aggregate exit reflects any script failure
+ok - gate-skip accounting is honest and non-failing
+ok - a gate skip records why it skipped
+ok - a script that actually ran records no skip reason
+ok - live guards are recorded as a capability class, not a bare env opt-in
+ok - fail-on-gate-skip converts herdr-not-found into a hard failure
+ok - exclude-family drops the named primary family after selection
+ok - fm-test-run: family tern selects the tern suite and smoke test, and the lane coverage guard accepts them
+ok - proven-isolated scheduling ignores parallel hints
+ok - family, all, changed, and script selections ignore parallel hints
+ok - portable shard union, disjointness, and coverage guard hold
+ok - portable parallel lanes are fully hinted and packed within 5% of each other
+ok - portable serial shards are a deterministic disjoint cover of the serial lane
+ok - coverage guard bounds the unmeasured share and serial packing within twenty minutes
+ok - serial packing accepts the exact budget and refuses one millisecond above it
+ok - portable serial shard lanes refuse mismatched, out-of-range, and countless names
+ok - --jobs refuses non-proven / stateful selections
+ok - --jobs admits and schedules a family with a recorded concurrent proof
+ok - an unclassified new test stays serial while the proven residual family runs concurrently
+ok - a changed shared test fixture selects its readers while an unread tests/ path still refuses
+ok - a changed T3 fake or adapter selects the suites that read it beyond backend-dispatch
+ok - a concurrent run starts the longest-hint script first
+ok - --per-script-timeout-secs turns a hung script into a bounded failure
+ok - the automatic --changed bound gives the slow watcher suite at least 1500s
+ok - --max-wall-ms fails an over-budget run and refuses a malformed budget
+ok - jobs scheduler runs proven scripts; failure propagates; non-proven refused
+ok - Herdr CI family-run step times out at 20 min under a 75 min job backstop
+ok - aggregate-json merges lane timing artifacts
+FM_TEST_END 2026-10-31T01:15:28Z tests/test-run.test.sh exit=0 duration_ms=207533 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:15:28Z tests/test-isolation-proof.test.sh family=pure-contract-unit expected_gate_skip=none
+ok - unknown candidate pools are refused
+ok - family pool JSON scopes jobs admission to proven concurrency
+ok - candidate --list is non-empty, sorted, unique, and real
+ok - serial classes remain excluded from the parallel candidate set
+ok - audited fake-backend and stub-network extras are candidates
+ok - exclusion list documents serial reasons
+ok - isolation-proof contract test is family-mapped
+ok - parallel shards consume the proven-isolated set only
+ok - fixture repositories pin their initial branch to main
+FM_TEST_END 2026-10-31T01:15:30Z tests/test-isolation-proof.test.sh exit=0 duration_ms=2166 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:15:31Z tests/kimi-harness.test.sh family=pure-contract-unit expected_gate_skip=none
+ok - Kimi hook install is idempotent and removal restores every foreign config byte
+ok - Kimi hook removal preserves owned newline boundaries and pristine bytes
+ok - Kimi hook install refuses missing, malformed, and surprising config without writing
+ok - Kimi hook install refuses without jq before any config write
+ok - fm-spawn: kimi launches, delivers its brief, and registers a guarded turn-end token
+ok - fm-spawn: unsafe task roots are refused, owned roots are tightened, and launch files stay unique and 0600
+ok - Kimi hook stays silent and inert without a Firstmate registry token
+ok - fm-spawn: unsafe Kimi global config refuses before pane creation
+ok - fm-teardown: Kimi task pointer and registry token are removed
+ok - fm-spawn: Kimi fallback expands the active HOME
+ok - fm-spawn: missing Kimi executable refuses before pane creation
+ok - fm-spawn: kimi treats a silent pointer drop as a failed spawn
+ok - fm-spawn: kimi never sends the brief pointer before an observable ready signal
+ok - fm-spawn: a fresh Kimi worktree answers the exact trust dialog once and verifies advancement
+ok - fm-spawn: a swallowed Kimi trust keypress is re-sent until the dialog clears
+ok - fm-spawn: a Kimi banner captured before the trust dialog paints does not read as ready
+ok - fm-spawn: an answered Kimi trust dialog left in scrollback neither re-answers nor fails the spawn
+ok - fm-spawn: a blank Kimi viewport frame costs its poll and nothing else
+ok - fm-spawn: Kimi refuses a backend that cannot read the viewport, before launching
+ok - fm-spawn: a Kimi trust dialog with its hint wrapped across rows is answered normally
+ok - fm-spawn: a blank Kimi frame between banners restarts the two-capture ready count
+ok - fm-spawn: a failed Kimi viewport read fails readiness with the backend named
+ok - fm-spawn: Kimi refuses the ready verdict while trust dialog markers remain
+ok - fm-spawn: a Kimi trust dialog must visibly clear before brief delivery
+ok - fm-spawn: Kimi trust detection requires every observed dialog signal
+ok - fm-harness: markerless kimi keeps its ancestry identity under an inherited marker
+lock acquired: harness pid 17924
+ok - fm-lock recognizes Kimi ancestry and live lock holders
+ok - busy detection: real Kimi moon-plus-middot captures require its harness while idle labels stay idle
+ok - fm-watch classifies Kimi as unknown rather than from its spinner, and Grok's fallback stays isolated
+ok - composer classifier: kimi's existing bordered > shape is already safe without an override
+ok - fm-spawn: the recorded Kimi 2.3.0 prompt with no project servers is answered once and the brief is delivered
+ok - fm-spawn: a recorded Kimi 2.3.0 prompt announcing a root .mcp.json server receives no key and reports why
+ok - fm-spawn: a recorded Kimi 2.3.0 prompt announcing a .kimi-code/mcp.json server receives no key and reports why
+ok - fm-spawn: a recorded Kimi 2.3.0 prompt collapsed to its title receives no key and reports that it is not ready
+ok - fm-spawn: a recorded Kimi 2.3.0 prompt that pages its disclosure receives no key, because the announcement can sit on a hidden page
+FM_TEST_END 2026-10-31T01:16:36Z tests/kimi-harness.test.sh exit=0 duration_ms=65202 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:16:36Z tests/watcher-lock.test.sh family=watcher-wake-lock expected_gate_skip=none
+ok - disposable watcher refuses inherited state outside its marked lab
+ok - tombstone cleanup respects a live reaper and recovers a recycled reaper pid
+ok - wait deadline diagnoses and reaps a stopped test child without hanging
+ok - simultaneous watcher starts leave exactly one live process
+ok - pid_identity real ps fallback is locale-invariant
+ok - pid_identity is locale-invariant across LC_ALL/LC_TIME
+ok - pid_identity ps fallback is terminal-width-invariant
+ok - /proc process identity ignores simulated btime changes
+ok - /proc process identity detects pid reuse
+ok - MSYS /proc process identity regression skipped on non-Windows host
+ok - killed watcher stale lock is reclaimed
+tests/watcher-lock.test.sh: line 1933: 25048 Killed                  FM_STATE_OVERRIDE="$state" bash -c '
+    . "$1"
+    lock_remove_path() {
+      if [ "$1" = "$STATE/.watch.lock" ]; then
+        kill -KILL "${BASHPID:-$$}"
+      fi
+      return 1
+    }
+    lock_try_acquire "$2"
+  ' _ "$LIB" "$lockdir" > /dev/null 2>&1
+ok - stale watcher reclaim publishes durable recovery evidence before clear
+ok - live watcher lock with stale heartbeat is actionable
+ok - live watcher lock with a beacon past the hard bound is replaced, under it is still refused
+ok - a fresh watcher replaces a live holder whose pre-UTC-pin identity no longer recomputes, and the old holder stands down unsignalled
+ok - a replaced holder stands down cleanly even when its successor has already exited and released the lock
+ok - guard banner leads when down with pending wakes (repair-after-drain) and stays silent when live and fresh
+ok - concurrent lock_try_acquire yields exactly one winner
+ok - dead-pid stale lock is reclaimed by a single acquirer
+ok - concurrent stale-lock steal yields exactly one winner
+ok - dead steal owner is reclaimed once without a nested steal marker
+ok - dead nested steal chain from an interrupted reclaim is recovered
+ok - a competing reaper cannot remove the successor's steal mutex
+ok - a steal mutex abandoned by this process does not block its own reclaim
+ok - a steal reap interrupted in this process is resumed from its own tombstone
+ok - live steal mutex is not reclaimed
+ok - live-held lock is not stolen
+ok - lock whose recorded holder pid was reused by a live process is reclaimed
+ok - live holder matching its recorded start time keeps its lock
+ok - lock whose recorded identity no longer recomputes is reclaimed without signalling its pid; a matching or unrecorded identity stays held
+ok - live supervise-daemon lock with a stale local-time identity and no start time is not reclaimed
+ok - empty mid-acquire lock keeps a minimum grace
+ok - late original claimant cannot claim a recreated lock
+ok - paused mid-acquire claimant backs off to active stealer
+ok - watch restart preserves recovery without signaling a reused pid
+ok - watch restart attaches to a verified healthy peer and later surfaces a successor gap
+ok - watcher self-evicts when the lock pid no longer names it
+ok - watcher exits 1 with its reason when its state directory is torn down and recreated during startup
+ok - arm turns clean self-eviction without a successor into a typed failure
+ok - arm attaches to a live fresh watcher and fails loudly when that cycle has no successor
+ok - attached arm signals record a classified lifecycle entry
+ok - arm starts cleanly and resurfaces recovery after a dead-pid lock
+ok - arm cleans child watcher and temp output on HUP
+ok - arm defers TERM until startup watcher can run its lock cleanup
+ok - arm TERM stops a startup watcher that never becomes cleanup-ready
+WAKE_ACK_REQUIRED: after handling completes run bin/supervision-events-drain.sh --ack-through 1 --recovery-generation 9788.1793409438.sftd7h
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 registered custom check(s), but no live watcher process holds this home lock (last beat: 1s ago).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  After draining queued wakes, repair a missing or failed watcher cycle with the Pi tool fm_watch_arm_pi, or restart Pi with -e /tmp/fm-wake-tangle-root.MEV6bk/.pi/extensions/coordinator-turn-end-guard.ts -e /tmp/fm-wake-tangle-root.MEV6bk/.pi/extensions/coordinator-supervision-watch.ts if the extensions are not loaded.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WARNING: queued wakes pending - drain them with bin/supervision-events-drain.sh before anything else.
+ok - arm propagates an immediate watcher wake before confirmation
+ok - arm attaches to a peer watcher after child stands down and surfaces a missing successor
+watcher: lock held by live pid 12028 but heartbeat is stale for 846706650s (>300s); inspect or stop that watcher before re-arming.
+ok - arm reports FAILED and exits non-zero when no fresh watcher can be confirmed
+ok - cycle-exit ledger links a verified successor and remains size-capped
+ok - SIGSTOP distinguishes live PID from stale beacon and termination records the exit class
+FM_TEST_END 2026-10-31T01:17:43Z tests/watcher-lock.test.sh exit=0 duration_ms=67675 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:17:43Z tests/project-coordinator-sync.test.sh family=secondmate expected_gate_skip=none
+ok - T1 updated: a behind home fast-forwards to the primary's local HEAD
+ok - T2 current: an already-current home is a no-op and reports no instruction change
+ok - T3 dirty: an uncommitted home is skipped, its edit preserved
+ok - scratchpad2/ does not mark a secondmate home dirty for the sync guard
+ok - T4 diverged: a home that is not an ancestor of the primary's HEAD is skipped
+ok - T5 in-flight: a home on a feature branch is skipped, its work preserved
+ok - T6 no fetch: the local-HEAD sync never invokes git fetch
+ok - T7 sweep nudges on a real instruction change only, but still fast-forwards
+ok - T8 bootstrap sweeps live homes and sends exactly one marked nudge for the instruction change
+ok - T8a bootstrap nudge send respects FM_STATE_OVERRIDE
+ok - T8f bootstrap nudge retry rejects malformed marker ids
+ok - T8c failed bootstrap nudge is surfaced and recorded for retry
+ok - T8d bootstrap nudge retry is idempotent after success
+ok - T8e bootstrap nudge retry refuses a changed home instead of guessing
+ok - T8b a stale herdr endpoint cannot lose a durably enqueued nudge, and fm-<id> resolves through post-respawn metadata
+ok - T9 bootstrap surfaces a skipped dirty live secondmate home
+ok - T10 spawn fast-forwards a secondmate worktree to the primary's local HEAD before launch
+ok - T11 spawn warns when pre-launch sync is skipped
+ok - T12 gitignored marker: a freshly seeded home reads clean to fleet-sync and the ff sweep
+ok - T13 gitignored marker: an existing marker-only-dirty home converges, then reads clean
+ok - T14 marker tolerance does not mask a genuinely dirty home
+ok - R1 a remote home ahead of the host's Firstmate copy still advances to the primary's commit
+ok - R1b a remote sync names exactly which instruction paths its advance changed
+ok - R2 a missing target is imported from the host's Firstmate copy without moving it
+ok - R3 a target neither side holds is imported from the home's own origin
+ok - R4 an already-present target advances the home with no fetch available
+ok - R5 a target neither the host copy nor the origin holds skips with an actionable reason
+ok - R6 dirty, diverged, and feature-branch remote homes skip and are left untouched
+ok - R7 a sync with no target still follows the host's own refreshed Firstmate copy
+ok - R8 session start converges a remote home on the primary's default-branch commit
+ok - R10 a host too old for a parent-targeted sync is reported with the command that fixes it
+ok - R11 a remote home is nudged only for an owed reread or a real instruction change, never for a cut-off attempt that changed nothing
+ok - R9 a remote launch leaves the home on the parent's commit while an ordinary spawn follows its own checkout
+# all fm-secondmate-sync tests passed
+FM_TEST_END 2026-10-31T01:18:15Z tests/project-coordinator-sync.test.sh exit=0 duration_ms=32019 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:18:15Z tests/runtime-backend-paseo.test.sh family=paseo expected_gate_skip=optional-binary
+ok - runtime_backend_paseo_version_check: accepts the verified minimum (0.8.0)
+ok - runtime_backend_paseo_version_check: accepts a newer version (0.9.2)
+ok - runtime_backend_paseo_version_check: refuses an old version loudly
+ok - runtime_backend_paseo_version_check: refuses loudly when paseo is not found on PATH or at the bundle path
+ok - runtime_backend_paseo_parse_target: splits '<terminal_id>:<workspace_id>' on the first colon
+ok - runtime_backend_paseo_scoped_name: scopes a primary task name with firstmate plus root hash
+ok - runtime_backend_paseo_scoped_name: scopes a secondmate task name with the home marker plus root hash
+ok - runtime_backend_validate: paseo is a known backend
+ok - runtime_backend_busy_state: paseo (no native primitive) always reports unknown, same as tmux/zellij/orca/cmux
+ok - runtime_backend_composer_state: routes paseo to the paseo composer classifier
+ok - runtime_backend_paseo_daemon_state: reports 'ok' when localDaemon=running and connectedDaemon=reachable
+ok - runtime_backend_paseo_daemon_state: reports 'down' when 'paseo status' fails
+ok - runtime_backend_paseo_ensure_running: returns immediately when paseo is already reachable
+ok - runtime_backend_paseo_create_task: refuses a duplicate terminal name (paseo's own terminal create has no uniqueness check)
+ok - runtime_backend_paseo_create_task: creates the shared workspace once plus a terminal tab and parses terminal_id/workspace_id
+ok - runtime_backend_paseo_create_task: refuses, creating nothing, when the terminal or workspace inventory cannot be read
+ok - runtime_backend_paseo_create_task: adopts the project's live firstmate workspace by cwd+label and adds a tab (never a second workspace)
+ok - runtime_backend_paseo_create_task: adopts the workspace firstmate itself runs in (PASEO_WORKSPACE_ID) when its cwd is the project, ahead of the title lookup
+ok - runtime_backend_paseo_create_task: a task for any project becomes a tab in firstmate's own workspace (PASEO_WORKSPACE_ID)
+ok - runtime_backend_paseo_create_task: a Paseo agent uses the one workspace whose folder is its home, and falls back when that is ambiguous
+ok - runtime_backend_paseo_workspace_ensure: adopts the shared workspace by its physical or slash-normalized logical cwd
+ok - runtime_backend_paseo_cli_json: keeps stderr out of parsed JSON and relays it only on failure
+ok - runtime_backend_paseo_workspace_label: 'firstmate' for the primary home, '2ndmate-<id>' for a secondmate home (no path hash)
+ok - runtime_backend_paseo_target_ready: fails when the terminal is not found and no expected label is given
+ok - runtime_backend_paseo_target_ready: verifies the live terminal name against the expected label
+ok - runtime_backend_paseo_target_ready: rejects a terminal id reused under a different name
+ok - runtime_backend_paseo_target_ready: recovers a stale terminal id by home-scoped NAME, never by title
+ok - runtime_backend_paseo_capture: fetches the whole scrollback and trims to N lines locally
+ok - runtime_backend_paseo_capture: fails when the target terminal is absent
+ok - runtime_backend_paseo_send_key: passes the key through unchanged to the recorded terminal id
+ok - runtime_backend_paseo_send_key: C-u goes as the raw 0x15 byte via -l; keys outside paseo's token set are refused, never typed
+ok - runtime_backend_paseo_send_literal: calls send-keys -l with a -- separator before the literal payload
+ok - runtime_backend_paseo_send_text_line: sends literal text then submits with Enter
+ok - runtime_backend_paseo_current_path: actively probes with marked begin/end lines (creation-time-frozen cwd)
+ok - runtime_backend_paseo_composer_state: a bare '❯' composer row reads empty
+ok - runtime_backend_paseo_composer_state: real composer text reads pending
+ok - runtime_backend_paseo_composer_state: reports unknown when the terminal cannot be captured
+ok - runtime_backend_paseo_send_text_submit: reports 'empty' once the composer row reads empty after one Enter
+ok - runtime_backend_paseo_send_text_submit: reports 'send-failed' when the target terminal is absent
+ok - runtime_backend_paseo_kill: closes the task's terminal tab and leaves the workspace alive when its inventory is unreadable
+ok - runtime_backend_paseo_kill: the last task tab retires firstmate's shared workspace and its own clone's project
+ok - runtime_backend_paseo_kill: retires the recorded workspace and project when the task tab was already closed
+ok - runtime_backend_paseo_kill: keeps the workspace while a tab, agent, other title, or firstmate itself uses it, and never retires anything outside this home's clones
+ok - fm_backend_paseo: spawn and workspace retirement share one lock; neither acts while another process holds it
+ok - runtime_backend_paseo_kill: never fails even when terminal kill fails
+ok - runtime_backend_paseo_list_live: lists only this home's scoped task terminals using plain fm-<id> labels
+ok - task-launch.sh: an explicit paseo refuses --secondmate (mirrors cmux/Orca); ambient Paseo markers never select paseo
+ok - Pi supervision branch claims a paseo stale wake keyed by the task's window= endpoint
+FM_TEST_END 2026-10-31T01:18:20Z tests/runtime-backend-paseo.test.sh exit=0 duration_ms=4513 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:18:20Z tests/live-lab.test.sh family=unclassified expected_gate_skip=none
+ok - a ready Claude lab passes every readiness check
+ok - primary fails when session start never took the lab lock
+ok - primary fails when the primary runs in a linked worktree instead of the lab's primary checkout
+ok - probe fails when the primary never answered its nonce
+ok - trust fails when the lab home has no registered Claude trust
+ok - mirror fails when the feed is unwired or has not recorded a whole turn
+ok - host passes and fails according to --expect-host
+ok - watcher fails on a stale beacon
+ok - mate fails when its window is gone or it never reached its charter
+ok - mate off readiness requires inherited material and a disabled home gate
+ok - worker readiness follows current crew state and the recorded accessible gate
+ok - treehouse fails when a pool lands in ~/.treehouse
+ok - extensions fail when the Pi lab lacks the branch extension or loads a stale build
+ok - down refuses anything up did not build
+ok - down stops only recorded lab processes, removes trust entries and task temp dirs
+ok - check and down use the recorded Claude store and keep a symlinked store linked
+tests/live-lab.test.sh: line 425: 30294 Killed                  perl -e 'setpgrp(0,0); exec @ARGV' "$@" > /dev/null 2>&1
+ok - down waits for TERM handlers and escalates before removing trust
+ok - down waits for captured descendants after their root exits
+ok - down tracks descendants spawned during TERM
+ok - down ignores roots with mismatched start times
+tests/live-lab.test.sh: line 532:  1377 Killed                  perl -e 'setpgrp(0,0); exec @ARGV' "$@" > /dev/null 2>&1
+tests/live-lab.test.sh: line 532:  1378 Killed                  perl -e 'setpgrp(0,0); exec @ARGV' "$@" > /dev/null 2>&1
+ok - down drops empty groups permanently before their ids can be reused
+ok - down revalidates process identity during its bounded wait
+ok - trust fails on Pi when the lab wrote the persistent Pi trust store
+ok - down removes the lab but reports, without reverting, a written Pi trust store
+ok - up refuses an existing root and an unsupported harness
+ok - up gives both task IDs a long nonce and down cleans partial setup
+ok - up launches primary after worker status without weakening final parked readiness
+ok - up fails immediately when a spawned worker has no pane PID
+ok - up re-registers primary trust after a concurrent Claude write
+ok - claude-trust.sh --lab-home trusts only a marked lab primary checkout
+FM_TEST_END 2026-10-31T01:19:27Z tests/live-lab.test.sh exit=0 duration_ms=66576 gate_skip=false
+FM_TEST_BEGIN 2026-10-31T01:19:27Z tests/work-summary-board-render.test.sh family=snapshot-work_summary expected_gate_skip=optional-binary
+ok - an underway row leads with the task name and still reports its run status
+ok - an underway identifier label is not replaced by run status
+ok - charted next renders the most recently filed work first
+ok - charted rows with no filed date follow the dated rows in payload order
+ok - a warning row badges needs repair while queued work keeps waiting
+ok - the charted next count counts queued work only, and still renders warnings
+ok - a warning-only board reports nothing queued and still shows the warning
+ok - omitted warnings remain separate from omitted queued work
+ok - an omitted kind renders exactly as queued work always did
+FM_TEST_END 2026-10-31T01:19:40Z tests/work-summary-board-render.test.sh exit=0 duration_ms=12916 gate_skip=false
+FM_TEST_SUMMARY total=18 failed=0 skipped_gate=0 duration_ms=1611242
+FM_TEST_SUMMARY_FAMILY family=backend-dispatch count=3 duration_ms=299494 failed=0
+FM_TEST_SUMMARY_FAMILY family=live-harness-optin count=1 duration_ms=11089 failed=0
+FM_TEST_SUMMARY_FAMILY family=paseo count=1 duration_ms=4513 failed=0
+FM_TEST_SUMMARY_FAMILY family=pure-contract-unit count=3 duration_ms=274901 failed=0
+FM_TEST_SUMMARY_FAMILY family=secondmate count=5 duration_ms=813192 failed=0
+FM_TEST_SUMMARY_FAMILY family=snapshot-work_summary count=1 duration_ms=12916 failed=0
+FM_TEST_SUMMARY_FAMILY family=standalone count=2 duration_ms=60473 failed=0
+FM_TEST_SUMMARY_FAMILY family=unclassified count=1 duration_ms=66576 failed=0
+FM_TEST_SUMMARY_FAMILY family=watcher-wake-lock count=1 duration_ms=67675 failed=0
+FM_TEST_SLOWEST rank=1 script=tests/remote-project-coordinator-lifecycle-e2e.test.sh duration_ms=472192
+FM_TEST_SLOWEST rank=2 script=tests/test-run.test.sh duration_ms=207533
+FM_TEST_SLOWEST rank=3 script=tests/runtime-backend-t3code.test.sh duration_ms=178696
+FM_TEST_SLOWEST rank=4 script=tests/project-coordinator-harness.test.sh duration_ms=141972
+FM_TEST_SLOWEST rank=5 script=tests/remote-project-coordinator-trace-context.test.sh duration_ms=124141
+FM_TEST_SLOWEST rank=6 script=tests/watcher-lock.test.sh duration_ms=67675
+FM_TEST_SLOWEST rank=7 script=tests/live-lab.test.sh duration_ms=66576
+FM_TEST_SLOWEST rank=8 script=tests/kimi-harness.test.sh duration_ms=65202
+FM_TEST_SLOWEST rank=9 script=tests/task-launch-compact-adviser-disable-remote.test.sh duration_ms=62188
+FM_TEST_SLOWEST rank=10 script=tests/worker-account.test.sh duration_ms=58610
+FM_TEST_SLOWEST rank=11 script=tests/project-coordinator-safety.test.sh duration_ms=42868
+FM_TEST_SLOWEST rank=12 script=tests/project-coordinator-sync.test.sh duration_ms=32019
+FM_TEST_SLOWEST rank=13 script=tests/test-fixtures.test.sh duration_ms=30514
+FM_TEST_SLOWEST rank=14 script=tests/pending-reply.test.sh duration_ms=29959
+FM_TEST_SLOWEST rank=15 script=tests/work-summary-board-render.test.sh duration_ms=12916
+fm-test-run: wrote timing artifact: /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/single-pass.json

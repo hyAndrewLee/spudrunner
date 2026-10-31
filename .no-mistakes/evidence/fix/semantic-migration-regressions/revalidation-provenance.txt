@@ -1,0 +1,33 @@
+source_head=d995f538a0d50a6e592f8e64887a4fbf3ac2dd1d
+uid=1000
+TMPDIR=/tmp
+shared_lock=/home/andrew/spudrunner-green/serial-tests.lock (opened read-only)
+11fc002fa115ea855ab37b0ac0e8c1970bfa15e5dea92fa10f8deb3a3be1519a  tests/remote-project-coordinator-lifecycle-e2e.test.sh
+11fc002fa115ea855ab37b0ac0e8c1970bfa15e5dea92fa10f8deb3a3be1519a  /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M67K3AB4R2B877RXVT79SMCP/.no-mistakes/revalidation-exact-d995f538/tests/remote-project-coordinator-lifecycle-e2e.test.sh
+0f8d5d5c886fe176c4211da9ee308ca09b3699ec45e783eea84d9033041b51b1  tests/pi-branch-responsiveness-live-e2e.test.sh
+0f8d5d5c886fe176c4211da9ee308ca09b3699ec45e783eea84d9033041b51b1  /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M67K3AB4R2B877RXVT79SMCP/.no-mistakes/revalidation-exact-d995f538/tests/pi-branch-responsiveness-live-e2e.test.sh
+631ff59e6884a512978bdb3284e2486b9be3aea1b7c8b43663e81a7a60f20482  bin/test-run.sh
+631ff59e6884a512978bdb3284e2486b9be3aea1b7c8b43663e81a7a60f20482  /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M67K3AB4R2B877RXVT79SMCP/.no-mistakes/revalidation-exact-d995f538/bin/test-run.sh
+/home/andrew/.nvm/versions/node/v22.23.3/bin/pi
+/home/linuxbrew/.linuxbrew/bin/jq
+/usr/bin/tmux
+/home/linuxbrew/.linuxbrew/bin/unshare
+/home/linuxbrew/.linuxbrew/bin/flock
+1.4.0
+
+runner_exit=0
+
+Post-run submitted-script integrity:
+11fc002fa115ea855ab37b0ac0e8c1970bfa15e5dea92fa10f8deb3a3be1519a  /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M67K3AB4R2B877RXVT79SMCP/.no-mistakes/revalidation-exact-d995f538/tests/remote-project-coordinator-lifecycle-e2e.test.sh
+0f8d5d5c886fe176c4211da9ee308ca09b3699ec45e783eea84d9033041b51b1  /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M67K3AB4R2B877RXVT79SMCP/.no-mistakes/revalidation-exact-d995f538/tests/pi-branch-responsiveness-live-e2e.test.sh
+631ff59e6884a512978bdb3284e2486b9be3aea1b7c8b43663e81a7a60f20482  /home/andrew/.no-mistakes-spudrunner-validation/worktrees/ca5377f119d4/01M67K3AB4R2B877RXVT79SMCP/.no-mistakes/revalidation-exact-d995f538/bin/test-run.sh
+
+Evidence checksums (previous artifacts preserved):
+03fd9062f2aacd5e68089092b688e5e0f2d1be718bcdf2640fcbb89ced6278f2  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/fixtures.json
+a7dec22666f10e9c7cf689a45c466a167e1c646c85f9e183bcab0d7d4ae767ef  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/fixtures.log
+aac6e2886dba9f25820be2757eba4accb70382bf8de8642e1fc5d439c8c01779  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/isolated-product.json
+3a6fec79e1c1ad265ead0aca076c6825691596c2902ad644c72a7bc03ce799ad  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/isolated-product.log
+e7c920ae63d206186877fe438fbc02dd92997356e2c15b1e78bb5a34e17f421f  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/adjusted-isolation.log
+651c428b5eba0175f79dcb34b9eefeb84f0fef51f5d124e3d1d0b5895fbc3721  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/portable-candidates.txt
+3b83c7998ed6a95ff0a9bfcea0e0da971c70fc8c96ef97885e2dced9fd59c6e6  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/revalidation-two-cases.json
+cd4b26f8a263e7a7e7a298d6f7cb8b84cd52bc5bb28b3674a2ffba752ef08d4a  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/revalidation-two-cases.log

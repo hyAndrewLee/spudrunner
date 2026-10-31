@@ -1,0 +1,49 @@
+{
+  "summary": "Completed three uncovered scenarios without source changes",
+  "tested_head_sha": "d995f538a0d50a6e592f8e64887a4fbf3ac2dd1d",
+  "contract": {
+    "version": "no-mistakes v1.84.0 (4822244)",
+    "source": "Installed executable's embedded Test live-evidence instructions, preserved in completion-provenance.txt",
+    "requirement": "Mark live true only when driven against the real product in this run; fixtures replacing the product do not qualify; disposable environments driven by the real product qualify.",
+    "aggregation": "No explicit historical-evidence aggregation permission established. Executed the three previously uncovered scenarios anew. The two previously green cases were not rerun or relabeled as fresh execution. Their earlier evidence remains preserved. This report does not claim all five scenarios were executed in this invocation."
+  },
+  "execution": {
+    "source": "Fresh git archive of the unchanged submitted HEAD inside the assigned worktree; all tracked files and symlink targets verified byte-for-byte afterward",
+    "environment": "TMPDIR=/tmp; UID 1000 preserved by unshare --user --map-current-user --pid --fork --mount-proc; sequential bash bin/test-run.sh --jobs 1; exclusive flock on the existing shared host lock opened read-only",
+    "dependencies": "Real PATH-resolved jq temporarily linked only inside the disposable snapshot for sanitized remote fixtures; removed afterward",
+    "initial_result": "14 of 16 targeted scripts passed; two setup failures because an archive alone is not a cloneable Git repository",
+    "setup_correction": "Initialized Git metadata only inside the disposable snapshot, committed its identical source tree using inline fixture identity, verified tree equality with submitted HEAD, reran only the two failures; both passed",
+    "cleanup": "Removed disposable snapshot; source worktree remains clean at submitted HEAD; earlier evidence and preexisting scratch retained",
+    "scope": "No linters, formatters, static analysis, complete suite, pipeline controls, publication, or configuration changes"
+  },
+  "scenarios": [
+    {
+      "name": "Preserve remote trace propagation, compact-adviser settings, coordinator safety, and account/backend behavior",
+      "result": "pass",
+      "live": true,
+      "evidence": ["completion-three-scenarios.log", "completion-three-scenarios.json", "completion-setup-correction.log", "completion-setup-correction.json"],
+      "reason": "Executed real task-launch, remote entrypoint, remote control, provisioning, account-selection, and backend adapter commands against disposable homes. Trace carriers, relaunch boundaries, strict rejection, adviser environment propagation, account refusals and coordinator safety assertions passed. Simulated SSH, Herdr/harness and T3 vendor boundaries do not establish authenticated deployment behavior. One optional Cursor executable subcase in the harness script reports unavailable; no suite-level gate skips."
+    },
+    {
+      "name": "Preserve pending-reply recovery, runner ordering, portable membership, Kimi controls, and watcher identity",
+      "result": "pass",
+      "live": true,
+      "evidence": ["completion-three-scenarios.log", "completion-three-scenarios.json", "completion-setup-correction.log", "completion-setup-correction.json"],
+      "reason": "Executed real pending-reply commands and failure injection, test-run selection/scheduling and exact membership interfaces, harness busy classification with unchanged Kimi controls, watcher lock interfaces, and Git fixture-isolation entrypoints. These execute product scripts against disposable state; no real Kimi model interaction is claimed."
+    },
+    {
+      "name": "Exercise migrated coordinator sync, Paseo, live-lab, and work-summary fixture contracts",
+      "result": "pass",
+      "live": true,
+      "evidence": ["completion-three-scenarios.log", "completion-three-scenarios.json"],
+      "reason": "Executed real coordinator sync, backend, lab and board-generation commands against their original disposable fixture environments; migrated outputs and caller contracts passed. Simulated external backend/presentation boundaries remain simulated; this is not an authenticated vendor deployment or visual-layout claim."
+    }
+  ],
+  "prior_evidence": {
+    "status": "Preserved, not newly executed",
+    "remote_lifecycle_and_pi": ["revalidation-two-cases.log", "revalidation-two-cases.json", "revalidation-provenance.txt"],
+    "earlier_diagnostics": ["fixtures.log", "fixtures.json", "isolated-product.log", "isolated-product.json", "adjusted-isolation.log"],
+    "integrity": "Preexisting evidence checksums captured in completion-provenance.txt; no earlier artifact overwritten"
+  },
+  "limitations": "Original setup failures and cleanup permission diagnostics remain in logs. No claims about unrelated baseline failures, full-suite green, remote CI, or freshly rerun Pi measurements. Only the three requested uncovered scenarios were executed in this invocation."
+}

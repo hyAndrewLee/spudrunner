@@ -1,0 +1,25 @@
+2026-10-31T00:52:48Z
+no-mistakes version v1.84.0 (4822244) 2026-09-26T08:30:42Z
+d995f538a0d50a6e592f8e64887a4fbf3ac2dd1d
+aebee4f85bf08c559df9a08a2ea65145be704fbb
+TMPDIR=/tmp; UID-preserving PID namespace; shared lock read-only; complete targeted single invocation
+e7c920ae63d206186877fe438fbc02dd92997356e2c15b1e78bb5a34e17f421f  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/adjusted-isolation.log
+468fcefd7002229eff4fc02a96261bfdcad237e6212eb32b9eda73d30a8912a9  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/completion-provenance.txt
+2dbad8bfc77c093449b01fd53960abb0d96aa377289e58ace36ef83742ae663a  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/completion-report.json
+70032a8eddd57307c61c441ad73c8b6695a597decb8177a8e1f2e8e7d51b363d  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/completion-setup-correction.json
+d1fbe0cfe193428595cc18dbde6d48b860e04890e71467eb3a554de2e8d7c9cb  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/completion-setup-correction.log
+e14bbe99a5177e4d35e6636de47b89d778452fcdd6bd8c219becacf483dba1aa  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/completion-three-scenarios.json
+50fa623d4cd6d34a678ca741173a1666ff8a12011614959c9dda9143eee23e44  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/completion-three-scenarios.log
+03fd9062f2aacd5e68089092b688e5e0f2d1be718bcdf2640fcbb89ced6278f2  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/fixtures.json
+a7dec22666f10e9c7cf689a45c466a167e1c646c85f9e183bcab0d7d4ae767ef  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/fixtures.log
+aac6e2886dba9f25820be2757eba4accb70382bf8de8642e1fc5d439c8c01779  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/isolated-product.json
+3a6fec79e1c1ad265ead0aca076c6825691596c2902ad644c72a7bc03ce799ad  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/isolated-product.log
+651c428b5eba0175f79dcb34b9eefeb84f0fef51f5d124e3d1d0b5895fbc3721  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/portable-candidates.txt
+4248ad9f2c0299f1404937f2df9e3c1bbe7014e4e8fa074f88557e2c5b3036bf  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/revalidation-provenance.txt
+3b83c7998ed6a95ff0a9bfcea0e0da971c70fc8c96ef97885e2dced9fd59c6e6  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/revalidation-two-cases.json
+cd4b26f8a263e7a7e7a298d6f7cb8b84cd52bc5bb28b3674a2ffba752ef08d4a  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/revalidation-two-cases.log
+0e0ebe435ff3e8596d7a3480d5bd737b0ce648daee7dada988d368997253d2c8  /home/andrew/.no-mistakes-spudrunner-validation/evidence/01M67K3AB4R2B877RXVT79SMCP/single-pass-provenance.txt
+aebee4f85bf08c559df9a08a2ea65145be704fbb
+runner_exit=0
+Every submitted tracked file and symlink matches tested snapshot after execution.
+head=d995f538a0d50a6e592f8e64887a4fbf3ac2dd1d
