@@ -1765,6 +1765,7 @@ for control_kind in tab newline; do
   cp "$state_path_decoy" "$TMP_ROOT/control-decoy-before" || fail "could not snapshot reservation decoy"
   case "$control_kind" in
     tab)
+      # shellcheck disable=SC2016 # $1 intentionally expands in the child shell.
       FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$control_state" \
         "$PROCEVENT" register lavish "$control_source" -- /bin/sh -c 'touch "$1"; printf "control\n"' sh "$control_poll_marker" >/dev/null \
         || fail "control-byte registration fixture failed: $control_kind"
@@ -1778,6 +1779,7 @@ for control_kind in tab newline; do
       ;;
     newline)
       control_rc=0
+      # shellcheck disable=SC2016 # $1 intentionally expands in the child shell.
       control_out=$(FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$control_state" \
         "$PROCEVENT" register lavish "$control_source" -- /bin/sh -c 'touch "$1"; printf "control\n"' sh "$control_poll_marker" 2>&1) || control_rc=$?
       [ "$control_rc" -ne 0 ] || fail "newline-state registration unexpectedly succeeded"
