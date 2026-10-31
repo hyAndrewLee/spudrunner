@@ -1417,7 +1417,6 @@ process_race_retire_pid=
 assert_contains "$(cat "$TMP_ROOT/process-retire-race-retire.out")" "still owns process-event registration" "retirement did not observe the reserved process-event registration"
 assert_present "$H_PROCESS_RETIRE_RACE/state/procevent-inbox/process-race-source.1.result" "reserved process-event did not capture its result"
 pass "process-event resolution reserves the lifecycle before invocation"
-process_race_release=
 
 process_race_result="$H_PROCESS_RETIRE_RACE/state/procevent-inbox/process-race-source.1.result"
 process_race_resolution=$(FM_HOME="$H_PROCESS_RETIRE_RACE" "$HOST" resolve-process-event ext-process-retire-race)
@@ -1438,20 +1437,48 @@ for process_race_operation in result.classify result.terminal result.silent; do
     > "$TMP_ROOT/process-retire-race-${process_race_operation#result.}.out" 2>&1 &
   process_race_start_pid=$!
   wait_for_file "$process_race_marker" || fail "$process_race_operation race fixture never reached binding resolution"
+  assert_absent "$process_race_release" "$process_race_operation handshake was already released"
+  kill -0 "$process_race_start_pid" 2>/dev/null || fail "$process_race_operation exited before retirement"
+  process_race_records=(
+    "$H_PROCESS_RETIRE_RACE/config/extensions.d/org.example.process-retire-race.json"
+    "$H_PROCESS_RETIRE_RACE/state/procevent/$process_race_guard.source"
+    "$process_race_result"
+    "${process_race_result%.result}.extension"
+  )
+  for process_race_index in "${!process_race_records[@]}"; do
+    cp "${process_race_records[$process_race_index]}" "$TMP_ROOT/process-race-before-$process_race_index" \
+      || fail "could not snapshot persisted record $process_race_index"
+  done
   FM_HOME="$H_PROCESS_RETIRE_RACE" "$HOST" retire-binding org.example.process-retire-race --if-binding-digest "$process_race_binding" \
     > "$TMP_ROOT/process-retire-race-${process_race_operation#result.}-retire.out" 2>&1 &
   process_race_retire_pid=$!
   sleep 0.2
   kill -0 "$process_race_retire_pid" 2>/dev/null || fail "binding retirement bypassed $process_race_operation lifecycle reservation"
   touch "$process_race_release"
-  wait "$process_race_start_pid" 2>/dev/null || true
+  process_race_operation_rc=0
+  wait "$process_race_start_pid" || process_race_operation_rc=$?
   process_race_start_pid=
+  if [ "$process_race_operation" = result.classify ]; then
+    [ "$process_race_operation_rc" -eq 0 ] || fail "classification failed after release"
+    assert_equals "$(cat "$TMP_ROOT/process-retire-race-classify.out")" external-ready "classification lost its positive verdict"
+  elif [ "$process_race_operation" = result.terminal ]; then
+    [ "$process_race_operation_rc" -eq 0 ] || fail "terminal verdict failed after release"
+    assert_equals "$(cat "$TMP_ROOT/process-retire-race-terminal.out")" "" "terminal verdict emitted an error"
+  else
+    [ "$process_race_operation_rc" -eq 1 ] || fail "silent verdict did not remain false"
+    assert_equals "$(cat "$TMP_ROOT/process-retire-race-silent.out")" "" "silent failure was mistaken for a false verdict"
+  fi
   process_race_retire_rc=0
   wait "$process_race_retire_pid" || process_race_retire_rc=$?
   process_race_retire_pid=
   [ "$process_race_retire_rc" -ne 0 ] || fail "retirement crossed a reserved $process_race_operation invocation"
   assert_contains "$(cat "$TMP_ROOT/process-retire-race-${process_race_operation#result.}-retire.out")" "still owns process-event registration" \
     "retirement did not observe the $process_race_operation registration"
+  for process_race_index in "${!process_race_records[@]}"; do
+    cmp "$TMP_ROOT/process-race-before-$process_race_index" "${process_race_records[$process_race_index]}" \
+      || fail "$process_race_operation refusal changed persisted record $process_race_index"
+  done
+  assert_absent "${process_race_result%.result}.handled" "$process_race_operation refusal marked the result handled"
   FM_HOME="$H_PROCESS_RETIRE_RACE" "$PROCEVENT" retire "$process_race_guard" --if-owner "$process_race_owner" >/dev/null
 done
 process_race_release=
@@ -1713,13 +1740,20 @@ for control_kind in tab newline; do
   control_source="control-${control_kind}-state-source"
   mkdir -p "$control_state"
   chmod 0700 "$control_state"
+  control_poll_marker="$TMP_ROOT/$control_source.polled"
   FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$control_state" \
-    "$PROCEVENT" register lavish "$control_source" -- /bin/echo control >/dev/null
-  expect_failure "cannot acquire source ownership" env FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$control_state" \
+    "$PROCEVENT" register lavish "$control_source" -- /bin/sh -c 'touch "$1"; printf "control\n"' sh "$control_poll_marker" >/dev/null \
+    || fail "control-byte registration fixture failed: $control_kind"
+  cp "$control_state/procevent/$control_source.source" "$TMP_ROOT/control-source-before" || fail "could not snapshot control-byte registration"
+  cp "$state_path_decoy" "$TMP_ROOT/control-decoy-before" || fail "could not snapshot reservation decoy"
+  expect_failure "cannot claim source: $control_source" env FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$control_state" \
     "$PROCEVENT" start "$control_source"
   assert_absent "$TMP_ROOT/claims/$control_source.claim" "control-byte state root created a malformed claim"
   assert_absent "$control_state/procevent-capture-reservations" "control-byte state root created reservation state"
-  assert_present "$state_path_decoy" "control-byte state root touched unrelated reservation state"
+  cmp "$TMP_ROOT/control-source-before" "$control_state/procevent/$control_source.source" || fail "control-byte refusal changed registration"
+  cmp "$TMP_ROOT/control-decoy-before" "$state_path_decoy" || fail "control-byte refusal changed unrelated reservation bytes"
+  assert_absent "$control_poll_marker" "control-byte state root executed polling"
+  assert_absent "$control_state/procevent-inbox/$control_source.1.result" "control-byte state root published a capture"
 done
 pass "control-byte state roots cannot serialize claims or reservations"
 override_crash_marker="$TMP_ROOT/override-crash.marker"
