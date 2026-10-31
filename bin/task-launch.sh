@@ -314,7 +314,7 @@
 #   project coordinator receives the primary's read-only shared captain-preference file
 #   (config-inherit-lib.sh). A successful launch clears pending inherited
 #   config reread generations because the new agent reads the converged files.
-#   --scout records kind=investigation worker in the task's meta (report deliverable, scratch worktree;
+#   --scout records kind=scout in the task's meta (report deliverable, scratch worktree;
 #   see AGENTS.md task lifecycle); --secondmate records kind=secondmate and launches in a
 #   provisioned Spudrunner home; the default is kind=ship.
 #   Before a project coordinator launch, the home is fast-forwarded to the primary's
@@ -682,7 +682,9 @@
 # keeps no data/backlog.md. A configured non-markdown adapter remains
 # active without a markdown file; any active automatic backend without
 # compatible tasks-axi refuses before creating lifecycle state.
-# On success prints: spawned <id> harness=<name> kind=<ship|investigation worker|project coordinator> [mode=<mode> yolo=<on|off>] window=<backend-target> worktree=<path>
+# On success prints: spawned <id> harness=<name> kind=<ship|scout|secondmate> [mode=<mode> yolo=<on|off>] window=<backend-target> worktree=<path>
+# Remote project coordinator success lines instead display kind=project coordinator
+# and mode=project coordinator; task metadata retains secondmate for both fields.
 # An implementation task records the explicit mode/yolo it was passed; a project coordinator spawn records
 # mode=secondmate, yolo=off, home=, and projects=; an investigation worker records neither, and both the
 # success line and state/<id>.meta omit them.
