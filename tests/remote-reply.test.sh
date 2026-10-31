@@ -66,7 +66,41 @@ exec "$FM_FAKE_REMOTE_ENTRYPOINT" "$@"
 SH
 chmod +x "$FAKEBIN/fake-ssh"
 
+# Pause only the real isolated runner, immediately before launch-floor entry.
+# The FIFO is a scheduling barrier, not a replacement for any production code:
+# publication and ownership validation still run through their public commands.
+HANDOFF="$TMP_ROOT/handoff"
+mkdir -p "$HANDOFF"
+mkfifo "$HANDOFF/release"
+cat > "$HANDOFF/bash-env" <<'SH'
+if [ "${1:-}" = _start ]; then
+  handoff_barrier() {
+    case "$1" in
+      'process_events_launch_floor_wait '* )
+        local sequence release
+        [ -f "$FM_TEST_HANDOFF/sequence" ] || return 0
+        IFS= read -r sequence < "$FM_TEST_HANDOFF/sequence"
+        if [ "$sequence" != initial ]; then
+          [ -f "$FM_HOME/state/procevent-inbox/$id.$sequence.handled" ] || return 0
+        fi
+        [ ! -e "$FM_TEST_HANDOFF/$sequence.ready" ] || return 0
+        exec 3<> "$FM_TEST_HANDOFF/release"
+        printf '%s\n%s\n%s\n' "$CLAIM_PID" "$CLAIM_TOKEN" "$CLAIM_REG_IDENTITY" \
+          > "$FM_TEST_HANDOFF/$sequence.ready.tmp"
+        mv "$FM_TEST_HANDOFF/$sequence.ready.tmp" "$FM_TEST_HANDOFF/$sequence.ready"
+        IFS= read -r -t 30 release <&3 || exit 97
+        exec 3>&-
+        ;;
+    esac
+    return 0
+  }
+  set -T
+  trap 'handoff_barrier "$BASH_COMMAND"' DEBUG
+fi
+SH
+
 remote_env() {
+  BASH_ENV="$HANDOFF/bash-env" FM_TEST_HANDOFF="$HANDOFF" \
   FM_HOME="$PARENT" \
   FM_ROOT_OVERRIDE="$ROOT" \
   FM_PROCEVENT_CLAIM_ROOT="$CLAIMS" \
@@ -104,18 +138,52 @@ stop_reply_listener() {
   return 1
 }
 
+reply_diagnostics() {
+  local path
+  printf 'remote reply timeout diagnostics:\n' >&2
+  for path in "$CLAIMS/$SID.claim" "$PARENT/state/procevent/$SID.source" \
+    "$PARENT/state/remote-replies/ios.cursor" "$TMP_ROOT/start-one.out"; do
+    printf '\n%s:\n' "$path" >&2
+    tail -c 4096 "$path" >&2 2>/dev/null || true
+  done
+  find "$PARENT/state/procevent-inbox" -maxdepth 1 -type f -name "$SID.*" \
+    -print 2>/dev/null | head -40 >&2
+}
+
 # Block until this generation's capture has been applied. A live listener keeps
 # its claim across polls, so start is only launched when nothing owns the source.
-await_reply_result() { # <result-path>
+await_reply_result() { # <result-path> [existing-owner-only]
   local result=$1 handled=${1%.result}.handled _
-  if [ "$(reply_owner)" != live ]; then
+  if [ "${2:-}" != existing-owner-only ] && [ "$(reply_owner)" != live ]; then
     remote_env "$ROOT/bin/process-events.sh" start "$SID" >/dev/null 2>&1 &
   fi
   for _ in $(seq 1 800); do
     [ -s "$result" ] && [ -f "$handled" ] && return 0
     sleep 0.05
   done
+  reply_diagnostics
   return 1
+}
+
+# Rearm only after adoption has completed and before the floor validates the
+# adopted inode. The next payload must be collected by this exact owner, without
+# the helper's usual fallback start or a reconcile hiding a stranded source.
+replace_at_handoff() { # <handled-sequence> <result-file>
+  local sequence=$1 before after
+  wait_for "$HANDOFF/$sequence.ready" || fail "listener never reached handoff $sequence"
+  before=$(sed -n '3p' "$HANDOFF/$sequence.ready")
+  remote_env "$ADAPTER" handle ios "$sequence" "$2" >/dev/null 2>&1 \
+    || fail "handoff $sequence replay failed"
+  # shellcheck disable=SC2016 # Positional parameters expand in the child shell.
+  after=$(remote_env bash -c '. "$1/bin/pr-lib.sh"; pr_file_identity "$2"' \
+    _ "$ROOT" "$PARENT/state/procevent/$SID.source")
+  [ "$before" != "$after" ] || fail "handoff $sequence did not replace the adopted registration"
+}
+
+release_handoff() {
+  exec 3<> "$HANDOFF/release"
+  printf 'release\n' >&3
+  exec 3>&-
 }
 
 sha256_file() {
@@ -368,13 +436,13 @@ fi
 # Bytes crossing a machine boundary are normalized, never dropped: a control
 # character cannot make the parent's status file unsafe and cannot stop the
 # stream either.
+printf '5\n' > "$HANDOFF/sequence"
 printf 'blocked [key=ctl]: escape \033[31mhere\033[0m bell \007 caf\xc3\xa9 end\n' \
   >> "$REMOTE/state/parent-replies.status"
 await_reply_result "$PARENT/state/procevent-inbox/$SID.5.result" \
   || fail "the control-character line was not captured"
 RESULT_FIVE="$PARENT/state/procevent-inbox/$SID.5.result"
-remote_env "$ADAPTER" handle ios 5 "$RESULT_FIVE" >/dev/null 2>&1 \
-  || fail "a control character stopped the stream"
+replace_at_handoff 5 "$RESULT_FIVE"
 assert_grep 'blocked [key=ctl]: escape ?[31mhere' "$PARENT/state/ios.status" \
   "the control-character line was not mirrored in normalized form"
 [ -z "$(LC_ALL=C tr -d '\11\12\40-\176\200-\377' < "$PARENT/state/ios.status")" ] \
@@ -386,12 +454,16 @@ assert_grep "offset=$ctl_offset" "$PARENT/state/remote-replies/ios.cursor" \
   "the cursor did not advance past a control-character line"
 pass "transported control bytes are normalized in place and never stop the stream"
 
+printf '6\n' > "$HANDOFF/sequence"
 printf 'status=delta\n' >> "$REMOTE/state/parent-replies.status"
-await_reply_result "$PARENT/state/procevent-inbox/$SID.6.result" \
+release_handoff
+await_reply_result "$PARENT/state/procevent-inbox/$SID.6.result" existing-owner-only \
   || fail "the header-collision line was not captured"
 RESULT_SIX="$PARENT/state/procevent-inbox/$SID.6.result"
-remote_env "$ADAPTER" handle ios 6 "$RESULT_SIX" >/dev/null 2>&1 \
-  || fail "a payload protocol-field name stopped the stream"
+replace_at_handoff 6 "$RESULT_SIX"
+[ "$(sed -n '1,2p' "$HANDOFF/5.ready")" = "$(sed -n '1,2p' "$HANDOFF/6.ready")" ] \
+  || fail "plain-text handoff changed the listener owner"
+pass "same-command replacement at the launch boundary retains the owner and captures plain text"
 assert_grep 'status=delta' "$PARENT/state/ios.status" \
   "the payload protocol-field line did not reach the parent stream"
 collision_offset=$(LC_ALL=C wc -c < "$REMOTE/state/parent-replies.status" | tr -d ' ')
@@ -400,7 +472,8 @@ assert_grep "offset=$collision_offset" "$PARENT/state/remote-replies/ios.cursor"
 pass "payload protocol-field names cannot collide with transport metadata"
 
 printf 'working [key=nul-byte]: before\000after\n' >> "$REMOTE/state/parent-replies.status"
-await_reply_result "$PARENT/state/procevent-inbox/$SID.7.result" \
+release_handoff
+await_reply_result "$PARENT/state/procevent-inbox/$SID.7.result" existing-owner-only \
   || fail "the NUL-bearing line was not captured"
 RESULT_SEVEN="$PARENT/state/procevent-inbox/$SID.7.result"
 remote_env "$ADAPTER" handle ios 7 "$RESULT_SEVEN" >/dev/null 2>&1 \
@@ -410,7 +483,9 @@ assert_grep 'working [key=nul-byte]: before?after' "$PARENT/state/ios.status" \
 nul_offset=$(LC_ALL=C wc -c < "$REMOTE/state/parent-replies.status" | tr -d ' ')
 assert_grep "offset=$nul_offset" "$PARENT/state/remote-replies/ios.cursor" \
   "the cursor did not advance past a NUL-bearing line"
-pass "NUL bytes are normalized in place before shell line processing"
+[ "$(sed -n '1,2p' "$HANDOFF/6.ready")" = "$(sed -n '2,3p' "$CLAIMS/$SID.claim")" ] \
+  || fail "NUL-bearing handoff changed the listener owner"
+pass "same-command replacement retains the owner and normalizes NUL bytes before shell line processing"
 
 stop_reply_listener || fail "the reply listener did not stop before the obstructed document capture"
 printf '# Retryable remote answer\n' > "$REMOTE/data/reply/retry.md"
@@ -1314,5 +1389,71 @@ assert_absent "$PARENT/state/remote-replies/ios.cursor" \
 [ "$(cat "$PARENT/state/remote-replies/ios.retirements")" = "$count_before" ] \
   || fail "a retirement that stopped after removal changed the count"
 pass "a retirement that stops after removing the cursor leaves the old count"
+
+# Refusals use the same launch-entry barrier with a fresh home per case. A
+# registration is replaced before any source command can run; invalid adoption
+# must exit, preserve any other owner's claim, and leave both commands unrun.
+# shellcheck disable=SC2016 # Source-command parameters expand only in its child shell.
+handoff_refusal_case() (
+  local kind=$1 adapter=remote-reply start_pid claim before line
+  PARENT="$TMP_ROOT/refusal-$kind"
+  SID="refusal-$kind"
+  HANDOFF="$PARENT/handoff"
+  mkdir -p "$PARENT/state" "$HANDOFF"
+  trap '
+    if [ -f "$HANDOFF/original.claim" ] && [ -e "$CLAIMS/$SID.claim" ]; then
+      cp "$HANDOFF/original.claim" "$CLAIMS/$SID.claim"
+    fi
+    remote_env "$ROOT/bin/process-events.sh" sweep-home >/dev/null 2>&1 || true
+  ' EXIT
+  mkfifo "$HANDOFF/release"
+  cp "$TMP_ROOT/handoff/bash-env" "$HANDOFF/bash-env"
+  printf 'initial\n' > "$HANDOFF/sequence"
+  [ "$kind" != one-shot ] || adapter=lavish
+  remote_env "$ROOT/bin/process-events.sh" register "$adapter" "$SID" -- \
+    /bin/sh -c 'echo unexpected >> "$1"; exit 75' sh "$HANDOFF/launched" >/dev/null
+  (remote_env "$ROOT/bin/process-events.sh" start "$SID" > "$HANDOFF/runner.out" 2>&1
+    printf '%s\n' "$?" > "$HANDOFF/finished") &
+  start_pid=$!
+  wait_for "$HANDOFF/initial.ready" || fail "$kind never reached its launch boundary"
+  claim="$CLAIMS/$SID.claim"
+  cp "$claim" "$HANDOFF/original.claim"
+  remote_env "$ROOT/bin/process-events.sh" register "$adapter" "$SID" -- \
+    /bin/sh -c 'echo unexpected >> "$1"; exit 75' sh "$HANDOFF/launched" >/dev/null
+  case "$kind" in
+    command)
+      remote_env "$ROOT/bin/process-events.sh" register "$adapter" "$SID" -- \
+        /bin/sh -c 'echo changed >> "$1"' sh "$HANDOFF/launched" >/dev/null ;;
+    adapter)
+      remote_env "$ROOT/bin/process-events.sh" register lavish "$SID" -- \
+        /bin/sh -c 'echo unexpected >> "$1"; exit 75' sh "$HANDOFF/launched" >/dev/null ;;
+    missing) rm -f "$PARENT/state/procevent/$SID.source" ;;
+    home|pid|token)
+      case "$kind" in home) line=1 ;; pid) line=2 ;; token) line=3 ;; esac
+      awk -v line="$line" 'NR == line { print "999999"; next } { print }' \
+        "$claim" > "$HANDOFF/changed.claim"
+      chmod 0600 "$HANDOFF/changed.claim"
+      mv "$HANDOFF/changed.claim" "$claim"
+      ;;
+  esac
+  before=$(cat "$claim")
+  release_handoff
+  wait_for "$HANDOFF/finished" || fail "$kind did not leave the superseded generation"
+  wait "$start_pid" || fail "$kind start wrapper failed"
+  [ "$(cat "$HANDOFF/finished")" = 0 ] || fail "$kind runner did not exit cleanly"
+  assert_absent "$HANDOFF/launched" "$kind launched through an invalid adoption"
+  assert_absent "$PARENT/state/procevent/$SID.runner" "$kind left a stale runner marker"
+  case "$kind" in
+    home|pid|token)
+      [ "$(cat "$claim")" = "$before" ] || fail "$kind displaced another claim"
+      cp "$HANDOFF/original.claim" "$claim" ;; # Restore only this fixture for cleanup.
+  esac
+  remote_env "$ROOT/bin/process-events.sh" sweep-home >/dev/null \
+    || fail "$kind fixture could not sweep after refusal"
+  pass "$kind replacement cannot hijack the old listener claim"
+)
+for refusal in command adapter missing home pid token one-shot; do
+  handoff_refusal_case "$refusal"
+done
 
 echo "ALL TESTS PASSED"

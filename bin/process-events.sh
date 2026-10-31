@@ -1219,11 +1219,16 @@ cmd_start() {
   process_events_launch_floor_wait "$STATE" "$id" "$CLAIM_REG_IDENTITY" "$launch_floor"
   case "$?" in
     0) ;;
-    # A superseded generation leaves nothing behind. The runner marker is
-    # written before this wait, and a home sweep counts a marker with no owned
-    # claim as a preflight failure, so exiting without removing it would make
-    # that home refuse to sweep.
-    2) [ "$extension_owner" -eq 1 ] || rm -f -- "$runner"; exit 0 ;;
+    2)
+      # A same-command rearm can replace the registration after adoption but
+      # before this wait. Re-prove ownership and retry the new generation's
+      # floor; never launch through the superseded generation's check.
+      if adopt_relisten; then continue; fi
+      # A superseded runner must leave no marker without an owned claim, or
+      # the home sweep would count it as a preflight failure.
+      [ "$extension_owner" -eq 1 ] || rm -f -- "$runner"
+      exit 0
+      ;;
     *) die "cannot enforce the source launch floor: $id" ;;
   esac
   exec 7<&-
