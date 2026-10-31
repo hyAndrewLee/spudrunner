@@ -1819,7 +1819,11 @@ This single-provider table is separate from the frozen legacy mapping used by `q
 
 - `ultra` is native-only: the model-aware validation contract and launch mapping are owned by `bin/agent-runtime.sh validate-native-effort` and `bin/task-launch.sh` respectively.
 - Codex `max` is valid when the profile selects `gpt-5.6-luna`, whose installed catalog entry supports that reasoning level.
-- On pane backends, an omitted model or effort means the selected harness uses its own default for that axis; [T3 selection](t3code-backend.md#provider-instances-and-models) owns server-backed defaults.
+- On pane backends, canonical Codex task workers with no model choice select the installed runtime catalog's recommendation, rather than inheriting the user's incidental Codex model default; explicit task/profile models and project coordinator pins remain authoritative.
+  An explicit `--model default` intentionally retains runtime inheritance.
+  Discovery failures, custom providers without verified recommendation discovery, and incompatible reasoning preferences stop automatic selection with an actionable error.
+  Catalogs may be runtime-cached and do not prove paid account entitlement.
+  Other harnesses retain their own omission behavior, so intake must resolve their model through the [model and effort policy](../.agents/skills/harness-adapters/references/common/model-and-effort.md); an omitted effort still uses the selected harness's default, and [T3 selection](t3code-backend.md#provider-instances-and-models) owns server-backed defaults.
 - OpenCode receives the effort as its default `build` agent's `variant`, keyed to the resolved model, inside the `OPENCODE_CONFIG_CONTENT` JSON its launch already writes (the per-model reasoning-effort field of the config schema, verified on opencode 1.18.32); with no model resolved, the effort is recorded in task metadata but omitted from the launch.
 - Every profile array is an implicit quota-aware choice resolved through `quota-array-dispatch`.
 - If no dispatch rule fits, Spudrunner resolves `default` through the same object-or-array path before falling back to `config/crew-harness`.

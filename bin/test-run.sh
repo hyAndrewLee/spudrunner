@@ -362,6 +362,7 @@ family_for_basename() {
     agent-input-matrix-live-e2e.test.sh|\
     agent-input-codex-idle-live-e2e.test.sh|\
     codex-continuity-live-e2e.test.sh|codex-hook-layer-live-e2e.test.sh|\
+    codex-model-discovery-live-e2e.test.sh|\
     grok-continuity-live-e2e.test.sh|\
     cursor-primary-live-e2e.test.sh|agy-primary-live-e2e.test.sh|\
     grok-stop-live-e2e.test.sh|agent-runtime-adapter-instructions-live-e2e.test.sh|\

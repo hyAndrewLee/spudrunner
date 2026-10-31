@@ -3447,3 +3447,18 @@ The full run's native Ahoy cases depend on the model's own choices and failed wi
 
 A real `bin/task-launch.sh --scout --harness opencode --model opencode-go/deepseek-v4.1-flash` in a private tmux server recorded `opencode_version=1.18.20` (and `1.18.31` on the second release), launched the worker as `opencode --model opencode-go/deepseek-v4.1-flash --prompt <brief>` with no `--standalone`, and the worker answered its brief.
 `bin/agent-control.sh <task> exit` then resolved the typed `/exit` from that recorded major and returned both panes to the shell.
+
+## Codex unpinned worker catalog discovery
+
+Verified on 2026-10-31 with codex-cli 0.159.3 on Linux using `bash bin/test-run.sh tests/codex-model-discovery-live-e2e.test.sh`.
+The token-free guard supplies a process-only stale model override, reads `config/read` and `model/list` through an isolated stdio app-server, and never starts a thread or submits a prompt.
+The selected provider was Codex's built-in `openai`, and the runtime's unique default recommendation was `gpt-6.1-sol`, independent of the inherited model.
+The catalog advertised compatibility with the inherited `low` reasoning effort.
+This proves the installed protocol and recommendation, not live inference entitlement or freshness beyond the runtime's own catalog caching.
+
+```text
+{"model":"gpt-6.1-sol","provider":"openai","inheritedModel":"spudrunner-stale-inherited-default","effort":"low"}
+ok - Codex codex-cli 0.159.3 supports token-free catalog selection without inherited model fallback
+```
+
+Other runtimes, raw commands, T3's server-owned catalog, and explicit model choices do not use this Codex discovery path.
