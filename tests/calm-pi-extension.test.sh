@@ -4031,6 +4031,49 @@ SH
   pass "the rendered-export-DOM guard renders in one pass, retries a bounded number of Chrome start-up failures, and reports the Chrome binary, Chrome version, Pi version, exit status, and Chrome diagnostic when every attempt fails"
 }
 
+# A whole-pane ANSI capture carries SGR state across newlines. Capture a row
+# independently before checking its colors, so it cannot inherit an unrecorded
+# foreground from a preceding row (including when tmux omits trailing cells).
+capture_colored_row() {
+  local snapshot=$1 text=$2 row
+  row=$(awk -v text="$text" 'index($0, text) { print NR - 1; exit }' "$snapshot")
+  [ -n "$row" ] || return 1
+  tmux -L "$TMUX_SOCKET" capture-pane -p -e -J -t "$TMUX_SESSION" -S "$row" -E "$row"
+}
+
+test_colored_row_capture() {
+  local snapshot="$TMP_ROOT/inherited-colors.txt" color row captured i
+  if ! command -v tmux >/dev/null 2>&1; then
+    echo "skip: tmux not found for ANSI row capture regression"
+    return 0
+  fi
+  for color in 33 31; do
+    tmux -L "$TMUX_SOCKET" new-session -d -s "$TMUX_SESSION" -x 60 -y 10 \
+      "printf '\033[${color}m%-60s\\r\\n%-60s\\r\\n[···]\033[34m▁▂▃▄\033[39m' 'header' ' · '; sleep 30"
+    i=0
+    while [ "$i" -lt 120 ]; do
+      tmux -L "$TMUX_SOCKET" capture-pane -p -e -t "$TMUX_SESSION" >"$snapshot"
+      grep -Fq '[···]' "$snapshot" && break
+      sleep 0.05
+      i=$((i + 1))
+    done
+    for row in ' ·' '[···]'; do
+      captured=$(grep -F "$row" "$snapshot")
+      [ -n "$captured" ] || fail "ANSI capture regression did not render $row"
+      assert_not_contains "$captured" "[${color}m" \
+        "ANSI capture regression did not exercise inherited row color"
+      captured=$(capture_colored_row "$snapshot" "$row") \
+        || fail "could not independently capture $row"
+      assert_contains "$captured" "[${color}m" "independent row capture lost its actual color"
+      if [ "$color" = 31 ]; then
+        assert_not_contains "$captured" '[33m' "independent row capture turned red into yellow"
+      fi
+    done
+    tmux -L "$TMUX_SOCKET" kill-session -t "$TMUX_SESSION"
+  done
+  pass "independent ANSI row captures preserve inherited yellow and reject red without relying on preceding rows"
+}
+
 test_interactive_terminal_e2e() {
   local project config home session_file export_file export_dom default_snapshot expanded_snapshot hidden_snapshot active_before_snapshot active_hidden_snapshot export_snapshot export_settled_snapshot restored_snapshot working_snapshot working_response_snapshot restarted_snapshot resumed_restored_snapshot hash_before hash_after now version chrome chrome_report active_wait active_screen_wait boat_frame_one boat_frame_two boat_resized_snapshot boat_focus_snapshot boat_cleared_snapshot boat_hull_line boat_sail_line boat_column_one boat_column_two boat_line boat_color_snapshot boat_color_line boat_water_snapshot boat_water_line boat_water_first boat_water_changed boat_narrow_snapshot boat_freeze_snapshot boat_resume_snapshot boat_freeze_column boat_freeze_sail boat_resume_column boat_resume_sail
   if ! command -v pi >/dev/null 2>&1 || ! command -v tmux >/dev/null 2>&1; then
@@ -4665,9 +4708,9 @@ JS
     || fail "the working ship rendered no low waveform"
   # Standard ANSI colors: all water blue at every height, the whole hull and sail
   # yellow, no cyan crests or red sail half, and no RGB/256 escapes.
-  tmux -L "$TMUX_SOCKET" capture-pane -p -e -J -t "$TMUX_SESSION" >"$boat_color_snapshot"
-  boat_color_line=$(grep -F '[···]' "$boat_color_snapshot" | head -1)
-  boat_sail_line=$(grep -F ' · ' "$boat_color_snapshot" | head -1)
+  tmux -L "$TMUX_SOCKET" capture-pane -p -t "$TMUX_SESSION" >"$boat_color_snapshot"
+  boat_color_line=$(capture_colored_row "$boat_color_snapshot" '[···]')
+  boat_sail_line=$(capture_colored_row "$boat_color_snapshot" ' ·')
   [ -n "$boat_color_line" ] || fail "could not capture a colored working-ship row"
   [ -n "$boat_sail_line" ] || fail "could not capture a colored working-ship sail"
   case "$boat_color_line" in
@@ -4996,4 +5039,5 @@ test_queued_operational_escape_e2e
 test_hidden_block_geometry_e2e
 test_working_implementation_geometry_and_lifecycle
 test_export_dom_render_guard
+test_colored_row_capture
 test_interactive_terminal_e2e
