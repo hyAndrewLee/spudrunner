@@ -1553,8 +1553,18 @@ FM_HOME="$H_ACTIVE_RUNNER" "$PROCEVENT" register-extension ext-flow active-sourc
 FM_HOME="$H_ACTIVE_RUNNER" "$PROCEVENT" start active-source > "$TMP_ROOT/active-runner.out" 2>&1 &
 active_runner_pid=$!
 wait_for_file "$active_runner_marker" || fail "active extension runner never entered its poll"
+cp "$H_ACTIVE_RUNNER/state/procevent/active-source.source" "$TMP_ROOT/active-original.source"
+cp "$FM_PROCEVENT_CLAIM_ROOT/active-source.claim" "$TMP_ROOT/active-original.claim"
+cp "$H_ACTIVE_RUNNER/state/procevent/active-source.runner" "$TMP_ROOT/active-original.runner"
+cp "$active_runner_marker" "$TMP_ROOT/active-original.marker"
 expect_failure "prior runner remains active" env FM_HOME="$H_ACTIVE_RUNNER" "$PROCEVENT" register-extension ext-flow active-source --config-ref replacement
 expect_failure "prior runner remains active" env FM_HOME="$H_ACTIVE_RUNNER" "$PROCEVENT" register lavish active-source -- /bin/echo built-in
+kill -0 "$active_runner_pid" || fail "replacement refusal stopped the original runner"
+assert_absent "$active_runner_release" "replacement refusal released the active poll"
+cmp "$TMP_ROOT/active-original.source" "$H_ACTIVE_RUNNER/state/procevent/active-source.source" || fail "refusal changed the registration"
+cmp "$TMP_ROOT/active-original.claim" "$FM_PROCEVENT_CLAIM_ROOT/active-source.claim" || fail "refusal changed the claim owner"
+cmp "$TMP_ROOT/active-original.runner" "$H_ACTIVE_RUNNER/state/procevent/active-source.runner" || fail "refusal changed the runner identity"
+cmp "$TMP_ROOT/active-original.marker" "$active_runner_marker" || fail "refusal restarted the poll"
 touch "$active_runner_release"
 active_runner_release=
 wait "$active_runner_pid" || fail "active extension runner did not complete"
