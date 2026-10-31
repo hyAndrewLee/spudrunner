@@ -199,6 +199,17 @@ case "${1:-}" in
     ;;
   has-session|new-session|set-window-option) exit 0 ;;
   send-keys)
+    for a in "$@"; do
+      case "$a" in
+        "/bin/sh '"*"/.codex-environment."*"/check.sh'")
+          staged=${a#"/bin/sh '"}
+          staged=${staged%"'"}
+          [ "${FM_FAKE_CODEX_ENV_UNCONFIRMED:-0}" != 1 ] || exit 0
+          HOME="${FM_FAKE_CODEX_DEST_HOME-$HOME}" CODEX_HOME="${FM_FAKE_CODEX_DEST_ROOT-${CODEX_HOME-}}" /bin/sh "$staged"
+          exit 0
+          ;;
+      esac
+    done
     prev=
     for a in "$@"; do
       if [ "$prev" = "-l" ]; then

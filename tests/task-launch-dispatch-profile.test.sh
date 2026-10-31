@@ -2746,9 +2746,10 @@ JS
 }
 
 test_codex_configuration_root_binding() {
-  local setting rec id out status launch log root result pane_root
+  local setting conflict rec id out status launch log root result pane_root dest_home dest_root
   for setting in default explicit filtered allowed; do
-    id="catalog-root-$setting"
+    for conflict in none root home unconfirmed; do
+    id="catalog-root-$setting-$conflict"
     rec=$(make_spawn_case "$id" codex "$id")
     read_case_record "$rec"
     log="$CASE_DIR/rpc.jsonl"
@@ -2761,8 +2762,15 @@ test_codex_configuration_root_binding() {
       filtered) : > "$HOME_DIR/config/launch-env-allowlist" ;;
       allowed) printf 'CODEX_HOME\n' > "$HOME_DIR/config/launch-env-allowlist" ;;
     esac
+    dest_home="$HOME_DIR/user-home"
+    dest_root=$pane_root
+    case "$conflict" in
+      root) dest_root="$CASE_DIR/conflicting-provider" ;;
+      home) dest_home="$CASE_DIR/other-user" ;;
+    esac
     out=$(
-      export FM_FAKE_CODEX_RPC_LOG="$log"
+      export FM_FAKE_CODEX_RPC_LOG="$log" FM_FAKE_CODEX_DEST_ROOT="$dest_root" FM_FAKE_CODEX_DEST_HOME="$dest_home"
+      [ "$conflict" != unconfirmed ] || export FM_FAKE_CODEX_ENV_UNCONFIRMED=1
       case "$setting" in
         default) unset CODEX_HOME ;;
         filtered) export CODEX_HOME="$CASE_DIR/filtered-supervisor-account" ;;
@@ -2771,7 +2779,24 @@ test_codex_configuration_root_binding() {
       run_implementation_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" "$id" "$PROJ_DIR"
     )
     status=$?
-    expect_code 0 "$status" "root=$setting discovery failed: $out"
+    if [ "$conflict" = unconfirmed ] ||
+      { [ "$conflict" = root ] && [ "$setting" != filtered ]; } ||
+      { [ "$conflict" = home ] && [ -z "$pane_root" ]; }; then
+      [ "$status" -ne 0 ] || fail "root=$setting conflict=$conflict parent reported success: $out"
+      assert_not_contains "$out" "spawned $id" "refusal reported a successful spawn"
+      assert_contains "$out" 'explicit supported --model' "parent omitted actionable refusal"
+      assert_grep 'failed [at=' "$HOME_DIR/state/$id.status" "refusal omitted failed task status"
+      [ ! -e "$HOME_DIR/state/$id.meta" ] || fail "refusal published active metadata"
+      [ ! -e "$HOME_DIR/state/$id.busy-gen" ] || fail "refusal armed busy state"
+      [ ! -e "$HOME_DIR/state/$id.busy-state" ] || fail "refusal seeded busy state"
+      [ ! -e "$HOME_DIR/data/backlog.md" ] || fail "refusal wrote a backlog transition"
+      [ ! -s "$LAUNCH_LOG" ] || fail "refusal delivered a worker launch"
+      [ ! -e "$log" ] || fail "refusal performed model discovery"
+      pass "root=$setting conflict=$conflict fails the public launcher before task publication"
+      continue
+    fi
+    expect_code 0 "$status" "root=$setting conflict=$conflict discovery failed: $out"
+    assert_contains "$out" "spawned $id" "compatible environment did not complete dispatch"
     node - "$log" "$root" <<'JS'
 const [file, root] = process.argv.slice(2);
 const rows = require('fs').readFileSync(file,'utf8').trim().split('\n').map(JSON.parse);
@@ -2779,7 +2804,7 @@ if (!rows.length || rows.some(row => row.home !== root)) process.exit(1);
 JS
     expect_code 0 "$?" "root=$setting discovery used wrong config"
     launch=$(cat "$LAUNCH_LOG")
-    result=$(env -i HOME="$HOME_DIR/user-home" CODEX_HOME="$pane_root" PATH="$PATH" /bin/sh -c "$launch")
+    result=$(env -i HOME="$dest_home" CODEX_HOME="$dest_root" PATH="$PATH" /bin/sh -c "$launch")
     expect_code 0 "$?" "root=$setting ordinary launch failed: $result"
     node - "$result" "$root" <<'JS'
 const [output, root] = process.argv.slice(2);
@@ -2787,23 +2812,8 @@ const worker = JSON.parse(output);
 if (worker.home !== root || !worker.args.includes('recommended-worker')) process.exit(1);
 JS
     expect_code 0 "$?" "root=$setting worker did not use discovered root/model"
-    result=$(env -i HOME="$HOME_DIR/user-home" CODEX_HOME="$CASE_DIR/conflicting-provider" PATH="$PATH" /bin/sh -c "$launch" 2>&1)
-    status=$?
-    if [ "$setting" = filtered ]; then
-      expect_code 0 "$status" "filtered destination CODEX_HOME must not affect execution: $result"
-    else
-      [ "$status" -ne 0 ] || fail "root=$setting launched against conflicting destination account"
-      assert_contains "$result" 'explicit supported --model' "root mismatch must request a deliberate model"
-    fi
-    if [ -n "$pane_root" ]; then
-      result=$(env -i HOME="$CASE_DIR/other-user" CODEX_HOME="$pane_root" PATH="$PATH" /bin/sh -c "$launch" 2>&1)
-      expect_code 0 "$?" "explicit root should preserve its account despite a different destination HOME: $result"
-    fi
-    result=$(env -i HOME="$CASE_DIR/other-user" PATH="$PATH" /bin/sh -c "$launch" 2>&1)
-    status=$?
-    [ "$status" -ne 0 ] || fail "root=$setting launched against conflicting destination HOME"
-    assert_contains "$result" 'explicit supported --model' "HOME mismatch must request a deliberate model"
-    pass "root=$setting discovery and execution agree or refuse without changing accounts"
+    pass "root=$setting conflict=$conflict discovery and execution agree without changing accounts"
+    done
   done
 }
 

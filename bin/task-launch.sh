@@ -5922,6 +5922,30 @@ if [ "$HARNESS" = codex ] && [ "$KIND" != secondmate ] &&
     /*) ;;
     *) echo "error: automatic Codex model selection requires an absolute configuration root; pass an explicit supported --model" >&2; exit 1 ;;
   esac
+  CODEX_DESTINATION_ROOT="\${CODEX_HOME:-\$HOME/.codex}"
+  if [ "$LAUNCH_ENV_ENABLED" = 1 ]; then
+    case $'\n'"$LAUNCH_ENV_NAMES"$'\n' in
+      *$'\nCODEX_HOME\n'*) ;;
+      *) CODEX_DESTINATION_ROOT="\$HOME/.codex" ;;
+    esac
+  fi
+  CODEX_ENV_CHECK_DIR=$(mktemp -d "$STATE/.codex-environment.XXXXXX") || exit 1
+  printf '%s\n' "if [ \"$CODEX_DESTINATION_ROOT\" = $(shell_quote "$CODEX_MODEL_HOME") ]; then touch $(shell_quote "$CODEX_ENV_CHECK_DIR/compatible"); else touch $(shell_quote "$CODEX_ENV_CHECK_DIR/refused"); fi" > "$CODEX_ENV_CHECK_DIR/check.sh"
+  if ! spawn_send_text_line "$T" "/bin/sh $(shell_quote "$CODEX_ENV_CHECK_DIR/check.sh")"; then
+    rm -rf -- "$CODEX_ENV_CHECK_DIR"
+    kimi_spawn_fail "Codex destination configuration check could not be delivered; pass an explicit supported --model"
+    exit 1
+  fi
+  for ((CODEX_ENV_POLL=0; CODEX_ENV_POLL<100; CODEX_ENV_POLL++)); do
+    [ ! -e "$CODEX_ENV_CHECK_DIR/compatible" ] && [ ! -e "$CODEX_ENV_CHECK_DIR/refused" ] || break
+    sleep 0.1
+  done
+  if [ ! -e "$CODEX_ENV_CHECK_DIR/compatible" ]; then
+    rm -rf -- "$CODEX_ENV_CHECK_DIR"
+    kimi_spawn_fail "automatic Codex model selection cannot establish the destination configuration root; pass an explicit supported --model"
+    exit 1
+  fi
+  rm -rf -- "$CODEX_ENV_CHECK_DIR"
   CODEX_MODEL_BIN=$(command -v codex) || {
     echo "error: Codex model discovery unavailable: codex executable not found; pass a supported --model explicitly" >&2
     exit 1
@@ -7322,16 +7346,6 @@ if [ "$LAUNCH_ENV_ENABLED" = 1 ]; then
     LAUNCH_ENV_PREFIX="$LAUNCH_ENV_PREFIX "'${TRACEPARENT+"TRACEPARENT=$TRACEPARENT"}'
   fi
   LAUNCH="$LAUNCH_ENV_PREFIX /bin/sh -c $(shell_quote "$LAUNCH")"
-fi
-if [ "$CODEX_MODEL_DISCOVERED" = 1 ]; then
-  CODEX_DESTINATION_ROOT="\${CODEX_HOME:-\$HOME/.codex}"
-  if [ "$LAUNCH_ENV_ENABLED" = 1 ]; then
-    case $'\n'"$LAUNCH_ENV_NAMES"$'\n' in
-      *$'\nCODEX_HOME\n'*) ;;
-      *) CODEX_DESTINATION_ROOT="\$HOME/.codex" ;;
-    esac
-  fi
-  LAUNCH="/bin/sh -c $(shell_quote "[ \"$CODEX_DESTINATION_ROOT\" = $(shell_quote "$CODEX_MODEL_HOME") ] || { echo 'error: automatic Codex model selection cannot establish the destination configuration root; pass an explicit supported --model' >&2; exit 1; }") || return 1 2>/dev/null || exit 1; $LAUNCH"
 fi
 if [ "$BACKEND" = t3code ]; then
   # No pane: the launch is the thread's first message, carrying the same

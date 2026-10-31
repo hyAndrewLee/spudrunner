@@ -1823,7 +1823,7 @@ This single-provider table is separate from the frozen legacy mapping used by `q
   An explicit `--model default` intentionally retains runtime inheritance.
   Discovery failures, custom providers without verified recommendation discovery, and incompatible reasoning preferences stop automatic selection with an actionable error.
   Automatic Codex selection uses an absolute configuration root, respecting removal of `CODEX_HOME` by launch filtering, and binds execution to that root, including the default `$HOME/.codex` case.
-  Before executing the prepared command, the destination must resolve to the same root; a conflicting destination `CODEX_HOME` or default `HOME` refuses execution and requests an explicit supported `--model`, rather than changing accounts.
+  Before discovery or task publication, the destination must confirm the same root; a conflicting destination `CODEX_HOME` or default `HOME`, or an unconfirmed destination check, fails the parent launch with an explicit supported `--model` request and no active task or backlog transition, rather than changing accounts.
   Orca sourced environments and relative configuration roots require an explicit supported model because automatic selection cannot safely establish their intended destination configuration in the supervisor.
   Catalogs may be runtime-cached and do not prove paid account entitlement.
   Other harnesses retain their own omission behavior, so intake must resolve their model through the [model and effort policy](../.agents/skills/harness-adapters/references/common/model-and-effort.md); an omitted effort still uses the selected harness's default, and [T3 selection](t3code-backend.md#provider-instances-and-models) owns server-backed defaults.
