@@ -2354,9 +2354,9 @@ printf '%s\n' "$@" > "$FM_ROLE_PROMPT"
 SH
     chmod +x "$FAKEBIN_DIR/codex"
     if [ "$kind" = scout ]; then
-      out=$(run_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" "$id" "$PROJ_DIR" --scout)
+      out=$(run_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" "$id" "$PROJ_DIR" --scout --model default)
     else
-      out=$(run_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" "$id" "$PROJ_DIR" --mode "$kind" --yolo off)
+      out=$(run_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" "$id" "$PROJ_DIR" --mode "$kind" --yolo off --model default)
     fi
     expect_code 0 "$?" "$kind worker spawn failed: $out"
     launch=$(cat "$LAUNCH_LOG")
@@ -2594,7 +2594,7 @@ test_non_claude_harness_ignores_claude_permission_mode() {
   status=$?
   expect_code 0 "$status" "codex spawn under claude-permission-mode=auto should succeed"
   launch=$(cat "$LAUNCH_LOG")
-  assert_contains "$launch" "codex " "codex launch did not run codex"
+  assert_contains "$launch" "'$FAKEBIN_DIR/codex' --model 'recommended-worker'" "codex launch did not run the discovered executable/model"
   assert_not_contains "$launch" "--permission-mode" "the claude permission flag must not leak into a codex launch"
   pass "config/claude-permission-mode changes claude launches only"
 }
@@ -2716,6 +2716,175 @@ test_codex_permission_does_not_change_other_harnesses() {
   pass "Codex restricted mode leaves other harness launch flags unchanged"
 }
 
+test_codex_unpinned_uses_catalog_recommendation() {
+  local rec id out status launch log
+  id='catalog-unpinned'
+  rec=$(make_spawn_case "$id" codex "$id")
+  read_case_record "$rec"
+  log="$CASE_DIR/rpc.jsonl"
+  out=$(FM_FAKE_CODEX_RPC_LOG="$log" CODEX_HOME="$CASE_DIR/codex-account" \
+    run_implementation_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" "$id" "$PROJ_DIR" --effort max)
+  status=$?
+  expect_code 0 "$status" "unpinned Codex launch failed: $out"
+  assert_meta_profile "$HOME_DIR/state/$id.meta" codex recommended-worker max
+  assert_grep 'model_source=codex-model-list' "$HOME_DIR/state/$id.meta" "missing catalog provenance"
+  assert_grep 'model_provider=openai' "$HOME_DIR/state/$id.meta" "missing selected provider"
+  launch=$(cat "$LAUNCH_LOG")
+  assert_contains "$launch" "--model 'recommended-worker'" "stale inherited model was not overridden"
+  assert_contains "$launch" "model_reasoning_effort=\"max\"" "compatible requested effort was lost"
+  assert_contains "$launch" "'$FAKEBIN_DIR/codex'" "launch did not pin discovery's executable"
+  assert_contains "$launch" "CODEX_HOME='$CASE_DIR/codex-account'" "launch lost discovery's account root"
+  assert_contains "$out" 'runtime catalog may be cached' "catalog uncertainty was not disclosed"
+  node - "$log" "$WT_DIR" "$CASE_DIR/codex-account" <<'JS'
+const [path, cwd, home] = process.argv.slice(2);
+const rows = require('fs').readFileSync(path,'utf8').trim().split('\n').map(JSON.parse);
+if (rows.some(r => r.cwd !== cwd || r.home !== home)) process.exit(1);
+if (rows.map(r => r.method).join(',') !== 'initialize,initialized,config/read,model/list') process.exit(1);
+JS
+  expect_code 0 "$?" "discovery used another cwd/account or submitted work"
+  pass "unpinned stale Codex default is replaced by catalog recommendation with provider and selected model recorded"
+}
+
+test_codex_configuration_root_binding() {
+  local setting conflict rec id out status launch log root result pane_root dest_home dest_root
+  for setting in default explicit filtered allowed; do
+    for conflict in none root home unconfirmed; do
+    id="catalog-root-$setting-$conflict"
+    rec=$(make_spawn_case "$id" codex "$id")
+    read_case_record "$rec"
+    log="$CASE_DIR/rpc.jsonl"
+    root="$HOME_DIR/user-home/.codex"
+    pane_root=
+    case "$setting" in
+      explicit|allowed) root="$CASE_DIR/account"; pane_root=$root ;;
+    esac
+    case "$setting" in
+      filtered) : > "$HOME_DIR/config/launch-env-allowlist" ;;
+      allowed) printf 'CODEX_HOME\n' > "$HOME_DIR/config/launch-env-allowlist" ;;
+    esac
+    dest_home="$HOME_DIR/user-home"
+    dest_root=$pane_root
+    case "$conflict" in
+      root) dest_root="$CASE_DIR/conflicting-provider" ;;
+      home) dest_home="$CASE_DIR/other-user" ;;
+    esac
+    out=$(
+      export FM_FAKE_CODEX_RPC_LOG="$log" FM_FAKE_CODEX_DEST_ROOT="$dest_root" FM_FAKE_CODEX_DEST_HOME="$dest_home"
+      [ "$conflict" != unconfirmed ] || export FM_FAKE_CODEX_ENV_UNCONFIRMED=1
+      if [ "$setting" = default ]; then
+        unset CODEX_HOME
+      elif [ "$setting" = filtered ]; then
+        export CODEX_HOME="$CASE_DIR/filtered-supervisor-account"
+      else
+        export CODEX_HOME="$pane_root"
+      fi
+      run_implementation_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" "$id" "$PROJ_DIR"
+    )
+    status=$?
+    if [ "$conflict" = unconfirmed ] ||
+      { [ "$conflict" = root ] && [ "$setting" != filtered ]; } ||
+      { [ "$conflict" = home ] && [ -z "$pane_root" ]; }; then
+      [ "$status" -ne 0 ] || fail "root=$setting conflict=$conflict parent reported success: $out"
+      assert_not_contains "$out" "spawned $id" "refusal reported a successful spawn"
+      assert_contains "$out" 'explicit supported --model' "parent omitted actionable refusal"
+      assert_grep 'failed [at=' "$HOME_DIR/state/$id.status" "refusal omitted failed task status"
+      [ ! -e "$HOME_DIR/state/$id.meta" ] || fail "refusal published active metadata"
+      [ ! -e "$HOME_DIR/state/$id.busy-gen" ] || fail "refusal armed busy state"
+      [ ! -e "$HOME_DIR/state/$id.busy-state" ] || fail "refusal seeded busy state"
+      [ ! -e "$HOME_DIR/data/backlog.md" ] || fail "refusal wrote a backlog transition"
+      [ ! -s "$LAUNCH_LOG" ] || fail "refusal delivered a worker launch"
+      [ ! -e "$log" ] || fail "refusal performed model discovery"
+      pass "root=$setting conflict=$conflict fails the public launcher before task publication"
+      continue
+    fi
+    expect_code 0 "$status" "root=$setting conflict=$conflict discovery failed: $out"
+    assert_contains "$out" "spawned $id" "compatible environment did not complete dispatch"
+    node - "$log" "$root" <<'JS'
+const [file, root] = process.argv.slice(2);
+const rows = require('fs').readFileSync(file,'utf8').trim().split('\n').map(JSON.parse);
+if (!rows.length || rows.some(row => row.home !== root)) process.exit(1);
+JS
+    expect_code 0 "$?" "root=$setting discovery used wrong config"
+    launch=$(cat "$LAUNCH_LOG")
+    result=$(env -i HOME="$dest_home" CODEX_HOME="$dest_root" PATH="$PATH" /bin/sh -c "$launch")
+    expect_code 0 "$?" "root=$setting ordinary launch failed: $result"
+    node - "$result" "$root" <<'JS'
+const [output, root] = process.argv.slice(2);
+const worker = JSON.parse(output);
+if (worker.home !== root || !worker.args.includes('recommended-worker')) process.exit(1);
+JS
+    expect_code 0 "$?" "root=$setting worker did not use discovered root/model"
+    pass "root=$setting conflict=$conflict discovery and execution agree without changing accounts"
+    done
+  done
+}
+
+test_codex_explicit_choices_bypass_auto_selection() {
+  local choice rec id out status launch
+  for choice in deliberately-pinned default; do
+    id="catalog-pin-$choice"
+    rec=$(make_spawn_case "$id" codex "$id")
+    read_case_record "$rec"
+    enable_dispatch_profile "$HOME_DIR"
+    out=$(FM_FAKE_CODEX_UNAVAILABLE=1 \
+      run_implementation_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" "$id" "$PROJ_DIR" --harness codex --model "$choice" --effort high)
+    status=$?
+    expect_code 0 "$status" "explicit profile model must remain authoritative: $out"
+    assert_meta_profile "$HOME_DIR/state/$id.meta" codex "$choice" high
+    launch=$(cat "$LAUNCH_LOG")
+    if [ "$choice" = default ]; then
+      assert_not_contains "$launch" '--model' "intentional runtime inheritance was replaced"
+    else
+      assert_contains "$launch" "--model '$choice'" "explicit profile/task model was replaced"
+    fi
+    assert_not_contains "$out" 'selected' "explicit model should not run auto selection"
+  done
+  pass "explicit task/profile pins and intentional default survive unavailable auto discovery"
+}
+
+test_codex_discovery_refusals_do_not_launch() {
+  local failure rec id out status config catalog
+  for failure in unavailable unsupported provider effort; do
+    id="catalog-refuse-$failure"
+    rec=$(make_spawn_case "$id" codex "$id")
+    read_case_record "$rec"
+    config='{"model":"gpt-5.3-codex","model_reasoning_effort":"low"}'
+    catalog='[{"model":"supported-but-not-recommended","isDefault":false}]'
+    case "$failure" in
+      provider) config='{"model_provider":"private-provider","model":"account-pin"}' ;;
+      effort) config='{"model_reasoning_effort":"xhigh"}'; catalog='[{"model":"recommended","isDefault":true,"supportedReasoningEfforts":[{"reasoningEffort":"low"}]}]' ;;
+    esac
+    out=$(FM_FAKE_CODEX_UNAVAILABLE="$([ "$failure" != unavailable ] || printf 1)" \
+      FM_FAKE_CODEX_CONFIG="$config" FM_FAKE_CODEX_CATALOG="$catalog" \
+      run_implementation_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" "$id" "$PROJ_DIR")
+    status=$?
+    [ "$status" -ne 0 ] || fail "Codex $failure discovery silently launched: $out"
+    assert_contains "$out" 'no inherited-model fallback' "missing actionable discovery refusal: $out"
+    [ ! -e "$HOME_DIR/state/$id.meta" ] || fail "refused catalog wrote effective model metadata"
+    [ ! -s "$LAUNCH_LOG" ] || fail "refused catalog sent a worker launch"
+  done
+  pass "unavailable catalog, unsupported recommendation, provider mismatch and incompatible inherited effort stop instead of downgrade"
+}
+
+test_codex_catalog_does_not_route_other_harnesses() {
+  local rec id out status
+  id='catalog-provider-routing'
+  rec=$(make_spawn_case "$id" pi "$id")
+  read_case_record "$rec"
+  out=$(FM_FAKE_CODEX_UNAVAILABLE=1 \
+    run_implementation_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" "$id" "$PROJ_DIR" --model xai/provider-pin --effort high)
+  status=$?
+  expect_code 0 "$status" "Pi model choice was routed through Codex: $out"
+  assert_meta_profile "$HOME_DIR/state/$id.meta" pi xai/provider-pin high
+  assert_contains "$(cat "$LAUNCH_LOG")" "--model 'xai/provider-pin'" "provider-specific Pi selection changed"
+  pass "another runtime/provider never uses the native Codex catalog"
+}
+
+test_codex_unpinned_uses_catalog_recommendation
+test_codex_configuration_root_binding
+test_codex_explicit_choices_bypass_auto_selection
+test_codex_discovery_refusals_do_not_launch
+test_codex_catalog_does_not_route_other_harnesses
 test_codex_permission_modes
 test_codex_permission_invalid_refuses_before_mutation
 test_codex_permission_does_not_change_other_harnesses

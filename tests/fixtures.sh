@@ -199,6 +199,17 @@ case "${1:-}" in
     ;;
   has-session|new-session|set-window-option) exit 0 ;;
   send-keys)
+    for a in "$@"; do
+      case "$a" in
+        "/bin/sh '"*"/.codex-environment."*"/check.sh'")
+          staged=${a#"/bin/sh '"}
+          staged=${staged%"'"}
+          [ "${FM_FAKE_CODEX_ENV_UNCONFIRMED:-0}" != 1 ] || exit 0
+          HOME="${FM_FAKE_CODEX_DEST_HOME-$HOME}" CODEX_HOME="${FM_FAKE_CODEX_DEST_ROOT-${CODEX_HOME-}}" /bin/sh "$staged"
+          exit 0
+          ;;
+      esac
+    done
     prev=
     for a in "$@"; do
       if [ "$prev" = "-l" ]; then
@@ -396,6 +407,33 @@ Exercise the spawn behavior under test.
 EOF
 }
 
+# test_fake_codex_catalog <fakebin>
+# Token-free app-server fixture; never reaches the host's account/config.
+test_fake_codex_catalog() {
+  local fakebin=$1
+  cat > "$fakebin/codex" <<'JS'
+#!/usr/bin/env node
+const readline = require('node:readline');
+const fs = require('node:fs');
+if (!process.argv.includes('app-server')) {
+  console.log(JSON.stringify({home:process.env.CODEX_HOME, userHome:process.env.HOME, args:process.argv.slice(2)}));
+  process.exit(0);
+}
+readline.createInterface({input: process.stdin}).on('line', line => {
+  const q = JSON.parse(line);
+  if (process.env.FM_FAKE_CODEX_RPC_LOG) fs.appendFileSync(process.env.FM_FAKE_CODEX_RPC_LOG, JSON.stringify({method:q.method, cwd:process.cwd(), home:process.env.CODEX_HOME})+'\n');
+  if (q.id === undefined) return;
+  const reply = result => console.log(JSON.stringify({id:q.id, result}));
+  if (q.method === 'initialize') return reply({});
+  if (process.env.FM_FAKE_CODEX_UNAVAILABLE) return console.log(JSON.stringify({id:q.id,error:{message:'catalog unavailable'}}));
+  if (q.method === 'config/read') return reply({config:JSON.parse(process.env.FM_FAKE_CODEX_CONFIG || '{"model":"gpt-5.3-codex","model_reasoning_effort":"low"}')});
+  if (q.method === 'model/list') return reply({data:JSON.parse(process.env.FM_FAKE_CODEX_CATALOG || '[{"model":"recommended-worker","isDefault":true,"supportedReasoningEfforts":[{"reasoningEffort":"low"},{"reasoningEffort":"high"},{"reasoningEffort":"max"}]}]'), nextCursor:null});
+  console.log(JSON.stringify({id:q.id,error:{message:'unexpected method '+q.method}}));
+});
+JS
+  chmod +x "$fakebin/codex"
+}
+
 # test_make_spawn_fakebin <dir> [extra-exit0-tool...]
 # Creates <dir>/fakebin with the spawn tmux stub, a no-op treehouse, and any
 # extra exit-0 tools. Echoes the fakebin path.
@@ -405,6 +443,7 @@ test_make_spawn_fakebin() {
   fakebin=$(fakebin "$dir")
   test_fake_tmux_spawn "$fakebin"
   fake_exit0 "$fakebin" treehouse "$@"
+  test_fake_codex_catalog "$fakebin"
   printf '%s\n' "$fakebin"
 }
 

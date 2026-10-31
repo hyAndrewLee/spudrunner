@@ -62,7 +62,7 @@ run_spawn() {
   local id=$1
   shift
   test_run_spawn "$HOME_DIR" "$POOL_DIR" "$FAKEBIN_DIR" \
-    "$id" "$PROJECT_DIR" "$@"
+    "$id" "$PROJECT_DIR" --model default "$@"
 }
 
 test_remote_seeded_home_spawns_from_treehouse_pool() {

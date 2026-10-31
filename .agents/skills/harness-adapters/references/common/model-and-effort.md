@@ -7,6 +7,10 @@ Add `references/common/dispatch.md` for configured profile precedence.
 
 `../../../bin/task-launch.sh` accepts concrete `--harness`, `--model`, and `--effort` values selected at intake; scripts never parse natural-language dispatch rules.
 The tool reference records verified flags, accepted values, omission behavior, and discovery for pane-backed launches.
+Before an unpinned worker intake, discover an appropriate current supported model from that runtime and provider's authoritative catalog and pass the concrete selection rather than treating an incidental local runtime default as a deliberate choice.
+Preserve explicit task choices, configured model pins, account/provider selection, reasoning preferences, and dispatch/quota rules.
+Use catalog recommendation and capability evidence, never version-number ordering; disclose uncertain discovery and stop when no supported choice can be established.
+Canonical unpinned Codex pane workers have automatic recommendation discovery in `../../../bin/codex-model-resolve.mjs`; other runtimes retain their own discovery surfaces below and in their tool references.
 For T3 Code, resolve both axes through the [provider catalog contract](../../../../../docs/t3code-backend.md#provider-instances-and-models) before selecting a profile.
 
 Effort precedence is a per-task user instruction, then applicable dispatch profile or project coordinator pin, then the fallback below.

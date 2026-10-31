@@ -19,8 +19,8 @@
 #      agent exited.
 set -u
 
-# shellcheck source=tests/lib.sh
-. "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
+# shellcheck source=tests/fixtures.sh
+. "$(dirname "${BASH_SOURCE[0]}")/fixtures.sh"
 # shellcheck source=/dev/null
 . "$ROOT/bin/agent-control-lib.sh"
 # shellcheck source=/dev/null
@@ -71,6 +71,13 @@ case "${1:-}" in
       esac
     done
     payload=${1:-}
+    case "$payload" in
+      "/bin/sh '"*"/.codex-environment."*"/check.sh'")
+        staged=${payload#"/bin/sh '"}
+        staged=${staged%"'"}
+        /bin/sh "$staged"
+        exit $? ;;
+    esac
     if [ "$literal" = 1 ]; then
       case "$payload" in
         ". '"*"'") staged=${payload#". '"}; staged=${staged%"'"}; [ ! -f "$staged" ] || payload=$(cat "$staged") ;;
@@ -174,6 +181,7 @@ esac
 exit 0
 SH
   chmod +x "$fb/tmux"
+  test_fake_codex_catalog "$fb"
   cat > "$fb/sleep" <<'SH'
 #!/usr/bin/env bash
 [ -z "${FM_FAKE_LOCK_WAITING:-}" ] || : > "$FM_FAKE_LOCK_WAITING"
@@ -798,7 +806,7 @@ test_harness_switch_does_not_carry_the_old_profile_axes() {
   printf 'codex' > "$dir/fake/becomes"
   out=$(run_control "$dir" rl5 relaunch --harness codex --note "switching runtime"); rc=$?
   expect_code 0 "$rc" "a harness switch should succeed"$'\n'"$out"
-  [ "$(meta_field "$dir" rl5 model)" = default ] \
+  [ "$(meta_field "$dir" rl5 model)" = recommended-worker ] \
     || fail "a model chosen for the old harness must not carry to a different one"
   [ "$(meta_field "$dir" rl5 effort)" = default ] \
     || fail "an effort chosen for the old harness must not carry to a different one"
