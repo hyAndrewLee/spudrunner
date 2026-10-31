@@ -1516,8 +1516,28 @@ FM_HOME="$H_LOCK_OWNER" "$PROCEVENT" register-extension ext-lock-owner owner-sou
 owner_register_pid=$!
 sleep 0.2
 kill -0 "$owner_register_pid" 2>/dev/null || fail "wrapper death released a live retirement worker's lifecycle lock"
-kill -KILL "$owner_worker_pid" 2>/dev/null || true
-wait "$owner_worker_pid" 2>/dev/null || true
+if [ -d /proc/1 ]; then
+  python3 - "$owner_worker_pid" "$owner_lock" <<'PY' || fail "cannot record retirement worker identity"
+import pathlib, sys
+for pid in ('1', sys.argv[1]):
+    root = pathlib.Path('/proc') / pid
+    raw = (root / 'stat').read_text()
+    print('lock process identity:', pid, raw, (root / 'cmdline').read_bytes().hex())
+    if pid == sys.argv[1]:
+        start = raw.rsplit(')', 1)[1].split()[19]
+        recorded = (pathlib.Path(sys.argv[2]) / 'pid-start').read_text().strip()
+        assert recorded == 'proc-starttime=' + start, (recorded, start)
+PY
+fi
+kill -KILL "$owner_worker_pid" 2>/dev/null || fail "cannot kill retirement worker"
+# The public wrapper owns this child; wait here cannot prove it was reaped.
+for _ in $(seq 1 400); do
+  kill -0 "$owner_worker_pid" 2>/dev/null || break
+  sleep 0.005
+done
+kill -0 "$owner_worker_pid" 2>/dev/null && fail "killed retirement worker was not reaped"
+[ ! -d "/proc/$owner_worker_pid" ] || fail "old retirement worker PID remains in proc"
+printf 'reaped retirement worker: %s\n' "$owner_worker_pid"
 owner_worker_pid=
 owner_register_rc=0
 wait "$owner_register_pid" || owner_register_rc=$?
@@ -1778,9 +1798,10 @@ done
 pass "control-byte state roots cannot serialize claims or reservations"
 override_crash_marker="$TMP_ROOT/override-crash.marker"
 override_crash_release="$TMP_ROOT/override-crash.release"
-FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$STATE_OVERRIDE" \
+override_crash_registration=$(FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$STATE_OVERRIDE" \
   "$PROCEVENT" register-extension ext-flow override-crash-source \
-  --config-ref "silent-block|$override_crash_marker|$override_crash_release" >/dev/null
+  --config-ref "silent-block|$override_crash_marker|$override_crash_release")
+override_crash_owner=$(printf '%s\n' "$override_crash_registration" | sed -n 's/^owner-token: //p')
 FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$STATE_OVERRIDE" \
   "$PROCEVENT" start override-crash-source > "$TMP_ROOT/override-crash-start.out" 2>&1 &
 override_crash_start_pid=$!
@@ -1812,16 +1833,114 @@ chmod 0700 "$H_STATE_OVERRIDE/state" "$H_STATE_OVERRIDE/state/procevent-capture-
 override_crash_decoy="$H_STATE_OVERRIDE/state/procevent-capture-reservations/.extension-capture-$override_crash_token.decoy.json"
 printf 'decoy\n' > "$override_crash_decoy"
 chmod 0600 "$override_crash_decoy"
+# A schema-valid reservation for another claim generation must not be swept.
+override_unrelated_record=$(python3 - "$STATE_OVERRIDE/procevent-capture-reservations" "$override_crash_token" <<'PY'
+import glob, json, os, secrets, sys
+root, old = sys.argv[1:]
+with open(glob.glob(root + '/.extension-capture-' + old + '.*')[0]) as stream:
+    record = json.load(stream)
+record['claim_token'] = '.claim.unrelated-fixture'
+record['token'] = secrets.token_hex(32)
+path = root + '/.extension-capture-' + record['claim_token'] + '.' + record['token'] + '.json'
+with open(path, 'x') as stream:
+    json.dump(record, stream)
+os.chmod(path, 0o600)
+print(path)
+PY
+) || fail "cannot create unrelated reservation fixture"
+mkdir "$TMP_ROOT/crash-snapshots"
+cp "$override_unrelated_record" "$TMP_ROOT/crash-snapshots/unrelated-reservation"
+for record in "$override_crash_claim" "$override_crash_decoy" \
+  "$STATE_OVERRIDE/procevent/override-crash-source.source" \
+  "$H_STATE_OVERRIDE/config/extensions.d/org.example.flow.json" \
+  "$STATE_OVERRIDE"/procevent-capture-reservations/.extension-capture-"$override_crash_token".*; do
+  cp "$record" "$TMP_ROOT/crash-snapshots/" || fail "cannot snapshot crash record"
+done
+cat > "$TMP_ROOT/check-crash-owner.py" <<'PY'
+import base64
+import glob
+import hashlib
+import os
+import pathlib
+import stat
+import sys
+claim, state, home, old_token = sys.argv[1:]
+raw = pathlib.Path(claim).read_bytes()
+fields = raw.decode().splitlines()
+print('claim bytes:', base64.b64encode(raw).decode(), 'sha256:', hashlib.sha256(raw).hexdigest())
+assert len(fields) == 12, fields
+owner, pid, token, identity, reg, reg_id, status, root, dev, ino, uid, mode = fields
+assert owner == home and root == state and status == 'active', fields
+assert token and token != old_token and token.endswith('-' + pid), fields
+if old_token:
+    previous = (pathlib.Path(claim).parent.parent / 'crash-snapshots' / pathlib.Path(claim).name).read_text().splitlines()
+    assert pid != previous[1] and identity != previous[3], fields
+assert reg == state + '/procevent', fields
+s = os.stat(reg + '/override-crash-source.source')
+assert reg_id == f'{s.st_dev}:{s.st_ino}', fields
+s = os.stat(root)
+assert (dev, ino, uid, mode) == (str(s.st_dev), str(s.st_ino), str(s.st_uid), format(stat.S_IMODE(s.st_mode), 'o')), fields
+os.kill(int(pid), 0)
+if pathlib.Path('/proc/1').exists():
+    proc = pathlib.Path('/proc') / pid
+    start = (proc / 'stat').read_text().rsplit(')', 1)[1].split()[19]
+    expected = 'linux-starttime=' + start + ' cmdline-hex=' + (proc / 'cmdline').read_bytes().hex()
+    assert identity == expected, (identity, expected)
+    print('namespace init:', pathlib.Path('/proc/1/stat').read_text(), pathlib.Path('/proc/1/cmdline').read_bytes().hex())
+for path in glob.glob(state + '/procevent-capture-reservations/.extension-capture-' + token + '.*'):
+    import json
+    record = json.loads(pathlib.Path(path).read_bytes())
+    assert record['claim_token'] == token and record['claim_pid'] == pid and record['claim_identity'] == identity, record
+    print('reservation bytes:', base64.b64encode(pathlib.Path(path).read_bytes()).decode())
+PY
+python3 "$TMP_ROOT/check-crash-owner.py" "$override_crash_claim" "$STATE_OVERRIDE" "$H_STATE_OVERRIDE" '' \
+  || fail "live crash claim identity is invalid"
+python3 - "$TMP_ROOT/crash-snapshots" <<'PY' || fail "cannot record crash evidence"
+import base64, hashlib, pathlib, sys
+for path in sorted(pathlib.Path(sys.argv[1]).iterdir()):
+    raw = path.read_bytes()
+    print('crash snapshot:', path.name, hashlib.sha256(raw).hexdigest(), base64.b64encode(raw).decode())
+PY
 kill -KILL -"$override_crash_runner_pid" 2>/dev/null || fail "could not terminate overridden-state runner"
 wait "$override_crash_start_pid" 2>/dev/null || true
 override_crash_start_pid=
+for _ in $(seq 1 400); do
+  if ! kill -0 "$override_crash_runner_pid" 2>/dev/null \
+    && ! kill -0 -"$override_crash_runner_pid" 2>/dev/null; then break; fi
+  sleep 0.005
+done
+kill -0 "$override_crash_runner_pid" 2>/dev/null && fail "crashed runner leader remains"
+kill -0 -"$override_crash_runner_pid" 2>/dev/null && fail "crashed runner group remains"
+[ ! -d "/proc/$override_crash_runner_pid" ] || fail "crashed leader was not reaped"
+printf 'reaped crash runner and group: %s\n' "$override_crash_runner_pid"
 override_crash_runner_pid=
 FM_HOME="$H_STATE_OVERRIDE" "$PROCEVENT" reconcile >/dev/null
-assert_absent "$override_crash_claim" "reconcile retained a dead overridden-state claim"
+for record in "$override_crash_claim" "$override_crash_decoy" \
+  "$STATE_OVERRIDE/procevent/override-crash-source.source" \
+  "$H_STATE_OVERRIDE/config/extensions.d/org.example.flow.json" \
+  "$STATE_OVERRIDE"/procevent-capture-reservations/.extension-capture-"$override_crash_token".*; do
+  cmp "$TMP_ROOT/crash-snapshots/${record##*/}" "$record" || fail "foreign-state reconcile changed $record"
+done
+FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$STATE_OVERRIDE" "$PROCEVENT" reconcile >/dev/null \
+  || fail "matching-state reconcile failed"
 override_crash_records=$(find "$STATE_OVERRIDE/procevent-capture-reservations" -type f \
   -name ".extension-capture-$override_crash_token.*" -print -quit)
-[ -z "$override_crash_records" ] || fail "reconcile left reservations in the recorded overridden state root"
-assert_present "$override_crash_decoy" "reconcile removed reservations from the current default state root"
+[ -z "$override_crash_records" ] || fail "reconcile left old-generation reservations in the recorded state root"
+cmp "$TMP_ROOT/crash-snapshots/${override_crash_decoy##*/}" "$override_crash_decoy" \
+  || fail "reconcile changed default-state reservation bytes"
+cmp "$TMP_ROOT/crash-snapshots/unrelated-reservation" "$override_unrelated_record" \
+  || fail "reconcile changed another generation's reservation"
+if [ -e "$override_crash_claim" ]; then
+  python3 "$TMP_ROOT/check-crash-owner.py" "$override_crash_claim" "$STATE_OVERRIDE" "$H_STATE_OVERRIDE" "$override_crash_token" \
+    || fail "replacement claim is not a valid new owned generation"
+fi
+cmp "$TMP_ROOT/crash-snapshots/override-crash-source.source" "$STATE_OVERRIDE/procevent/override-crash-source.source" \
+  || fail "matching reconcile replaced registration ownership"
+touch "$override_crash_release"
+FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$STATE_OVERRIDE" \
+  "$PROCEVENT" retire override-crash-source --if-owner "$override_crash_owner" >/dev/null \
+  || fail "exact-owner crash source cleanup failed"
+assert_absent "$override_crash_claim" "exact-owner cleanup retained replacement claim"
 pass "crash recovery revalidates and cleans only the recorded state root"
 FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$STATE_OVERRIDE" \
   "$PROCEVENT" register-extension ext-flow inbox-swap-source --config-ref good >/dev/null
@@ -1860,18 +1979,27 @@ FM_HOME="$H_STATE_OVERRIDE" FM_STATE_OVERRIDE="$STATE_OVERRIDE" \
 registry_race_pid=$!
 wait_for_file "$registry_race_marker" || fail "registry race fixture never reached its pinned staging boundary"
 mkdir "$TMP_ROOT/registry-race-outside"
+cp "$STATE_OVERRIDE/procevent/registry-race-source.source" "$TMP_ROOT/registry-race-source.before"
+cp "$H_STATE_OVERRIDE/config/extensions.d/org.example.flow.json" "$TMP_ROOT/registry-race-binding.before"
 mv "$STATE_OVERRIDE/procevent" "$TMP_ROOT/registry-race-real"
 ln -s "$TMP_ROOT/registry-race-outside" "$STATE_OVERRIDE/procevent"
 touch "$registry_race_release"
 registry_race_rc=0
 wait "$registry_race_pid" || registry_race_rc=$?
 registry_race_pid=
-[ "$registry_race_rc" -eq 0 ] || fail "registry swap race did not complete through its pinned staging directory"
+[ "$registry_race_rc" -eq 1 ] || fail "registry swap did not refuse the lost launch boundary"
+assert_equals "$(cat "$TMP_ROOT/registry-race.out")" \
+  "error: cannot establish the source launch boundary: registry-race-source" \
+  "registry swap produced an unexpected refusal"
+cmp "$TMP_ROOT/registry-race-source.before" "$TMP_ROOT/registry-race-real/registry-race-source.source" \
+  || fail "registry swap refusal changed registration bytes"
+cmp "$TMP_ROOT/registry-race-binding.before" "$H_STATE_OVERRIDE/config/extensions.d/org.example.flow.json" \
+  || fail "registry swap refusal changed binding bytes"
 [ -z "$(find "$TMP_ROOT/registry-race-outside" -mindepth 1 -print -quit)" ] \
   || fail "a registry directory swap received external evidence"
 rm "$STATE_OVERRIDE/procevent"
 mv "$TMP_ROOT/registry-race-real" "$STATE_OVERRIDE/procevent"
-pass "external staging remains descriptor-bound across a registry directory swap"
+pass "registry directory swap refuses the lost launch boundary without redirecting evidence"
 registry_race_release=
 leaf_race_marker="$TMP_ROOT/leaf-race.marker"
 leaf_race_release="$TMP_ROOT/leaf-race.release"
