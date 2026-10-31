@@ -4042,7 +4042,7 @@ capture_colored_row() {
 }
 
 test_colored_row_capture() {
-  local snapshot="$TMP_ROOT/inherited-colors.txt" color row captured i
+  local snapshot="$TMP_ROOT/inherited-colors.txt" color row captured i representation input expected
   if ! command -v tmux >/dev/null 2>&1; then
     echo "skip: tmux not found for ANSI row capture regression"
     return 0
@@ -4060,14 +4060,38 @@ test_colored_row_capture() {
     for row in ' ·' '[···]'; do
       captured=$(grep -F "$row" "$snapshot")
       [ -n "$captured" ] || fail "ANSI capture regression did not render $row"
-      assert_not_contains "$captured" "[${color}m" \
-        "ANSI capture regression did not exercise inherited row color"
-      captured=$(capture_colored_row "$snapshot" "$row") \
-        || fail "could not independently capture $row"
-      assert_contains "$captured" "[${color}m" "independent row capture lost its actual color"
-      if [ "$color" = 31 ]; then
-        assert_not_contains "$captured" '[33m' "independent row capture turned red into yellow"
-      fi
+    done
+    # Whole-pane serialization varies across tmux versions. Keep the real
+    # capture, then also locate both physical rows using each valid SGR form.
+    # Only the locator input is synthetic; every color verdict below comes
+    # from an independent capture of the real terminal cells.
+    for representation in actual inherited explicit; do
+      input="$snapshot"
+      case "$representation" in
+        inherited)
+          input="$TMP_ROOT/inherited-stream.txt"
+          printf '\033[%smheader\n · \n[···]\033[34m▁▂▃▄\033[39m\n' "$color" >"$input"
+          ;;
+        explicit)
+          input="$TMP_ROOT/explicit-stream.txt"
+          printf '\033[%smheader\n\033[%sm · \n\033[%sm[···]\033[34m▁▂▃▄\033[39m\n' \
+            "$color" "$color" "$color" >"$input"
+          ;;
+      esac
+      for row in ' ·' '[···]'; do
+        captured=$(capture_colored_row "$input" "$row") \
+          || fail "could not independently capture $row ($representation)"
+        assert_contains "$captured" "[${color}m" "independent row capture lost its actual color"
+        if [ "$color" = 31 ]; then
+          assert_not_contains "$captured" '[33m' "independent row capture turned red into yellow"
+        fi
+        case "$row" in
+          ' ·') expected=' ·' ;;
+          *) expected='[···]▁▂▃▄' ;;
+        esac
+        [ "$(printf '%s\n' "$captured" | awk '{gsub(/\033\[[0-9;]*m/, ""); sub(/ +$/, ""); print}')" = "$expected" ] \
+          || fail "independent row capture changed $row geometry ($representation)"
+      done
     done
     tmux -L "$TMUX_SOCKET" kill-session -t "$TMUX_SESSION"
   done
